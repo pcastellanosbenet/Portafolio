@@ -1,6 +1,6 @@
 # Portafolio de Proyectos
 
-Soy un entusiasta de la Inteligencia Artificial, con formación universitaria en Telecomunicaciones y Eléctrónica. 
+Soy un entusiasta de la Inteligencia Artificial, con formación universitaria en Telecomunicaciones y Eléctrónica.  
 Aunque mi educación formal me dió una base técnica sólida, la mayor parte de mis conocimientos en IA los he desarrollados de forma autodidacta, explorando áreas como el aprendizaje automático, aprendizaje profundo y modelos generativos y sus aplicaciones prácticas. Me apasiona aprender y  busco seguir creciendo y contribuir en entornos colaborativos donde pueda aportar, tanto desde el análisis, como en la implantación técnica, de proyectos donde la tecnología tenga un impacto real.
 
 ### Lenguajes, tecnologías y frameworks utilizados
@@ -20,13 +20,11 @@ Aunque mi educación formal me dió una base técnica sólida, la mayor parte de
 ![Dash](https://img.shields.io/badge/dash-orange?style=for-the-badge&logo=dash&logoColor=white&labelColor=101010)
 
 
-
 ## ¿ Que encontrarás por aquí ?
 
 Proyectos realizados durante la realización de formaciones y estudios, incluso pequeñas tareas pero todos con algo en común, y es que fueron fundamentales en la comprensión de diferentes conceptos o algoritmos.
 
-<a href="./attention">Mecanismo de atención</a>
-<a href="./atraffic">Traffic</a>
-
+<a href="./attention">Mecanismo de atención</a>  
+<a href="./atraffic">Traffic</a>  
 
 [![Linkedin](https://img.shields.io/badge/linkedin-blue?style=for-the-badge&logo=linkedin&logoColor=white&labelColor=101010)](https://www.linkedin.com/in/pavel-castellanos-1989pcb) [![Github](https://img.shields.io/badge/GitHub-pcastellanosbenet-087ec4?style=for-the-badge&logo=github&logoColor=white&labelColor=101010)](https://github.com/pcastellanosbenet)
