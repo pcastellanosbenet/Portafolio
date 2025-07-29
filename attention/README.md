@@ -1,4 +1,4 @@
-### ¿ Qué son?  
+### ¿ Qué son los mecanismos de atención ?  
 Es una técnica que permite a un modelo ponderar(dar más importancia) a ciertas palabras o partes del texto al procesar la información, en lugar de tratar toda la entrada por igual.  
 
 ### ¿Por qué son importante ?
