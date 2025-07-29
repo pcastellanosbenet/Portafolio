@@ -26,4 +26,4 @@ Proyectos realizados durante la realización de formaciones y estudios, incluso 
 
 <a href="./attention">Mecanismo de atención</a>
 
-[![Linkedin](https://img.shields.io/badge/Linkedin?style=for-the-badge&logo=linkedin&logoColor=white&labelColor=101010)](www.linkedin.com/in/pavel-castellanos-1989pcb) [![Github](https://img.shields.io/badge/GitHub-pcastellanosbenet-087ec4?style=for-the-badge&logo=github&logoColor=white&labelColor=101010)](https://github.com/pcastellanosbenet)
+[![Linkedin](https://img.shields.io/badge/Linkedin?style=for-the-badge&logo=linkedin&logoColor=white&labelColor=101010)](https://www.linkedin.com/in/pavel-castellanos-1989pcb) [![Github](https://img.shields.io/badge/GitHub-pcastellanosbenet-087ec4?style=for-the-badge&logo=github&logoColor=white&labelColor=101010)](https://github.com/pcastellanosbenet)
