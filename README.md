@@ -1,6 +1,6 @@
 # Portafolio de proyectos
 
-[![Python](https://img.shields.io/badge/Python-yellow?style=for-the-badge&logo=python&logoColor=white&labelColor=101010)]
+![Python](https://img.shields.io/badge/Python-yellow?style=for-the-badge&logo=python&logoColor=white&labelColor=101010)
 [![SQL](https://img.shields.io/badge/SQL-5646ED?style=for-the-badge&logo=reflex&logoColor=white&labelColor=101010)]
 
 [![HTML](https://img.shields.io/badge/HTML-orange?style=for-the-badge&logo=html5&logoColor=white&labelColor=101010)](https://developer.mozilla.org/es/docs/Web/HTML)
