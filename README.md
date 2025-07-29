@@ -1,7 +1,7 @@
 # Portafolio de Proyectos
 
 Soy un entusiasta de la Inteligencia Artificial, con formación universitaria en Telecomunicaciones y Eléctrónica.  
-Aunque mi educación formal me dió una base técnica sólida, la mayor parte de mis conocimientos en IA los he desarrollados de forma autodidacta, explorando áreas como el aprendizaje automático, aprendizaje profundo y modelos generativos y sus aplicaciones prácticas. Me apasiona aprender y  busco seguir creciendo y contribuir en entornos colaborativos donde pueda aportar, tanto desde el análisis, como en la implantación técnica, de proyectos donde la tecnología tenga un impacto real.
+Aunque mi educación formal me dió una base técnica sólida, la mayor parte de mis conocimientos en IA los he desarrollados de forma autodidacta, explorando áreas como el aprendizaje automático, aprendizaje profundo y modelos generativos y sus aplicaciones prácticas. Me apasiona aprender y  busco seguir creciendo y contribuir en entornos colaborativos donde pueda aportar, tanto desde el análisis, como en la implantación técnica de proyectos, donde la tecnología tenga un impacto real.
 
 ### Lenguajes, tecnologías y frameworks utilizados
 
