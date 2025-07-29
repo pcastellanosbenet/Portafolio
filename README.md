@@ -25,3 +25,7 @@ Aunque mi educación formal me dió una base técnica sólida, la mayor parte de
 Proyectos realizados durante la realización de formaciones y estudios, incluso pequeñas tareas pero todos con algo en común, y es que fueron fundamentales en la comprensión de diferentes conceptos o algoritmos.
 
 <a href="./attention">Mecanismo de atención</a>
+
+
+
+[![Linkedin](https://img.shields.io/badge/Linkedin?style=for-the-badge&logo=linkedin&logoColor=white&labelColor=101010)](www.linkedin.com/in/pavel-castellanos-1989pcb) [![Github](https://img.shields.io/badge/GitHub-pcastellanosbenet-087ec4?style=for-the-badge&logo=github&logoColor=white&labelColor=101010)](https://github.com/pcastellanosbenet)
