@@ -11,6 +11,7 @@ Aunque mi educación formal me dió una base técnica sólida, la mayor parte de
 ![SQL](https://img.shields.io/badge/sql-5646ED?style=for-the-badge&logo=sqlx&logoColor=white&labelColor=101010)
 
 ![Scikit-Learn](https://img.shields.io/badge/scikit-Learn-orange?style=for-the-badge&logo=scikitlearn&logoColor=white&labelColor=101010)
+![Keras](https://img.shields.io/badge/keras-green?style=for-the-badge&logo=kerasw&logoColor=white&labelColor=101010)
 ![TensorFlow](https://img.shields.io/badge/tensorflow-blue?style=for-the-badge&logo=tensorflow&logoColor=white&labelColor=101010)
 
 ![Seaborn](https://img.shields.io/badge/Seaborn-yellow?style=for-the-badge&logo=seaborn&logoColor=white&labelColor=101010)
@@ -25,5 +26,7 @@ Aunque mi educación formal me dió una base técnica sólida, la mayor parte de
 Proyectos realizados durante la realización de formaciones y estudios, incluso pequeñas tareas pero todos con algo en común, y es que fueron fundamentales en la comprensión de diferentes conceptos o algoritmos.
 
 <a href="./attention">Mecanismo de atención</a>
+<a href="./atraffic">Traffic</a>
+
 
 [![Linkedin](https://img.shields.io/badge/linkedin-blue?style=for-the-badge&logo=linkedin&logoColor=white&labelColor=101010)](https://www.linkedin.com/in/pavel-castellanos-1989pcb) [![Github](https://img.shields.io/badge/GitHub-pcastellanosbenet-087ec4?style=for-the-badge&logo=github&logoColor=white&labelColor=101010)](https://github.com/pcastellanosbenet)
