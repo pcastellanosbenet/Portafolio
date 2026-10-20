@@ -1,32 +1,55 @@
-# Portafolio de Proyectos
+# Pavel Castellanos · AI Engineer Portfolio
 
-Soy un entusiasta de la Inteligencia Artificial, con formación universitaria en Telecomunicaciones y Eléctrónica.  
-Aunque mi educación formal me dió una base técnica sólida, la mayor parte de mis conocimientos en IA los he desarrollados de forma autodidacta, explorando áreas como el aprendizaje automático, aprendizaje profundo y modelos generativos y sus aplicaciones prácticas. Me apasiona aprender y  busco seguir creciendo y contribuir en entornos colaborativos donde pueda aportar, tanto desde el análisis, como en la implantación técnica de proyectos, donde la tecnología tenga un impacto real.
+Proyectos de inteligencia artificial donde aplico **machine learning, deep learning y NLP**
+a problemas concretos. Cada proyecto es reproducible, está documentado y reporta métricas,
+no solo resultados visuales.
 
-### Lenguajes, tecnologías y frameworks utilizados
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)
+![scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?style=for-the-badge&logo=scikitlearn&logoColor=white)
+![Hugging Face](https://img.shields.io/badge/Hugging%20Face-FFD21E?style=for-the-badge&logo=huggingface&logoColor=black)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 
-![Python](https://img.shields.io/badge/Python-yellow?style=for-the-badge&logo=python&logoColor=white&labelColor=101010)
-![Numpy](https://img.shields.io/badge/numpy-orange?style=for-the-badge&logo=numpy&logoColor=white&labelColor=101010)
-![Pandas](https://img.shields.io/badge/pandas-blue?style=for-the-badge&logo=pandas&logoColor=white&labelColor=101010)
-![SQL](https://img.shields.io/badge/sql-5646ED?style=for-the-badge&logo=sqlx&logoColor=white&labelColor=101010)
+## Proyectos
 
-![Scikit-Learn](https://img.shields.io/badge/scikit-Learn-orange?style=for-the-badge&logo=scikitlearn&logoColor=white&labelColor=101010)
-![Keras](https://img.shields.io/badge/keras-green?style=for-the-badge&logo=kerasw&logoColor=white&labelColor=101010)
-![TensorFlow](https://img.shields.io/badge/tensorflow-blue?style=for-the-badge&logo=tensorflow&logoColor=white&labelColor=101010)
+| Proyecto | Qué demuestra | Stack | Estado |
+| :--- | :--- | :--- | :--- |
+| [Clasificación de señales de tráfico](./traffic-signs) | Visión por computador: CNN, transfer learning, augmentación, evaluación por clase y análisis de errores | PyTorch · torchvision | En desarrollo |
+| [Interpretabilidad de BERT](./bert-attention) | NLP: mecanismos de atención, análisis de capas y cabezas, visualización | PyTorch · Transformers | En desarrollo |
+| Asistente RAG sobre documentación | Recuperación de información, evaluación cuantitativa, API y despliegue | Transformers · FastAPI · Docker | En desarrollo |
 
-![Seaborn](https://img.shields.io/badge/Seaborn-yellow?style=for-the-badge&logo=seaborn&logoColor=white&labelColor=101010)
-![Plotly](https://img.shields.io/badge/Plotly-green?style=for-the-badge&logo=plotly&logoColor=white&labelColor=101010)
-![Matplotlib](https://img.shields.io/badge/Matplotlib-5646ED?style=for-the-badge&logo=matplotlib&logoColor=white&labelColor=101010)
-![Dash](https://img.shields.io/badge/dash-orange?style=for-the-badge&logo=dash&logoColor=white&labelColor=101010)
+> El portafolio está en reconstrucción: estoy sustituyendo los ejercicios iniciales por
+> proyectos completos, con métricas, tests y documentación. Este README se actualizará
+> con los resultados a medida que cada proyecto esté listo.
 
+## Sobre mí
 
-## ¿ Que encontrarás por aquí ?
+Soy un entusiasta de la inteligencia artificial con formación universitaria en
+Telecomunicaciones y Electrónica. La mayor parte de mis conocimientos en IA los he
+desarrollado de forma autodidacta, explorando aprendizaje automático, aprendizaje profundo
+y modelos generativos, y aplicándolos en proyectos prácticos. Me apasiona aprender y busco
+crecer en entornos colaborativos donde pueda aportar desde el análisis y la implementación
+técnica de proyectos con impacto real.
 
-Proyectos realizados durante la realización de formaciones y estudios, incluso pequeñas tareas pero todos con algo en común, y es que fueron fundamentales en la comprensión de diferentes conceptos o algoritmos.
+## Cómo trabajo
 
-<a href="./attention">Mecanismo de atención</a>  
-<a href="./traffic">Traffic</a>  
+- **Reproducibilidad:** semillas fijas, dependencias versionadas y un comando claro para
+  entrenar y evaluar. Los datasets no se suben al repositorio: cada proyecto incluye un
+  script de descarga.
+- **Evaluación:** además de la métrica principal, reporto métricas por clase, matrices de
+  confusión y análisis de errores. Un resultado sin contexto no cuenta.
+- **Documentación:** cada README explica el problema, los datos, el enfoque, los resultados
+  y las limitaciones del proyecto.
+- **Ingeniería:** tests sobre la lógica crítica, linting y CI en GitHub Actions.
 
+## Contacto
 
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-pavel--castellanos--1989pcb-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/pavel-castellanos-1989pcb)
+[![GitHub](https://img.shields.io/badge/GitHub-pcastellanosbenet-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/pcastellanosbenet)
 
-[![Linkedin](https://img.shields.io/badge/linkedin-blue?style=for-the-badge&logo=linkedin&logoColor=white&labelColor=101010)](https://www.linkedin.com/in/pavel-castellanos-1989pcb) [![Github](https://img.shields.io/badge/GitHub-pcastellanosbenet-087ec4?style=for-the-badge&logo=github&logoColor=white&labelColor=101010)](https://github.com/pcastellanosbenet)
+## About (English)
+
+AI Engineer portfolio with hands-on projects in computer vision, natural language
+processing and retrieval-augmented generation. Every project is reproducible, documented
+and evaluated with quantitative metrics. Datasets are not committed; each project ships a
+download script. Code is released under the MIT license.
