@@ -42,6 +42,9 @@ wandb/
 .env
 .env.*
 
+# Material de estudio local (no publicar)
+study/
+
 # Sistema operativo
 .DS_Store
 Thumbs.db

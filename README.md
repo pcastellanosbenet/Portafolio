@@ -12,15 +12,14 @@ no solo resultados visuales.
 
 ## Proyectos
 
-| Proyecto | Qué demuestra | Stack | Estado |
-| :--- | :--- | :--- | :--- |
-| [Clasificación de señales de tráfico](./traffic-signs) | Visión por computador: CNN, transfer learning, augmentación, evaluación por clase y análisis de errores | PyTorch · torchvision | En desarrollo |
-| [Interpretabilidad de BERT](./bert-attention) | NLP: mecanismos de atención, análisis de capas y cabezas, visualización | PyTorch · Transformers | En desarrollo |
-| Asistente RAG sobre documentación | Recuperación de información, evaluación cuantitativa, API y despliegue | Transformers · FastAPI · Docker | En desarrollo |
+| Proyecto | Qué demuestra | Stack | Resultado | Estado |
+| :--- | :--- | :--- | :--- | :--- |
+| [Clasificación de señales de tráfico](./traffic-signs) | Visión por computador: CNN, transfer learning, augmentación, evaluación por clase y análisis de errores | PyTorch · torchvision | 97,47% accuracy · 43 clases | Completado |
+| [Interpretabilidad de BERT](./bert-attention) | NLP: mecanismos de atención, análisis de capas y cabezas, visualización | PyTorch · Transformers | — | En desarrollo |
+| Asistente RAG sobre documentación | Recuperación de información, evaluación cuantitativa, API y despliegue | Transformers · FastAPI · Docker | — | Planificado |
 
-> El portafolio está en reconstrucción: estoy sustituyendo los ejercicios iniciales por
-> proyectos completos, con métricas, tests y documentación. Este README se actualizará
-> con los resultados a medida que cada proyecto esté listo.
+> `traffic-signs` está terminado y documentado. Ahora estoy trabajando en
+> `bert-attention`; el asistente RAG será el tercer proyecto.
 
 ## Sobre mí
 

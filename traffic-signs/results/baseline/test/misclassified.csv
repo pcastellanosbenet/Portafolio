@@ -1,0 +1,321 @@
+path,true_id,true_name,pred_id,pred_name,confidence
+data/gtsrb/GTSRB/Final_Test/Images/00143.ppm,18,General caution,27,Pedestrians,0.547414243221283
+data/gtsrb/GTSRB/Final_Test/Images/00145.ppm,25,Road work,40,Roundabout mandatory,0.46324679255485535
+data/gtsrb/GTSRB/Final_Test/Images/00159.ppm,4,Speed limit 70,1,Speed limit 30,0.6321767568588257
+data/gtsrb/GTSRB/Final_Test/Images/00163.ppm,25,Road work,27,Pedestrians,0.835658609867096
+data/gtsrb/GTSRB/Final_Test/Images/00176.ppm,3,Speed limit 60,5,Speed limit 80,0.8223177194595337
+data/gtsrb/GTSRB/Final_Test/Images/00198.ppm,18,General caution,27,Pedestrians,0.34972241520881653
+data/gtsrb/GTSRB/Final_Test/Images/00204.ppm,17,No entry,14,Stop,0.5349450707435608
+data/gtsrb/GTSRB/Final_Test/Images/00265.ppm,12,Priority road,13,Yield,0.8467129468917847
+data/gtsrb/GTSRB/Final_Test/Images/00309.ppm,38,Keep right,40,Roundabout mandatory,0.8373502492904663
+data/gtsrb/GTSRB/Final_Test/Images/00358.ppm,38,Keep right,40,Roundabout mandatory,0.7060922980308533
+data/gtsrb/GTSRB/Final_Test/Images/00365.ppm,11,Right-of-way at intersection,30,Beware of ice or snow,0.6487470269203186
+data/gtsrb/GTSRB/Final_Test/Images/00368.ppm,19,Dangerous curve left,23,Slippery road,0.41331082582473755
+data/gtsrb/GTSRB/Final_Test/Images/00421.ppm,4,Speed limit 70,1,Speed limit 30,0.600793182849884
+data/gtsrb/GTSRB/Final_Test/Images/00475.ppm,12,Priority road,25,Road work,0.6010642647743225
+data/gtsrb/GTSRB/Final_Test/Images/00492.ppm,4,Speed limit 70,2,Speed limit 50,0.5581912994384766
+data/gtsrb/GTSRB/Final_Test/Images/00604.ppm,3,Speed limit 60,5,Speed limit 80,0.8196045160293579
+data/gtsrb/GTSRB/Final_Test/Images/00708.ppm,18,General caution,26,Traffic signals,0.99952232837677
+data/gtsrb/GTSRB/Final_Test/Images/00733.ppm,38,Keep right,40,Roundabout mandatory,0.6818711757659912
+data/gtsrb/GTSRB/Final_Test/Images/00745.ppm,17,No entry,33,Turn right ahead,0.34387505054473877
+data/gtsrb/GTSRB/Final_Test/Images/00764.ppm,12,Priority road,25,Road work,0.6936451196670532
+data/gtsrb/GTSRB/Final_Test/Images/00781.ppm,39,Keep left,33,Turn right ahead,0.5007258057594299
+data/gtsrb/GTSRB/Final_Test/Images/00804.ppm,12,Priority road,38,Keep right,0.3092896044254303
+data/gtsrb/GTSRB/Final_Test/Images/00805.ppm,2,Speed limit 50,1,Speed limit 30,0.6940982341766357
+data/gtsrb/GTSRB/Final_Test/Images/00820.ppm,4,Speed limit 70,1,Speed limit 30,0.49107787013053894
+data/gtsrb/GTSRB/Final_Test/Images/00859.ppm,11,Right-of-way at intersection,30,Beware of ice or snow,0.6253498792648315
+data/gtsrb/GTSRB/Final_Test/Images/00939.ppm,12,Priority road,38,Keep right,0.3268107771873474
+data/gtsrb/GTSRB/Final_Test/Images/01008.ppm,12,Priority road,25,Road work,0.32407811284065247
+data/gtsrb/GTSRB/Final_Test/Images/01030.ppm,18,General caution,27,Pedestrians,0.49356353282928467
+data/gtsrb/GTSRB/Final_Test/Images/01061.ppm,12,Priority road,2,Speed limit 50,0.4329393208026886
+data/gtsrb/GTSRB/Final_Test/Images/01078.ppm,11,Right-of-way at intersection,30,Beware of ice or snow,0.9581551551818848
+data/gtsrb/GTSRB/Final_Test/Images/01079.ppm,21,Double curve,19,Dangerous curve left,0.1788346767425537
+data/gtsrb/GTSRB/Final_Test/Images/01189.ppm,12,Priority road,15,No vehicles,0.4548148214817047
+data/gtsrb/GTSRB/Final_Test/Images/01228.ppm,11,Right-of-way at intersection,30,Beware of ice or snow,0.5484127402305603
+data/gtsrb/GTSRB/Final_Test/Images/01268.ppm,2,Speed limit 50,3,Speed limit 60,0.4707224369049072
+data/gtsrb/GTSRB/Final_Test/Images/01276.ppm,18,General caution,27,Pedestrians,0.4092332124710083
+data/gtsrb/GTSRB/Final_Test/Images/01317.ppm,25,Road work,11,Right-of-way at intersection,0.8948724865913391
+data/gtsrb/GTSRB/Final_Test/Images/01389.ppm,18,General caution,26,Traffic signals,0.9762568473815918
+data/gtsrb/GTSRB/Final_Test/Images/01404.ppm,38,Keep right,40,Roundabout mandatory,0.5476314425468445
+data/gtsrb/GTSRB/Final_Test/Images/01435.ppm,18,General caution,27,Pedestrians,0.4714135527610779
+data/gtsrb/GTSRB/Final_Test/Images/01489.ppm,12,Priority road,15,No vehicles,0.8741939663887024
+data/gtsrb/GTSRB/Final_Test/Images/01583.ppm,21,Double curve,11,Right-of-way at intersection,0.26372388005256653
+data/gtsrb/GTSRB/Final_Test/Images/01614.ppm,12,Priority road,18,General caution,0.3712794780731201
+data/gtsrb/GTSRB/Final_Test/Images/01662.ppm,17,No entry,42,End of no passing > 3.5t,0.5133855938911438
+data/gtsrb/GTSRB/Final_Test/Images/01685.ppm,38,Keep right,40,Roundabout mandatory,0.7914423942565918
+data/gtsrb/GTSRB/Final_Test/Images/01759.ppm,21,Double curve,19,Dangerous curve left,0.23001781105995178
+data/gtsrb/GTSRB/Final_Test/Images/01762.ppm,17,No entry,7,Speed limit 120,0.4948989152908325
+data/gtsrb/GTSRB/Final_Test/Images/01812.ppm,12,Priority road,36,Go straight or right,0.4491645097732544
+data/gtsrb/GTSRB/Final_Test/Images/01817.ppm,18,General caution,21,Double curve,0.5261080861091614
+data/gtsrb/GTSRB/Final_Test/Images/01819.ppm,6,Speed limit 100,42,End of no passing > 3.5t,0.4017612934112549
+data/gtsrb/GTSRB/Final_Test/Images/01844.ppm,5,Speed limit 80,2,Speed limit 50,0.4319782555103302
+data/gtsrb/GTSRB/Final_Test/Images/01851.ppm,28,Children crossing,29,Bicycles crossing,0.748167872428894
+data/gtsrb/GTSRB/Final_Test/Images/01898.ppm,21,Double curve,11,Right-of-way at intersection,0.24344906210899353
+data/gtsrb/GTSRB/Final_Test/Images/01935.ppm,17,No entry,42,End of no passing > 3.5t,0.3152768909931183
+data/gtsrb/GTSRB/Final_Test/Images/01947.ppm,18,General caution,21,Double curve,0.42261531949043274
+data/gtsrb/GTSRB/Final_Test/Images/01969.ppm,40,Roundabout mandatory,36,Go straight or right,0.7888427972793579
+data/gtsrb/GTSRB/Final_Test/Images/02025.ppm,4,Speed limit 70,8,No passing,0.20969712734222412
+data/gtsrb/GTSRB/Final_Test/Images/02054.ppm,18,General caution,26,Traffic signals,0.9965553283691406
+data/gtsrb/GTSRB/Final_Test/Images/02258.ppm,12,Priority road,15,No vehicles,0.9719018340110779
+data/gtsrb/GTSRB/Final_Test/Images/02342.ppm,18,General caution,21,Double curve,0.3390447199344635
+data/gtsrb/GTSRB/Final_Test/Images/02370.ppm,21,Double curve,11,Right-of-way at intersection,0.2629133462905884
+data/gtsrb/GTSRB/Final_Test/Images/02374.ppm,8,No passing,7,Speed limit 120,0.6967407464981079
+data/gtsrb/GTSRB/Final_Test/Images/02376.ppm,4,Speed limit 70,1,Speed limit 30,0.3076266944408417
+data/gtsrb/GTSRB/Final_Test/Images/02379.ppm,12,Priority road,15,No vehicles,0.5079641342163086
+data/gtsrb/GTSRB/Final_Test/Images/02457.ppm,2,Speed limit 50,1,Speed limit 30,0.48148101568222046
+data/gtsrb/GTSRB/Final_Test/Images/02477.ppm,12,Priority road,2,Speed limit 50,0.40162327885627747
+data/gtsrb/GTSRB/Final_Test/Images/02483.ppm,17,No entry,33,Turn right ahead,0.2788369655609131
+data/gtsrb/GTSRB/Final_Test/Images/02494.ppm,2,Speed limit 50,1,Speed limit 30,0.9933799505233765
+data/gtsrb/GTSRB/Final_Test/Images/02547.ppm,17,No entry,7,Speed limit 120,0.29587653279304504
+data/gtsrb/GTSRB/Final_Test/Images/02577.ppm,4,Speed limit 70,5,Speed limit 80,0.46821311116218567
+data/gtsrb/GTSRB/Final_Test/Images/02615.ppm,12,Priority road,25,Road work,0.7387930154800415
+data/gtsrb/GTSRB/Final_Test/Images/02651.ppm,12,Priority road,2,Speed limit 50,0.6482107043266296
+data/gtsrb/GTSRB/Final_Test/Images/02689.ppm,2,Speed limit 50,3,Speed limit 60,0.3157403767108917
+data/gtsrb/GTSRB/Final_Test/Images/02757.ppm,18,General caution,11,Right-of-way at intersection,0.4147801399230957
+data/gtsrb/GTSRB/Final_Test/Images/02791.ppm,38,Keep right,40,Roundabout mandatory,0.7061403393745422
+data/gtsrb/GTSRB/Final_Test/Images/02833.ppm,17,No entry,42,End of no passing > 3.5t,0.28737619519233704
+data/gtsrb/GTSRB/Final_Test/Images/02881.ppm,2,Speed limit 50,1,Speed limit 30,0.6275075674057007
+data/gtsrb/GTSRB/Final_Test/Images/02896.ppm,12,Priority road,2,Speed limit 50,0.42239877581596375
+data/gtsrb/GTSRB/Final_Test/Images/02913.ppm,18,General caution,11,Right-of-way at intersection,0.47102290391921997
+data/gtsrb/GTSRB/Final_Test/Images/03028.ppm,12,Priority road,2,Speed limit 50,0.2374536097049713
+data/gtsrb/GTSRB/Final_Test/Images/03086.ppm,8,No passing,5,Speed limit 80,0.350299209356308
+data/gtsrb/GTSRB/Final_Test/Images/03147.ppm,1,Speed limit 30,4,Speed limit 70,0.516937792301178
+data/gtsrb/GTSRB/Final_Test/Images/03159.ppm,5,Speed limit 80,1,Speed limit 30,0.4957868158817291
+data/gtsrb/GTSRB/Final_Test/Images/03172.ppm,18,General caution,20,Dangerous curve right,0.23330698907375336
+data/gtsrb/GTSRB/Final_Test/Images/03234.ppm,18,General caution,27,Pedestrians,0.4576396644115448
+data/gtsrb/GTSRB/Final_Test/Images/03298.ppm,18,General caution,11,Right-of-way at intersection,0.3458022475242615
+data/gtsrb/GTSRB/Final_Test/Images/03303.ppm,6,Speed limit 100,42,End of no passing > 3.5t,0.49271419644355774
+data/gtsrb/GTSRB/Final_Test/Images/03357.ppm,38,Keep right,40,Roundabout mandatory,0.8460433483123779
+data/gtsrb/GTSRB/Final_Test/Images/03370.ppm,12,Priority road,13,Yield,0.5570549368858337
+data/gtsrb/GTSRB/Final_Test/Images/03490.ppm,11,Right-of-way at intersection,30,Beware of ice or snow,0.495685338973999
+data/gtsrb/GTSRB/Final_Test/Images/03520.ppm,2,Speed limit 50,1,Speed limit 30,0.4876163899898529
+data/gtsrb/GTSRB/Final_Test/Images/03561.ppm,6,Speed limit 100,41,End of no passing,0.48019951581954956
+data/gtsrb/GTSRB/Final_Test/Images/03562.ppm,5,Speed limit 80,7,Speed limit 120,0.5337429642677307
+data/gtsrb/GTSRB/Final_Test/Images/03574.ppm,12,Priority road,13,Yield,0.8301095962524414
+data/gtsrb/GTSRB/Final_Test/Images/03590.ppm,17,No entry,42,End of no passing > 3.5t,0.15118111670017242
+data/gtsrb/GTSRB/Final_Test/Images/03596.ppm,38,Keep right,40,Roundabout mandatory,0.9635275602340698
+data/gtsrb/GTSRB/Final_Test/Images/03597.ppm,12,Priority road,25,Road work,0.39446115493774414
+data/gtsrb/GTSRB/Final_Test/Images/03704.ppm,40,Roundabout mandatory,0,Speed limit 20,0.2979099452495575
+data/gtsrb/GTSRB/Final_Test/Images/03724.ppm,38,Keep right,40,Roundabout mandatory,0.8239662051200867
+data/gtsrb/GTSRB/Final_Test/Images/03725.ppm,11,Right-of-way at intersection,30,Beware of ice or snow,0.8381182551383972
+data/gtsrb/GTSRB/Final_Test/Images/03739.ppm,18,General caution,21,Double curve,0.32705992460250854
+data/gtsrb/GTSRB/Final_Test/Images/03744.ppm,12,Priority road,15,No vehicles,0.7890751957893372
+data/gtsrb/GTSRB/Final_Test/Images/03752.ppm,28,Children crossing,29,Bicycles crossing,0.944857656955719
+data/gtsrb/GTSRB/Final_Test/Images/03770.ppm,18,General caution,27,Pedestrians,0.610807478427887
+data/gtsrb/GTSRB/Final_Test/Images/03793.ppm,12,Priority road,15,No vehicles,0.5940117239952087
+data/gtsrb/GTSRB/Final_Test/Images/03806.ppm,11,Right-of-way at intersection,30,Beware of ice or snow,0.5701637268066406
+data/gtsrb/GTSRB/Final_Test/Images/03819.ppm,4,Speed limit 70,1,Speed limit 30,0.7879183888435364
+data/gtsrb/GTSRB/Final_Test/Images/03824.ppm,17,No entry,7,Speed limit 120,0.23152458667755127
+data/gtsrb/GTSRB/Final_Test/Images/03907.ppm,17,No entry,10,No vehicles carrying dangerous goods,0.48242485523223877
+data/gtsrb/GTSRB/Final_Test/Images/03919.ppm,12,Priority road,2,Speed limit 50,0.6827056407928467
+data/gtsrb/GTSRB/Final_Test/Images/03935.ppm,38,Keep right,40,Roundabout mandatory,0.8473437428474426
+data/gtsrb/GTSRB/Final_Test/Images/03960.ppm,18,General caution,21,Double curve,0.7766150832176208
+data/gtsrb/GTSRB/Final_Test/Images/03986.ppm,17,No entry,42,End of no passing > 3.5t,0.3215281069278717
+data/gtsrb/GTSRB/Final_Test/Images/04011.ppm,30,Beware of ice or snow,20,Dangerous curve right,0.72328120470047
+data/gtsrb/GTSRB/Final_Test/Images/04072.ppm,8,No passing,3,Speed limit 60,0.4437222480773926
+data/gtsrb/GTSRB/Final_Test/Images/04111.ppm,17,No entry,33,Turn right ahead,0.2476489543914795
+data/gtsrb/GTSRB/Final_Test/Images/04130.ppm,39,Keep left,33,Turn right ahead,0.4261927902698517
+data/gtsrb/GTSRB/Final_Test/Images/04147.ppm,21,Double curve,19,Dangerous curve left,0.15474435687065125
+data/gtsrb/GTSRB/Final_Test/Images/04185.ppm,21,Double curve,11,Right-of-way at intersection,0.33044326305389404
+data/gtsrb/GTSRB/Final_Test/Images/04219.ppm,13,Yield,12,Priority road,0.27598515152931213
+data/gtsrb/GTSRB/Final_Test/Images/04251.ppm,11,Right-of-way at intersection,30,Beware of ice or snow,0.5388511419296265
+data/gtsrb/GTSRB/Final_Test/Images/04271.ppm,6,Speed limit 100,39,Keep left,0.2690613567829132
+data/gtsrb/GTSRB/Final_Test/Images/04281.ppm,8,No passing,7,Speed limit 120,0.5967370271682739
+data/gtsrb/GTSRB/Final_Test/Images/04306.ppm,15,No vehicles,13,Yield,0.8825775980949402
+data/gtsrb/GTSRB/Final_Test/Images/04341.ppm,12,Priority road,15,No vehicles,0.5174668431282043
+data/gtsrb/GTSRB/Final_Test/Images/04415.ppm,11,Right-of-way at intersection,30,Beware of ice or snow,0.6329861879348755
+data/gtsrb/GTSRB/Final_Test/Images/04443.ppm,21,Double curve,11,Right-of-way at intersection,0.3121718764305115
+data/gtsrb/GTSRB/Final_Test/Images/04492.ppm,38,Keep right,40,Roundabout mandatory,0.7499997019767761
+data/gtsrb/GTSRB/Final_Test/Images/04601.ppm,4,Speed limit 70,18,General caution,0.40347227454185486
+data/gtsrb/GTSRB/Final_Test/Images/04617.ppm,21,Double curve,11,Right-of-way at intersection,0.3532193899154663
+data/gtsrb/GTSRB/Final_Test/Images/04794.ppm,25,Road work,40,Roundabout mandatory,0.541795015335083
+data/gtsrb/GTSRB/Final_Test/Images/04819.ppm,11,Right-of-way at intersection,30,Beware of ice or snow,0.5055754780769348
+data/gtsrb/GTSRB/Final_Test/Images/04853.ppm,12,Priority road,25,Road work,0.40519118309020996
+data/gtsrb/GTSRB/Final_Test/Images/04886.ppm,18,General caution,21,Double curve,0.37747055292129517
+data/gtsrb/GTSRB/Final_Test/Images/04897.ppm,4,Speed limit 70,8,No passing,0.5050161480903625
+data/gtsrb/GTSRB/Final_Test/Images/04983.ppm,12,Priority road,15,No vehicles,0.738190233707428
+data/gtsrb/GTSRB/Final_Test/Images/05033.ppm,18,General caution,27,Pedestrians,0.20612795650959015
+data/gtsrb/GTSRB/Final_Test/Images/05149.ppm,18,General caution,21,Double curve,0.4000111520290375
+data/gtsrb/GTSRB/Final_Test/Images/05180.ppm,18,General caution,21,Double curve,0.6252893209457397
+data/gtsrb/GTSRB/Final_Test/Images/05182.ppm,12,Priority road,15,No vehicles,0.8817180395126343
+data/gtsrb/GTSRB/Final_Test/Images/05268.ppm,18,General caution,26,Traffic signals,0.9850515127182007
+data/gtsrb/GTSRB/Final_Test/Images/05284.ppm,17,No entry,42,End of no passing > 3.5t,0.24717432260513306
+data/gtsrb/GTSRB/Final_Test/Images/05357.ppm,17,No entry,7,Speed limit 120,0.30964425206184387
+data/gtsrb/GTSRB/Final_Test/Images/05434.ppm,4,Speed limit 70,1,Speed limit 30,0.9615301489830017
+data/gtsrb/GTSRB/Final_Test/Images/05491.ppm,3,Speed limit 60,5,Speed limit 80,0.7063937783241272
+data/gtsrb/GTSRB/Final_Test/Images/05495.ppm,38,Keep right,40,Roundabout mandatory,0.6006234288215637
+data/gtsrb/GTSRB/Final_Test/Images/05519.ppm,28,Children crossing,29,Bicycles crossing,0.5981428027153015
+data/gtsrb/GTSRB/Final_Test/Images/05529.ppm,12,Priority road,13,Yield,0.676898717880249
+data/gtsrb/GTSRB/Final_Test/Images/05635.ppm,17,No entry,42,End of no passing > 3.5t,0.31284672021865845
+data/gtsrb/GTSRB/Final_Test/Images/05637.ppm,21,Double curve,19,Dangerous curve left,0.23977814614772797
+data/gtsrb/GTSRB/Final_Test/Images/05641.ppm,3,Speed limit 60,5,Speed limit 80,0.5523650646209717
+data/gtsrb/GTSRB/Final_Test/Images/05892.ppm,13,Yield,33,Turn right ahead,0.27072712779045105
+data/gtsrb/GTSRB/Final_Test/Images/05915.ppm,18,General caution,21,Double curve,0.26344817876815796
+data/gtsrb/GTSRB/Final_Test/Images/05924.ppm,6,Speed limit 100,41,End of no passing,0.3824497163295746
+data/gtsrb/GTSRB/Final_Test/Images/05934.ppm,12,Priority road,25,Road work,0.44903454184532166
+data/gtsrb/GTSRB/Final_Test/Images/05938.ppm,38,Keep right,40,Roundabout mandatory,0.779076337814331
+data/gtsrb/GTSRB/Final_Test/Images/06006.ppm,2,Speed limit 50,3,Speed limit 60,0.9479072690010071
+data/gtsrb/GTSRB/Final_Test/Images/06149.ppm,18,General caution,21,Double curve,0.5566020011901855
+data/gtsrb/GTSRB/Final_Test/Images/06177.ppm,3,Speed limit 60,5,Speed limit 80,0.9786116480827332
+data/gtsrb/GTSRB/Final_Test/Images/06183.ppm,38,Keep right,40,Roundabout mandatory,0.7193887829780579
+data/gtsrb/GTSRB/Final_Test/Images/06199.ppm,6,Speed limit 100,41,End of no passing,0.5445976853370667
+data/gtsrb/GTSRB/Final_Test/Images/06213.ppm,4,Speed limit 70,1,Speed limit 30,0.5870192050933838
+data/gtsrb/GTSRB/Final_Test/Images/06222.ppm,4,Speed limit 70,1,Speed limit 30,0.7422508597373962
+data/gtsrb/GTSRB/Final_Test/Images/06253.ppm,4,Speed limit 70,1,Speed limit 30,0.7612752914428711
+data/gtsrb/GTSRB/Final_Test/Images/06295.ppm,38,Keep right,40,Roundabout mandatory,0.8779008984565735
+data/gtsrb/GTSRB/Final_Test/Images/06304.ppm,38,Keep right,40,Roundabout mandatory,0.8431521654129028
+data/gtsrb/GTSRB/Final_Test/Images/06339.ppm,8,No passing,3,Speed limit 60,0.4413076937198639
+data/gtsrb/GTSRB/Final_Test/Images/06341.ppm,25,Road work,40,Roundabout mandatory,0.36204278469085693
+data/gtsrb/GTSRB/Final_Test/Images/06447.ppm,17,No entry,7,Speed limit 120,0.25649788975715637
+data/gtsrb/GTSRB/Final_Test/Images/06600.ppm,5,Speed limit 80,1,Speed limit 30,0.5354918241500854
+data/gtsrb/GTSRB/Final_Test/Images/06613.ppm,3,Speed limit 60,5,Speed limit 80,0.576073944568634
+data/gtsrb/GTSRB/Final_Test/Images/06626.ppm,38,Keep right,40,Roundabout mandatory,0.8062170147895813
+data/gtsrb/GTSRB/Final_Test/Images/06710.ppm,12,Priority road,2,Speed limit 50,0.2405158281326294
+data/gtsrb/GTSRB/Final_Test/Images/06739.ppm,25,Road work,27,Pedestrians,0.6092185378074646
+data/gtsrb/GTSRB/Final_Test/Images/06766.ppm,18,General caution,21,Double curve,0.6882023215293884
+data/gtsrb/GTSRB/Final_Test/Images/06848.ppm,17,No entry,7,Speed limit 120,0.20304420590400696
+data/gtsrb/GTSRB/Final_Test/Images/06862.ppm,39,Keep left,33,Turn right ahead,0.5555220246315002
+data/gtsrb/GTSRB/Final_Test/Images/06870.ppm,17,No entry,42,End of no passing > 3.5t,0.24815894663333893
+data/gtsrb/GTSRB/Final_Test/Images/06874.ppm,3,Speed limit 60,5,Speed limit 80,0.9588459730148315
+data/gtsrb/GTSRB/Final_Test/Images/06878.ppm,18,General caution,21,Double curve,0.6699271202087402
+data/gtsrb/GTSRB/Final_Test/Images/06922.ppm,17,No entry,42,End of no passing > 3.5t,0.25610604882240295
+data/gtsrb/GTSRB/Final_Test/Images/06952.ppm,17,No entry,14,Stop,0.49502164125442505
+data/gtsrb/GTSRB/Final_Test/Images/06960.ppm,17,No entry,10,No vehicles carrying dangerous goods,0.34457987546920776
+data/gtsrb/GTSRB/Final_Test/Images/07006.ppm,2,Speed limit 50,3,Speed limit 60,0.8342878222465515
+data/gtsrb/GTSRB/Final_Test/Images/07097.ppm,8,No passing,5,Speed limit 80,0.387938529253006
+data/gtsrb/GTSRB/Final_Test/Images/07098.ppm,25,Road work,27,Pedestrians,0.8337169289588928
+data/gtsrb/GTSRB/Final_Test/Images/07147.ppm,31,Wild animals,23,Slippery road,0.5587707161903381
+data/gtsrb/GTSRB/Final_Test/Images/07226.ppm,38,Keep right,40,Roundabout mandatory,0.5390546917915344
+data/gtsrb/GTSRB/Final_Test/Images/07273.ppm,12,Priority road,2,Speed limit 50,0.2943898141384125
+data/gtsrb/GTSRB/Final_Test/Images/07276.ppm,10,No vehicles carrying dangerous goods,16,No trucks,0.2991813123226166
+data/gtsrb/GTSRB/Final_Test/Images/07279.ppm,12,Priority road,15,No vehicles,0.8864567875862122
+data/gtsrb/GTSRB/Final_Test/Images/07330.ppm,7,Speed limit 120,8,No passing,0.9793909788131714
+data/gtsrb/GTSRB/Final_Test/Images/07571.ppm,21,Double curve,19,Dangerous curve left,0.2038525640964508
+data/gtsrb/GTSRB/Final_Test/Images/07597.ppm,31,Wild animals,20,Dangerous curve right,0.6109173893928528
+data/gtsrb/GTSRB/Final_Test/Images/07603.ppm,17,No entry,33,Turn right ahead,0.2848530113697052
+data/gtsrb/GTSRB/Final_Test/Images/07658.ppm,17,No entry,7,Speed limit 120,0.21119824051856995
+data/gtsrb/GTSRB/Final_Test/Images/07674.ppm,17,No entry,10,No vehicles carrying dangerous goods,0.508511483669281
+data/gtsrb/GTSRB/Final_Test/Images/07695.ppm,40,Roundabout mandatory,37,Go straight or left,0.6094514727592468
+data/gtsrb/GTSRB/Final_Test/Images/07702.ppm,12,Priority road,2,Speed limit 50,0.46893519163131714
+data/gtsrb/GTSRB/Final_Test/Images/07725.ppm,18,General caution,21,Double curve,0.5030690431594849
+data/gtsrb/GTSRB/Final_Test/Images/07833.ppm,39,Keep left,33,Turn right ahead,0.6025145649909973
+data/gtsrb/GTSRB/Final_Test/Images/07861.ppm,5,Speed limit 80,3,Speed limit 60,0.5698152184486389
+data/gtsrb/GTSRB/Final_Test/Images/07928.ppm,6,Speed limit 100,39,Keep left,0.243491068482399
+data/gtsrb/GTSRB/Final_Test/Images/07943.ppm,38,Keep right,40,Roundabout mandatory,0.9645989537239075
+data/gtsrb/GTSRB/Final_Test/Images/07957.ppm,8,No passing,13,Yield,0.31309640407562256
+data/gtsrb/GTSRB/Final_Test/Images/08027.ppm,38,Keep right,40,Roundabout mandatory,0.8130505681037903
+data/gtsrb/GTSRB/Final_Test/Images/08051.ppm,3,Speed limit 60,5,Speed limit 80,0.6370291113853455
+data/gtsrb/GTSRB/Final_Test/Images/08058.ppm,18,General caution,20,Dangerous curve right,0.24255260825157166
+data/gtsrb/GTSRB/Final_Test/Images/08141.ppm,7,Speed limit 120,8,No passing,0.4994719922542572
+data/gtsrb/GTSRB/Final_Test/Images/08144.ppm,12,Priority road,2,Speed limit 50,0.49833497405052185
+data/gtsrb/GTSRB/Final_Test/Images/08208.ppm,6,Speed limit 100,41,End of no passing,0.5894198417663574
+data/gtsrb/GTSRB/Final_Test/Images/08238.ppm,17,No entry,7,Speed limit 120,0.3467458188533783
+data/gtsrb/GTSRB/Final_Test/Images/08248.ppm,38,Keep right,40,Roundabout mandatory,0.5907444953918457
+data/gtsrb/GTSRB/Final_Test/Images/08278.ppm,8,No passing,5,Speed limit 80,0.37288030982017517
+data/gtsrb/GTSRB/Final_Test/Images/08284.ppm,18,General caution,24,Road narrows on the right,0.47665953636169434
+data/gtsrb/GTSRB/Final_Test/Images/08295.ppm,12,Priority road,25,Road work,0.5022808313369751
+data/gtsrb/GTSRB/Final_Test/Images/08297.ppm,11,Right-of-way at intersection,30,Beware of ice or snow,0.7826448082923889
+data/gtsrb/GTSRB/Final_Test/Images/08308.ppm,12,Priority road,15,No vehicles,0.6266528964042664
+data/gtsrb/GTSRB/Final_Test/Images/08309.ppm,18,General caution,11,Right-of-way at intersection,0.35193726420402527
+data/gtsrb/GTSRB/Final_Test/Images/08352.ppm,21,Double curve,19,Dangerous curve left,0.21004821360111237
+data/gtsrb/GTSRB/Final_Test/Images/08376.ppm,18,General caution,21,Double curve,0.45020467042922974
+data/gtsrb/GTSRB/Final_Test/Images/08427.ppm,15,No vehicles,13,Yield,0.8644340634346008
+data/gtsrb/GTSRB/Final_Test/Images/08460.ppm,21,Double curve,11,Right-of-way at intersection,0.3915124237537384
+data/gtsrb/GTSRB/Final_Test/Images/08595.ppm,38,Keep right,40,Roundabout mandatory,0.7403050661087036
+data/gtsrb/GTSRB/Final_Test/Images/08622.ppm,12,Priority road,13,Yield,0.6915827989578247
+data/gtsrb/GTSRB/Final_Test/Images/08679.ppm,2,Speed limit 50,1,Speed limit 30,0.9448932409286499
+data/gtsrb/GTSRB/Final_Test/Images/08710.ppm,17,No entry,42,End of no passing > 3.5t,0.2680202126502991
+data/gtsrb/GTSRB/Final_Test/Images/08720.ppm,4,Speed limit 70,1,Speed limit 30,0.7007185816764832
+data/gtsrb/GTSRB/Final_Test/Images/08917.ppm,38,Keep right,40,Roundabout mandatory,0.8374919891357422
+data/gtsrb/GTSRB/Final_Test/Images/08918.ppm,6,Speed limit 100,41,End of no passing,0.48375657200813293
+data/gtsrb/GTSRB/Final_Test/Images/09068.ppm,11,Right-of-way at intersection,30,Beware of ice or snow,0.8555550575256348
+data/gtsrb/GTSRB/Final_Test/Images/09087.ppm,18,General caution,20,Dangerous curve right,0.31786689162254333
+data/gtsrb/GTSRB/Final_Test/Images/09095.ppm,24,Road narrows on the right,18,General caution,0.4826866388320923
+data/gtsrb/GTSRB/Final_Test/Images/09173.ppm,38,Keep right,40,Roundabout mandatory,0.7755321860313416
+data/gtsrb/GTSRB/Final_Test/Images/09222.ppm,21,Double curve,26,Traffic signals,0.17532148957252502
+data/gtsrb/GTSRB/Final_Test/Images/09270.ppm,21,Double curve,11,Right-of-way at intersection,0.36300912499427795
+data/gtsrb/GTSRB/Final_Test/Images/09311.ppm,4,Speed limit 70,1,Speed limit 30,0.8961530327796936
+data/gtsrb/GTSRB/Final_Test/Images/09334.ppm,2,Speed limit 50,3,Speed limit 60,0.5117380023002625
+data/gtsrb/GTSRB/Final_Test/Images/09373.ppm,38,Keep right,40,Roundabout mandatory,0.8161178231239319
+data/gtsrb/GTSRB/Final_Test/Images/09383.ppm,18,General caution,26,Traffic signals,0.989385724067688
+data/gtsrb/GTSRB/Final_Test/Images/09506.ppm,11,Right-of-way at intersection,30,Beware of ice or snow,0.5437814593315125
+data/gtsrb/GTSRB/Final_Test/Images/09546.ppm,18,General caution,26,Traffic signals,0.9952210783958435
+data/gtsrb/GTSRB/Final_Test/Images/09687.ppm,2,Speed limit 50,1,Speed limit 30,0.8202705383300781
+data/gtsrb/GTSRB/Final_Test/Images/09792.ppm,21,Double curve,11,Right-of-way at intersection,0.4504583775997162
+data/gtsrb/GTSRB/Final_Test/Images/09797.ppm,11,Right-of-way at intersection,30,Beware of ice or snow,0.4797866940498352
+data/gtsrb/GTSRB/Final_Test/Images/09805.ppm,38,Keep right,40,Roundabout mandatory,0.8846771717071533
+data/gtsrb/GTSRB/Final_Test/Images/09835.ppm,21,Double curve,11,Right-of-way at intersection,0.39292478561401367
+data/gtsrb/GTSRB/Final_Test/Images/09876.ppm,4,Speed limit 70,1,Speed limit 30,0.8821314573287964
+data/gtsrb/GTSRB/Final_Test/Images/09880.ppm,39,Keep left,36,Go straight or right,0.5662086009979248
+data/gtsrb/GTSRB/Final_Test/Images/09935.ppm,17,No entry,42,End of no passing > 3.5t,0.19395790994167328
+data/gtsrb/GTSRB/Final_Test/Images/09952.ppm,12,Priority road,15,No vehicles,0.7486000061035156
+data/gtsrb/GTSRB/Final_Test/Images/09991.ppm,38,Keep right,34,Turn left ahead,0.5119853019714355
+data/gtsrb/GTSRB/Final_Test/Images/10030.ppm,21,Double curve,11,Right-of-way at intersection,0.2090916633605957
+data/gtsrb/GTSRB/Final_Test/Images/10067.ppm,25,Road work,40,Roundabout mandatory,0.25410789251327515
+data/gtsrb/GTSRB/Final_Test/Images/10073.ppm,5,Speed limit 80,2,Speed limit 50,0.4322880208492279
+data/gtsrb/GTSRB/Final_Test/Images/10124.ppm,11,Right-of-way at intersection,30,Beware of ice or snow,0.49939295649528503
+data/gtsrb/GTSRB/Final_Test/Images/10135.ppm,3,Speed limit 60,5,Speed limit 80,0.7533558011054993
+data/gtsrb/GTSRB/Final_Test/Images/10137.ppm,21,Double curve,11,Right-of-way at intersection,0.16374999284744263
+data/gtsrb/GTSRB/Final_Test/Images/10177.ppm,18,General caution,25,Road work,0.38905608654022217
+data/gtsrb/GTSRB/Final_Test/Images/10204.ppm,21,Double curve,11,Right-of-way at intersection,0.5454471707344055
+data/gtsrb/GTSRB/Final_Test/Images/10324.ppm,12,Priority road,2,Speed limit 50,0.5916513800621033
+data/gtsrb/GTSRB/Final_Test/Images/10328.ppm,18,General caution,21,Double curve,0.4383833408355713
+data/gtsrb/GTSRB/Final_Test/Images/10359.ppm,12,Priority road,2,Speed limit 50,0.5930240750312805
+data/gtsrb/GTSRB/Final_Test/Images/10362.ppm,17,No entry,7,Speed limit 120,0.469466894865036
+data/gtsrb/GTSRB/Final_Test/Images/10398.ppm,21,Double curve,19,Dangerous curve left,0.2511023283004761
+data/gtsrb/GTSRB/Final_Test/Images/10410.ppm,17,No entry,7,Speed limit 120,0.240663543343544
+data/gtsrb/GTSRB/Final_Test/Images/10477.ppm,18,General caution,21,Double curve,0.815710186958313
+data/gtsrb/GTSRB/Final_Test/Images/10480.ppm,18,General caution,21,Double curve,0.3647197186946869
+data/gtsrb/GTSRB/Final_Test/Images/10540.ppm,4,Speed limit 70,1,Speed limit 30,0.583625078201294
+data/gtsrb/GTSRB/Final_Test/Images/10564.ppm,39,Keep left,33,Turn right ahead,0.502758264541626
+data/gtsrb/GTSRB/Final_Test/Images/10573.ppm,21,Double curve,19,Dangerous curve left,0.39158695936203003
+data/gtsrb/GTSRB/Final_Test/Images/10653.ppm,18,General caution,27,Pedestrians,0.620744526386261
+data/gtsrb/GTSRB/Final_Test/Images/10708.ppm,4,Speed limit 70,1,Speed limit 30,0.7748361229896545
+data/gtsrb/GTSRB/Final_Test/Images/10714.ppm,18,General caution,21,Double curve,0.45319172739982605
+data/gtsrb/GTSRB/Final_Test/Images/10812.ppm,12,Priority road,2,Speed limit 50,0.7162148356437683
+data/gtsrb/GTSRB/Final_Test/Images/10866.ppm,25,Road work,40,Roundabout mandatory,0.2934974133968353
+data/gtsrb/GTSRB/Final_Test/Images/10905.ppm,17,No entry,42,End of no passing > 3.5t,0.34444931149482727
+data/gtsrb/GTSRB/Final_Test/Images/10977.ppm,17,No entry,33,Turn right ahead,0.25096914172172546
+data/gtsrb/GTSRB/Final_Test/Images/10989.ppm,17,No entry,7,Speed limit 120,0.5344926714897156
+data/gtsrb/GTSRB/Final_Test/Images/11016.ppm,3,Speed limit 60,5,Speed limit 80,0.2367895245552063
+data/gtsrb/GTSRB/Final_Test/Images/11070.ppm,6,Speed limit 100,41,End of no passing,0.4359019994735718
+data/gtsrb/GTSRB/Final_Test/Images/11089.ppm,18,General caution,21,Double curve,0.3877255618572235
+data/gtsrb/GTSRB/Final_Test/Images/11128.ppm,6,Speed limit 100,41,End of no passing,0.34096747636795044
+data/gtsrb/GTSRB/Final_Test/Images/11132.ppm,25,Road work,40,Roundabout mandatory,0.40122419595718384
+data/gtsrb/GTSRB/Final_Test/Images/11152.ppm,17,No entry,33,Turn right ahead,0.23537886142730713
+data/gtsrb/GTSRB/Final_Test/Images/11170.ppm,21,Double curve,11,Right-of-way at intersection,0.26548275351524353
+data/gtsrb/GTSRB/Final_Test/Images/11212.ppm,5,Speed limit 80,2,Speed limit 50,0.7942172288894653
+data/gtsrb/GTSRB/Final_Test/Images/11330.ppm,38,Keep right,40,Roundabout mandatory,0.865574061870575
+data/gtsrb/GTSRB/Final_Test/Images/11361.ppm,8,No passing,13,Yield,0.35171815752983093
+data/gtsrb/GTSRB/Final_Test/Images/11391.ppm,21,Double curve,11,Right-of-way at intersection,0.2555052936077118
+data/gtsrb/GTSRB/Final_Test/Images/11438.ppm,6,Speed limit 100,41,End of no passing,0.3198351562023163
+data/gtsrb/GTSRB/Final_Test/Images/11458.ppm,38,Keep right,40,Roundabout mandatory,0.8587100505828857
+data/gtsrb/GTSRB/Final_Test/Images/11459.ppm,12,Priority road,38,Keep right,0.26491376757621765
+data/gtsrb/GTSRB/Final_Test/Images/11478.ppm,4,Speed limit 70,1,Speed limit 30,0.6031702160835266
+data/gtsrb/GTSRB/Final_Test/Images/11543.ppm,12,Priority road,15,No vehicles,0.8236419558525085
+data/gtsrb/GTSRB/Final_Test/Images/11650.ppm,3,Speed limit 60,5,Speed limit 80,0.41638147830963135
+data/gtsrb/GTSRB/Final_Test/Images/11730.ppm,17,No entry,42,End of no passing > 3.5t,0.42250028252601624
+data/gtsrb/GTSRB/Final_Test/Images/11756.ppm,12,Priority road,15,No vehicles,0.9763489961624146
+data/gtsrb/GTSRB/Final_Test/Images/11817.ppm,21,Double curve,19,Dangerous curve left,0.19804880023002625
+data/gtsrb/GTSRB/Final_Test/Images/11825.ppm,26,Traffic signals,27,Pedestrians,0.20408418774604797
+data/gtsrb/GTSRB/Final_Test/Images/11866.ppm,21,Double curve,11,Right-of-way at intersection,0.3564786911010742
+data/gtsrb/GTSRB/Final_Test/Images/11976.ppm,22,Bumpy road,23,Slippery road,0.5207177400588989
+data/gtsrb/GTSRB/Final_Test/Images/12032.ppm,21,Double curve,19,Dangerous curve left,0.22646954655647278
+data/gtsrb/GTSRB/Final_Test/Images/12111.ppm,21,Double curve,11,Right-of-way at intersection,0.3930399715900421
+data/gtsrb/GTSRB/Final_Test/Images/12153.ppm,8,No passing,3,Speed limit 60,0.3500259816646576
+data/gtsrb/GTSRB/Final_Test/Images/12165.ppm,17,No entry,14,Stop,0.2904994785785675
+data/gtsrb/GTSRB/Final_Test/Images/12174.ppm,4,Speed limit 70,1,Speed limit 30,0.9133950471878052
+data/gtsrb/GTSRB/Final_Test/Images/12182.ppm,2,Speed limit 50,1,Speed limit 30,0.8970741033554077
+data/gtsrb/GTSRB/Final_Test/Images/12214.ppm,12,Priority road,15,No vehicles,0.7347660660743713
+data/gtsrb/GTSRB/Final_Test/Images/12227.ppm,21,Double curve,31,Wild animals,0.15239593386650085
+data/gtsrb/GTSRB/Final_Test/Images/12229.ppm,28,Children crossing,29,Bicycles crossing,0.35609129071235657
+data/gtsrb/GTSRB/Final_Test/Images/12318.ppm,4,Speed limit 70,1,Speed limit 30,0.5994030237197876
+data/gtsrb/GTSRB/Final_Test/Images/12396.ppm,3,Speed limit 60,10,No vehicles carrying dangerous goods,0.2751730978488922
+data/gtsrb/GTSRB/Final_Test/Images/12412.ppm,21,Double curve,31,Wild animals,0.16213108599185944
+data/gtsrb/GTSRB/Final_Test/Images/12474.ppm,3,Speed limit 60,5,Speed limit 80,0.5672994256019592
+data/gtsrb/GTSRB/Final_Test/Images/12479.ppm,3,Speed limit 60,5,Speed limit 80,0.502194881439209
+data/gtsrb/GTSRB/Final_Test/Images/12501.ppm,38,Keep right,40,Roundabout mandatory,0.934112548828125
+data/gtsrb/GTSRB/Final_Test/Images/12518.ppm,18,General caution,25,Road work,0.4385358691215515
+data/gtsrb/GTSRB/Final_Test/Images/12537.ppm,28,Children crossing,29,Bicycles crossing,0.6955970525741577
+data/gtsrb/GTSRB/Final_Test/Images/12545.ppm,38,Keep right,40,Roundabout mandatory,0.886400580406189
+data/gtsrb/GTSRB/Final_Test/Images/12616.ppm,18,General caution,19,Dangerous curve left,0.23711006343364716

@@ -1,0 +1,16 @@
+true_id,true_name,pred_id,pred_name,count
+1,Speed limit 30,2,Speed limit 50,160
+2,Speed limit 50,1,Speed limit 30,87
+39,Keep left,38,Keep right,82
+5,Speed limit 80,1,Speed limit 30,65
+2,Speed limit 50,5,Speed limit 80,61
+34,Turn left ahead,33,Turn right ahead,55
+11,Right-of-way at intersection,25,Road work,53
+5,Speed limit 80,2,Speed limit 50,51
+8,No passing,7,Speed limit 120,50
+28,Children crossing,25,Road work,48
+8,No passing,5,Speed limit 80,46
+3,Speed limit 60,1,Speed limit 30,45
+9,No passing > 3.5t,16,No trucks,45
+3,Speed limit 60,2,Speed limit 50,39
+4,Speed limit 70,2,Speed limit 50,39
