@@ -1,3 +1,7 @@
-pillow
-tensorflow
-transformers
+--extra-index-url https://download.pytorch.org/whl/cpu
+
+torch==2.14.1
+transformers==5.20.2
+numpy==2.5.2
+matplotlib==3.11.2
+Pillow==12.3.0

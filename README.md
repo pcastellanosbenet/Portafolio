@@ -15,11 +15,11 @@ no solo resultados visuales.
 | Proyecto | Qué demuestra | Stack | Resultado | Estado |
 | :--- | :--- | :--- | :--- | :--- |
 | [Clasificación de señales de tráfico](./traffic-signs) | Visión por computador: CNN, transfer learning, augmentación, evaluación por clase y análisis de errores | PyTorch · torchvision | 97,47% accuracy · 43 clases | Completado |
-| [Interpretabilidad de BERT](./bert-attention) | NLP: mecanismos de atención, análisis de capas y cabezas, visualización | PyTorch · Transformers | — | En desarrollo |
+| [Interpretabilidad de BERT](./bert-attention) | NLP: mecanismos de atención, análisis de capas y cabezas, visualización | PyTorch · Transformers | 12 capas × 12 cabezas · 8 mapas curados | Completado |
 | Asistente RAG sobre documentación | Recuperación de información, evaluación cuantitativa, API y despliegue | Transformers · FastAPI · Docker | — | Planificado |
 
-> `traffic-signs` está terminado y documentado. Ahora estoy trabajando en
-> `bert-attention`; el asistente RAG será el tercer proyecto.
+> `traffic-signs` y `bert-attention` están terminados y documentados. El siguiente paso es
+> el asistente RAG sobre documentación.
 
 ## Sobre mí
 
