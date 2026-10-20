@@ -1,0 +1,54 @@
+# Archivos locales de agentes/asistentes de IA (no subir al repo público)
+AGENTS.md
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# Entornos virtuales
+.venv/
+venv/
+env/
+ENV/
+
+# Datos y datasets (se descargan con los scripts de cada proyecto)
+data/
+datasets/
+*.ppm
+*.zip
+*.tar.gz
+*.tar.bz2
+
+# Pesos y artefactos de modelos
+checkpoints/
+*.pt
+*.pth
+*.h5
+*.keras
+*.onnx
+*.safetensors
+*.pkl
+*.joblib
+
+# Experimentos y secretos
+mlruns/
+wandb/
+.env
+.env.*
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editores / IDEs
+.vscode/
+.idea/
+*.swp
+*~
