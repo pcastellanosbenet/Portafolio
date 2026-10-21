@@ -7,7 +7,7 @@ alcanza.
 
 El proyecto está pensado para demostrar ingeniería RAG completa: ingesta de PDFs
 reales, chunking con metadatos, búsqueda híbrida, lookup exacto de identificadores
-KNX, evaluación de recuperación, API FastAPI y despliegue con Docker. La demo es
+KNX, evaluación de recuperación, API FastAPI y despliegue con Docker. El proyecto se ejecutó en
 **local**: ni el corpus ni las preguntas se envían a APIs externas.
 
 ## Qué hace
@@ -36,18 +36,15 @@ de aplicación, requisitos de hardware, manual de certificación y Application
 Notes.
 
 El estándar está protegido por derechos de autor y **no se redistribuye**. Los
-PDFs viven fuera de Git, en `RAG-Agent/The KNX Standard v3.0.0/`, y se pasan al
-proyecto con `KNX_CORPUS_DIR`. El repositorio solo contiene código, tests y
+PDFs estan fuera de este repositorio. El repositorio solo contiene código, tests y
 resultados agregados.
 
 ## Resultados
 
 ### Ingesta real (subconjunto de evaluación)
 
-Para que la evaluación sea reproducible en este equipo, se indexaron los **25 PDFs
-referenciados por las 20 preguntas** (2.111 páginas). No es el corpus completo de
-178 PDFs. El resto del corpus se puede indexar con el mismo comando, pero tarda
-varias horas en CPU.
+Durante la evaluación, por las características de mi equipo personal, se indexaron solo los **25 PDFs referenciados por las 20 preguntas** (2.111 páginas). No es el corpus completo de
+178 PDFs.    
 
 | Métrica | Valor |
 | :--- | ---: |
@@ -64,8 +61,7 @@ varias horas en CPU.
 | RSS durante embeddings | ~1,2 GB |
 
 La densidad observada fue de **1,19 chunks/página** y **2,0 chunks/s** en la fase
-de embeddings. El detalle del coste y la extrapolación al corpus completo están en
-[`docs/indexing-cost.md`](docs/indexing-cost.md).
+de embeddings.   
 
 ### Evaluación de recuperación
 
@@ -137,12 +133,6 @@ Pregunta ──► agente ──► BM25 + búsqueda densa ──► RRF ──�
                               └─ validador de citas ──► respuesta + fuentes
 ```
 
-El detalle de componentes, decisiones y flujo está en
-[`docs/architecture.md`](docs/architecture.md). El análisis de coste de
-indexación y las alternativas más baratas están en
-[`docs/indexing-cost.md`](docs/indexing-cost.md). Las medidas de hardware y
-modelos están en [`docs/hardware.md`](docs/hardware.md).
-
 ## Cómo ejecutar
 
 Requisitos: Python 3.12, [uv](https://docs.astral.sh/uv/) y, para generar
@@ -192,7 +182,6 @@ Opciones útiles:
 - `--embedding-backend hashing`: backend determinista para tests; no es útil
   para recuperación real.
 
-Los artefactos se guardan en `artifacts/` y están ignorados por Git.
 
 ### 3. Arrancar la API
 
