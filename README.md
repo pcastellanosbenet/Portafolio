@@ -16,10 +16,10 @@ no solo resultados visuales.
 | :--- | :--- | :--- | :--- | :--- |
 | [Clasificación de señales de tráfico](./traffic-signs) | Visión por computador: CNN, transfer learning, augmentación, evaluación por clase y análisis de errores | PyTorch · torchvision | 97,47% accuracy · 43 clases | Completado |
 | [Interpretabilidad de BERT](./bert-attention) | NLP: mecanismos de atención, análisis de capas y cabezas, visualización | PyTorch · Transformers | 12 capas × 12 cabezas · 8 mapas curados | Completado |
-| Asistente RAG sobre documentación | Recuperación de información, evaluación cuantitativa, API y despliegue | Transformers · FastAPI · Docker | — | Planificado |
+| [KNX RAG Assistant](./rag-assistant) | RAG end-to-end: ingesta de PDFs, búsqueda híbrida, citas, evaluación, API y Docker | Transformers · Qdrant · FastAPI · Docker | Recall@10 0,908 · MRR 0,850 · 20 preguntas | Completado |
 
-> `traffic-signs` y `bert-attention` están terminados y documentados. El siguiente paso es
-> el asistente RAG sobre documentación.
+> Los tres proyectos están terminados y documentados. El corpus del estándar KNX no se
+> redistribuye: se descarga o se aporta localmente y se indexa con los scripts del proyecto.
 
 ## Sobre mí
 
@@ -33,8 +33,9 @@ técnica de proyectos con impacto real.
 ## Cómo trabajo
 
 - **Reproducibilidad:** semillas fijas, dependencias versionadas y un comando claro para
-  entrenar y evaluar. Los datasets no se suben al repositorio: cada proyecto incluye un
-  script de descarga.
+  entrenar y evaluar. Los datasets no se suben al repositorio. Cuando la licencia lo
+  permite, cada proyecto incluye un script de descarga; el corpus KNX se aporta
+  localmente porque está protegido por derechos de autor.
 - **Evaluación:** además de la métrica principal, reporto métricas por clase, matrices de
   confusión y análisis de errores. Un resultado sin contexto no cuenta.
 - **Documentación:** cada README explica el problema, los datos, el enfoque, los resultados
@@ -50,5 +51,6 @@ técnica de proyectos con impacto real.
 
 AI Engineer portfolio with hands-on projects in computer vision, natural language
 processing and retrieval-augmented generation. Every project is reproducible, documented
-and evaluated with quantitative metrics. Datasets are not committed; each project ships a
-download script. Code is released under the MIT license.
+and evaluated with quantitative metrics. Datasets are not committed; downloadable
+datasets ship with a fetch script, while the copyrighted KNX corpus is supplied locally.
+Code is released under the MIT license.

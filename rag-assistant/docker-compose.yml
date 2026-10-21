@@ -1,0 +1,47 @@
+services:
+  qdrant:
+    image: qdrant/qdrant:latest
+    restart: unless-stopped
+    ports:
+      - "6333:6333"
+    volumes:
+      - qdrant_data:/qdrant/storage
+
+  api:
+    build:
+      context: .
+    image: knx-rag-assistant:local
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      QDRANT_URL: http://qdrant:6333
+      KNX_CORPUS_DIR: /data/knx
+      RAG_ARTIFACTS_DIR: /app/artifacts
+      RAG_USE_RERANKER: "true"
+      OLLAMA_BASE_URL: ${OLLAMA_BASE_URL:-http://host.docker.internal:11434}
+      OLLAMA_MODEL: ${OLLAMA_MODEL:-qwen2.5:1.5b-instruct-q4_K_M}
+      HF_HOME: /models
+    volumes:
+      - ${KNX_CORPUS_HOST:-../RAG-Agent/The KNX Standard v3.0.0}:/data/knx:ro
+      - artifacts_data:/app/artifacts
+      - hf_cache:/models
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      - qdrant
+
+  ollama:
+    image: ollama/ollama:latest
+    profiles: ["ollama"]
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_models:/root/.ollama
+
+volumes:
+  qdrant_data:
+  hf_cache:
+  artifacts_data:
+  ollama_models:

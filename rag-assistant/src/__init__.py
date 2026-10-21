@@ -1,0 +1,1 @@
+"""KNX RAG assistant package."""

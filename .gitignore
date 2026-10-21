@@ -25,6 +25,12 @@ datasets/
 *.tar.gz
 *.tar.bz2
 
+# Corpus local del estándar KNX (copyright KNX Association)
+RAG-Agent/
+RAG Agent/
+artifacts/
+
+
 # Pesos y artefactos de modelos
 checkpoints/
 *.pt
@@ -41,6 +47,7 @@ mlruns/
 wandb/
 .env
 .env.*
+!.env.example
 
 # Material de estudio local (no publicar)
 study/

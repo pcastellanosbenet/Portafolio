@@ -1,0 +1,38 @@
+{
+  "model": "qwen2.5:1.5b-instruct-q4_K_M",
+  "context": 4096,
+  "predict": 150,
+  "threads": 2,
+  "runs": [
+    {
+      "total_seconds": 23.26,
+      "prompt_tokens": 59,
+      "output_tokens": 150,
+      "prompt_tokens_per_second": 28.07,
+      "output_tokens_per_second": 8.54,
+      "load_seconds": 3.58,
+      "answer_preview": "KNX (Kabelversorgungssystem) is a communication protocol used in building automation systems, allowing for the control and monitoring of various devices in a building. A KNX datapoint type refers to a specific type of data that can be sent or received over the KNX network. These types include temper",
+      "run": 1,
+      "cold": true
+    },
+    {
+      "total_seconds": 16.36,
+      "prompt_tokens": 59,
+      "output_tokens": 150,
+      "prompt_tokens_per_second": 500.88,
+      "output_tokens_per_second": 9.25,
+      "load_seconds": 0.0,
+      "answer_preview": "KNX (Kronos Network eXtension) is a communication protocol used for controlling and monitoring building automation systems. A KNX datapoint type refers to a specific type of data that can be sent or received over the KNX network. These types include temperature, humidity, light level, and many other",
+      "run": 2,
+      "cold": false
+    }
+  ],
+  "loaded_models": [
+    {
+      "name": "qwen2.5:1.5b-instruct-q4_K_M",
+      "size_bytes": 1173136342,
+      "size_vram_bytes": 0
+    }
+  ],
+  "note": "Benchmark de infraestructura; no es una métrica de calidad del RAG."
+}

@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KNX RAG Assistant</title>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --panel: #161b22;
+      --panel-2: #1f2630;
+      --text: #e6edf3;
+      --muted: #9da7b3;
+      --accent: #58a6ff;
+      --accent-2: #3fb950;
+      --border: #30363d;
+      --warn: #d29922;
+      --error: #f85149;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #162030 0, var(--bg) 45%);
+      color: var(--text);
+      min-height: 100vh;
+    }
+    main { max-width: 980px; margin: 0 auto; padding: 32px 20px 64px; }
+    header { display: flex; justify-content: space-between; gap: 16px; align-items: flex-start; margin-bottom: 24px; }
+    h1 { margin: 0 0 6px; font-size: 1.7rem; letter-spacing: -0.02em; }
+    .subtitle { color: var(--muted); margin: 0; line-height: 1.5; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
+      border: 1px solid var(--border); border-radius: 999px; padding: 6px 10px;
+      color: var(--muted); font-size: .8rem; background: var(--panel);
+    }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--warn); }
+    .dot.ok { background: var(--accent-2); }
+    .dot.error { background: var(--error); }
+    .panel {
+      background: linear-gradient(180deg, var(--panel), #12171e);
+      border: 1px solid var(--border); border-radius: 16px; padding: 18px;
+      box-shadow: 0 20px 50px rgba(0,0,0,.25);
+    }
+    label { display: block; font-size: .85rem; color: var(--muted); margin-bottom: 8px; }
+    textarea {
+      width: 100%; min-height: 92px; resize: vertical; padding: 14px;
+      color: var(--text); background: var(--panel-2); border: 1px solid var(--border);
+      border-radius: 12px; font: inherit; line-height: 1.5; outline: none;
+    }
+    textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(88,166,255,.15); }
+    .row { display: flex; gap: 10px; align-items: center; margin-top: 12px; flex-wrap: wrap; }
+    button {
+      border: 0; border-radius: 10px; padding: 10px 16px; font: inherit; font-weight: 600;
+      color: #06121f; background: var(--accent); cursor: pointer;
+    }
+    button:disabled { opacity: .55; cursor: wait; }
+    button.secondary { background: transparent; color: var(--muted); border: 1px solid var(--border); }
+    .hint { color: var(--muted); font-size: .82rem; }
+    .result { margin-top: 20px; display: none; }
+    .result.visible { display: block; }
+    .answer { white-space: pre-wrap; line-height: 1.65; font-size: 1rem; }
+    .answer strong { color: var(--accent); }
+    .section-title { margin: 18px 0 10px; font-size: .9rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+    .citation, .source {
+      border: 1px solid var(--border); background: var(--panel-2); border-radius: 12px;
+      padding: 12px 14px; margin-bottom: 10px;
+    }
+    .citation-title { font-weight: 650; margin-bottom: 4px; }
+    .citation-meta { color: var(--muted); font-size: .82rem; margin-bottom: 8px; }
+    .quote { color: #c9d1d9; line-height: 1.5; font-size: .92rem; }
+    .source-text { color: var(--muted); font-size: .86rem; line-height: 1.5; max-height: 130px; overflow: auto; }
+    details { margin-top: 16px; color: var(--muted); }
+    summary { cursor: pointer; }
+    pre { white-space: pre-wrap; overflow-wrap: anywhere; background: #0b0f14; border: 1px solid var(--border); border-radius: 10px; padding: 12px; }
+    .error { color: var(--error); }
+    @media (max-width: 640px) { header { display: block; } .badge { margin-top: 12px; } }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <div>
+      <h1>KNX RAG Assistant</h1>
+      <p class="subtitle">Asistente local sobre el estándar KNX v3.0.0. Responde con citas a documento, sección y página.</p>
+    </div>
+    <div class="badge"><span id="status-dot" class="dot"></span><span id="status-text">Comprobando índice…</span></div>
+  </header>
+
+  <section class="panel">
+    <label for="question">Pregunta técnica</label>
+    <textarea id="question" placeholder="Ej.: ¿Qué es DPT 1.001 y cómo se codifica?"></textarea>
+    <div class="row">
+      <button id="ask">Consultar</button>
+      <button id="clear" class="secondary">Limpiar</button>
+      <span class="hint">Todo se ejecuta en local. No se envían documentos a terceros.</span>
+    </div>
+  </section>
+
+  <section id="result" class="result panel">
+    <div id="answer" class="answer"></div>
+    <div id="citations"></div>
+    <div id="sources"></div>
+    <details>
+      <summary>Ver traza de recuperación</summary>
+      <pre id="trace"></pre>
+    </details>
+  </section>
+</main>
+
+<script>
+const questionEl = document.getElementById("question");
+const askEl = document.getElementById("ask");
+const clearEl = document.getElementById("clear");
+const resultEl = document.getElementById("result");
+const answerEl = document.getElementById("answer");
+const citationsEl = document.getElementById("citations");
+const sourcesEl = document.getElementById("sources");
+const traceEl = document.getElementById("trace");
+const statusDot = document.getElementById("status-dot");
+const statusText = document.getElementById("status-text");
+
+function textNode(tag, className, text) {
+  const el = document.createElement(tag);
+  if (className) el.className = className;
+  el.textContent = text;
+  return el;
+}
+
+async function checkHealth() {
+  try {
+    const response = await fetch("/health");
+    const data = await response.json();
+    if (data.status === "ok") {
+      statusDot.className = "dot ok";
+      statusText.textContent = `${data.chunks.toLocaleString()} chunks · ${data.llm_model}`;
+    } else {
+      statusDot.className = "dot";
+      statusText.textContent = "Índice no cargado";
+    }
+  } catch {
+    statusDot.className = "dot error";
+    statusText.textContent = "API no disponible";
+  }
+}
+
+function render(data) {
+  resultEl.classList.add("visible");
+  answerEl.textContent = data.answer;
+  citationsEl.replaceChildren();
+  sourcesEl.replaceChildren();
+  traceEl.textContent = JSON.stringify(data.trace, null, 2);
+
+  if (data.citations && data.citations.length) {
+    citationsEl.appendChild(textNode("div", "section-title", "Citas"));
+    for (const citation of data.citations) {
+      const card = document.createElement("div");
+      card.className = "citation";
+      card.appendChild(textNode("div", "citation-title", citation.title));
+      card.appendChild(textNode("div", "citation-meta", `${citation.section} · páginas ${citation.page_start}-${citation.page_end}`));
+      card.appendChild(textNode("div", "quote", citation.quote));
+      citationsEl.appendChild(card);
+    }
+  }
+
+  if (data.sources && data.sources.length) {
+    sourcesEl.appendChild(textNode("div", "section-title", "Fragmentos recuperados"));
+    for (const source of data.sources) {
+      const card = document.createElement("div");
+      card.className = "source";
+      card.appendChild(textNode("div", "citation-title", source.title));
+      card.appendChild(textNode("div", "citation-meta", `${source.section} · páginas ${source.page_start}-${source.page_end} · score ${source.score.toFixed(4)}`));
+      card.appendChild(textNode("div", "source-text", source.text));
+      sourcesEl.appendChild(card);
+    }
+  }
+}
+
+askEl.addEventListener("click", async () => {
+  const question = questionEl.value.trim();
+  if (question.length < 3) return;
+  askEl.disabled = true;
+  answerEl.textContent = "Recuperando fuentes y generando respuesta…";
+  resultEl.classList.add("visible");
+  citationsEl.replaceChildren();
+  sourcesEl.replaceChildren();
+  traceEl.textContent = "";
+  try {
+    const response = await fetch("/v1/query", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ question, top_k: 8 })
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.detail || "Error en la consulta");
+    render(data);
+  } catch (error) {
+    answerEl.textContent = `Error: ${error.message}`;
+  } finally {
+    askEl.disabled = false;
+  }
+});
+
+clearEl.addEventListener("click", () => {
+  questionEl.value = "";
+  resultEl.classList.remove("visible");
+  answerEl.textContent = "";
+  citationsEl.replaceChildren();
+  sourcesEl.replaceChildren();
+  traceEl.textContent = "";
+});
+
+questionEl.addEventListener("keydown", (event) => {
+  if ((event.ctrlKey || event.metaKey) && event.key === "Enter") askEl.click();
+});
+
+checkHealth();
+</script>
+</body>
+</html>

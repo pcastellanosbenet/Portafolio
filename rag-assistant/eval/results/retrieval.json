@@ -1,0 +1,2504 @@
+{
+  "k": 10,
+  "questions": 20,
+  "overall": {
+    "recall_at_k": 0.9083,
+    "hit_at_k": 0.95,
+    "mrr": 0.85,
+    "ndcg_at_k": 0.8427
+  },
+  "by_type": {
+    "application": {
+      "recall_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0
+    },
+    "architecture": {
+      "recall_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "mrr": 0.75,
+      "ndcg_at_k": 0.8155
+    },
+    "change": {
+      "recall_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 0.8503
+    },
+    "comparison": {
+      "recall_at_k": 0.6667,
+      "hit_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 0.7039
+    },
+    "component": {
+      "recall_at_k": 0.5,
+      "hit_at_k": 1.0,
+      "mrr": 0.5,
+      "ndcg_at_k": 0.3869
+    },
+    "definition": {
+      "recall_at_k": 0.5,
+      "hit_at_k": 0.5,
+      "mrr": 0.5,
+      "ndcg_at_k": 0.5
+    },
+    "identifier": {
+      "recall_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0
+    },
+    "procedure": {
+      "recall_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "mrr": 0.875,
+      "ndcg_at_k": 0.9077
+    },
+    "protocol": {
+      "recall_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0
+    },
+    "requirements": {
+      "recall_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0
+    },
+    "testing": {
+      "recall_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "mrr": 0.75,
+      "ndcg_at_k": 0.8255
+    }
+  },
+  "by_language": {
+    "en": {
+      "recall_at_k": 0.9688,
+      "hit_at_k": 1.0,
+      "mrr": 0.9062,
+      "ndcg_at_k": 0.9074
+    },
+    "es": {
+      "recall_at_k": 0.6667,
+      "hit_at_k": 0.75,
+      "mrr": 0.625,
+      "ndcg_at_k": 0.5837
+    }
+  },
+  "details": [
+    {
+      "id": "q001",
+      "question": "What is DPT 1.001 and how is it encoded?",
+      "language": "en",
+      "type": "definition",
+      "retrieved_doc_ids": [
+        "03-volume-3-system-specifications-03-07-02-datapoint-types-v02-02-01-as",
+        "07-volume-7-application-descriptions-07-20-02-lighting-actuators-v01-07-01-as",
+        "03-volume-3-system-specifications-03-07-01-interworking-model-v02-01-01"
+      ],
+      "relevant_doc_ids": [
+        "03-volume-3-system-specifications-03-07-02-datapoint-types-v02-02-01-as"
+      ],
+      "recall_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "top_chunks": [
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-07-02-datapoint-types-v02-02-01-as::table::26::15::0::0",
+          "doc_id": "03-volume-3-system-specifications-03-07-02-datapoint-types-v02-02-01-as",
+          "section": "Datapoint Types > NOTE 2",
+          "pages": [
+            26,
+            26
+          ],
+          "score": 0.99908
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-07-02-datapoint-types-v02-02-01-as::table::28::17::0::0",
+          "doc_id": "03-volume-3-system-specifications-03-07-02-datapoint-types-v02-02-01-as",
+          "section": "Datapoint Types > 2 bit: B2",
+          "pages": [
+            28,
+            28
+          ],
+          "score": 0.997485
+        },
+        {
+          "chunk_id": "07-volume-7-application-descriptions-07-20-02-lighting-actuators-v01-07-01-as::table::16::2::0::0",
+          "doc_id": "07-volume-7-application-descriptions-07-20-02-lighting-actuators-v01-07-01-as",
+          "section": "Lighting Actuators > DP Description > Inputs",
+          "pages": [
+            16,
+            16
+          ],
+          "score": 0.997168
+        },
+        {
+          "chunk_id": "07-volume-7-application-descriptions-07-20-02-lighting-actuators-v01-07-01-as::table::56::42::0::0",
+          "doc_id": "07-volume-7-application-descriptions-07-20-02-lighting-actuators-v01-07-01-as",
+          "section": "Lighting Actuators > Datapoint description > Inputs",
+          "pages": [
+            56,
+            56
+          ],
+          "score": 0.994426
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-07-02-datapoint-types-v02-02-01-as::table::114::100::0::0",
+          "doc_id": "03-volume-3-system-specifications-03-07-02-datapoint-types-v02-02-01-as",
+          "section": "Datapoint Types > Alarming mechanism",
+          "pages": [
+            114,
+            114
+          ],
+          "score": 0.99124
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-07-02-datapoint-types-v02-02-01-as::section::45",
+          "doc_id": "03-volume-3-system-specifications-03-07-02-datapoint-types-v02-02-01-as",
+          "section": "Datapoint Types > 6 MSB",
+          "pages": [
+            94,
+            96
+          ],
+          "score": 0.989599
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-07-02-datapoint-types-v02-02-01-as::table::61::71::0::0",
+          "doc_id": "03-volume-3-system-specifications-03-07-02-datapoint-types-v02-02-01-as",
+          "section": "Datapoint Types > 1 octet: r1B1U6",
+          "pages": [
+            61,
+            61
+          ],
+          "score": 0.98848
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-07-01-interworking-model-v02-01-01::section::3",
+          "doc_id": "03-volume-3-system-specifications-03-07-01-interworking-model-v02-01-01",
+          "section": "Interworking Model > DPT P2 > Figure 6 - Functional Block with 5 Datapoints",
+          "pages": [
+            7,
+            9
+          ],
+          "score": 0.979045
+        },
+        {
+          "chunk_id": "07-volume-7-application-descriptions-07-20-02-lighting-actuators-v01-07-01-as::table::130::133::0::0",
+          "doc_id": "07-volume-7-application-descriptions-07-20-02-lighting-actuators-v01-07-01-as",
+          "section": "Lighting Actuators > DPT ID > 1.003 Datatype format B1 > 5.7.11 Parameter Colour RGB Switch On Set Value (RGBSOSV)",
+          "pages": [
+            130,
+            130
+          ],
+          "score": 0.978799
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-07-01-interworking-model-v02-01-01::section::31",
+          "doc_id": "03-volume-3-system-specifications-03-07-01-interworking-model-v02-01-01",
+          "section": "Interworking Model > NOTE > ♦ DP address",
+          "pages": [
+            39,
+            40
+          ],
+          "score": 0.973839
+        }
+      ]
+    },
+    {
+      "id": "q002",
+      "question": "What physical quantity does DPT 14.046 represent?",
+      "language": "en",
+      "type": "identifier",
+      "retrieved_doc_ids": [
+        "03-volume-3-system-specifications-03-07-02-datapoint-types-v02-02-01-as"
+      ],
+      "relevant_doc_ids": [
+        "03-volume-3-system-specifications-03-07-02-datapoint-types-v02-02-01-as"
+      ],
+      "recall_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "top_chunks": [
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-07-02-datapoint-types-v02-02-01-as::table::20::9::0::0",
+          "doc_id": "03-volume-3-system-specifications-03-07-02-datapoint-types-v02-02-01-as",
+          "section": "Datapoint Types > B5N3 > DPT_Name",
+          "pages": [
+            20,
+            20
+          ],
+          "score": 0.999102
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-07-02-datapoint-types-v02-02-01-as::table::45::47::1::0",
+          "doc_id": "03-volume-3-system-specifications-03-07-02-datapoint-types-v02-02-01-as",
+          "section": "Datapoint Types > NOTE 8",
+          "pages": [
+            45,
+            45
+          ],
+          "score": 0.999101
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-07-02-datapoint-types-v02-02-01-as::table::19::8::1::0",
+          "doc_id": "03-volume-3-system-specifications-03-07-02-datapoint-types-v02-02-01-as",
+          "section": "Datapoint Types > B5N3 > DPT_Name",
+          "pages": [
+            19,
+            19
+          ],
+          "score": 0.991398
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-07-02-datapoint-types-v02-02-01-as::table::46::48::0::0",
+          "doc_id": "03-volume-3-system-specifications-03-07-02-datapoint-types-v02-02-01-as",
+          "section": "Datapoint Types > JK-1",
+          "pages": [
+            46,
+            46
+          ],
+          "score": 0.985529
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-07-02-datapoint-types-v02-02-01-as::section::17",
+          "doc_id": "03-volume-3-system-specifications-03-07-02-datapoint-types-v02-02-01-as",
+          "section": "Datapoint Types > NOTE 8",
+          "pages": [
+            44,
+            46
+          ],
+          "score": 0.969782
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-07-02-datapoint-types-v02-02-01-as::table::45::47::0::1",
+          "doc_id": "03-volume-3-system-specifications-03-07-02-datapoint-types-v02-02-01-as",
+          "section": "Datapoint Types > NOTE 8",
+          "pages": [
+            45,
+            45
+          ],
+          "score": 0.874452
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-07-02-datapoint-types-v02-02-01-as::section::6",
+          "doc_id": "03-volume-3-system-specifications-03-07-02-datapoint-types-v02-02-01-as",
+          "section": "Datapoint Types > B5N3 > DPT_Name",
+          "pages": [
+            19,
+            20
+          ],
+          "score": 0.831933
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-07-02-datapoint-types-v02-02-01-as::table::19::8::0::1",
+          "doc_id": "03-volume-3-system-specifications-03-07-02-datapoint-types-v02-02-01-as",
+          "section": "Datapoint Types > B5N3 > DPT_Name",
+          "pages": [
+            19,
+            19
+          ],
+          "score": 0.7352
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-07-02-datapoint-types-v02-02-01-as::table::20::9::0::1",
+          "doc_id": "03-volume-3-system-specifications-03-07-02-datapoint-types-v02-02-01-as",
+          "section": "Datapoint Types > B5N3 > DPT_Name",
+          "pages": [
+            20,
+            20
+          ],
+          "score": 0.717121
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-07-02-datapoint-types-v02-02-01-as::table::46::48::1::0",
+          "doc_id": "03-volume-3-system-specifications-03-07-02-datapoint-types-v02-02-01-as",
+          "section": "Datapoint Types > JK-1",
+          "pages": [
+            46,
+            46
+          ],
+          "score": 0.687915
+        }
+      ]
+    },
+    {
+      "id": "q003",
+      "question": "¿Qué es una dirección de grupo en KNX?",
+      "language": "es",
+      "type": "definition",
+      "retrieved_doc_ids": [
+        "03-volume-3-system-specifications-03-02-05-communication-medium-rf-v02-03-01-as",
+        "03-volume-3-system-specifications-3-10-3-knx-iot-information-model",
+        "03-volume-3-system-specifications-03-05-01-resources-v01-10-01-as",
+        "08-volume-8-system-test-specifications-08-tssj-system-conformance-testing-data-security-tests-v1-11-as",
+        "03-volume-3-system-specifications-03-08-09-knx-ip-secure-v01-01-02-as"
+      ],
+      "relevant_doc_ids": [
+        "03-volume-3-system-specifications-03-01-02-glossary-v01-05-03-as",
+        "03-volume-3-system-specifications-03-07-01-interworking-model-v02-01-01"
+      ],
+      "recall_at_k": 0.0,
+      "hit_at_k": 0.0,
+      "mrr": 0.0,
+      "ndcg_at_k": 0.0,
+      "top_chunks": [
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-02-05-communication-medium-rf-v02-03-01-as::section::14",
+          "doc_id": "03-volume-3-system-specifications-03-02-05-communication-medium-rf-v02-03-01-as",
+          "section": "Communication Medium RF > NOTE 5 > Address Extension Type (=AddrExtensionType) (AET)",
+          "pages": [
+            25,
+            26
+          ],
+          "score": 0.999282
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-3-10-3-knx-iot-information-model::section::22",
+          "doc_id": "03-volume-3-system-specifications-3-10-3-knx-iot-information-model",
+          "section": "KNX IoT - KNX Information Model (KIM) > NOTE 13 > :groupAddress",
+          "pages": [
+            30,
+            31
+          ],
+          "score": 0.996881
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-05-01-resources-v01-10-01-as::section::7",
+          "doc_id": "03-volume-3-system-specifications-03-05-01-resources-v01-10-01-as",
+          "section": "Resources > Overview",
+          "pages": [
+            18,
+            19
+          ],
+          "score": 0.993737
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-3-10-3-knx-iot-information-model::section::24",
+          "doc_id": "03-volume-3-system-specifications-3-10-3-knx-iot-information-model",
+          "section": "KNX IoT - KNX Information Model (KIM) > NOTE 14",
+          "pages": [
+            33,
+            34
+          ],
+          "score": 0.983032
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-3-10-3-knx-iot-information-model::section::49",
+          "doc_id": "03-volume-3-system-specifications-3-10-3-knx-iot-information-model",
+          "section": "KNX IoT - KNX Information Model (KIM) > Installation Relations > :Datapoint",
+          "pages": [
+            67,
+            68
+          ],
+          "score": 0.969841
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-3-10-3-knx-iot-information-model::section::15",
+          "doc_id": "03-volume-3-system-specifications-3-10-3-knx-iot-information-model",
+          "section": "KNX IoT - KNX Information Model (KIM) > Class and subclasses > loc:hasRoomSegment > 1.2.3.7 Address",
+          "pages": [
+            22,
+            23
+          ],
+          "score": 0.895964
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-02-05-communication-medium-rf-v02-03-01-as::table::25::12::0::0",
+          "doc_id": "03-volume-3-system-specifications-03-02-05-communication-medium-rf-v02-03-01-as",
+          "section": "Communication Medium RF > KNX RF Data Link Layer for all KNX RF devices > Differences to existing (bidirectional) KNX protocol > 6.1.1.1 Extended Group Address",
+          "pages": [
+            25,
+            25
+          ],
+          "score": 0.844948
+        },
+        {
+          "chunk_id": "08-volume-8-system-test-specifications-08-tssj-system-conformance-testing-data-security-tests-v1-11-as::table::38::3::0::0",
+          "doc_id": "08-volume-8-system-test-specifications-08-tssj-system-conformance-testing-data-security-tests-v1-11-as",
+          "section": "Volume 8 KNX Data Security Test Specs > Introduction",
+          "pages": [
+            38,
+            38
+          ],
+          "score": 0.804665
+        },
+        {
+          "chunk_id": "08-volume-8-system-test-specifications-08-tssj-system-conformance-testing-data-security-tests-v1-11-as::section::220",
+          "doc_id": "08-volume-8-system-test-specifications-08-tssj-system-conformance-testing-data-security-tests-v1-11-as",
+          "section": "Volume 8 KNX Data Security Test Specs > 00 00 00 00 00 :S-A_Sync(Rsp, Challenge=00 00 00 00 00 01, Seq.remote=table, Seq.local=tool), Key: TK1 > 3.8.17 Test PID_GO_SECURITY_FLAGS(61) (00C/00C) > 3.8.17.1 Secure PropertyValueWrite and Read of GO Security Flags",
+          "pages": [
+            189,
+            192
+          ],
+          "score": 0.648386
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-08-09-knx-ip-secure-v01-01-02-as::section::2",
+          "doc_id": "03-volume-3-system-specifications-03-08-09-knx-ip-secure-v01-01-02-as",
+          "section": "KNXnet/IP Secure > General Security Goals > (System-)Broadcast (e.g. A_IndividualAddress_Write)",
+          "pages": [
+            6,
+            6
+          ],
+          "score": 0.644726
+        }
+      ]
+    },
+    {
+      "id": "q004",
+      "question": "What does PID_LOAD_STATE_CONTROL represent and where is it used?",
+      "language": "en",
+      "type": "identifier",
+      "retrieved_doc_ids": [
+        "03-volume-3-system-specifications-03-05-01-resources-v01-10-01-as"
+      ],
+      "relevant_doc_ids": [
+        "03-volume-3-system-specifications-03-05-01-resources-v01-10-01-as"
+      ],
+      "recall_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "top_chunks": [
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-05-01-resources-v01-10-01-as::section::248",
+          "doc_id": "03-volume-3-system-specifications-03-05-01-resources-v01-10-01-as",
+          "section": "Resources > Device Object > 5.3.2.1 PID_LOAD_STATE_CONTROL (PID = 5)",
+          "pages": [
+            319,
+            319
+          ],
+          "score": 0.998668
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-05-01-resources-v01-10-01-as::section::227",
+          "doc_id": "03-volume-3-system-specifications-03-05-01-resources-v01-10-01-as",
+          "section": "Resources > 7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0 > 4.23 Load State Machine > 4.23.2 Load State Machine – Realisation Type 1 (Property based) > 4.23.2.2 Location",
+          "pages": [
+            293,
+            294
+          ],
+          "score": 0.998068
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-05-01-resources-v01-10-01-as::section::254",
+          "doc_id": "03-volume-3-system-specifications-03-05-01-resources-v01-10-01-as",
+          "section": "Resources > PID_LOAD_STATE_CONTROL (PID: 5)",
+          "pages": [
+            327,
+            328
+          ],
+          "score": 0.992768
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-05-01-resources-v01-10-01-as::section::77",
+          "doc_id": "03-volume-3-system-specifications-03-05-01-resources-v01-10-01-as",
+          "section": "Resources > General requirements",
+          "pages": [
+            110,
+            111
+          ],
+          "score": 0.992546
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-05-01-resources-v01-10-01-as::section::63",
+          "doc_id": "03-volume-3-system-specifications-03-05-01-resources-v01-10-01-as",
+          "section": "Resources > PID_LOAD_STATE_CONTROL (PID = 5) > Load Events",
+          "pages": [
+            91,
+            92
+          ],
+          "score": 0.989016
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-05-01-resources-v01-10-01-as::section::221",
+          "doc_id": "03-volume-3-system-specifications-03-05-01-resources-v01-10-01-as",
+          "section": "Resources > 16 = PID_PEI_TYPE > Supported > 4.20.3 Application Program – Realisation Type 7 > 4.20.3.1 Use",
+          "pages": [
+            288,
+            289
+          ],
+          "score": 0.959407
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-05-01-resources-v01-10-01-as::section::14",
+          "doc_id": "03-volume-3-system-specifications-03-05-01-resources-v01-10-01-as",
+          "section": "Resources > U3U13",
+          "pages": [
+            29,
+            31
+          ],
+          "score": 0.952968
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-05-01-resources-v01-10-01-as::section::179",
+          "doc_id": "03-volume-3-system-specifications-03-05-01-resources-v01-10-01-as",
+          "section": "Resources > 53 = PID_GROUP_RESPONSER-",
+          "pages": [
+            238,
+            239
+          ],
+          "score": 0.90548
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-05-01-resources-v01-10-01-as::table::288::80::0::0",
+          "doc_id": "03-volume-3-system-specifications-03-05-01-resources-v01-10-01-as",
+          "section": "Resources > 16 = PID_PEI_TYPE > Supported > 4.20.3 Application Program – Realisation Type 7",
+          "pages": [
+            288,
+            288
+          ],
+          "score": 0.875663
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-05-01-resources-v01-10-01-as::section::189",
+          "doc_id": "03-volume-3-system-specifications-03-05-01-resources-v01-10-01-as",
+          "section": "Resources > 2 = PID_OBJECT_NAME",
+          "pages": [
+            249,
+            249
+          ],
+          "score": 0.816349
+        }
+      ]
+    },
+    {
+      "id": "q005",
+      "question": "How does KNX IP Secure protect tunnelling connections?",
+      "language": "en",
+      "type": "procedure",
+      "retrieved_doc_ids": [
+        "03-volume-3-system-specifications-03-08-09-knx-ip-secure-v01-01-02-as"
+      ],
+      "relevant_doc_ids": [
+        "03-volume-3-system-specifications-03-08-09-knx-ip-secure-v01-01-02-as"
+      ],
+      "recall_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "top_chunks": [
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-08-09-knx-ip-secure-v01-01-02-as::section::45",
+          "doc_id": "03-volume-3-system-specifications-03-08-09-knx-ip-secure-v01-01-02-as",
+          "section": "KNXnet/IP Secure > EXAMPLE 2 > 2.3.1.8.5 Usage by the MaC (ETS)",
+          "pages": [
+            47,
+            47
+          ],
+          "score": 0.999954
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-08-09-knx-ip-secure-v01-01-02-as::section::44",
+          "doc_id": "03-volume-3-system-specifications-03-08-09-knx-ip-secure-v01-01-02-as",
+          "section": "KNXnet/IP Secure > 1 octet > Figure 29 – Tunnelling Users Table",
+          "pages": [
+            46,
+            46
+          ],
+          "score": 0.999921
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-08-09-knx-ip-secure-v01-01-02-as::section::39",
+          "doc_id": "03-volume-3-system-specifications-03-08-09-knx-ip-secure-v01-01-02-as",
+          "section": "KNXnet/IP Secure > 97 = PID_TUNNELLING_USERS > Error handling > 2.3.1.5 PID_SECURED_SERVICE_FAMILIES (PID=94) > 2.3.1.5.1 Abstract resource definition",
+          "pages": [
+            40,
+            41
+          ],
+          "score": 0.999871
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-08-09-knx-ip-secure-v01-01-02-as::section::1",
+          "doc_id": "03-volume-3-system-specifications-03-08-09-knx-ip-secure-v01-01-02-as",
+          "section": "KNXnet/IP Secure > Motivation",
+          "pages": [
+            5,
+            5
+          ],
+          "score": 0.999759
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-08-09-knx-ip-secure-v01-01-02-as::section::40",
+          "doc_id": "03-volume-3-system-specifications-03-08-09-knx-ip-secure-v01-01-02-as",
+          "section": "KNXnet/IP Secure > 97 = PID_TUNNELLING_USERS > Service Family ID 05h: KNXnet/IP Routing",
+          "pages": [
+            41,
+            42
+          ],
+          "score": 0.9996
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-08-09-knx-ip-secure-v01-01-02-as::section::2",
+          "doc_id": "03-volume-3-system-specifications-03-08-09-knx-ip-secure-v01-01-02-as",
+          "section": "KNXnet/IP Secure > General Security Goals > (System-)Broadcast (e.g. A_IndividualAddress_Write)",
+          "pages": [
+            6,
+            6
+          ],
+          "score": 0.999515
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-08-09-knx-ip-secure-v01-01-02-as::section::10",
+          "doc_id": "03-volume-3-system-specifications-03-08-09-knx-ip-secure-v01-01-02-as",
+          "section": "KNXnet/IP Secure > TCP/ > [i] > 2.2.1.4 Access Control > 2.2.1.4.2 KNXnet/IP Core",
+          "pages": [
+            13,
+            14
+          ],
+          "score": 0.999445
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-08-09-knx-ip-secure-v01-01-02-as::section::11",
+          "doc_id": "03-volume-3-system-specifications-03-08-09-knx-ip-secure-v01-01-02-as",
+          "section": "KNXnet/IP Secure > TUNNELING > 2.2.1.4.5 KNXnet/IP Routing",
+          "pages": [
+            14,
+            15
+          ],
+          "score": 0.99924
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-08-09-knx-ip-secure-v01-01-02-as::section::36",
+          "doc_id": "03-volume-3-system-specifications-03-08-09-knx-ip-secure-v01-01-02-as",
+          "section": "KNXnet/IP Secure > 91 = PID_BACKBONE_KEY",
+          "pages": [
+            37,
+            38
+          ],
+          "score": 0.997719
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-08-09-knx-ip-secure-v01-01-02-as::table::13::0::0::0",
+          "doc_id": "03-volume-3-system-specifications-03-08-09-knx-ip-secure-v01-01-02-as",
+          "section": "KNXnet/IP Secure > TCP/ > [i] > 2.2.1.4 Access Control > 2.2.1.4.1 KNXnet/IP Services",
+          "pages": [
+            13,
+            13
+          ],
+          "score": 0.99721
+        }
+      ]
+    },
+    {
+      "id": "q006",
+      "question": "¿Qué son las access policies de KNX y para qué se usan?",
+      "language": "es",
+      "type": "procedure",
+      "retrieved_doc_ids": [
+        "application-notes-an193-v04-access-policies-as",
+        "03-volume-3-system-specifications-03-04-01-application-interface-layer-as-v02-01-01",
+        "03-volume-3-system-specifications-03-08-09-knx-ip-secure-v01-01-02-as"
+      ],
+      "relevant_doc_ids": [
+        "application-notes-an193-v04-access-policies-as"
+      ],
+      "recall_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "top_chunks": [
+        {
+          "chunk_id": "application-notes-an193-v04-access-policies-as::section::3",
+          "doc_id": "application-notes-an193-v04-access-policies-as",
+          "section": "Access Policies > Parameter services",
+          "pages": [
+            6,
+            7
+          ],
+          "score": 0.99661
+        },
+        {
+          "chunk_id": "application-notes-an193-v04-access-policies-as::section::6",
+          "doc_id": "application-notes-an193-v04-access-policies-as",
+          "section": "Access Policies > 87 PID_GRP_MULTICAST_TABLE > 2.7 Profile definition",
+          "pages": [
+            18,
+            19
+          ],
+          "score": 0.996033
+        },
+        {
+          "chunk_id": "application-notes-an193-v04-access-policies-as::section::5",
+          "doc_id": "application-notes-an193-v04-access-policies-as",
+          "section": "Access Policies > 23 PID_TABLE > Object Type 3: Applicationprogram",
+          "pages": [
+            11,
+            18
+          ],
+          "score": 0.987438
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-04-01-application-interface-layer-as-v02-01-01::section::28",
+          "doc_id": "03-volume-3-system-specifications-03-04-01-application-interface-layer-as-v02-01-01",
+          "section": "Application Interface Layer > NOTE 12",
+          "pages": [
+            41,
+            42
+          ],
+          "score": 0.963791
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-04-01-application-interface-layer-as-v02-01-01::section::31",
+          "doc_id": "03-volume-3-system-specifications-03-04-01-application-interface-layer-as-v02-01-01",
+          "section": "Application Interface Layer > 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 0 0 004 / 004 > Number of Access Policies",
+          "pages": [
+            44,
+            44
+          ],
+          "score": 0.958597
+        },
+        {
+          "chunk_id": "application-notes-an193-v04-access-policies-as::section::0",
+          "doc_id": "application-notes-an193-v04-access-policies-as",
+          "section": "Access Policies > Application Note 193/18 v04 > Date:",
+          "pages": [
+            1,
+            3
+          ],
+          "score": 0.913276
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-08-09-knx-ip-secure-v01-01-02-as::section::10",
+          "doc_id": "03-volume-3-system-specifications-03-08-09-knx-ip-secure-v01-01-02-as",
+          "section": "KNXnet/IP Secure > TCP/ > [i] > 2.2.1.4 Access Control > 2.2.1.4.2 KNXnet/IP Core",
+          "pages": [
+            13,
+            14
+          ],
+          "score": 0.86065
+        },
+        {
+          "chunk_id": "application-notes-an193-v04-access-policies-as::table::11::8::0::0",
+          "doc_id": "application-notes-an193-v04-access-policies-as",
+          "section": "Access Policies > 53 PID_GROUP_RESPONSER_TABLE > Object Type 2: Associationtable Object",
+          "pages": [
+            11,
+            11
+          ],
+          "score": 0.831447
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-04-01-application-interface-layer-as-v02-01-01::section::29",
+          "doc_id": "03-volume-3-system-specifications-03-04-01-application-interface-layer-as-v02-01-01",
+          "section": "Application Interface Layer > 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 0 0 004 / 004 > Access Policy",
+          "pages": [
+            42,
+            43
+          ],
+          "score": 0.603043
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-04-01-application-interface-layer-as-v02-01-01::section::25",
+          "doc_id": "03-volume-3-system-specifications-03-04-01-application-interface-layer-as-v02-01-01",
+          "section": "Application Interface Layer > NOTE 7 > 6.2.5.2 Roles for group communication",
+          "pages": [
+            39,
+            39
+          ],
+          "score": 0.475262
+        }
+      ]
+    },
+    {
+      "id": "q007",
+      "question": "What is the KNX product certification procedure?",
+      "language": "en",
+      "type": "procedure",
+      "retrieved_doc_ids": [
+        "05-volume-5-certification-manual-05-knx-certification-of-products-procedure-v01-07-09-as"
+      ],
+      "relevant_doc_ids": [
+        "05-volume-5-certification-manual-05-knx-certification-of-products-procedure-v01-07-09-as"
+      ],
+      "recall_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "top_chunks": [
+        {
+          "chunk_id": "05-volume-5-certification-manual-05-knx-certification-of-products-procedure-v01-07-09-as::section::21",
+          "doc_id": "05-volume-5-certification-manual-05-knx-certification-of-products-procedure-v01-07-09-as",
+          "section": "KNX Certification of Products - Procedure > NOTE 5",
+          "pages": [
+            33,
+            34
+          ],
+          "score": 0.999981
+        },
+        {
+          "chunk_id": "05-volume-5-certification-manual-05-knx-certification-of-products-procedure-v01-07-09-as::section::10",
+          "doc_id": "05-volume-5-certification-manual-05-knx-certification-of-products-procedure-v01-07-09-as",
+          "section": "KNX Certification of Products - Procedure > Registration Phase",
+          "pages": [
+            17,
+            17
+          ],
+          "score": 0.99998
+        },
+        {
+          "chunk_id": "05-volume-5-certification-manual-05-knx-certification-of-products-procedure-v01-07-09-as::section::7",
+          "doc_id": "05-volume-5-certification-manual-05-knx-certification-of-products-procedure-v01-07-09-as",
+          "section": "KNX Certification of Products - Procedure > General Overview of the Certification Procedure of Products",
+          "pages": [
+            13,
+            14
+          ],
+          "score": 0.99998
+        },
+        {
+          "chunk_id": "05-volume-5-certification-manual-05-knx-certification-of-products-procedure-v01-07-09-as::section::40",
+          "doc_id": "05-volume-5-certification-manual-05-knx-certification-of-products-procedure-v01-07-09-as",
+          "section": "KNX Certification of Products - Procedure > Submitting knxei file for registration",
+          "pages": [
+            65,
+            66
+          ],
+          "score": 0.999975
+        },
+        {
+          "chunk_id": "05-volume-5-certification-manual-05-knx-certification-of-products-procedure-v01-07-09-as::section::16",
+          "doc_id": "05-volume-5-certification-manual-05-knx-certification-of-products-procedure-v01-07-09-as",
+          "section": "KNX Certification of Products - Procedure > New > 3.5.1.1 New product",
+          "pages": [
+            27,
+            28
+          ],
+          "score": 0.999968
+        },
+        {
+          "chunk_id": "05-volume-5-certification-manual-05-knx-certification-of-products-procedure-v01-07-09-as::section::5",
+          "doc_id": "05-volume-5-certification-manual-05-knx-certification-of-products-procedure-v01-07-09-as",
+          "section": "KNX Certification of Products - Procedure > 2 Definitions > Definition",
+          "pages": [
+            9,
+            10
+          ],
+          "score": 0.999961
+        },
+        {
+          "chunk_id": "05-volume-5-certification-manual-05-knx-certification-of-products-procedure-v01-07-09-as::section::2",
+          "doc_id": "05-volume-5-certification-manual-05-knx-certification-of-products-procedure-v01-07-09-as",
+          "section": "KNX Certification of Products - Procedure > 1 Introduction",
+          "pages": [
+            6,
+            6
+          ],
+          "score": 0.999916
+        },
+        {
+          "chunk_id": "05-volume-5-certification-manual-05-knx-certification-of-products-procedure-v01-07-09-as::section::12",
+          "doc_id": "05-volume-5-certification-manual-05-knx-certification-of-products-procedure-v01-07-09-as",
+          "section": "KNX Certification of Products - Procedure > Testing Phase",
+          "pages": [
+            19,
+            21
+          ],
+          "score": 0.99991
+        },
+        {
+          "chunk_id": "05-volume-5-certification-manual-05-knx-certification-of-products-procedure-v01-07-09-as::section::6",
+          "doc_id": "05-volume-5-certification-manual-05-knx-certification-of-products-procedure-v01-07-09-as",
+          "section": "KNX Certification of Products - Procedure > Overview",
+          "pages": [
+            11,
+            12
+          ],
+          "score": 0.999903
+        },
+        {
+          "chunk_id": "05-volume-5-certification-manual-05-knx-certification-of-products-procedure-v01-07-09-as::section::19",
+          "doc_id": "05-volume-5-certification-manual-05-knx-certification-of-products-procedure-v01-07-09-as",
+          "section": "KNX Certification of Products - Procedure > Special cases > 3.5.5.1 Withdrawal of a registered and or certified Product",
+          "pages": [
+            31,
+            32
+          ],
+          "score": 0.999898
+        }
+      ]
+    },
+    {
+      "id": "q008",
+      "question": "What are the general hardware requirements for KNX products?",
+      "language": "en",
+      "type": "requirements",
+      "retrieved_doc_ids": [
+        "04-volume-4-hardware-requirements-04-01-hw-requirements-for-knx-products-general-v01-04-08-as"
+      ],
+      "relevant_doc_ids": [
+        "04-volume-4-hardware-requirements-04-01-hw-requirements-for-knx-products-general-v01-04-08-as"
+      ],
+      "recall_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "top_chunks": [
+        {
+          "chunk_id": "04-volume-4-hardware-requirements-04-01-hw-requirements-for-knx-products-general-v01-04-08-as::section::3",
+          "doc_id": "04-volume-4-hardware-requirements-04-01-hw-requirements-for-knx-products-general-v01-04-08-as",
+          "section": "Hardware Requirements for KNX Products > 2 General requirements > 2.3 Electrical safety > 2.3.3 Galvanic connection of external circuits to KNX TP1 bus.",
+          "pages": [
+            9,
+            10
+          ],
+          "score": 0.999964
+        },
+        {
+          "chunk_id": "04-volume-4-hardware-requirements-04-01-hw-requirements-for-knx-products-general-v01-04-08-as::section::4",
+          "doc_id": "04-volume-4-hardware-requirements-04-01-hw-requirements-for-knx-products-general-v01-04-08-as",
+          "section": "Hardware Requirements for KNX Products > SELV AUX > Figure 3 - Examples of galvanic connection of external circuits to KNX bus > 2.3.4 Use of protective impedances in TP1 circuits",
+          "pages": [
+            11,
+            11
+          ],
+          "score": 0.999964
+        },
+        {
+          "chunk_id": "04-volume-4-hardware-requirements-04-01-hw-requirements-for-knx-products-general-v01-04-08-as::section::2",
+          "doc_id": "04-volume-4-hardware-requirements-04-01-hw-requirements-for-knx-products-general-v01-04-08-as",
+          "section": "Hardware Requirements for KNX Products > 1 If a KNX TP product is intended for installation only within a single equipotential earthing system and the rated impulse voltages",
+          "pages": [
+            5,
+            9
+          ],
+          "score": 0.999959
+        },
+        {
+          "chunk_id": "04-volume-4-hardware-requirements-04-01-hw-requirements-for-knx-products-general-v01-04-08-as::section::1",
+          "doc_id": "04-volume-4-hardware-requirements-04-01-hw-requirements-for-knx-products-general-v01-04-08-as",
+          "section": "Hardware Requirements for KNX Products > 1 Introduction > 1.1 General",
+          "pages": [
+            5,
+            5
+          ],
+          "score": 0.999939
+        },
+        {
+          "chunk_id": "04-volume-4-hardware-requirements-04-01-hw-requirements-for-knx-products-general-v01-04-08-as::section::11",
+          "doc_id": "04-volume-4-hardware-requirements-04-01-hw-requirements-for-knx-products-general-v01-04-08-as",
+          "section": "Hardware Requirements for KNX Products > Creepage Distances > and creepage distances can be calculated on the basis of EN 60664-1.",
+          "pages": [
+            21,
+            23
+          ],
+          "score": 0.99991
+        },
+        {
+          "chunk_id": "04-volume-4-hardware-requirements-04-01-hw-requirements-for-knx-products-general-v01-04-08-as::section::8",
+          "doc_id": "04-volume-4-hardware-requirements-04-01-hw-requirements-for-knx-products-general-v01-04-08-as",
+          "section": "Hardware Requirements for KNX Products > 3 Informative Annex – Electrical Safety > 3.5 Group 2 KNX devices",
+          "pages": [
+            16,
+            17
+          ],
+          "score": 0.999907
+        },
+        {
+          "chunk_id": "04-volume-4-hardware-requirements-04-01-hw-requirements-for-knx-products-general-v01-04-08-as::section::7",
+          "doc_id": "04-volume-4-hardware-requirements-04-01-hw-requirements-for-knx-products-general-v01-04-08-as",
+          "section": "Hardware Requirements for KNX Products > 3 Informative Annex – Electrical Safety > 3.3 Definitions > 3.3.1 Device Group",
+          "pages": [
+            15,
+            16
+          ],
+          "score": 0.999882
+        },
+        {
+          "chunk_id": "04-volume-4-hardware-requirements-04-01-hw-requirements-for-knx-products-general-v01-04-08-as::section::9",
+          "doc_id": "04-volume-4-hardware-requirements-04-01-hw-requirements-for-knx-products-general-v01-04-08-as",
+          "section": "Hardware Requirements for KNX Products > 3 Informative Annex – Electrical Safety > Protection for",
+          "pages": [
+            17,
+            20
+          ],
+          "score": 0.999789
+        },
+        {
+          "chunk_id": "04-volume-4-hardware-requirements-04-01-hw-requirements-for-knx-products-general-v01-04-08-as::section::5",
+          "doc_id": "04-volume-4-hardware-requirements-04-01-hw-requirements-for-knx-products-general-v01-04-08-as",
+          "section": "Hardware Requirements for KNX Products > 3 for residential/light commercial shall be applied. > 2.6 Useful Life/Life Cycles",
+          "pages": [
+            11,
+            13
+          ],
+          "score": 0.999736
+        },
+        {
+          "chunk_id": "04-volume-4-hardware-requirements-04-01-hw-requirements-for-knx-products-general-v01-04-08-as::section::6",
+          "doc_id": "04-volume-4-hardware-requirements-04-01-hw-requirements-for-knx-products-general-v01-04-08-as",
+          "section": "Hardware Requirements for KNX Products > 35 [mA] > 2.8 Feeding a bus device from unfiltered voltage",
+          "pages": [
+            13,
+            14
+          ],
+          "score": 0.999716
+        }
+      ]
+    },
+    {
+      "id": "q009",
+      "question": "How are lighting actuators modelled in KNX?",
+      "language": "en",
+      "type": "application",
+      "retrieved_doc_ids": [
+        "07-volume-7-application-descriptions-07-20-02-lighting-actuators-v01-07-01-as",
+        "03-volume-3-system-specifications-3-10-3-knx-iot-information-model"
+      ],
+      "relevant_doc_ids": [
+        "07-volume-7-application-descriptions-07-20-02-lighting-actuators-v01-07-01-as"
+      ],
+      "recall_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "top_chunks": [
+        {
+          "chunk_id": "07-volume-7-application-descriptions-07-20-02-lighting-actuators-v01-07-01-as::section::54",
+          "doc_id": "07-volume-7-application-descriptions-07-20-02-lighting-actuators-v01-07-01-as",
+          "section": "Lighting Actuators > DPT ID > Datatype format",
+          "pages": [
+            111,
+            113
+          ],
+          "score": 0.999672
+        },
+        {
+          "chunk_id": "07-volume-7-application-descriptions-07-20-02-lighting-actuators-v01-07-01-as::section::66",
+          "doc_id": "07-volume-7-application-descriptions-07-20-02-lighting-actuators-v01-07-01-as",
+          "section": "Lighting Actuators > not standardized > Domain Lighting",
+          "pages": [
+            132,
+            134
+          ],
+          "score": 0.997258
+        },
+        {
+          "chunk_id": "07-volume-7-application-descriptions-07-20-02-lighting-actuators-v01-07-01-as::section::42",
+          "doc_id": "07-volume-7-application-descriptions-07-20-02-lighting-actuators-v01-07-01-as",
+          "section": "Lighting Actuators > FB DAB > Actuator",
+          "pages": [
+            88,
+            90
+          ],
+          "score": 0.997122
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-3-10-3-knx-iot-information-model::section::66",
+          "doc_id": "03-volume-3-system-specifications-3-10-3-knx-iot-information-model",
+          "section": "KNX IoT - KNX Information Model (KIM) > JSON-LD SNIPPET",
+          "pages": [
+            89,
+            92
+          ],
+          "score": 0.989401
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-3-10-3-knx-iot-information-model::section::30",
+          "doc_id": "03-volume-3-system-specifications-3-10-3-knx-iot-information-model",
+          "section": "KNX IoT - KNX Information Model (KIM) > EXAMPLE 30",
+          "pages": [
+            40,
+            42
+          ],
+          "score": 0.954215
+        },
+        {
+          "chunk_id": "07-volume-7-application-descriptions-07-20-02-lighting-actuators-v01-07-01-as::section::68",
+          "doc_id": "07-volume-7-application-descriptions-07-20-02-lighting-actuators-v01-07-01-as",
+          "section": "Lighting Actuators > Behaviour concerning mandatory Datapoints",
+          "pages": [
+            135,
+            137
+          ],
+          "score": 0.925758
+        },
+        {
+          "chunk_id": "07-volume-7-application-descriptions-07-20-02-lighting-actuators-v01-07-01-as::section::65",
+          "doc_id": "07-volume-7-application-descriptions-07-20-02-lighting-actuators-v01-07-01-as",
+          "section": "Lighting Actuators > 0 to 255",
+          "pages": [
+            130,
+            132
+          ],
+          "score": 0.91557
+        },
+        {
+          "chunk_id": "07-volume-7-application-descriptions-07-20-02-lighting-actuators-v01-07-01-as::section::43",
+          "doc_id": "07-volume-7-application-descriptions-07-20-02-lighting-actuators-v01-07-01-as",
+          "section": "Lighting Actuators > Basic model > Figure 20 – Basic model of the FB CTA > 4.2.1.2 Light output brightness",
+          "pages": [
+            90,
+            91
+          ],
+          "score": 0.900215
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-3-10-3-knx-iot-information-model::section::24",
+          "doc_id": "03-volume-3-system-specifications-3-10-3-knx-iot-information-model",
+          "section": "KNX IoT - KNX Information Model (KIM) > NOTE 14",
+          "pages": [
+            33,
+            34
+          ],
+          "score": 0.868995
+        },
+        {
+          "chunk_id": "07-volume-7-application-descriptions-07-20-02-lighting-actuators-v01-07-01-as::section::0",
+          "doc_id": "07-volume-7-application-descriptions-07-20-02-lighting-actuators-v01-07-01-as",
+          "section": "Lighting Actuators",
+          "pages": [
+            1,
+            8
+          ],
+          "score": 0.832316
+        }
+      ]
+    },
+    {
+      "id": "q010",
+      "question": "What is the role of a KNX coupler?",
+      "language": "en",
+      "type": "component",
+      "retrieved_doc_ids": [
+        "03-volume-3-system-specifications-03-04-01-application-interface-layer-as-v02-01-01",
+        "06-volume-6-profiles-06-02-01-coupler-model-2-0-v01-01-01-as",
+        "03-volume-3-system-specifications-03-05-01-resources-v01-10-01-as",
+        "03-volume-3-system-specifications-03-01-02-glossary-v01-05-03-as",
+        "03-volume-3-system-specifications-03-02-04-communication-medium-pl-132-v01-02-01-po"
+      ],
+      "relevant_doc_ids": [
+        "06-volume-6-profiles-06-02-01-coupler-model-2-0-v01-01-01-as",
+        "09-volume-9-basic-and-system-components-09-03-basic-and-system-components-couplers-v01-03-04-as"
+      ],
+      "recall_at_k": 0.5,
+      "hit_at_k": 1.0,
+      "mrr": 0.5,
+      "ndcg_at_k": 0.38685280723454163,
+      "top_chunks": [
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-04-01-application-interface-layer-as-v02-01-01::section::26",
+          "doc_id": "03-volume-3-system-specifications-03-04-01-application-interface-layer-as-v02-01-01",
+          "section": "Application Interface Layer > EXAMPLE 9 > Evaluation of Roles in the KNX devices",
+          "pages": [
+            39,
+            40
+          ],
+          "score": 0.925075
+        },
+        {
+          "chunk_id": "06-volume-6-profiles-06-02-01-coupler-model-2-0-v01-01-01-as::section::1",
+          "doc_id": "06-volume-6-profiles-06-02-01-coupler-model-2-0-v01-01-01-as",
+          "section": "Coupler Model 2.0 > PL110",
+          "pages": [
+            6,
+            7
+          ],
+          "score": 0.826711
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-05-01-resources-v01-10-01-as::section::238",
+          "doc_id": "03-volume-3-system-specifications-03-05-01-resources-v01-10-01-as",
+          "section": "Resources > Resources for mask 0910h and mask 0911h",
+          "pages": [
+            307,
+            308
+          ],
+          "score": 0.823982
+        },
+        {
+          "chunk_id": "06-volume-6-profiles-06-02-01-coupler-model-2-0-v01-01-01-as::section::4",
+          "doc_id": "06-volume-6-profiles-06-02-01-coupler-model-2-0-v01-01-01-as",
+          "section": "Coupler Model 2.0 > Device Descriptor Type 0 (Mask Version)",
+          "pages": [
+            9,
+            11
+          ],
+          "score": 0.69588
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-01-02-glossary-v01-05-03-as::section::14",
+          "doc_id": "03-volume-3-system-specifications-03-01-02-glossary-v01-05-03-as",
+          "section": "Glossary > PB SEC",
+          "pages": [
+            15,
+            19
+          ],
+          "score": 0.580529
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-01-02-glossary-v01-05-03-as::section::13",
+          "doc_id": "03-volume-3-system-specifications-03-01-02-glossary-v01-05-03-as",
+          "section": "Glossary > PB SEC",
+          "pages": [
+            15,
+            19
+          ],
+          "score": 0.513356
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-01-02-glossary-v01-05-03-as::section::10",
+          "doc_id": "03-volume-3-system-specifications-03-01-02-glossary-v01-05-03-as",
+          "section": "Glossary > NOTE 5",
+          "pages": [
+            12,
+            15
+          ],
+          "score": 0.445611
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-01-02-glossary-v01-05-03-as::section::16",
+          "doc_id": "03-volume-3-system-specifications-03-01-02-glossary-v01-05-03-as",
+          "section": "Glossary > SYNONYM",
+          "pages": [
+            19,
+            20
+          ],
+          "score": 0.382088
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-02-04-communication-medium-pl-132-v01-02-01-po::section::0",
+          "doc_id": "03-volume-3-system-specifications-03-02-04-communication-medium-pl-132-v01-02-01-po",
+          "section": "Powerline 132 > services for the medium “Powerline 132”.",
+          "pages": [
+            1,
+            2
+          ],
+          "score": 0.192798
+        },
+        {
+          "chunk_id": "06-volume-6-profiles-06-02-01-coupler-model-2-0-v01-01-01-as::section::0",
+          "doc_id": "06-volume-6-profiles-06-02-01-coupler-model-2-0-v01-01-01-as",
+          "section": "Coupler Model 2.0 > Base Profiles",
+          "pages": [
+            1,
+            6
+          ],
+          "score": 0.186423
+        }
+      ]
+    },
+    {
+      "id": "q011",
+      "question": "What tests are required for the TP1 physical layer?",
+      "language": "en",
+      "type": "testing",
+      "retrieved_doc_ids": [
+        "08-volume-8-system-test-specifications-08-02-02-system-conformance-testing-tp1-phl-and-ll-tests-v01-04-03-as",
+        "09-volume-9-basic-and-system-components-09-01-basic-and-system-components-cable-and-connectors-v01-05-01-fv",
+        "03-volume-3-system-specifications-03-02-02-communication-medium-tp1-v01-03-03-as"
+      ],
+      "relevant_doc_ids": [
+        "08-volume-8-system-test-specifications-08-02-02-system-conformance-testing-tp1-phl-and-ll-tests-v01-04-03-as"
+      ],
+      "recall_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "top_chunks": [
+        {
+          "chunk_id": "08-volume-8-system-test-specifications-08-02-02-system-conformance-testing-tp1-phl-and-ll-tests-v01-04-03-as::section::31",
+          "doc_id": "08-volume-8-system-test-specifications-08-02-02-system-conformance-testing-tp1-phl-and-ll-tests-v01-04-03-as",
+          "section": "TP1 Physical and Link Layer Tests > IGNORE",
+          "pages": [
+            51,
+            52
+          ],
+          "score": 0.999092
+        },
+        {
+          "chunk_id": "08-volume-8-system-test-specifications-08-02-02-system-conformance-testing-tp1-phl-and-ll-tests-v01-04-03-as::section::13",
+          "doc_id": "08-volume-8-system-test-specifications-08-02-02-system-conformance-testing-tp1-phl-and-ll-tests-v01-04-03-as",
+          "section": "TP1 Physical and Link Layer Tests > General",
+          "pages": [
+            31,
+            32
+          ],
+          "score": 0.997245
+        },
+        {
+          "chunk_id": "08-volume-8-system-test-specifications-08-02-02-system-conformance-testing-tp1-phl-and-ll-tests-v01-04-03-as::section::17",
+          "doc_id": "08-volume-8-system-test-specifications-08-02-02-system-conformance-testing-tp1-phl-and-ll-tests-v01-04-03-as",
+          "section": "TP1 Physical and Link Layer Tests > General",
+          "pages": [
+            35,
+            36
+          ],
+          "score": 0.994608
+        },
+        {
+          "chunk_id": "09-volume-9-basic-and-system-components-09-01-basic-and-system-components-cable-and-connectors-v01-05-01-fv::section::1",
+          "doc_id": "09-volume-9-basic-and-system-components-09-01-basic-and-system-components-cable-and-connectors-v01-05-01-fv",
+          "section": "Session Layer > 2 TP Cable > 2.1 TP1 Cable > 2.1.1 General",
+          "pages": [
+            6,
+            7
+          ],
+          "score": 0.989595
+        },
+        {
+          "chunk_id": "08-volume-8-system-test-specifications-08-02-02-system-conformance-testing-tp1-phl-and-ll-tests-v01-04-03-as::section::3",
+          "doc_id": "08-volume-8-system-test-specifications-08-02-02-system-conformance-testing-tp1-phl-and-ll-tests-v01-04-03-as",
+          "section": "TP1 Physical and Link Layer Tests > Power Conversion (Switch On/Off Slow) > 4.3.1",
+          "pages": [
+            10,
+            12
+          ],
+          "score": 0.985274
+        },
+        {
+          "chunk_id": "08-volume-8-system-test-specifications-08-02-02-system-conformance-testing-tp1-phl-and-ll-tests-v01-04-03-as::section::11",
+          "doc_id": "08-volume-8-system-test-specifications-08-02-02-system-conformance-testing-tp1-phl-and-ll-tests-v01-04-03-as",
+          "section": "TP1 Physical and Link Layer Tests > AUX > (max)",
+          "pages": [
+            25,
+            27
+          ],
+          "score": 0.982677
+        },
+        {
+          "chunk_id": "08-volume-8-system-test-specifications-08-02-02-system-conformance-testing-tp1-phl-and-ll-tests-v01-04-03-as::section::9",
+          "doc_id": "08-volume-8-system-test-specifications-08-02-02-system-conformance-testing-tp1-phl-and-ll-tests-v01-04-03-as",
+          "section": "TP1 Physical and Link Layer Tests > US",
+          "pages": [
+            21,
+            23
+          ],
+          "score": 0.979142
+        },
+        {
+          "chunk_id": "08-volume-8-system-test-specifications-08-02-02-system-conformance-testing-tp1-phl-and-ll-tests-v01-04-03-as::section::6",
+          "doc_id": "08-volume-8-system-test-specifications-08-02-02-system-conformance-testing-tp1-phl-and-ll-tests-v01-04-03-as",
+          "section": "TP1 Physical and Link Layer Tests > Sensitivity",
+          "pages": [
+            16,
+            18
+          ],
+          "score": 0.975892
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-02-02-communication-medium-tp1-v01-03-03-as::section::1",
+          "doc_id": "03-volume-3-system-specifications-03-02-02-communication-medium-tp1-v01-03-03-as",
+          "section": "Communication Medium TP 1 > 1 Physical Layer type Twisted Pair (PhL TP1-64 & TP1-256)",
+          "pages": [
+            5,
+            5
+          ],
+          "score": 0.974981
+        },
+        {
+          "chunk_id": "08-volume-8-system-test-specifications-08-02-02-system-conformance-testing-tp1-phl-and-ll-tests-v01-04-03-as::table::19::4::0::0",
+          "doc_id": "08-volume-8-system-test-specifications-08-02-02-system-conformance-testing-tp1-phl-and-ll-tests-v01-04-03-as",
+          "section": "TP1 Physical and Link Layer Tests > TPCI > max",
+          "pages": [
+            19,
+            19
+          ],
+          "score": 0.962303
+        }
+      ]
+    },
+    {
+      "id": "q012",
+      "question": "What does mask version 2705h define?",
+      "language": "en",
+      "type": "identifier",
+      "retrieved_doc_ids": [
+        "06-volume-6-profiles-06-01-33-mask-2705h-v01-01-02"
+      ],
+      "relevant_doc_ids": [
+        "06-volume-6-profiles-06-01-33-mask-2705h-v01-01-02"
+      ],
+      "recall_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "top_chunks": [
+        {
+          "chunk_id": "06-volume-6-profiles-06-01-33-mask-2705h-v01-01-02::section::0",
+          "doc_id": "06-volume-6-profiles-06-01-33-mask-2705h-v01-01-02",
+          "section": "mask 2705h",
+          "pages": [
+            1,
+            7
+          ],
+          "score": 0.998386
+        },
+        {
+          "chunk_id": "06-volume-6-profiles-06-01-33-mask-2705h-v01-01-02::section::6",
+          "doc_id": "06-volume-6-profiles-06-01-33-mask-2705h-v01-01-02",
+          "section": "mask 2705h > Group Address Table > a) Group Address Table – Realisation Type 8",
+          "pages": [
+            23,
+            27
+          ],
+          "score": 0.997194
+        },
+        {
+          "chunk_id": "06-volume-6-profiles-06-01-33-mask-2705h-v01-01-02::section::4",
+          "doc_id": "06-volume-6-profiles-06-01-33-mask-2705h-v01-01-02",
+          "section": "mask 2705h > Verify Mode (for A_Memory_Write)",
+          "pages": [
+            16,
+            19
+          ],
+          "score": 0.990386
+        },
+        {
+          "chunk_id": "06-volume-6-profiles-06-01-33-mask-2705h-v01-01-02::section::3",
+          "doc_id": "06-volume-6-profiles-06-01-33-mask-2705h-v01-01-02",
+          "section": "mask 2705h > LTE frame format",
+          "pages": [
+            12,
+            16
+          ],
+          "score": 0.989507
+        },
+        {
+          "chunk_id": "06-volume-6-profiles-06-01-33-mask-2705h-v01-01-02::section::5",
+          "doc_id": "06-volume-6-profiles-06-01-33-mask-2705h-v01-01-02",
+          "section": "mask 2705h > RAM cleared > • PID_MCB_TABLE",
+          "pages": [
+            19,
+            23
+          ],
+          "score": 0.987684
+        },
+        {
+          "chunk_id": "06-volume-6-profiles-06-01-33-mask-2705h-v01-01-02::section::2",
+          "doc_id": "06-volume-6-profiles-06-01-33-mask-2705h-v01-01-02",
+          "section": "mask 2705h > Application Layer – Property Value Services > • Group Objects",
+          "pages": [
+            9,
+            12
+          ],
+          "score": 0.979855
+        },
+        {
+          "chunk_id": "06-volume-6-profiles-06-01-33-mask-2705h-v01-01-02::table::29::5::0::0",
+          "doc_id": "06-volume-6-profiles-06-01-33-mask-2705h-v01-01-02",
+          "section": "mask 2705h > Group Address Table Object (Object Type = 1)",
+          "pages": [
+            29,
+            29
+          ],
+          "score": 0.962426
+        },
+        {
+          "chunk_id": "06-volume-6-profiles-06-01-33-mask-2705h-v01-01-02::section::1",
+          "doc_id": "06-volume-6-profiles-06-01-33-mask-2705h-v01-01-02",
+          "section": "mask 2705h > Data Link Layer - general > • Parameters",
+          "pages": [
+            7,
+            9
+          ],
+          "score": 0.943328
+        },
+        {
+          "chunk_id": "06-volume-6-profiles-06-01-33-mask-2705h-v01-01-02::section::7",
+          "doc_id": "06-volume-6-profiles-06-01-33-mask-2705h-v01-01-02",
+          "section": "mask 2705h > 11 PID_SERIAL_NUMBER",
+          "pages": [
+            27,
+            30
+          ],
+          "score": 0.941622
+        },
+        {
+          "chunk_id": "06-volume-6-profiles-06-01-33-mask-2705h-v01-01-02::section::8",
+          "doc_id": "06-volume-6-profiles-06-01-33-mask-2705h-v01-01-02",
+          "section": "mask 2705h > 28 PID_ERROR_CODE",
+          "pages": [
+            30,
+            31
+          ],
+          "score": 0.878849
+        }
+      ]
+    },
+    {
+      "id": "q013",
+      "question": "¿Qué diferencia hay entre TP1 y PL110 como medios de comunicación?",
+      "language": "es",
+      "type": "comparison",
+      "retrieved_doc_ids": [
+        "03-volume-3-system-specifications-03-02-02-communication-medium-tp1-v01-03-03-as",
+        "09-volume-9-basic-and-system-components-09-01-basic-and-system-components-cable-and-connectors-v01-05-01-fv",
+        "08-volume-8-system-test-specifications-08-02-03-system-conformance-testing-pl110-phl-and-ll-tests-v01-02-02-as",
+        "06-volume-6-profiles-06-02-01-coupler-model-2-0-v01-01-01-as",
+        "03-volume-3-system-specifications-03-05-01-resources-v01-10-01-as",
+        "application-notes-an193-v04-access-policies-as"
+      ],
+      "relevant_doc_ids": [
+        "03-volume-3-system-specifications-03-02-02-communication-medium-tp1-v01-03-03-as",
+        "03-volume-3-system-specifications-03-02-04-communication-medium-pl-132-v01-02-01-po",
+        "08-volume-8-system-test-specifications-08-02-03-system-conformance-testing-pl110-phl-and-ll-tests-v01-02-02-as"
+      ],
+      "recall_at_k": 0.6666666666666666,
+      "hit_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 0.7039180890341347,
+      "top_chunks": [
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-02-02-communication-medium-tp1-v01-03-03-as::section::1",
+          "doc_id": "03-volume-3-system-specifications-03-02-02-communication-medium-tp1-v01-03-03-as",
+          "section": "Communication Medium TP 1 > 1 Physical Layer type Twisted Pair (PhL TP1-64 & TP1-256)",
+          "pages": [
+            5,
+            5
+          ],
+          "score": 0.865863
+        },
+        {
+          "chunk_id": "09-volume-9-basic-and-system-components-09-01-basic-and-system-components-cable-and-connectors-v01-05-01-fv::section::1",
+          "doc_id": "09-volume-9-basic-and-system-components-09-01-basic-and-system-components-cable-and-connectors-v01-05-01-fv",
+          "section": "Session Layer > 2 TP Cable > 2.1 TP1 Cable > 2.1.1 General",
+          "pages": [
+            6,
+            7
+          ],
+          "score": 0.59101
+        },
+        {
+          "chunk_id": "08-volume-8-system-test-specifications-08-02-03-system-conformance-testing-pl110-phl-and-ll-tests-v01-02-02-as::section::0",
+          "doc_id": "08-volume-8-system-test-specifications-08-02-03-system-conformance-testing-pl110-phl-and-ll-tests-v01-02-02-as",
+          "section": "System Conformace Testing - PL110 PhL and LL Tests",
+          "pages": [
+            1,
+            6
+          ],
+          "score": 0.259515
+        },
+        {
+          "chunk_id": "06-volume-6-profiles-06-02-01-coupler-model-2-0-v01-01-01-as::table::6::0::0::0",
+          "doc_id": "06-volume-6-profiles-06-02-01-coupler-model-2-0-v01-01-01-as",
+          "section": "Coupler Model 2.0 > PL110 > IP",
+          "pages": [
+            6,
+            6
+          ],
+          "score": 0.254062
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-05-01-resources-v01-10-01-as::table::26::6::0::0",
+          "doc_id": "03-volume-3-system-specifications-03-05-01-resources-v01-10-01-as",
+          "section": "Resources > TP1-PL110 > Mask version",
+          "pages": [
+            26,
+            26
+          ],
+          "score": 0.23636
+        },
+        {
+          "chunk_id": "application-notes-an193-v04-access-policies-as::table::12::11::0::1",
+          "doc_id": "application-notes-an193-v04-access-policies-as",
+          "section": "Access Policies > 80 PID_SECURITY_ROUTING_CONTROL",
+          "pages": [
+            12,
+            12
+          ],
+          "score": 0.140073
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-02-02-communication-medium-tp1-v01-03-03-as::section::25",
+          "doc_id": "03-volume-3-system-specifications-03-02-02-communication-medium-tp1-v01-03-03-as",
+          "section": "Communication Medium TP 1 > 50 bit times > Figure 41 - Priority Operation > 2.3.3 Priority sequence",
+          "pages": [
+            36,
+            37
+          ],
+          "score": 0.116338
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-02-02-communication-medium-tp1-v01-03-03-as::section::0",
+          "doc_id": "03-volume-3-system-specifications-03-02-02-communication-medium-tp1-v01-03-03-as",
+          "section": "Communication Medium TP 1",
+          "pages": [
+            1,
+            4
+          ],
+          "score": 0.108348
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-02-02-communication-medium-tp1-v01-03-03-as::section::5",
+          "doc_id": "03-volume-3-system-specifications-03-02-02-communication-medium-tp1-v01-03-03-as",
+          "section": "Communication Medium TP 1 > 0 V > Figure 10 - Limits within a Byte > 1.1.5 Simultaneous sending / collision behavior",
+          "pages": [
+            11,
+            11
+          ],
+          "score": 0.103653
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-02-02-communication-medium-tp1-v01-03-03-as::table::5::1::0::0",
+          "doc_id": "03-volume-3-system-specifications-03-02-02-communication-medium-tp1-v01-03-03-as",
+          "section": "Communication Medium TP 1 > 1 Physical Layer type Twisted Pair (PhL TP1-64 & TP1-256)",
+          "pages": [
+            5,
+            5
+          ],
+          "score": 0.091602
+        }
+      ]
+    },
+    {
+      "id": "q014",
+      "question": "What is the Application Interface Layer in the KNX architecture?",
+      "language": "en",
+      "type": "architecture",
+      "retrieved_doc_ids": [
+        "06-volume-6-profiles-06-01-33-mask-2705h-v01-01-02",
+        "03-volume-3-system-specifications-03-04-01-application-interface-layer-as-v02-01-01",
+        "03-volume-3-system-specifications-03-02-05-communication-medium-rf-v02-03-01-as",
+        "06-volume-6-profiles-06-02-01-coupler-model-2-0-v01-01-01-as"
+      ],
+      "relevant_doc_ids": [
+        "03-volume-3-system-specifications-03-04-01-application-interface-layer-as-v02-01-01"
+      ],
+      "recall_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "mrr": 0.5,
+      "ndcg_at_k": 0.6309297535714575,
+      "top_chunks": [
+        {
+          "chunk_id": "06-volume-6-profiles-06-01-33-mask-2705h-v01-01-02::section::0",
+          "doc_id": "06-volume-6-profiles-06-01-33-mask-2705h-v01-01-02",
+          "section": "mask 2705h",
+          "pages": [
+            1,
+            7
+          ],
+          "score": 0.991952
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-04-01-application-interface-layer-as-v02-01-01::section::28",
+          "doc_id": "03-volume-3-system-specifications-03-04-01-application-interface-layer-as-v02-01-01",
+          "section": "Application Interface Layer > NOTE 12",
+          "pages": [
+            41,
+            42
+          ],
+          "score": 0.986975
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-04-01-application-interface-layer-as-v02-01-01::section::26",
+          "doc_id": "03-volume-3-system-specifications-03-04-01-application-interface-layer-as-v02-01-01",
+          "section": "Application Interface Layer > EXAMPLE 9 > Evaluation of Roles in the KNX devices",
+          "pages": [
+            39,
+            40
+          ],
+          "score": 0.981532
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-04-01-application-interface-layer-as-v02-01-01::section::31",
+          "doc_id": "03-volume-3-system-specifications-03-04-01-application-interface-layer-as-v02-01-01",
+          "section": "Application Interface Layer > 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 0 0 004 / 004 > Number of Access Policies",
+          "pages": [
+            44,
+            44
+          ],
+          "score": 0.98
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-02-05-communication-medium-rf-v02-03-01-as::section::1",
+          "doc_id": "03-volume-3-system-specifications-03-02-05-communication-medium-rf-v02-03-01-as",
+          "section": "Communication Medium RF > Introduction",
+          "pages": [
+            6,
+            7
+          ],
+          "score": 0.94967
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-04-01-application-interface-layer-as-v02-01-01::section::20",
+          "doc_id": "03-volume-3-system-specifications-03-04-01-application-interface-layer-as-v02-01-01",
+          "section": "Application Interface Layer > 1 the following directory list shall be using the long directory listing format > Meaning",
+          "pages": [
+            32,
+            34
+          ],
+          "score": 0.931002
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-04-01-application-interface-layer-as-v02-01-01::section::0",
+          "doc_id": "03-volume-3-system-specifications-03-04-01-application-interface-layer-as-v02-01-01",
+          "section": "Application Interface Layer",
+          "pages": [
+            1,
+            4
+          ],
+          "score": 0.899805
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-02-05-communication-medium-rf-v02-03-01-as::section::0",
+          "doc_id": "03-volume-3-system-specifications-03-02-05-communication-medium-rf-v02-03-01-as",
+          "section": "Communication Medium RF",
+          "pages": [
+            1,
+            5
+          ],
+          "score": 0.890816
+        },
+        {
+          "chunk_id": "06-volume-6-profiles-06-02-01-coupler-model-2-0-v01-01-01-as::section::0",
+          "doc_id": "06-volume-6-profiles-06-02-01-coupler-model-2-0-v01-01-01-as",
+          "section": "Coupler Model 2.0 > Base Profiles",
+          "pages": [
+            1,
+            6
+          ],
+          "score": 0.8426
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-04-01-application-interface-layer-as-v02-01-01::section::25",
+          "doc_id": "03-volume-3-system-specifications-03-04-01-application-interface-layer-as-v02-01-01",
+          "section": "Application Interface Layer > NOTE 7 > 6.2.5.2 Roles for group communication",
+          "pages": [
+            39,
+            39
+          ],
+          "score": 0.826198
+        }
+      ]
+    },
+    {
+      "id": "q015",
+      "question": "What is the KNX IoT Information Model?",
+      "language": "en",
+      "type": "architecture",
+      "retrieved_doc_ids": [
+        "03-volume-3-system-specifications-3-10-3-knx-iot-information-model"
+      ],
+      "relevant_doc_ids": [
+        "03-volume-3-system-specifications-3-10-3-knx-iot-information-model"
+      ],
+      "recall_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "top_chunks": [
+        {
+          "chunk_id": "03-volume-3-system-specifications-3-10-3-knx-iot-information-model::section::1",
+          "doc_id": "03-volume-3-system-specifications-3-10-3-knx-iot-information-model",
+          "section": "KNX IoT - KNX Information Model (KIM) > KIM Models",
+          "pages": [
+            6,
+            7
+          ],
+          "score": 0.999971
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-3-10-3-knx-iot-information-model::section::38",
+          "doc_id": "03-volume-3-system-specifications-3-10-3-knx-iot-information-model",
+          "section": "KNX IoT - KNX Information Model (KIM) > Tags > FuncƟon",
+          "pages": [
+            51,
+            53
+          ],
+          "score": 0.999935
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-3-10-3-knx-iot-information-model::section::37",
+          "doc_id": "03-volume-3-system-specifications-3-10-3-knx-iot-information-model",
+          "section": "KNX IoT - KNX Information Model (KIM) > EXAMPLE 39",
+          "pages": [
+            49,
+            51
+          ],
+          "score": 0.999885
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-3-10-3-knx-iot-information-model::section::50",
+          "doc_id": "03-volume-3-system-specifications-3-10-3-knx-iot-information-model",
+          "section": "KNX IoT - KNX Information Model (KIM) > Installation Relations > :Functionality",
+          "pages": [
+            68,
+            70
+          ],
+          "score": 0.999878
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-3-10-3-knx-iot-information-model::section::15",
+          "doc_id": "03-volume-3-system-specifications-3-10-3-knx-iot-information-model",
+          "section": "KNX IoT - KNX Information Model (KIM) > Class and subclasses > loc:hasRoomSegment > 1.2.3.7 Address",
+          "pages": [
+            22,
+            23
+          ],
+          "score": 0.99986
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-3-10-3-knx-iot-information-model::section::7",
+          "doc_id": "03-volume-3-system-specifications-3-10-3-knx-iot-information-model",
+          "section": "KNX IoT - KNX Information Model (KIM) > of class :ApplicationFunction or in one of its sub classes.",
+          "pages": [
+            12,
+            13
+          ],
+          "score": 0.999849
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-3-10-3-knx-iot-information-model::section::49",
+          "doc_id": "03-volume-3-system-specifications-3-10-3-knx-iot-information-model",
+          "section": "KNX IoT - KNX Information Model (KIM) > Installation Relations > :Datapoint",
+          "pages": [
+            67,
+            68
+          ],
+          "score": 0.999832
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-3-10-3-knx-iot-information-model::section::29",
+          "doc_id": "03-volume-3-system-specifications-3-10-3-knx-iot-information-model",
+          "section": "KNX IoT - KNX Information Model (KIM) > NOTE 15 > A “type of interest” property to describe what is observed/ is actuated upon.",
+          "pages": [
+            39,
+            40
+          ],
+          "score": 0.999503
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-3-10-3-knx-iot-information-model::section::56",
+          "doc_id": "03-volume-3-system-specifications-3-10-3-knx-iot-information-model",
+          "section": "KNX IoT - KNX Information Model (KIM) > Semantic Export > Format",
+          "pages": [
+            77,
+            78
+          ],
+          "score": 0.999492
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-3-10-3-knx-iot-information-model::section::2",
+          "doc_id": "03-volume-3-system-specifications-3-10-3-knx-iot-information-model",
+          "section": "KNX IoT - KNX Information Model (KIM) > KIM Availability",
+          "pages": [
+            7,
+            8
+          ],
+          "score": 0.999385
+        }
+      ]
+    },
+    {
+      "id": "q016",
+      "question": "What are the requirements for KNX cables and connectors?",
+      "language": "en",
+      "type": "requirements",
+      "retrieved_doc_ids": [
+        "09-volume-9-basic-and-system-components-09-01-basic-and-system-components-cable-and-connectors-v01-05-01-fv",
+        "09-volume-9-basic-and-system-components-09-03-basic-and-system-components-couplers-v01-03-04-as",
+        "04-volume-4-hardware-requirements-04-01-hw-requirements-for-knx-products-general-v01-04-08-as",
+        "05-volume-5-certification-manual-05-knx-certification-of-products-procedure-v01-07-09-as"
+      ],
+      "relevant_doc_ids": [
+        "09-volume-9-basic-and-system-components-09-01-basic-and-system-components-cable-and-connectors-v01-05-01-fv"
+      ],
+      "recall_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "top_chunks": [
+        {
+          "chunk_id": "09-volume-9-basic-and-system-components-09-01-basic-and-system-components-cable-and-connectors-v01-05-01-fv::section::18",
+          "doc_id": "09-volume-9-basic-and-system-components-09-01-basic-and-system-components-cable-and-connectors-v01-05-01-fv",
+          "section": "Session Layer > 16 contact pins) and 4 data rails > 3.9 KNX Connector Type 7.1 > 3.9.1 Requirements",
+          "pages": [
+            36,
+            37
+          ],
+          "score": 0.998924
+        },
+        {
+          "chunk_id": "09-volume-9-basic-and-system-components-09-03-basic-and-system-components-couplers-v01-03-04-as::section::6",
+          "doc_id": "09-volume-9-basic-and-system-components-09-03-basic-and-system-components-couplers-v01-03-04-as",
+          "section": "Session Layer > Interfaces, Connectors > Requirements",
+          "pages": [
+            14,
+            15
+          ],
+          "score": 0.998867
+        },
+        {
+          "chunk_id": "09-volume-9-basic-and-system-components-09-01-basic-and-system-components-cable-and-connectors-v01-05-01-fv::section::6",
+          "doc_id": "09-volume-9-basic-and-system-components-09-01-basic-and-system-components-cable-and-connectors-v01-05-01-fv",
+          "section": "Session Layer > 6 way Western Plug RJ12 > 3.2 KNX Connector Type 1.1",
+          "pages": [
+            13,
+            15
+          ],
+          "score": 0.997531
+        },
+        {
+          "chunk_id": "04-volume-4-hardware-requirements-04-01-hw-requirements-for-knx-products-general-v01-04-08-as::section::6",
+          "doc_id": "04-volume-4-hardware-requirements-04-01-hw-requirements-for-knx-products-general-v01-04-08-as",
+          "section": "Hardware Requirements for KNX Products > 35 [mA] > 2.8 Feeding a bus device from unfiltered voltage",
+          "pages": [
+            13,
+            14
+          ],
+          "score": 0.997356
+        },
+        {
+          "chunk_id": "05-volume-5-certification-manual-05-knx-certification-of-products-procedure-v01-07-09-as::section::20",
+          "doc_id": "05-volume-5-certification-manual-05-knx-certification-of-products-procedure-v01-07-09-as",
+          "section": "KNX Certification of Products - Procedure > Special cases > (including BAU) > 3.5.5.4 KNX Certification of Twisted Pair cable",
+          "pages": [
+            33,
+            33
+          ],
+          "score": 0.996771
+        },
+        {
+          "chunk_id": "04-volume-4-hardware-requirements-04-01-hw-requirements-for-knx-products-general-v01-04-08-as::section::4",
+          "doc_id": "04-volume-4-hardware-requirements-04-01-hw-requirements-for-knx-products-general-v01-04-08-as",
+          "section": "Hardware Requirements for KNX Products > SELV AUX > Figure 3 - Examples of galvanic connection of external circuits to KNX bus > 2.3.4 Use of protective impedances in TP1 circuits",
+          "pages": [
+            11,
+            11
+          ],
+          "score": 0.99646
+        },
+        {
+          "chunk_id": "04-volume-4-hardware-requirements-04-01-hw-requirements-for-knx-products-general-v01-04-08-as::section::2",
+          "doc_id": "04-volume-4-hardware-requirements-04-01-hw-requirements-for-knx-products-general-v01-04-08-as",
+          "section": "Hardware Requirements for KNX Products > 1 If a KNX TP product is intended for installation only within a single equipotential earthing system and the rated impulse voltages",
+          "pages": [
+            5,
+            9
+          ],
+          "score": 0.995966
+        },
+        {
+          "chunk_id": "09-volume-9-basic-and-system-components-09-01-basic-and-system-components-cable-and-connectors-v01-05-01-fv::section::5",
+          "doc_id": "09-volume-9-basic-and-system-components-09-01-basic-and-system-components-cable-and-connectors-v01-05-01-fv",
+          "section": "Session Layer > 2 Ω/12 Ω and the corresponding coupling capacitor. A combination wave generator according EN > (example) > 2.1.4 Installation requirements",
+          "pages": [
+            11,
+            13
+          ],
+          "score": 0.995313
+        },
+        {
+          "chunk_id": "04-volume-4-hardware-requirements-04-01-hw-requirements-for-knx-products-general-v01-04-08-as::section::11",
+          "doc_id": "04-volume-4-hardware-requirements-04-01-hw-requirements-for-knx-products-general-v01-04-08-as",
+          "section": "Hardware Requirements for KNX Products > Creepage Distances > and creepage distances can be calculated on the basis of EN 60664-1.",
+          "pages": [
+            21,
+            23
+          ],
+          "score": 0.992384
+        },
+        {
+          "chunk_id": "09-volume-9-basic-and-system-components-09-03-basic-and-system-components-couplers-v01-03-04-as::section::121",
+          "doc_id": "09-volume-9-basic-and-system-components-09-03-basic-and-system-components-couplers-v01-03-04-as",
+          "section": "Session Layer > 11 Required behavior currently not described in the system specifications: pending in KNX System Group. > Router specific management tests > 4.7.5.9 Testing of LTE and other Interface Object Properties",
+          "pages": [
+            127,
+            129
+          ],
+          "score": 0.989377
+        }
+      ]
+    },
+    {
+      "id": "q017",
+      "question": "What does the KNX data security test specification cover?",
+      "language": "en",
+      "type": "testing",
+      "retrieved_doc_ids": [
+        "05-volume-5-certification-manual-05-knx-certification-of-products-procedure-v01-07-09-as",
+        "08-volume-8-system-test-specifications-08-tssj-system-conformance-testing-data-security-tests-v1-11-as",
+        "application-notes-an193-v04-access-policies-as",
+        "application-notes-an209-update-8-tss-j-data-security-tests-v1-11-r3-ntc-nocomments"
+      ],
+      "relevant_doc_ids": [
+        "08-volume-8-system-test-specifications-08-tssj-system-conformance-testing-data-security-tests-v1-11-as",
+        "application-notes-an209-update-8-tss-j-data-security-tests-v1-11-r3-ntc-nocomments"
+      ],
+      "recall_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "mrr": 0.5,
+      "ndcg_at_k": 0.6509209298071326,
+      "top_chunks": [
+        {
+          "chunk_id": "05-volume-5-certification-manual-05-knx-certification-of-products-procedure-v01-07-09-as::section::28",
+          "doc_id": "05-volume-5-certification-manual-05-knx-certification-of-products-procedure-v01-07-09-as",
+          "section": "KNX Certification of Products - Procedure > Elaboration of CE declarations for KNX devices",
+          "pages": [
+            41,
+            42
+          ],
+          "score": 0.996224
+        },
+        {
+          "chunk_id": "08-volume-8-system-test-specifications-08-tssj-system-conformance-testing-data-security-tests-v1-11-as::section::34",
+          "doc_id": "08-volume-8-system-test-specifications-08-tssj-system-conformance-testing-data-security-tests-v1-11-as",
+          "section": "Volume 8 KNX Data Security Test Specs > 00 00 00 00 :S-A_Sync(Rsp, Challenge=00 00 00 00 00 01, Seq.remote=5, Seq.local=2), Key: P2PK1",
+          "pages": [
+            46,
+            47
+          ],
+          "score": 0.985545
+        },
+        {
+          "chunk_id": "08-volume-8-system-test-specifications-08-tssj-system-conformance-testing-data-security-tests-v1-11-as::section::9",
+          "doc_id": "08-volume-8-system-test-specifications-08-tssj-system-conformance-testing-data-security-tests-v1-11-as",
+          "section": "Volume 8 KNX Data Security Test Specs > correct S-A_Data A only – with a second source",
+          "pages": [
+            26,
+            26
+          ],
+          "score": 0.982295
+        },
+        {
+          "chunk_id": "application-notes-an193-v04-access-policies-as::section::6",
+          "doc_id": "application-notes-an193-v04-access-policies-as",
+          "section": "Access Policies > 87 PID_GRP_MULTICAST_TABLE > 2.7 Profile definition",
+          "pages": [
+            18,
+            19
+          ],
+          "score": 0.977917
+        },
+        {
+          "chunk_id": "08-volume-8-system-test-specifications-08-tssj-system-conformance-testing-data-security-tests-v1-11-as::section::6",
+          "doc_id": "08-volume-8-system-test-specifications-08-tssj-system-conformance-testing-data-security-tests-v1-11-as",
+          "section": "Volume 8 KNX Data Security Test Specs > IO and Property configuration",
+          "pages": [
+            22,
+            23
+          ],
+          "score": 0.968066
+        },
+        {
+          "chunk_id": "08-volume-8-system-test-specifications-08-tssj-system-conformance-testing-data-security-tests-v1-11-as::section::54",
+          "doc_id": "08-volume-8-system-test-specifications-08-tssj-system-conformance-testing-data-security-tests-v1-11-as",
+          "section": "Volume 8 KNX Data Security Test Specs > 66 66 66 66 66 66 66 00 10 :PropertyExtValueWriteCon(ObjType=0011, ObjInst=0001, PropId=0034,",
+          "pages": [
+            62,
+            62
+          ],
+          "score": 0.948954
+        },
+        {
+          "chunk_id": "application-notes-an209-update-8-tss-j-data-security-tests-v1-11-r3-ntc-nocomments::section::6",
+          "doc_id": "application-notes-an209-update-8-tss-j-data-security-tests-v1-11-r3-ntc-nocomments",
+          "section": "AN172 Phasing out Vol 9_4_1 and 9_4_2 > 3 and 4",
+          "pages": [
+            6,
+            7
+          ],
+          "score": 0.948189
+        },
+        {
+          "chunk_id": "08-volume-8-system-test-specifications-08-tssj-system-conformance-testing-data-security-tests-v1-11-as::section::26",
+          "doc_id": "08-volume-8-system-test-specifications-08-tssj-system-conformance-testing-data-security-tests-v1-11-as",
+          "section": "Volume 8 KNX Data Security Test Specs > Test case (positive) - correct S-A_Data PDU - A and C required",
+          "pages": [
+            40,
+            40
+          ],
+          "score": 0.945195
+        },
+        {
+          "chunk_id": "05-volume-5-certification-manual-05-knx-certification-of-products-procedure-v01-07-09-as::section::13",
+          "doc_id": "05-volume-5-certification-manual-05-knx-certification-of-products-procedure-v01-07-09-as",
+          "section": "KNX Certification of Products - Procedure > Testing Phase",
+          "pages": [
+            19,
+            21
+          ],
+          "score": 0.941544
+        },
+        {
+          "chunk_id": "08-volume-8-system-test-specifications-08-tssj-system-conformance-testing-data-security-tests-v1-11-as::section::24",
+          "doc_id": "08-volume-8-system-test-specifications-08-tssj-system-conformance-testing-data-security-tests-v1-11-as",
+          "section": "Volume 8 KNX Data Security Test Specs > correct S-A_Data PDU - A only",
+          "pages": [
+            38,
+            39
+          ],
+          "score": 0.927918
+        }
+      ]
+    },
+    {
+      "id": "q018",
+      "question": "¿Cómo se configuran los canales de iluminación?",
+      "language": "es",
+      "type": "procedure",
+      "retrieved_doc_ids": [
+        "07-volume-7-application-descriptions-07-20-02-lighting-actuators-v01-07-01-as",
+        "07-volume-7-application-descriptions-07-20-11-lighting-channels-v01-00-01-as"
+      ],
+      "relevant_doc_ids": [
+        "07-volume-7-application-descriptions-07-20-11-lighting-channels-v01-00-01-as"
+      ],
+      "recall_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "mrr": 0.5,
+      "ndcg_at_k": 0.6309297535714575,
+      "top_chunks": [
+        {
+          "chunk_id": "07-volume-7-application-descriptions-07-20-02-lighting-actuators-v01-07-01-as::section::15",
+          "doc_id": "07-volume-7-application-descriptions-07-20-02-lighting-actuators-v01-07-01-as",
+          "section": "Lighting Actuators > Overview",
+          "pages": [
+            37,
+            38
+          ],
+          "score": 0.694081
+        },
+        {
+          "chunk_id": "07-volume-7-application-descriptions-07-20-02-lighting-actuators-v01-07-01-as::section::67",
+          "doc_id": "07-volume-7-application-descriptions-07-20-02-lighting-actuators-v01-07-01-as",
+          "section": "Lighting Actuators > Overview",
+          "pages": [
+            134,
+            134
+          ],
+          "score": 0.48209
+        },
+        {
+          "chunk_id": "07-volume-7-application-descriptions-07-20-11-lighting-channels-v01-00-01-as::table::61::44::0::0",
+          "doc_id": "07-volume-7-application-descriptions-07-20-11-lighting-channels-v01-00-01-as",
+          "section": "Lighting Channels > FB description > 5.001 DPT_Scaling",
+          "pages": [
+            61,
+            61
+          ],
+          "score": 0.402503
+        },
+        {
+          "chunk_id": "07-volume-7-application-descriptions-07-20-11-lighting-channels-v01-00-01-as::table::44::29::0::0",
+          "doc_id": "07-volume-7-application-descriptions-07-20-11-lighting-channels-v01-00-01-as",
+          "section": "Lighting Channels > 15 min > • Parameter table",
+          "pages": [
+            44,
+            44
+          ],
+          "score": 0.350342
+        },
+        {
+          "chunk_id": "07-volume-7-application-descriptions-07-20-02-lighting-actuators-v01-07-01-as::section::56",
+          "doc_id": "07-volume-7-application-descriptions-07-20-02-lighting-actuators-v01-07-01-as",
+          "section": "Lighting Actuators > CSOO > 5.2.1.1 Primary light output",
+          "pages": [
+            115,
+            116
+          ],
+          "score": 0.329837
+        },
+        {
+          "chunk_id": "07-volume-7-application-descriptions-07-20-11-lighting-channels-v01-00-01-as::table::59::41::0::0",
+          "doc_id": "07-volume-7-application-descriptions-07-20-11-lighting-channels-v01-00-01-as",
+          "section": "Lighting Channels > 2 In the channel definition this parameter is defined as PART_Repetition_Time. > 4.3.3.1.2 Output :Room Light Illumination",
+          "pages": [
+            59,
+            59
+          ],
+          "score": 0.285111
+        },
+        {
+          "chunk_id": "07-volume-7-application-descriptions-07-20-11-lighting-channels-v01-00-01-as::table::23::12::0::0",
+          "doc_id": "07-volume-7-application-descriptions-07-20-11-lighting-channels-v01-00-01-as",
+          "section": "Lighting Channels > 408 / Dimming CtrlC",
+          "pages": [
+            23,
+            23
+          ],
+          "score": 0.262635
+        },
+        {
+          "chunk_id": "07-volume-7-application-descriptions-07-20-02-lighting-actuators-v01-07-01-as::section::43",
+          "doc_id": "07-volume-7-application-descriptions-07-20-02-lighting-actuators-v01-07-01-as",
+          "section": "Lighting Actuators > Basic model > Figure 20 – Basic model of the FB CTA > 4.2.1.2 Light output brightness",
+          "pages": [
+            90,
+            91
+          ],
+          "score": 0.148217
+        },
+        {
+          "chunk_id": "07-volume-7-application-descriptions-07-20-11-lighting-channels-v01-00-01-as::table::36::22::0::0",
+          "doc_id": "07-volume-7-application-descriptions-07-20-11-lighting-channels-v01-00-01-as",
+          "section": "Lighting Channels > 0 : no prewarning > 2.29 CH_Light_Actuator_Scene (Channel Code 0103h)",
+          "pages": [
+            36,
+            36
+          ],
+          "score": 0.082063
+        },
+        {
+          "chunk_id": "07-volume-7-application-descriptions-07-20-11-lighting-channels-v01-00-01-as::table::13::6::0::0",
+          "doc_id": "07-volume-7-application-descriptions-07-20-11-lighting-channels-v01-00-01-as",
+          "section": "Lighting Channels > CH_PB_Scene (Channel Code 0008h)",
+          "pages": [
+            13,
+            13
+          ],
+          "score": 0.073041
+        }
+      ]
+    },
+    {
+      "id": "q019",
+      "question": "How does KNX RF Multi work?",
+      "language": "en",
+      "type": "protocol",
+      "retrieved_doc_ids": [
+        "application-notes-an186-v04-rf-multi-s-mode-device-profiles-as",
+        "application-notes-an202-v01-knx-rf-multi-slow-le-dp",
+        "03-volume-3-system-specifications-03-02-05-communication-medium-rf-v02-03-01-as",
+        "03-volume-3-system-specifications-03-05-01-resources-v01-10-01-as"
+      ],
+      "relevant_doc_ids": [
+        "03-volume-3-system-specifications-03-02-05-communication-medium-rf-v02-03-01-as",
+        "application-notes-an186-v04-rf-multi-s-mode-device-profiles-as",
+        "application-notes-an202-v01-knx-rf-multi-slow-le-dp"
+      ],
+      "recall_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "top_chunks": [
+        {
+          "chunk_id": "application-notes-an186-v04-rf-multi-s-mode-device-profiles-as::section::2",
+          "doc_id": "application-notes-an186-v04-rf-multi-s-mode-device-profiles-as",
+          "section": "RF Multi S-Mode device Profiles > 1 Purpose, motivation and scope > 1.2 Motivation",
+          "pages": [
+            4,
+            5
+          ],
+          "score": 0.999515
+        },
+        {
+          "chunk_id": "application-notes-an202-v01-knx-rf-multi-slow-le-dp::section::9",
+          "doc_id": "application-notes-an202-v01-knx-rf-multi-slow-le-dp",
+          "section": "KNX RF Multi Slow Low Energy > 1 : Enabled > Table 3 - KNX RF Multi information AddInfo",
+          "pages": [
+            16,
+            17
+          ],
+          "score": 0.99934
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-02-05-communication-medium-rf-v02-03-01-as::section::1",
+          "doc_id": "03-volume-3-system-specifications-03-02-05-communication-medium-rf-v02-03-01-as",
+          "section": "Communication Medium RF > Introduction",
+          "pages": [
+            6,
+            7
+          ],
+          "score": 0.997418
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-05-01-resources-v01-10-01-as::section::143",
+          "doc_id": "03-volume-3-system-specifications-03-05-01-resources-v01-10-01-as",
+          "section": "Resources > EXAMPLE 35",
+          "pages": [
+            193,
+            194
+          ],
+          "score": 0.994564
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-02-05-communication-medium-rf-v02-03-01-as::section::69",
+          "doc_id": "03-volume-3-system-specifications-03-02-05-communication-medium-rf-v02-03-01-as",
+          "section": "Communication Medium RF > KNX RF1.1 > 1.1 device by a multi to avoid this feature reduction.",
+          "pages": [
+            85,
+            87
+          ],
+          "score": 0.992995
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-02-05-communication-medium-rf-v02-03-01-as::section::62",
+          "doc_id": "03-volume-3-system-specifications-03-02-05-communication-medium-rf-v02-03-01-as",
+          "section": "Communication Medium RF > 5 000 ms if 32 or more than 32 Fast Acks are expected > Data Link Layer protocol > 6.6.5.1 RF Repetition counter for end devices",
+          "pages": [
+            79,
+            79
+          ],
+          "score": 0.991568
+        },
+        {
+          "chunk_id": "application-notes-an202-v01-knx-rf-multi-slow-le-dp::section::8",
+          "doc_id": "application-notes-an202-v01-knx-rf-multi-slow-le-dp",
+          "section": "KNX RF Multi Slow Low Energy > 1 : Enabled > 2.3.1.1 Usage by the MaS",
+          "pages": [
+            15,
+            16
+          ],
+          "score": 0.990427
+        },
+        {
+          "chunk_id": "application-notes-an202-v01-knx-rf-multi-slow-le-dp::section::4",
+          "doc_id": "application-notes-an202-v01-knx-rf-multi-slow-le-dp",
+          "section": "KNX RF Multi Slow Low Energy > 100 ms ≤ Tma < 140 ms > 2.2.2 Scanning mechanism (03_02_05 / 6.6.3.1.3.3.2 Fast Rx) > 2.2.2.3 NPRM Slow",
+          "pages": [
+            9,
+            10
+          ],
+          "score": 0.989505
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-05-01-resources-v01-10-01-as::table::193::59::0::0",
+          "doc_id": "03-volume-3-system-specifications-03-05-01-resources-v01-10-01-as",
+          "section": "Resources > NOTE 73 > 4.15 RF Medium Object (Object Type 19) > 4.15.1 Overview",
+          "pages": [
+            193,
+            193
+          ],
+          "score": 0.985872
+        },
+        {
+          "chunk_id": "application-notes-an202-v01-knx-rf-multi-slow-le-dp::section::11",
+          "doc_id": "application-notes-an202-v01-knx-rf-multi-slow-le-dp",
+          "section": "KNX RF Multi Slow Low Energy > 4 to 14: Reserved > 2.4.2.4 Reception frequency",
+          "pages": [
+            19,
+            20
+          ],
+          "score": 0.985049
+        }
+      ]
+    },
+    {
+      "id": "q020",
+      "question": "What changes does AN209 introduce to the KNX data security tests?",
+      "language": "en",
+      "type": "change",
+      "retrieved_doc_ids": [
+        "08-volume-8-system-test-specifications-08-tssj-system-conformance-testing-data-security-tests-v1-11-as",
+        "application-notes-an193-v04-access-policies-as",
+        "05-volume-5-certification-manual-05-knx-certification-of-products-procedure-v01-07-09-as",
+        "03-volume-3-system-specifications-03-04-01-application-interface-layer-as-v02-01-01",
+        "application-notes-an209-update-8-tss-j-data-security-tests-v1-11-r3-ntc-nocomments"
+      ],
+      "relevant_doc_ids": [
+        "08-volume-8-system-test-specifications-08-tssj-system-conformance-testing-data-security-tests-v1-11-as",
+        "application-notes-an209-update-8-tss-j-data-security-tests-v1-11-r3-ntc-nocomments"
+      ],
+      "recall_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 0.8503449055347546,
+      "top_chunks": [
+        {
+          "chunk_id": "08-volume-8-system-test-specifications-08-tssj-system-conformance-testing-data-security-tests-v1-11-as::table::2::0::0::0",
+          "doc_id": "08-volume-8-system-test-specifications-08-tssj-system-conformance-testing-data-security-tests-v1-11-as",
+          "section": "Volume 8 KNX Data Security Test Specs > Document Updates > Modifications",
+          "pages": [
+            2,
+            2
+          ],
+          "score": 0.99865
+        },
+        {
+          "chunk_id": "08-volume-8-system-test-specifications-08-tssj-system-conformance-testing-data-security-tests-v1-11-as::section::2",
+          "doc_id": "08-volume-8-system-test-specifications-08-tssj-system-conformance-testing-data-security-tests-v1-11-as",
+          "section": "Volume 8 KNX Data Security Test Specs > 00 00 00 00) to re-init. > 3.3.17: Fixed value for Challenge. Changed acceptance text and",
+          "pages": [
+            4,
+            5
+          ],
+          "score": 0.997725
+        },
+        {
+          "chunk_id": "application-notes-an193-v04-access-policies-as::section::0",
+          "doc_id": "application-notes-an193-v04-access-policies-as",
+          "section": "Access Policies > Application Note 193/18 v04 > Date:",
+          "pages": [
+            1,
+            3
+          ],
+          "score": 0.996964
+        },
+        {
+          "chunk_id": "05-volume-5-certification-manual-05-knx-certification-of-products-procedure-v01-07-09-as::section::17",
+          "doc_id": "05-volume-5-certification-manual-05-knx-certification-of-products-procedure-v01-07-09-as",
+          "section": "KNX Certification of Products - Procedure > Reassessment > 3.5.2.3 Reassessment Application Program",
+          "pages": [
+            29,
+            29
+          ],
+          "score": 0.9951
+        },
+        {
+          "chunk_id": "08-volume-8-system-test-specifications-08-tssj-system-conformance-testing-data-security-tests-v1-11-as::section::0",
+          "doc_id": "08-volume-8-system-test-specifications-08-tssj-system-conformance-testing-data-security-tests-v1-11-as",
+          "section": "Volume 8 KNX Data Security Test Specs",
+          "pages": [
+            1,
+            3
+          ],
+          "score": 0.994294
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-04-01-application-interface-layer-as-v02-01-01::table::2::0::0::0",
+          "doc_id": "03-volume-3-system-specifications-03-04-01-application-interface-layer-as-v02-01-01",
+          "section": "Application Interface Layer > Document updates > Modifications",
+          "pages": [
+            2,
+            2
+          ],
+          "score": 0.992954
+        },
+        {
+          "chunk_id": "08-volume-8-system-test-specifications-08-tssj-system-conformance-testing-data-security-tests-v1-11-as::section::3",
+          "doc_id": "08-volume-8-system-test-specifications-08-tssj-system-conformance-testing-data-security-tests-v1-11-as",
+          "section": "Volume 8 KNX Data Security Test Specs > 00 00 00 00) to re-init. > 3.8.10.x: corrected wrong entries (start indexes) in Group Key",
+          "pages": [
+            5,
+            18
+          ],
+          "score": 0.992519
+        },
+        {
+          "chunk_id": "application-notes-an193-v04-access-policies-as::section::6",
+          "doc_id": "application-notes-an193-v04-access-policies-as",
+          "section": "Access Policies > 87 PID_GRP_MULTICAST_TABLE > 2.7 Profile definition",
+          "pages": [
+            18,
+            19
+          ],
+          "score": 0.985438
+        },
+        {
+          "chunk_id": "03-volume-3-system-specifications-03-04-01-application-interface-layer-as-v02-01-01::section::26",
+          "doc_id": "03-volume-3-system-specifications-03-04-01-application-interface-layer-as-v02-01-01",
+          "section": "Application Interface Layer > EXAMPLE 9 > Evaluation of Roles in the KNX devices",
+          "pages": [
+            39,
+            40
+          ],
+          "score": 0.955995
+        },
+        {
+          "chunk_id": "application-notes-an209-update-8-tss-j-data-security-tests-v1-11-r3-ntc-nocomments::section::0",
+          "doc_id": "application-notes-an209-update-8-tss-j-data-security-tests-v1-11-r3-ntc-nocomments",
+          "section": "AN172 Phasing out Vol 9_4_1 and 9_4_2 > Application Note No 209 rev 3",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.913221
+        }
+      ]
+    }
+  ],
+  "config": {
+    "embedding_model": "intfloat/multilingual-e5-small",
+    "reranker": "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1",
+    "artifacts_dir": "artifacts"
+  }
+}

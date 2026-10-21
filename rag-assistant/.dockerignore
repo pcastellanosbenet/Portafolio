@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+artifacts/
+models/
+eval/results/
+.env
+.git/
+RAG-Agent/
+tests/
+study/
+*.log

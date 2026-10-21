@@ -1,0 +1,38 @@
+{
+  "model": "qwen2.5:3b-instruct-q4_K_M",
+  "context": 4096,
+  "predict": 150,
+  "threads": 2,
+  "runs": [
+    {
+      "total_seconds": 39.9,
+      "prompt_tokens": 59,
+      "output_tokens": 150,
+      "prompt_tokens_per_second": 15.99,
+      "output_tokens_per_second": 5.3,
+      "load_seconds": 7.87,
+      "answer_preview": "A KNX datapoint type (DPT) is a standardized data format used to represent specific types of data within a KNX network. It defines the structure and meaning of data, such as temperature, light intensity, or door position. Each DPT type is assigned a unique identifier to ensure data consistency and i",
+      "run": 1,
+      "cold": true
+    },
+    {
+      "total_seconds": 28.55,
+      "prompt_tokens": 59,
+      "output_tokens": 150,
+      "prompt_tokens_per_second": 321.56,
+      "output_tokens_per_second": 5.29,
+      "load_seconds": 0.0,
+      "answer_preview": "A KNX datapoint type (DPT) is a standardized way to represent a specific type of data within a KNX communication protocol. It defines the structure and meaning of the data, such as temperature, humidity, or button presses. Each DPT type has a unique identifier that allows KNX devices to understand t",
+      "run": 2,
+      "cold": false
+    }
+  ],
+  "loaded_models": [
+    {
+      "name": "qwen2.5:3b-instruct-q4_K_M",
+      "size_bytes": 2168360795,
+      "size_vram_bytes": 0
+    }
+  ],
+  "note": "Benchmark de infraestructura; no es una métrica de calidad del RAG."
+}

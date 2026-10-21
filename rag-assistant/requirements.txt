@@ -1,0 +1,12 @@
+--extra-index-url https://download.pytorch.org/whl/cpu
+
+torch==2.14.1
+transformers==5.20.2
+numpy==2.5.2
+pymupdf==1.28.2
+qdrant-client==1.19.1
+fastapi==0.156.8
+uvicorn[standard]==0.54.0
+pydantic-settings==2.16.1
+httpx==0.28.1
+tqdm==4.70.1
