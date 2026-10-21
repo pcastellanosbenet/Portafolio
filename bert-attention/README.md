@@ -1,12 +1,11 @@
 # Interpretabilidad de BERT: atención por capas y cabezas
 
-Este proyecto usa `bert-base-uncased` para resolver tareas de *masked language modeling*
-(MLM) y visualizar, capa por capa y cabeza por cabeza, qué tokens reciben atención. El
+Este proyecto se usa el modelo `bert-base-uncased` para resolver tareas de *masked language modeling* (MLM) y visualizar, capa por capa y cabeza por cabeza, qué tokens reciben atención. El
 objetivo no es entrenar otro modelo, sino **abrir la caja negra** y comprobar qué patrones
 lingüísticos capturan las 12 capas y las 12 cabezas de BERT.
 
-Es un proyecto de NLP e interpretabilidad con PyTorch y Hugging Face Transformers. Genera
-144 mapas de atención por frase (12 capas × 12 cabezas), guarda los pesos originales y
+Es un proyecto de NLP e interpretabilidad con PyTorch y Hugging Face Transformers.
+Genera 144 mapas de atención por frase (12 capas × 12 cabezas), guarda los pesos originales y
 documenta un conjunto curado de mapas para el análisis.
 
 ## Resultados
