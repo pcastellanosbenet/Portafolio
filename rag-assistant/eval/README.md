@@ -72,6 +72,13 @@ python -m src.evaluate \
 Los resultados incluyen el detalle por pregunta, por tipo y por idioma. El archivo
 `eval/results/` se puede versionar; los PDFs y el índice no.
 
+## Demo sintética
+
+Las preguntas y métricas de [`../demo/`](../demo/) pertenecen a un corpus
+ficticio llamado NexaBus y están separadas de esta evaluación KNX. No se deben
+mezclar ni comparar: la demo solo comprueba que el pipeline funciona de extremo a
+extremo sin una copia licenciada.
+
 ## Resultados actuales
 
 Subconjunto de 25 PDFs / 2.111 páginas, 20 preguntas y `top_k=10`:

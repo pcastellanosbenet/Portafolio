@@ -28,7 +28,7 @@ KNX, evaluación de recuperación, API FastAPI y despliegue con Docker. El proye
 - **API y UI local:** `/v1/query`, catálogo de documentos y una interfaz web
   mínima en `/`.
 
-## Corpus
+## Corpus y reproducibilidad
 
 El corpus es el estándar **KNX v3.0.0**: 178 PDFs, 10.908 páginas y ~158 MB.
 Incluye los volúmenes 2–10, especificaciones de sistema, perfiles, descripciones
@@ -36,15 +36,39 @@ de aplicación, requisitos de hardware, manual de certificación y Application
 Notes.
 
 El estándar está protegido por derechos de autor y **no se redistribuye**. Los
-PDFs estan fuera de este repositorio. El repositorio solo contiene código, tests y
-resultados agregados.
+PDFs están fuera de este repositorio. El repositorio solo contiene código, tests,
+preguntas, resultados agregados, metadatos y un corpus sintético de demo; no
+incluye chunks, embeddings ni el índice de Qdrant del corpus KNX.
+
+La reproducibilidad es **condicionada**:
+
+| Nivel | Qué se puede reproducir | Requisito |
+| :--- | :--- | :--- |
+| Código y tests | `pytest`, `ruff` y el pipeline completo | Python 3.12 |
+| Demo | Ingesta, recuperación, API y evaluación sobre un corpus sintético | El repositorio y modelos públicos |
+| Pipeline propio | Ingesta de otros PDFs y consultas con citas | PDFs de entrada |
+| Métricas KNX | Las cifras de este README y de `eval/results/` | Copia licenciada de la edición exacta |
+
+La guía completa está en [`docs/corpus.md`](docs/corpus.md), junto con el
+manifiesto de metadatos [`docs/corpus_manifest.json`](docs/corpus_manifest.json).
+Para comprobar una copia local antes de indexarla:
+
+```bash
+python -m scripts.check_corpus --corpus "$KNX_CORPUS_DIR"
+```
+
+El validador comprueba los 25 PDFs del subconjunto evaluado, sus páginas y su
+SHA-256. No sube ni copia los documentos. Si no tienes una copia licenciada,
+puedes ejecutar la demo sintética que se describe más abajo; sus métricas no son
+métricas KNX y no deben compararse con las de este README.
 
 ## Resultados
 
 ### Ingesta real (subconjunto de evaluación)
 
-Durante la evaluación, por las características de mi equipo personal, se indexaron solo los **25 PDFs referenciados por las 20 preguntas** (2.111 páginas). No es el corpus completo de
-178 PDFs.    
+Durante la evaluación, por las características de mi equipo personal, se indexaron
+solo los **25 PDFs referenciados por las 20 preguntas** (2.111 páginas). No es el
+corpus completo de 178 PDFs.
 
 | Métrica | Valor |
 | :--- | ---: |
@@ -146,6 +170,38 @@ uv pip install --python .venv/bin/python \
   -r requirements-dev.txt
 ```
 
+### Demo sin corpus KNX
+
+El repositorio incluye un corpus sintético de 6 documentos para probar el flujo
+completo sin una licencia del estándar. Es un protocolo ficticio, no KNX:
+
+```bash
+python scripts/build_demo_corpus.py --clean
+
+python -m src.ingest \
+  --corpus demo/corpus \
+  --artifacts artifacts-demo \
+  --rebuild
+
+python -m src.evaluate \
+  --questions demo/questions.jsonl \
+  --artifacts artifacts-demo \
+  --top-k 10 \
+  --no-reranker \
+  --output demo/results/retrieval.json
+```
+
+Los artefactos y el índice se guardan en `artifacts-demo/`, separados del índice
+real. Para servir la API con la demo:
+
+```bash
+RAG_ARTIFACTS_DIR=artifacts-demo uvicorn app.main:app --host 127.0.0.1 --port 8000
+```
+
+La demo usa `multilingual-e5-small` (modelo público) y no necesita Ollama para la
+ingesta ni para la evaluación. Sus resultados son un smoke test, no una
+evaluación de KNX. Los detalles están en [`demo/README.md`](demo/README.md).
+
 ### 1. Arrancar Ollama y descargar el modelo
 
 ```bash
@@ -159,10 +215,11 @@ chunk con `used_llm=false`.
 
 ### 2. Indexar el corpus
 
-El corpus no se versiona. Ajusta la ruta si es distinta:
+El corpus no se versiona. Ajusta la ruta si es distinta y valida la copia:
 
 ```bash
 export KNX_CORPUS_DIR="../RAG-Agent/The KNX Standard v3.0.0"
+python -m scripts.check_corpus --corpus "$KNX_CORPUS_DIR"
 
 # Prueba rápida con un documento
 python -m src.ingest --corpus "$KNX_CORPUS_DIR" --doc "03_07_02 Datapoint Types" --rebuild
@@ -170,6 +227,9 @@ python -m src.ingest --corpus "$KNX_CORPUS_DIR" --doc "03_07_02 Datapoint Types"
 # Corpus completo (puede tardar horas en CPU; ver docs/indexing-cost.md)
 python -m src.ingest --corpus "$KNX_CORPUS_DIR" --rebuild
 ```
+
+El comando `--artifacts` cambia también la ruta por defecto de Qdrant:
+`--artifacts artifacts-demo` usa `artifacts-demo/qdrant`, no el índice real.
 
 Opciones útiles:
 
@@ -243,8 +303,8 @@ pytest -q
 ruff check src tests scripts app
 ```
 
-Los tests no descargan modelos ni usan el corpus real: usan `HashingEmbedder`,
-`MockLLM` y Qdrant en memoria.
+Los tests no descargan modelos ni usan el corpus KNX: usan fixtures deterministas,
+el corpus sintético de demo y Qdrant en memoria.
 
 ## Docker
 
@@ -290,8 +350,15 @@ rag-assistant/
 │   ├── main.py              # FastAPI y carga de recursos
 │   ├── schemas.py           # request/response de la API
 │   └── static/index.html    # UI local
+├── demo/
+│   ├── README.md            # alcance y límites de la demo
+│   ├── documents.json       # corpus sintético (NexaBus, no KNX)
+│   ├── questions.jsonl      # 12 preguntas de demo
+│   └── results/             # métricas de demo, separadas de KNX
 ├── docs/
 │   ├── architecture.md
+│   ├── corpus.md            # licencia y niveles de reproducibilidad
+│   ├── corpus_manifest.json # metadatos de los 25 PDFs evaluados
 │   ├── hardware.md
 │   ├── indexing-cost.md
 │   ├── ollama_benchmark.json
@@ -301,6 +368,8 @@ rag-assistant/
 │   ├── README.md
 │   └── results/             # resultados reales de evaluación
 ├── scripts/
+│   ├── build_demo_corpus.py
+│   ├── check_corpus.py
 │   ├── inspect_corpus.py
 │   └── benchmark_ollama.py
 ├── src/
@@ -321,7 +390,7 @@ rag-assistant/
 │   ├── agent.py             # state machine
 │   ├── evaluate.py          # métricas de recuperación
 │   └── ingest.py            # CLI de ingesta
-├── tests/                   # 25 tests
+├── tests/                   # 36 tests
 ├── Dockerfile
 ├── docker-compose.yml
 ├── requirements.txt
@@ -351,8 +420,10 @@ rag-assistant/
   análisis está en [`docs/indexing-cost.md`](docs/indexing-cost.md).
 - **Sin streaming:** la API devuelve la respuesta completa; para una demo más
   fluida habría que añadir streaming de Ollama.
-- **Corpus local:** no se incluye el estándar. El proyecto no es una
-  redistribución del corpus ni un sustituto de la documentación oficial.
+- **Corpus local:** no se incluye el estándar. Las métricas KNX requieren una
+  copia licenciada y validada; el proyecto no es una redistribución del corpus ni
+  un sustituto de la documentación oficial. La demo sintética permite probar el
+  pipeline, pero no reproduce el rendimiento sobre KNX.
 
 ## Referencias
 

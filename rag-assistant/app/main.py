@@ -45,7 +45,7 @@ def _build_agent(settings: Settings) -> tuple[KNXAgent, ChunkStore, list[Documen
     index = QdrantIndex(
         settings.collection_name,
         url=settings.qdrant_url,
-        path=str(settings.qdrant_path) if not settings.qdrant_url else None,
+        path=str(settings.effective_qdrant_path) if not settings.qdrant_url else None,
         timeout=settings.qdrant_timeout,
     )
     retriever = Retriever(

@@ -1,0 +1,293 @@
+[
+  {
+    "filename": "01 Volume 1 Demo/01_01_01 NexaBus Overview v01.00.00 AS.pdf",
+    "title": "NexaBus Overview",
+    "blocks": [
+      {
+        "type": "heading",
+        "level": 1,
+        "text": "1 Introduction"
+      },
+      {
+        "type": "paragraph",
+        "text": "This is a synthetic demonstration document. NexaBus is a fictional building-automation protocol created for this repository. It is not the KNX Standard, it does not describe KNX products, and it must not be used as a source of KNX facts. The corpus exists only to exercise the ingestion, retrieval, citation and evaluation pipeline without redistributing licensed material."
+      },
+      {
+        "type": "paragraph",
+        "text": "A NexaBus installation contains devices, a shared medium and a logical address space. Devices exchange typed datapoints through group addresses. The demo protocol is intentionally small: it covers addressing, datapoint types, device properties, secure sessions, media and certification at a high level."
+      },
+      {
+        "type": "heading",
+        "level": 1,
+        "text": "2 Group addresses"
+      },
+      {
+        "type": "paragraph",
+        "text": "A group address is a logical identifier shared by one sender and one or more receivers. Group addresses are written as three-level decimal values such as 1/2/3. They are not physical device addresses. A device may belong to several group addresses, and a group address may have several receivers."
+      },
+      {
+        "type": "paragraph",
+        "text": "A sender writes a datapoint to a group address. The bus forwards the datapoint to every receiver that subscribes to that address. The receiver interprets the payload according to the datapoint type declared by the sender. The protocol does not guarantee that every receiver uses the same unit; the datapoint type is the contract."
+      },
+      {
+        "type": "heading",
+        "level": 1,
+        "text": "3 Datapoints and properties"
+      },
+      {
+        "type": "paragraph",
+        "text": "A datapoint is a typed value exchanged through a group address. The demo uses DPT identifiers such as DPT 1.001 and DPT 9.001. The companion document NexaBus Datapoint Types defines the payload formats used by the synthetic devices."
+      },
+      {
+        "type": "paragraph",
+        "text": "Properties describe device configuration and state. They use identifiers such as PID_SERIAL_NUMBER and PID_OPERATION_MODE. Properties are read or written through the device management service; they are not group-address datapoints."
+      }
+    ]
+  },
+  {
+    "filename": "01 Volume 1 Demo/01_02_01 NexaBus Datapoint Types v01.00.00 AS.pdf",
+    "title": "NexaBus Datapoint Types",
+    "blocks": [
+      {
+        "type": "heading",
+        "level": 1,
+        "text": "2.1 Datapoint type catalogue"
+      },
+      {
+        "type": "paragraph",
+        "text": "This is a synthetic demonstration document. The identifiers below are fictional examples and are not a reproduction of the KNX datapoint type catalogue. They exist to test table extraction and exact identifier lookup."
+      },
+      {
+        "type": "table",
+        "rows": [
+          ["DPT ID", "Format", "DPT Name", "Description"],
+          ["1.001", "B1", "DPT_Switch", "One-bit switch value: 0 = off, 1 = on."],
+          ["1.002", "B1", "DPT_Bool", "One-bit boolean value."],
+          ["5.001", "U8", "DPT_Scaling", "Unsigned 8-bit percentage from 0 to 100."],
+          ["9.001", "F16", "DPT_Temperature", "16-bit floating-point temperature in degrees Celsius."],
+          ["14.056", "F32", "DPT_Power", "32-bit floating-point active power in watts."]
+        ]
+      },
+      {
+        "type": "heading",
+        "level": 1,
+        "text": "2.2 Encoding rules"
+      },
+      {
+        "type": "paragraph",
+        "text": "DPT 1.001 is encoded in one bit. The value 0 means off and the value 1 means on. Receivers must not interpret other bit patterns as valid switch values. DPT 1.002 uses the same one-bit representation but represents a general boolean rather than a switching actuator command."
+      },
+      {
+        "type": "paragraph",
+        "text": "DPT 5.001 uses an unsigned 8-bit value. In the demo, the value is a percentage and the valid range is 0 to 100. Values above 100 are clamped to 100 by the receiver. DPT 9.001 uses the F16 format and represents a temperature in degrees Celsius. The demo resolution is 0.01 degrees Celsius."
+      },
+      {
+        "type": "paragraph",
+        "text": "DPT 14.056 uses the F32 format and represents active power in watts. It must not be interpreted as kilowatts. A reader who needs to convert the value to another unit should do so explicitly and record the conversion in the application logic."
+      }
+    ]
+  },
+  {
+    "filename": "02 Volume 2 Demo/02_01_01 NexaBus Device Profiles v01.00.00 AS.pdf",
+    "title": "NexaBus Device Profiles",
+    "blocks": [
+      {
+        "type": "heading",
+        "level": 1,
+        "text": "2.1 Property identifiers"
+      },
+      {
+        "type": "paragraph",
+        "text": "This is a synthetic demonstration document. The property identifiers are fictional examples, not KNX property definitions. Each row describes the identifier, its storage type and its purpose in the demo protocol."
+      },
+      {
+        "type": "table",
+        "rows": [
+          ["PID", "Name", "Type", "Description"],
+          ["PID_LOAD_STATE_CONTROL", "Load state control", "U8", "Controls the load state: 0 = released, 1 = applied."],
+          ["PID_SERIAL_NUMBER", "Serial number", "U32", "Unique device serial number."],
+          ["PID_HEARTBEAT_INTERVAL", "Heartbeat interval", "U16", "Interval in seconds between heartbeat messages."],
+          ["PID_OPERATION_MODE", "Operation mode", "U8", "Selects normal, maintenance or safe mode."]
+        ]
+      },
+      {
+        "type": "heading",
+        "level": 1,
+        "text": "2.2 Profile 2.0 requirements"
+      },
+      {
+        "type": "paragraph",
+        "text": "A device that claims profile 2.0 must expose PID_SERIAL_NUMBER and PID_OPERATION_MODE. It may also expose PID_LOAD_STATE_CONTROL and PID_HEARTBEAT_INTERVAL. The serial number is read-only. The operation mode is writable by a configuration tool. The heartbeat interval is optional and defaults to 60 seconds when it is not present."
+      },
+      {
+        "type": "paragraph",
+        "text": "Profile 1.0 devices support at most 64 group addresses. Profile 2.0 devices support at most 256. Profile 3.0 devices support at most 1024 and must implement secure sessions. The limit applies to configured group addresses, not to the number of group addresses observed on the bus."
+      },
+      {
+        "type": "table",
+        "rows": [
+          ["Profile", "Mandatory PID", "Optional PID", "Max group addresses"],
+          ["1.0", "PID_SERIAL_NUMBER", "PID_HEARTBEAT_INTERVAL", "64"],
+          ["2.0", "PID_SERIAL_NUMBER", "PID_LOAD_STATE_CONTROL", "256"],
+          ["2.0", "PID_OPERATION_MODE", "PID_HEARTBEAT_INTERVAL", "256"],
+          ["3.0", "PID_SERIAL_NUMBER", "PID_LOAD_STATE_CONTROL", "1024"]
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "02 Volume 2 Demo/02_02_01 NexaBus Secure Sessions v01.00.00 AS.pdf",
+    "title": "NexaBus Secure Sessions",
+    "blocks": [
+      {
+        "type": "heading",
+        "level": 1,
+        "text": "3.1 Session establishment"
+      },
+      {
+        "type": "paragraph",
+        "text": "This is a synthetic demonstration document. NexaBus Secure is a fictional protocol used to test retrieval over security procedures. It is not a description of KNX IP Secure or of any real cryptographic product."
+      },
+      {
+        "type": "paragraph",
+        "text": "A secure session starts with a hello message containing the device serial number and a random nonce. The responder returns its own nonce and a session identifier. Both peers derive a session key from the two nonces and a pre-shared key. The session key is valid for at most 300 seconds in the demo protocol."
+      },
+      {
+        "type": "paragraph",
+        "text": "The hello and the response are authenticated but not encrypted. Subsequent frames use the session key to encrypt the payload and to compute a message authentication code. A peer that does not know the pre-shared key cannot establish a session, even if it can observe the nonces."
+      },
+      {
+        "type": "heading",
+        "level": 1,
+        "text": "3.2 Replay protection"
+      },
+      {
+        "type": "paragraph",
+        "text": "Each secure frame carries a monotonically increasing sequence number. A receiver rejects a frame whose sequence number is less than or equal to the last accepted value. Sequence numbers are reset only when a new session is established. This rule prevents an attacker from replaying an old frame inside the same session."
+      },
+      {
+        "type": "paragraph",
+        "text": "The receiver also checks the session identifier and the message authentication code before accepting a frame. A frame with a valid sequence number but an invalid authentication code is discarded and does not advance the sequence window."
+      },
+      {
+        "type": "heading",
+        "level": 1,
+        "text": "3.3 Failure handling"
+      },
+      {
+        "type": "paragraph",
+        "text": "If authentication fails three times, the responder closes the session and waits 60 seconds before accepting another hello. The event is recorded in the device log. A configuration tool can clear the lockout only through a local maintenance connection."
+      },
+      {
+        "type": "table",
+        "rows": [
+          ["Field", "Size", "Purpose", "Notes"],
+          ["Session ID", "4 bytes", "Identify the session", "Chosen by the responder"],
+          ["Sequence", "4 bytes", "Order frames", "Starts at 1"],
+          ["Payload", "Variable", "Application data", "Encrypted"],
+          ["MAC", "16 bytes", "Authenticate the frame", "Checked before use"]
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "03 Volume 3 Demo/03_01_01 NexaBus Media and Couplers v01.00.00 AS.pdf",
+    "title": "NexaBus Media and Couplers",
+    "blocks": [
+      {
+        "type": "heading",
+        "level": 1,
+        "text": "4.1 Twisted pair"
+      },
+      {
+        "type": "paragraph",
+        "text": "This is a synthetic demonstration document. The media described here are fictional variants created for the demo and are not a description of KNX TP, PL or RF. Twisted pair uses a balanced cable and a shared bus. A segment supports up to 64 devices in the demo and must be terminated at both ends."
+      },
+      {
+        "type": "heading",
+        "level": 1,
+        "text": "4.2 Powerline"
+      },
+      {
+        "type": "paragraph",
+        "text": "Powerline uses the existing mains wiring as the shared medium. It is convenient when new cable cannot be installed, but it is more sensitive to electrical noise. A powerline segment supports up to 32 devices in the demo and requires a coupling filter between phases."
+      },
+      {
+        "type": "heading",
+        "level": 1,
+        "text": "4.3 Radio"
+      },
+      {
+        "type": "paragraph",
+        "text": "Radio uses short frames and does not require a physical bus. It is suitable for retrofits and for devices that move, but range and interference must be planned. A radio segment supports up to 16 devices in the demo. Battery-powered devices sleep between transmissions and therefore cannot act as repeaters."
+      },
+      {
+        "type": "heading",
+        "level": 1,
+        "text": "4.4 Couplers and segments"
+      },
+      {
+        "type": "paragraph",
+        "text": "A coupler connects two segments and forwards only the group addresses whose receivers are on the other side. It also isolates electrical faults and limits traffic between segments. A coupler does not translate datapoint types: both segments must agree on the payload format."
+      },
+      {
+        "type": "table",
+        "rows": [
+          ["Medium", "Topology", "Max devices", "Typical use"],
+          ["Twisted pair", "Bus", "64", "New installations"],
+          ["Powerline", "Shared mains", "32", "Retrofits with existing cable"],
+          ["Radio", "Wireless", "16", "Mobile or inaccessible devices"],
+          ["Hybrid", "Coupled segments", "128", "Mixed installations"],
+          ["Legacy", "Bus", "32", "Migration scenarios"]
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "04 Volume 4 Demo/04_01_01 NexaBus Certification and Changes v01.01.00 AS.pdf",
+    "title": "NexaBus Certification and Changes",
+    "blocks": [
+      {
+        "type": "heading",
+        "level": 1,
+        "text": "5.1 Certification procedure"
+      },
+      {
+        "type": "paragraph",
+        "text": "This is a synthetic demonstration document. NexaBus certification is a fictional process used to exercise procedural questions. A product is certified in four steps: submit the application, run the conformance tests, fix any failures and register the certificate. The demo certificate is valid for 24 months."
+      },
+      {
+        "type": "paragraph",
+        "text": "A certified product must publish its profile, datapoint types and property identifiers. The conformance tests check group-address communication, datapoint encoding, property access and secure session handling. A product that fails any mandatory test cannot be registered until a new submission passes the complete suite."
+      },
+      {
+        "type": "heading",
+        "level": 1,
+        "text": "5.2 Changes in version 1.1"
+      },
+      {
+        "type": "paragraph",
+        "text": "Version 1.1 adds PID_HEARTBEAT_INTERVAL and extends the secure session lifetime from 120 to 300 seconds. It also clarifies that DPT 14.056 uses watts, not kilowatts. No existing group address format changes. Products certified under version 1.0 remain valid until their certificate expires."
+      },
+      {
+        "type": "heading",
+        "level": 1,
+        "text": "5.3 Required documents"
+      },
+      {
+        "type": "paragraph",
+        "text": "The application package contains the product description, the test report, the declaration of conformity and the security questionnaire. The test report must identify the exact firmware version. A change to the firmware after certification requires a delta assessment."
+      },
+      {
+        "type": "table",
+        "rows": [
+          ["Document", "Owner", "Submitted", "Purpose"],
+          ["Application", "Manufacturer", "Step 1", "Identify the product"],
+          ["Test report", "Laboratory", "Step 2", "Record conformance results"],
+          ["Declaration", "Manufacturer", "Step 3", "Confirm compliance"],
+          ["Security questionnaire", "Manufacturer", "Step 1", "Describe secure sessions"]
+        ]
+      }
+    ]
+  }
+]

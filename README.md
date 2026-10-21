@@ -1,8 +1,9 @@
 # Pavel Castellanos · AI Engineer Portfolio
 
 Proyectos de inteligencia artificial donde aplico **machine learning, deep learning y NLP**
-a problemas concretos. Cada proyecto es reproducible, está documentado y reporta métricas,
-no solo resultados visuales.
+a problemas concretos. El código y los tests son reproducibles; cuando los datos son
+públicos o están incluidos, también lo son las métricas. Cada proyecto está documentado y
+reporta métricas reales, no solo resultados visuales.
 
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)
@@ -19,7 +20,9 @@ no solo resultados visuales.
 | [KNX RAG Assistant](./rag-assistant) | RAG end-to-end: ingesta de PDFs, búsqueda híbrida, citas, evaluación, API y Docker | Transformers · Qdrant · FastAPI · Docker | Recall@10 0,908 · MRR 0,850 · 20 preguntas | Completado |
 
 > Los tres proyectos están terminados y documentados. El corpus del estándar KNX no se
-> redistribuye: se descarga o se aporta localmente y se indexa con los scripts del proyecto.
+> redistribuye: se aporta localmente con una licencia válida y se indexa con los scripts
+> del proyecto. `rag-assistant` incluye además un corpus sintético de demostración para
+> probar el flujo completo sin ese corpus; sus métricas están separadas de las de KNX.
 
 ## Sobre mí
 
@@ -34,7 +37,8 @@ técnica de proyectos con impacto real.
 
 - **Reproducibilidad:** semillas fijas, dependencias versionadas y un comando claro para
   entrenar y evaluar. Los datasets no se suben al repositorio. Cuando la licencia lo
-  permite, cada proyecto incluye un script de descarga; el corpus KNX se aporta
+  permite, cada proyecto incluye un script de descarga; cuando no, se documenta el
+  requisito y se ofrece una alternativa de demostración. El corpus KNX se aporta
   localmente porque está protegido por derechos de autor.
 - **Evaluación:** además de la métrica principal, reporto métricas por clase, matrices de
   confusión y análisis de errores. Un resultado sin contexto no cuenta.
@@ -50,7 +54,9 @@ técnica de proyectos con impacto real.
 ## About (English)
 
 AI Engineer portfolio with hands-on projects in computer vision, natural language
-processing and retrieval-augmented generation. Every project is reproducible, documented
-and evaluated with quantitative metrics. Datasets are not committed; downloadable
-datasets ship with a fetch script, while the copyrighted KNX corpus is supplied locally.
+processing and retrieval-augmented generation. Code and tests are reproducible, documented
+and evaluated with quantitative metrics; metric reproduction depends on the corresponding
+datasets. Datasets are not committed. Downloadable datasets ship with a fetch script, while
+the copyrighted KNX corpus is supplied locally with a valid license. `rag-assistant` also
+includes a synthetic demo corpus for running the full pipeline without the KNX corpus.
 Code is released under the MIT license.

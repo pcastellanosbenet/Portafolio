@@ -109,6 +109,25 @@ class Settings(BaseSettings):
     def index_meta_path(self) -> Path:
         return self.artifacts_dir / self.index_meta_name
 
+    @property
+    def effective_qdrant_path(self) -> Path:
+        """Keep Qdrant inside the selected artifacts directory.
+
+        ``QDRANT_PATH`` still wins when it is set explicitly.  The default is
+        scoped to ``artifacts_dir`` so that commands such as
+        ``--artifacts artifacts-demo`` cannot silently write to the real index
+        stored in ``artifacts/qdrant``.
+        """
+        default_path = Path("artifacts/qdrant")
+        explicitly_set = "qdrant_path" in self.model_fields_set
+        if (
+            not explicitly_set
+            and self.qdrant_path == default_path
+            and self.artifacts_dir != Path("artifacts")
+        ):
+            return self.artifacts_dir / "qdrant"
+        return self.qdrant_path
+
 
 @lru_cache(maxsize=1)
 def get_settings() -> Settings:

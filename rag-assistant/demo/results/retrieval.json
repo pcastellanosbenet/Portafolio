@@ -1,0 +1,1572 @@
+{
+  "k": 10,
+  "questions": 12,
+  "overall": {
+    "recall_at_k": 1.0,
+    "hit_at_k": 1.0,
+    "mrr": 0.9583,
+    "ndcg_at_k": 0.9692,
+    "page_hit_at_k": 1.0
+  },
+  "by_type": {
+    "changes": {
+      "recall_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "page_hit_at_k": 1.0
+    },
+    "comparison": {
+      "recall_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "page_hit_at_k": 1.0
+    },
+    "definition": {
+      "recall_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "page_hit_at_k": 1.0
+    },
+    "identifier": {
+      "recall_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "page_hit_at_k": 1.0
+    },
+    "procedure": {
+      "recall_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "page_hit_at_k": 1.0
+    },
+    "property": {
+      "recall_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "page_hit_at_k": 1.0
+    },
+    "security": {
+      "recall_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "mrr": 0.8333,
+      "ndcg_at_k": 0.877,
+      "page_hit_at_k": 1.0
+    }
+  },
+  "by_language": {
+    "en": {
+      "recall_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "mrr": 0.95,
+      "ndcg_at_k": 0.9631,
+      "page_hit_at_k": 1.0
+    },
+    "es": {
+      "recall_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "page_hit_at_k": 1.0
+    }
+  },
+  "details": [
+    {
+      "id": "demo-q001",
+      "question": "What is DPT 1.001 and how is it encoded?",
+      "language": "en",
+      "type": "definition",
+      "retrieved_doc_ids": [
+        "01-volume-1-demo-01-02-01-nexabus-datapoint-types-v01-00-00-as",
+        "01-volume-1-demo-01-01-01-nexabus-overview-v01-00-00-as",
+        "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as",
+        "04-volume-4-demo-04-01-01-nexabus-certification-and-changes-v01-01-00-as",
+        "03-volume-3-demo-03-01-01-nexabus-media-and-couplers-v01-00-00-as",
+        "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as"
+      ],
+      "relevant_doc_ids": [
+        "01-volume-1-demo-01-02-01-nexabus-datapoint-types-v01-00-00-as"
+      ],
+      "recall_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "top_chunks": [
+        {
+          "chunk_id": "01-volume-1-demo-01-02-01-nexabus-datapoint-types-v01-00-00-as::section::0",
+          "doc_id": "01-volume-1-demo-01-02-01-nexabus-datapoint-types-v01-00-00-as",
+          "section": "NexaBus Datapoint Types > 2.1 Datapoint type catalogue",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.032787
+        },
+        {
+          "chunk_id": "01-volume-1-demo-01-02-01-nexabus-datapoint-types-v01-00-00-as::table::1::0::0::0",
+          "doc_id": "01-volume-1-demo-01-02-01-nexabus-datapoint-types-v01-00-00-as",
+          "section": "NexaBus Datapoint Types > 2.1 Datapoint type catalogue",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.032258
+        },
+        {
+          "chunk_id": "01-volume-1-demo-01-01-01-nexabus-overview-v01-00-00-as::section::0",
+          "doc_id": "01-volume-1-demo-01-01-01-nexabus-overview-v01-00-00-as",
+          "section": "NexaBus Overview > 1 Introduction",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.031746
+        },
+        {
+          "chunk_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as::table::1::0::0::0",
+          "doc_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as",
+          "section": "NexaBus Device Profiles > 2.1 Property identifiers",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.030769
+        },
+        {
+          "chunk_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as::section::0",
+          "doc_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as",
+          "section": "NexaBus Device Profiles > 2.1 Property identifiers",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.030303
+        },
+        {
+          "chunk_id": "04-volume-4-demo-04-01-01-nexabus-certification-and-changes-v01-01-00-as::section::0",
+          "doc_id": "04-volume-4-demo-04-01-01-nexabus-certification-and-changes-v01-01-00-as",
+          "section": "NexaBus Certification and Changes > 5.1 Certification procedure",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.030118
+        },
+        {
+          "chunk_id": "03-volume-3-demo-03-01-01-nexabus-media-and-couplers-v01-00-00-as::section::0",
+          "doc_id": "03-volume-3-demo-03-01-01-nexabus-media-and-couplers-v01-00-00-as",
+          "section": "NexaBus Media and Couplers > 4.1 Twisted pair",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.029211
+        },
+        {
+          "chunk_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as::table::1::1::0::0",
+          "doc_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as",
+          "section": "NexaBus Device Profiles > 2.1 Property identifiers",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.015625
+        },
+        {
+          "chunk_id": "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as::section::0",
+          "doc_id": "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as",
+          "section": "NexaBus Secure Sessions > 3.1 Session establishment",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.014925
+        },
+        {
+          "chunk_id": "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as::table::1::0::0::0",
+          "doc_id": "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as",
+          "section": "NexaBus Secure Sessions > 3.1 Session establishment",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.014706
+        }
+      ],
+      "page_hit_at_k": 1.0
+    },
+    {
+      "id": "demo-q002",
+      "question": "Which datapoint type represents temperature and in what unit?",
+      "language": "en",
+      "type": "identifier",
+      "retrieved_doc_ids": [
+        "01-volume-1-demo-01-02-01-nexabus-datapoint-types-v01-00-00-as",
+        "01-volume-1-demo-01-01-01-nexabus-overview-v01-00-00-as",
+        "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as",
+        "04-volume-4-demo-04-01-01-nexabus-certification-and-changes-v01-01-00-as",
+        "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as",
+        "03-volume-3-demo-03-01-01-nexabus-media-and-couplers-v01-00-00-as"
+      ],
+      "relevant_doc_ids": [
+        "01-volume-1-demo-01-02-01-nexabus-datapoint-types-v01-00-00-as"
+      ],
+      "recall_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "top_chunks": [
+        {
+          "chunk_id": "01-volume-1-demo-01-02-01-nexabus-datapoint-types-v01-00-00-as::section::0",
+          "doc_id": "01-volume-1-demo-01-02-01-nexabus-datapoint-types-v01-00-00-as",
+          "section": "NexaBus Datapoint Types > 2.1 Datapoint type catalogue",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.032787
+        },
+        {
+          "chunk_id": "01-volume-1-demo-01-02-01-nexabus-datapoint-types-v01-00-00-as::table::1::0::0::0",
+          "doc_id": "01-volume-1-demo-01-02-01-nexabus-datapoint-types-v01-00-00-as",
+          "section": "NexaBus Datapoint Types > 2.1 Datapoint type catalogue",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.032258
+        },
+        {
+          "chunk_id": "01-volume-1-demo-01-01-01-nexabus-overview-v01-00-00-as::section::0",
+          "doc_id": "01-volume-1-demo-01-01-01-nexabus-overview-v01-00-00-as",
+          "section": "NexaBus Overview > 1 Introduction",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.031746
+        },
+        {
+          "chunk_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as::table::1::0::0::0",
+          "doc_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as",
+          "section": "NexaBus Device Profiles > 2.1 Property identifiers",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.03055
+        },
+        {
+          "chunk_id": "04-volume-4-demo-04-01-01-nexabus-certification-and-changes-v01-01-00-as::section::0",
+          "doc_id": "04-volume-4-demo-04-01-01-nexabus-certification-and-changes-v01-01-00-as",
+          "section": "NexaBus Certification and Changes > 5.1 Certification procedure",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.03031
+        },
+        {
+          "chunk_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as::section::0",
+          "doc_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as",
+          "section": "NexaBus Device Profiles > 2.1 Property identifiers",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.03009
+        },
+        {
+          "chunk_id": "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as::table::1::0::0::0",
+          "doc_id": "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as",
+          "section": "NexaBus Secure Sessions > 3.1 Session establishment",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.029911
+        },
+        {
+          "chunk_id": "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as::section::0",
+          "doc_id": "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as",
+          "section": "NexaBus Secure Sessions > 3.1 Session establishment",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.029644
+        },
+        {
+          "chunk_id": "03-volume-3-demo-03-01-01-nexabus-media-and-couplers-v01-00-00-as::section::0",
+          "doc_id": "03-volume-3-demo-03-01-01-nexabus-media-and-couplers-v01-00-00-as",
+          "section": "NexaBus Media and Couplers > 4.1 Twisted pair",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.029199
+        },
+        {
+          "chunk_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as::table::1::1::0::0",
+          "doc_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as",
+          "section": "NexaBus Device Profiles > 2.1 Property identifiers",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.015152
+        }
+      ],
+      "page_hit_at_k": 1.0
+    },
+    {
+      "id": "demo-q003",
+      "question": "What does PID_LOAD_STATE_CONTROL control?",
+      "language": "en",
+      "type": "property",
+      "retrieved_doc_ids": [
+        "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as",
+        "01-volume-1-demo-01-01-01-nexabus-overview-v01-00-00-as",
+        "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as",
+        "04-volume-4-demo-04-01-01-nexabus-certification-and-changes-v01-01-00-as",
+        "01-volume-1-demo-01-02-01-nexabus-datapoint-types-v01-00-00-as",
+        "03-volume-3-demo-03-01-01-nexabus-media-and-couplers-v01-00-00-as"
+      ],
+      "relevant_doc_ids": [
+        "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as"
+      ],
+      "recall_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "top_chunks": [
+        {
+          "chunk_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as::section::0",
+          "doc_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as",
+          "section": "NexaBus Device Profiles > 2.1 Property identifiers",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.032266
+        },
+        {
+          "chunk_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as::table::1::0::0::0",
+          "doc_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as",
+          "section": "NexaBus Device Profiles > 2.1 Property identifiers",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.032266
+        },
+        {
+          "chunk_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as::table::1::1::0::0",
+          "doc_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as",
+          "section": "NexaBus Device Profiles > 2.1 Property identifiers",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.032258
+        },
+        {
+          "chunk_id": "01-volume-1-demo-01-01-01-nexabus-overview-v01-00-00-as::section::0",
+          "doc_id": "01-volume-1-demo-01-01-01-nexabus-overview-v01-00-00-as",
+          "section": "NexaBus Overview > 1 Introduction",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.03125
+        },
+        {
+          "chunk_id": "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as::section::0",
+          "doc_id": "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as",
+          "section": "NexaBus Secure Sessions > 3.1 Session establishment",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.030769
+        },
+        {
+          "chunk_id": "04-volume-4-demo-04-01-01-nexabus-certification-and-changes-v01-01-00-as::section::0",
+          "doc_id": "04-volume-4-demo-04-01-01-nexabus-certification-and-changes-v01-01-00-as",
+          "section": "NexaBus Certification and Changes > 5.1 Certification procedure",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.029857
+        },
+        {
+          "chunk_id": "01-volume-1-demo-01-02-01-nexabus-datapoint-types-v01-00-00-as::section::0",
+          "doc_id": "01-volume-1-demo-01-02-01-nexabus-datapoint-types-v01-00-00-as",
+          "section": "NexaBus Datapoint Types > 2.1 Datapoint type catalogue",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.029631
+        },
+        {
+          "chunk_id": "03-volume-3-demo-03-01-01-nexabus-media-and-couplers-v01-00-00-as::section::0",
+          "doc_id": "03-volume-3-demo-03-01-01-nexabus-media-and-couplers-v01-00-00-as",
+          "section": "NexaBus Media and Couplers > 4.1 Twisted pair",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.029211
+        },
+        {
+          "chunk_id": "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as::table::1::0::0::0",
+          "doc_id": "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as",
+          "section": "NexaBus Secure Sessions > 3.1 Session establishment",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.015152
+        },
+        {
+          "chunk_id": "04-volume-4-demo-04-01-01-nexabus-certification-and-changes-v01-01-00-as::table::1::0::0::0",
+          "doc_id": "04-volume-4-demo-04-01-01-nexabus-certification-and-changes-v01-01-00-as",
+          "section": "NexaBus Certification and Changes > 5.1 Certification procedure",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.014493
+        }
+      ],
+      "page_hit_at_k": 1.0
+    },
+    {
+      "id": "demo-q004",
+      "question": "How is a NexaBus secure session key derived?",
+      "language": "en",
+      "type": "security",
+      "retrieved_doc_ids": [
+        "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as",
+        "04-volume-4-demo-04-01-01-nexabus-certification-and-changes-v01-01-00-as",
+        "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as",
+        "01-volume-1-demo-01-01-01-nexabus-overview-v01-00-00-as",
+        "03-volume-3-demo-03-01-01-nexabus-media-and-couplers-v01-00-00-as",
+        "01-volume-1-demo-01-02-01-nexabus-datapoint-types-v01-00-00-as"
+      ],
+      "relevant_doc_ids": [
+        "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as"
+      ],
+      "recall_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "top_chunks": [
+        {
+          "chunk_id": "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as::section::0",
+          "doc_id": "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as",
+          "section": "NexaBus Secure Sessions > 3.1 Session establishment",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.032787
+        },
+        {
+          "chunk_id": "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as::table::1::0::0::0",
+          "doc_id": "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as",
+          "section": "NexaBus Secure Sessions > 3.1 Session establishment",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.032258
+        },
+        {
+          "chunk_id": "04-volume-4-demo-04-01-01-nexabus-certification-and-changes-v01-01-00-as::section::0",
+          "doc_id": "04-volume-4-demo-04-01-01-nexabus-certification-and-changes-v01-01-00-as",
+          "section": "NexaBus Certification and Changes > 5.1 Certification procedure",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.031746
+        },
+        {
+          "chunk_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as::section::0",
+          "doc_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as",
+          "section": "NexaBus Device Profiles > 2.1 Property identifiers",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.03101
+        },
+        {
+          "chunk_id": "01-volume-1-demo-01-01-01-nexabus-overview-v01-00-00-as::section::0",
+          "doc_id": "01-volume-1-demo-01-01-01-nexabus-overview-v01-00-00-as",
+          "section": "NexaBus Overview > 1 Introduction",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.030536
+        },
+        {
+          "chunk_id": "04-volume-4-demo-04-01-01-nexabus-certification-and-changes-v01-01-00-as::table::1::0::0::0",
+          "doc_id": "04-volume-4-demo-04-01-01-nexabus-certification-and-changes-v01-01-00-as",
+          "section": "NexaBus Certification and Changes > 5.1 Certification procedure",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.030331
+        },
+        {
+          "chunk_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as::table::1::1::0::0",
+          "doc_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as",
+          "section": "NexaBus Device Profiles > 2.1 Property identifiers",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.029437
+        },
+        {
+          "chunk_id": "03-volume-3-demo-03-01-01-nexabus-media-and-couplers-v01-00-00-as::section::0",
+          "doc_id": "03-volume-3-demo-03-01-01-nexabus-media-and-couplers-v01-00-00-as",
+          "section": "NexaBus Media and Couplers > 4.1 Twisted pair",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.029418
+        },
+        {
+          "chunk_id": "01-volume-1-demo-01-02-01-nexabus-datapoint-types-v01-00-00-as::section::0",
+          "doc_id": "01-volume-1-demo-01-02-01-nexabus-datapoint-types-v01-00-00-as",
+          "section": "NexaBus Datapoint Types > 2.1 Datapoint type catalogue",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.028992
+        },
+        {
+          "chunk_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as::table::1::0::0::0",
+          "doc_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as",
+          "section": "NexaBus Device Profiles > 2.1 Property identifiers",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.028814
+        }
+      ],
+      "page_hit_at_k": 1.0
+    },
+    {
+      "id": "demo-q005",
+      "question": "How does a receiver prevent replay attacks?",
+      "language": "en",
+      "type": "security",
+      "retrieved_doc_ids": [
+        "03-volume-3-demo-03-01-01-nexabus-media-and-couplers-v01-00-00-as",
+        "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as",
+        "01-volume-1-demo-01-01-01-nexabus-overview-v01-00-00-as",
+        "01-volume-1-demo-01-02-01-nexabus-datapoint-types-v01-00-00-as",
+        "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as"
+      ],
+      "relevant_doc_ids": [
+        "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as"
+      ],
+      "recall_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "mrr": 0.5,
+      "ndcg_at_k": 0.6309297535714575,
+      "top_chunks": [
+        {
+          "chunk_id": "03-volume-3-demo-03-01-01-nexabus-media-and-couplers-v01-00-00-as::section::0",
+          "doc_id": "03-volume-3-demo-03-01-01-nexabus-media-and-couplers-v01-00-00-as",
+          "section": "NexaBus Media and Couplers > 4.1 Twisted pair",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.032787
+        },
+        {
+          "chunk_id": "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as::section::0",
+          "doc_id": "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as",
+          "section": "NexaBus Secure Sessions > 3.1 Session establishment",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.032258
+        },
+        {
+          "chunk_id": "03-volume-3-demo-03-01-01-nexabus-media-and-couplers-v01-00-00-as::table::1::0::0::0",
+          "doc_id": "03-volume-3-demo-03-01-01-nexabus-media-and-couplers-v01-00-00-as",
+          "section": "NexaBus Media and Couplers > 4.1 Twisted pair",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.03101
+        },
+        {
+          "chunk_id": "01-volume-1-demo-01-01-01-nexabus-overview-v01-00-00-as::section::0",
+          "doc_id": "01-volume-1-demo-01-01-01-nexabus-overview-v01-00-00-as",
+          "section": "NexaBus Overview > 1 Introduction",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.030798
+        },
+        {
+          "chunk_id": "01-volume-1-demo-01-02-01-nexabus-datapoint-types-v01-00-00-as::section::0",
+          "doc_id": "01-volume-1-demo-01-02-01-nexabus-datapoint-types-v01-00-00-as",
+          "section": "NexaBus Datapoint Types > 2.1 Datapoint type catalogue",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.030536
+        },
+        {
+          "chunk_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as::section::0",
+          "doc_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as",
+          "section": "NexaBus Device Profiles > 2.1 Property identifiers",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.015873
+        },
+        {
+          "chunk_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as::table::1::0::0::0",
+          "doc_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as",
+          "section": "NexaBus Device Profiles > 2.1 Property identifiers",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.015625
+        },
+        {
+          "chunk_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as::table::1::1::0::0",
+          "doc_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as",
+          "section": "NexaBus Device Profiles > 2.1 Property identifiers",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.014706
+        },
+        {
+          "chunk_id": "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as::table::1::0::0::0",
+          "doc_id": "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as",
+          "section": "NexaBus Secure Sessions > 3.1 Session establishment",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.014493
+        },
+        {
+          "chunk_id": "01-volume-1-demo-01-02-01-nexabus-datapoint-types-v01-00-00-as::table::1::0::0::0",
+          "doc_id": "01-volume-1-demo-01-02-01-nexabus-datapoint-types-v01-00-00-as",
+          "section": "NexaBus Datapoint Types > 2.1 Datapoint type catalogue",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.014286
+        }
+      ],
+      "page_hit_at_k": 1.0
+    },
+    {
+      "id": "demo-q006",
+      "question": "What is the difference between twisted pair and radio media?",
+      "language": "en",
+      "type": "comparison",
+      "retrieved_doc_ids": [
+        "03-volume-3-demo-03-01-01-nexabus-media-and-couplers-v01-00-00-as",
+        "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as",
+        "01-volume-1-demo-01-01-01-nexabus-overview-v01-00-00-as",
+        "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as",
+        "01-volume-1-demo-01-02-01-nexabus-datapoint-types-v01-00-00-as"
+      ],
+      "relevant_doc_ids": [
+        "03-volume-3-demo-03-01-01-nexabus-media-and-couplers-v01-00-00-as"
+      ],
+      "recall_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "top_chunks": [
+        {
+          "chunk_id": "03-volume-3-demo-03-01-01-nexabus-media-and-couplers-v01-00-00-as::section::0",
+          "doc_id": "03-volume-3-demo-03-01-01-nexabus-media-and-couplers-v01-00-00-as",
+          "section": "NexaBus Media and Couplers > 4.1 Twisted pair",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.032787
+        },
+        {
+          "chunk_id": "03-volume-3-demo-03-01-01-nexabus-media-and-couplers-v01-00-00-as::table::1::0::0::0",
+          "doc_id": "03-volume-3-demo-03-01-01-nexabus-media-and-couplers-v01-00-00-as",
+          "section": "NexaBus Media and Couplers > 4.1 Twisted pair",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.032258
+        },
+        {
+          "chunk_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as::table::1::0::0::0",
+          "doc_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as",
+          "section": "NexaBus Device Profiles > 2.1 Property identifiers",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.031746
+        },
+        {
+          "chunk_id": "01-volume-1-demo-01-01-01-nexabus-overview-v01-00-00-as::section::0",
+          "doc_id": "01-volume-1-demo-01-01-01-nexabus-overview-v01-00-00-as",
+          "section": "NexaBus Overview > 1 Introduction",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.03101
+        },
+        {
+          "chunk_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as::section::0",
+          "doc_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as",
+          "section": "NexaBus Device Profiles > 2.1 Property identifiers",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.03055
+        },
+        {
+          "chunk_id": "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as::section::0",
+          "doc_id": "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as",
+          "section": "NexaBus Secure Sessions > 3.1 Session establishment",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.015385
+        },
+        {
+          "chunk_id": "01-volume-1-demo-01-02-01-nexabus-datapoint-types-v01-00-00-as::section::0",
+          "doc_id": "01-volume-1-demo-01-02-01-nexabus-datapoint-types-v01-00-00-as",
+          "section": "NexaBus Datapoint Types > 2.1 Datapoint type catalogue",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.015152
+        },
+        {
+          "chunk_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as::table::1::1::0::0",
+          "doc_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as",
+          "section": "NexaBus Device Profiles > 2.1 Property identifiers",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.014706
+        },
+        {
+          "chunk_id": "01-volume-1-demo-01-02-01-nexabus-datapoint-types-v01-00-00-as::table::1::0::0::0",
+          "doc_id": "01-volume-1-demo-01-02-01-nexabus-datapoint-types-v01-00-00-as",
+          "section": "NexaBus Datapoint Types > 2.1 Datapoint type catalogue",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.014493
+        },
+        {
+          "chunk_id": "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as::table::1::0::0::0",
+          "doc_id": "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as",
+          "section": "NexaBus Secure Sessions > 3.1 Session establishment",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.014286
+        }
+      ],
+      "page_hit_at_k": 1.0
+    },
+    {
+      "id": "demo-q007",
+      "question": "What are the steps of the NexaBus certification procedure?",
+      "language": "en",
+      "type": "procedure",
+      "retrieved_doc_ids": [
+        "04-volume-4-demo-04-01-01-nexabus-certification-and-changes-v01-01-00-as",
+        "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as",
+        "01-volume-1-demo-01-01-01-nexabus-overview-v01-00-00-as",
+        "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as",
+        "03-volume-3-demo-03-01-01-nexabus-media-and-couplers-v01-00-00-as",
+        "01-volume-1-demo-01-02-01-nexabus-datapoint-types-v01-00-00-as"
+      ],
+      "relevant_doc_ids": [
+        "04-volume-4-demo-04-01-01-nexabus-certification-and-changes-v01-01-00-as"
+      ],
+      "recall_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "top_chunks": [
+        {
+          "chunk_id": "04-volume-4-demo-04-01-01-nexabus-certification-and-changes-v01-01-00-as::section::0",
+          "doc_id": "04-volume-4-demo-04-01-01-nexabus-certification-and-changes-v01-01-00-as",
+          "section": "NexaBus Certification and Changes > 5.1 Certification procedure",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.032787
+        },
+        {
+          "chunk_id": "04-volume-4-demo-04-01-01-nexabus-certification-and-changes-v01-01-00-as::table::1::0::0::0",
+          "doc_id": "04-volume-4-demo-04-01-01-nexabus-certification-and-changes-v01-01-00-as",
+          "section": "NexaBus Certification and Changes > 5.1 Certification procedure",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.032258
+        },
+        {
+          "chunk_id": "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as::section::0",
+          "doc_id": "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as",
+          "section": "NexaBus Secure Sessions > 3.1 Session establishment",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.031498
+        },
+        {
+          "chunk_id": "01-volume-1-demo-01-01-01-nexabus-overview-v01-00-00-as::section::0",
+          "doc_id": "01-volume-1-demo-01-01-01-nexabus-overview-v01-00-00-as",
+          "section": "NexaBus Overview > 1 Introduction",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.031258
+        },
+        {
+          "chunk_id": "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as::table::1::0::0::0",
+          "doc_id": "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as",
+          "section": "NexaBus Secure Sessions > 3.1 Session establishment",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.030118
+        },
+        {
+          "chunk_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as::section::0",
+          "doc_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as",
+          "section": "NexaBus Device Profiles > 2.1 Property identifiers",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.030077
+        },
+        {
+          "chunk_id": "03-volume-3-demo-03-01-01-nexabus-media-and-couplers-v01-00-00-as::section::0",
+          "doc_id": "03-volume-3-demo-03-01-01-nexabus-media-and-couplers-v01-00-00-as",
+          "section": "NexaBus Media and Couplers > 4.1 Twisted pair",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.029877
+        },
+        {
+          "chunk_id": "01-volume-1-demo-01-02-01-nexabus-datapoint-types-v01-00-00-as::section::0",
+          "doc_id": "01-volume-1-demo-01-02-01-nexabus-datapoint-types-v01-00-00-as",
+          "section": "NexaBus Datapoint Types > 2.1 Datapoint type catalogue",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.029437
+        },
+        {
+          "chunk_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as::table::1::1::0::0",
+          "doc_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as",
+          "section": "NexaBus Device Profiles > 2.1 Property identifiers",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.029211
+        },
+        {
+          "chunk_id": "03-volume-3-demo-03-01-01-nexabus-media-and-couplers-v01-00-00-as::table::1::0::0::0",
+          "doc_id": "03-volume-3-demo-03-01-01-nexabus-media-and-couplers-v01-00-00-as",
+          "section": "NexaBus Media and Couplers > 4.1 Twisted pair",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.02879
+        }
+      ],
+      "page_hit_at_k": 1.0
+    },
+    {
+      "id": "demo-q008",
+      "question": "What changed in NexaBus version 1.1?",
+      "language": "en",
+      "type": "changes",
+      "retrieved_doc_ids": [
+        "04-volume-4-demo-04-01-01-nexabus-certification-and-changes-v01-01-00-as",
+        "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as",
+        "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as",
+        "01-volume-1-demo-01-01-01-nexabus-overview-v01-00-00-as",
+        "03-volume-3-demo-03-01-01-nexabus-media-and-couplers-v01-00-00-as",
+        "01-volume-1-demo-01-02-01-nexabus-datapoint-types-v01-00-00-as"
+      ],
+      "relevant_doc_ids": [
+        "04-volume-4-demo-04-01-01-nexabus-certification-and-changes-v01-01-00-as"
+      ],
+      "recall_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "top_chunks": [
+        {
+          "chunk_id": "04-volume-4-demo-04-01-01-nexabus-certification-and-changes-v01-01-00-as::section::0",
+          "doc_id": "04-volume-4-demo-04-01-01-nexabus-certification-and-changes-v01-01-00-as",
+          "section": "NexaBus Certification and Changes > 5.1 Certification procedure",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.032787
+        },
+        {
+          "chunk_id": "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as::section::0",
+          "doc_id": "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as",
+          "section": "NexaBus Secure Sessions > 3.1 Session establishment",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.031514
+        },
+        {
+          "chunk_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as::section::0",
+          "doc_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as",
+          "section": "NexaBus Device Profiles > 2.1 Property identifiers",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.031281
+        },
+        {
+          "chunk_id": "01-volume-1-demo-01-01-01-nexabus-overview-v01-00-00-as::section::0",
+          "doc_id": "01-volume-1-demo-01-01-01-nexabus-overview-v01-00-00-as",
+          "section": "NexaBus Overview > 1 Introduction",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.030777
+        },
+        {
+          "chunk_id": "03-volume-3-demo-03-01-01-nexabus-media-and-couplers-v01-00-00-as::section::0",
+          "doc_id": "03-volume-3-demo-03-01-01-nexabus-media-and-couplers-v01-00-00-as",
+          "section": "NexaBus Media and Couplers > 4.1 Twisted pair",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.030159
+        },
+        {
+          "chunk_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as::table::1::1::0::0",
+          "doc_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as",
+          "section": "NexaBus Device Profiles > 2.1 Property identifiers",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.030159
+        },
+        {
+          "chunk_id": "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as::table::1::0::0::0",
+          "doc_id": "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as",
+          "section": "NexaBus Secure Sessions > 3.1 Session establishment",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.030118
+        },
+        {
+          "chunk_id": "03-volume-3-demo-03-01-01-nexabus-media-and-couplers-v01-00-00-as::table::1::0::0::0",
+          "doc_id": "03-volume-3-demo-03-01-01-nexabus-media-and-couplers-v01-00-00-as",
+          "section": "NexaBus Media and Couplers > 4.1 Twisted pair",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.029631
+        },
+        {
+          "chunk_id": "04-volume-4-demo-04-01-01-nexabus-certification-and-changes-v01-01-00-as::table::1::0::0::0",
+          "doc_id": "04-volume-4-demo-04-01-01-nexabus-certification-and-changes-v01-01-00-as",
+          "section": "NexaBus Certification and Changes > 5.1 Certification procedure",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.029631
+        },
+        {
+          "chunk_id": "01-volume-1-demo-01-02-01-nexabus-datapoint-types-v01-00-00-as::section::0",
+          "doc_id": "01-volume-1-demo-01-02-01-nexabus-datapoint-types-v01-00-00-as",
+          "section": "NexaBus Datapoint Types > 2.1 Datapoint type catalogue",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.029469
+        }
+      ],
+      "page_hit_at_k": 1.0
+    },
+    {
+      "id": "demo-q009",
+      "question": "¿Qué es una dirección de grupo en NexaBus?",
+      "language": "es",
+      "type": "definition",
+      "retrieved_doc_ids": [
+        "01-volume-1-demo-01-01-01-nexabus-overview-v01-00-00-as",
+        "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as",
+        "04-volume-4-demo-04-01-01-nexabus-certification-and-changes-v01-01-00-as",
+        "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as",
+        "03-volume-3-demo-03-01-01-nexabus-media-and-couplers-v01-00-00-as",
+        "01-volume-1-demo-01-02-01-nexabus-datapoint-types-v01-00-00-as"
+      ],
+      "relevant_doc_ids": [
+        "01-volume-1-demo-01-01-01-nexabus-overview-v01-00-00-as"
+      ],
+      "recall_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "top_chunks": [
+        {
+          "chunk_id": "01-volume-1-demo-01-01-01-nexabus-overview-v01-00-00-as::section::0",
+          "doc_id": "01-volume-1-demo-01-01-01-nexabus-overview-v01-00-00-as",
+          "section": "NexaBus Overview > 1 Introduction",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.032787
+        },
+        {
+          "chunk_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as::table::1::1::0::0",
+          "doc_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as",
+          "section": "NexaBus Device Profiles > 2.1 Property identifiers",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.031754
+        },
+        {
+          "chunk_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as::section::0",
+          "doc_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as",
+          "section": "NexaBus Device Profiles > 2.1 Property identifiers",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.031746
+        },
+        {
+          "chunk_id": "04-volume-4-demo-04-01-01-nexabus-certification-and-changes-v01-01-00-as::section::0",
+          "doc_id": "04-volume-4-demo-04-01-01-nexabus-certification-and-changes-v01-01-00-as",
+          "section": "NexaBus Certification and Changes > 5.1 Certification procedure",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.031281
+        },
+        {
+          "chunk_id": "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as::section::0",
+          "doc_id": "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as",
+          "section": "NexaBus Secure Sessions > 3.1 Session establishment",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.030536
+        },
+        {
+          "chunk_id": "03-volume-3-demo-03-01-01-nexabus-media-and-couplers-v01-00-00-as::section::0",
+          "doc_id": "03-volume-3-demo-03-01-01-nexabus-media-and-couplers-v01-00-00-as",
+          "section": "NexaBus Media and Couplers > 4.1 Twisted pair",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.03031
+        },
+        {
+          "chunk_id": "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as::table::1::0::0::0",
+          "doc_id": "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as",
+          "section": "NexaBus Secure Sessions > 3.1 Session establishment",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.029911
+        },
+        {
+          "chunk_id": "03-volume-3-demo-03-01-01-nexabus-media-and-couplers-v01-00-00-as::table::1::0::0::0",
+          "doc_id": "03-volume-3-demo-03-01-01-nexabus-media-and-couplers-v01-00-00-as",
+          "section": "NexaBus Media and Couplers > 4.1 Twisted pair",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.029412
+        },
+        {
+          "chunk_id": "01-volume-1-demo-01-02-01-nexabus-datapoint-types-v01-00-00-as::section::0",
+          "doc_id": "01-volume-1-demo-01-02-01-nexabus-datapoint-types-v01-00-00-as",
+          "section": "NexaBus Datapoint Types > 2.1 Datapoint type catalogue",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.02901
+        },
+        {
+          "chunk_id": "04-volume-4-demo-04-01-01-nexabus-certification-and-changes-v01-01-00-as::table::1::0::0::0",
+          "doc_id": "04-volume-4-demo-04-01-01-nexabus-certification-and-changes-v01-01-00-as",
+          "section": "NexaBus Certification and Changes > 5.1 Certification procedure",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.028778
+        }
+      ],
+      "page_hit_at_k": 1.0
+    },
+    {
+      "id": "demo-q010",
+      "question": "Which property identifiers are mandatory in profile 2.0?",
+      "language": "en",
+      "type": "property",
+      "retrieved_doc_ids": [
+        "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as",
+        "01-volume-1-demo-01-01-01-nexabus-overview-v01-00-00-as",
+        "04-volume-4-demo-04-01-01-nexabus-certification-and-changes-v01-01-00-as",
+        "01-volume-1-demo-01-02-01-nexabus-datapoint-types-v01-00-00-as",
+        "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as",
+        "03-volume-3-demo-03-01-01-nexabus-media-and-couplers-v01-00-00-as"
+      ],
+      "relevant_doc_ids": [
+        "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as"
+      ],
+      "recall_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "top_chunks": [
+        {
+          "chunk_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as::table::1::1::0::0",
+          "doc_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as",
+          "section": "NexaBus Device Profiles > 2.1 Property identifiers",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.032787
+        },
+        {
+          "chunk_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as::section::0",
+          "doc_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as",
+          "section": "NexaBus Device Profiles > 2.1 Property identifiers",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.032258
+        },
+        {
+          "chunk_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as::table::1::0::0::0",
+          "doc_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as",
+          "section": "NexaBus Device Profiles > 2.1 Property identifiers",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.031498
+        },
+        {
+          "chunk_id": "01-volume-1-demo-01-01-01-nexabus-overview-v01-00-00-as::section::0",
+          "doc_id": "01-volume-1-demo-01-01-01-nexabus-overview-v01-00-00-as",
+          "section": "NexaBus Overview > 1 Introduction",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.03101
+        },
+        {
+          "chunk_id": "04-volume-4-demo-04-01-01-nexabus-certification-and-changes-v01-01-00-as::section::0",
+          "doc_id": "04-volume-4-demo-04-01-01-nexabus-certification-and-changes-v01-01-00-as",
+          "section": "NexaBus Certification and Changes > 5.1 Certification procedure",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.030579
+        },
+        {
+          "chunk_id": "01-volume-1-demo-01-02-01-nexabus-datapoint-types-v01-00-00-as::section::0",
+          "doc_id": "01-volume-1-demo-01-02-01-nexabus-datapoint-types-v01-00-00-as",
+          "section": "NexaBus Datapoint Types > 2.1 Datapoint type catalogue",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.030077
+        },
+        {
+          "chunk_id": "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as::table::1::0::0::0",
+          "doc_id": "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as",
+          "section": "NexaBus Secure Sessions > 3.1 Session establishment",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.015385
+        },
+        {
+          "chunk_id": "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as::section::0",
+          "doc_id": "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as",
+          "section": "NexaBus Secure Sessions > 3.1 Session establishment",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.015152
+        },
+        {
+          "chunk_id": "03-volume-3-demo-03-01-01-nexabus-media-and-couplers-v01-00-00-as::section::0",
+          "doc_id": "03-volume-3-demo-03-01-01-nexabus-media-and-couplers-v01-00-00-as",
+          "section": "NexaBus Media and Couplers > 4.1 Twisted pair",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.014493
+        },
+        {
+          "chunk_id": "04-volume-4-demo-04-01-01-nexabus-certification-and-changes-v01-01-00-as::table::1::0::0::0",
+          "doc_id": "04-volume-4-demo-04-01-01-nexabus-certification-and-changes-v01-01-00-as",
+          "section": "NexaBus Certification and Changes > 5.1 Certification procedure",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.014286
+        }
+      ],
+      "page_hit_at_k": 1.0
+    },
+    {
+      "id": "demo-q011",
+      "question": "¿Cómo se protege una sesión segura frente a repeticiones?",
+      "language": "es",
+      "type": "security",
+      "retrieved_doc_ids": [
+        "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as",
+        "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as",
+        "04-volume-4-demo-04-01-01-nexabus-certification-and-changes-v01-01-00-as",
+        "03-volume-3-demo-03-01-01-nexabus-media-and-couplers-v01-00-00-as",
+        "01-volume-1-demo-01-01-01-nexabus-overview-v01-00-00-as",
+        "01-volume-1-demo-01-02-01-nexabus-datapoint-types-v01-00-00-as"
+      ],
+      "relevant_doc_ids": [
+        "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as"
+      ],
+      "recall_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "top_chunks": [
+        {
+          "chunk_id": "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as::section::0",
+          "doc_id": "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as",
+          "section": "NexaBus Secure Sessions > 3.1 Session establishment",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.016393
+        },
+        {
+          "chunk_id": "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as::table::1::0::0::0",
+          "doc_id": "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as",
+          "section": "NexaBus Secure Sessions > 3.1 Session establishment",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.016129
+        },
+        {
+          "chunk_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as::section::0",
+          "doc_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as",
+          "section": "NexaBus Device Profiles > 2.1 Property identifiers",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.015873
+        },
+        {
+          "chunk_id": "04-volume-4-demo-04-01-01-nexabus-certification-and-changes-v01-01-00-as::section::0",
+          "doc_id": "04-volume-4-demo-04-01-01-nexabus-certification-and-changes-v01-01-00-as",
+          "section": "NexaBus Certification and Changes > 5.1 Certification procedure",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.015625
+        },
+        {
+          "chunk_id": "04-volume-4-demo-04-01-01-nexabus-certification-and-changes-v01-01-00-as::table::1::0::0::0",
+          "doc_id": "04-volume-4-demo-04-01-01-nexabus-certification-and-changes-v01-01-00-as",
+          "section": "NexaBus Certification and Changes > 5.1 Certification procedure",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.015385
+        },
+        {
+          "chunk_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as::table::1::1::0::0",
+          "doc_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as",
+          "section": "NexaBus Device Profiles > 2.1 Property identifiers",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.015152
+        },
+        {
+          "chunk_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as::table::1::0::0::0",
+          "doc_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as",
+          "section": "NexaBus Device Profiles > 2.1 Property identifiers",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.014925
+        },
+        {
+          "chunk_id": "03-volume-3-demo-03-01-01-nexabus-media-and-couplers-v01-00-00-as::section::0",
+          "doc_id": "03-volume-3-demo-03-01-01-nexabus-media-and-couplers-v01-00-00-as",
+          "section": "NexaBus Media and Couplers > 4.1 Twisted pair",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.014706
+        },
+        {
+          "chunk_id": "01-volume-1-demo-01-01-01-nexabus-overview-v01-00-00-as::section::0",
+          "doc_id": "01-volume-1-demo-01-01-01-nexabus-overview-v01-00-00-as",
+          "section": "NexaBus Overview > 1 Introduction",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.014493
+        },
+        {
+          "chunk_id": "01-volume-1-demo-01-02-01-nexabus-datapoint-types-v01-00-00-as::section::0",
+          "doc_id": "01-volume-1-demo-01-02-01-nexabus-datapoint-types-v01-00-00-as",
+          "section": "NexaBus Datapoint Types > 2.1 Datapoint type catalogue",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.014286
+        }
+      ],
+      "page_hit_at_k": 1.0
+    },
+    {
+      "id": "demo-q012",
+      "question": "Which datapoint type represents active power and in what unit?",
+      "language": "en",
+      "type": "identifier",
+      "retrieved_doc_ids": [
+        "01-volume-1-demo-01-02-01-nexabus-datapoint-types-v01-00-00-as",
+        "01-volume-1-demo-01-01-01-nexabus-overview-v01-00-00-as",
+        "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as",
+        "04-volume-4-demo-04-01-01-nexabus-certification-and-changes-v01-01-00-as",
+        "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as",
+        "03-volume-3-demo-03-01-01-nexabus-media-and-couplers-v01-00-00-as"
+      ],
+      "relevant_doc_ids": [
+        "01-volume-1-demo-01-02-01-nexabus-datapoint-types-v01-00-00-as"
+      ],
+      "recall_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "top_chunks": [
+        {
+          "chunk_id": "01-volume-1-demo-01-02-01-nexabus-datapoint-types-v01-00-00-as::section::0",
+          "doc_id": "01-volume-1-demo-01-02-01-nexabus-datapoint-types-v01-00-00-as",
+          "section": "NexaBus Datapoint Types > 2.1 Datapoint type catalogue",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.032787
+        },
+        {
+          "chunk_id": "01-volume-1-demo-01-02-01-nexabus-datapoint-types-v01-00-00-as::table::1::0::0::0",
+          "doc_id": "01-volume-1-demo-01-02-01-nexabus-datapoint-types-v01-00-00-as",
+          "section": "NexaBus Datapoint Types > 2.1 Datapoint type catalogue",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.032258
+        },
+        {
+          "chunk_id": "01-volume-1-demo-01-01-01-nexabus-overview-v01-00-00-as::section::0",
+          "doc_id": "01-volume-1-demo-01-01-01-nexabus-overview-v01-00-00-as",
+          "section": "NexaBus Overview > 1 Introduction",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.031746
+        },
+        {
+          "chunk_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as::table::1::0::0::0",
+          "doc_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as",
+          "section": "NexaBus Device Profiles > 2.1 Property identifiers",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.03031
+        },
+        {
+          "chunk_id": "04-volume-4-demo-04-01-01-nexabus-certification-and-changes-v01-01-00-as::section::0",
+          "doc_id": "04-volume-4-demo-04-01-01-nexabus-certification-and-changes-v01-01-00-as",
+          "section": "NexaBus Certification and Changes > 5.1 Certification procedure",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.03009
+        },
+        {
+          "chunk_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as::section::0",
+          "doc_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as",
+          "section": "NexaBus Device Profiles > 2.1 Property identifiers",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.029857
+        },
+        {
+          "chunk_id": "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as::table::1::0::0::0",
+          "doc_id": "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as",
+          "section": "NexaBus Secure Sessions > 3.1 Session establishment",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.02971
+        },
+        {
+          "chunk_id": "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as::section::0",
+          "doc_id": "02-volume-2-demo-02-02-01-nexabus-secure-sessions-v01-00-00-as",
+          "section": "NexaBus Secure Sessions > 3.1 Session establishment",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.029644
+        },
+        {
+          "chunk_id": "03-volume-3-demo-03-01-01-nexabus-media-and-couplers-v01-00-00-as::section::0",
+          "doc_id": "03-volume-3-demo-03-01-01-nexabus-media-and-couplers-v01-00-00-as",
+          "section": "NexaBus Media and Couplers > 4.1 Twisted pair",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.029418
+        },
+        {
+          "chunk_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as::table::1::1::0::0",
+          "doc_id": "02-volume-2-demo-02-01-01-nexabus-device-profiles-v01-00-00-as",
+          "section": "NexaBus Device Profiles > 2.1 Property identifiers",
+          "pages": [
+            1,
+            1
+          ],
+          "score": 0.015625
+        }
+      ],
+      "page_hit_at_k": 1.0
+    }
+  ],
+  "config": {
+    "embedding_model": "intfloat/multilingual-e5-small",
+    "reranker": null,
+    "artifacts_dir": "artifacts-demo",
+    "qdrant_path": "artifacts-demo/qdrant"
+  }
+}

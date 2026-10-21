@@ -172,7 +172,7 @@ def _build_retriever(settings: Settings) -> Retriever:
     index = QdrantIndex(
         settings.collection_name,
         url=settings.qdrant_url,
-        path=str(settings.qdrant_path) if not settings.qdrant_url else None,
+        path=str(settings.effective_qdrant_path) if not settings.qdrant_url else None,
         timeout=settings.qdrant_timeout,
     )
     return Retriever(
@@ -215,6 +215,9 @@ def main() -> None:
         "embedding_model": settings.embedding_model,
         "reranker": None if args.no_reranker else settings.reranker_model,
         "artifacts_dir": str(settings.artifacts_dir),
+        "qdrant_path": (
+            None if settings.qdrant_url else str(settings.effective_qdrant_path)
+        ),
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(

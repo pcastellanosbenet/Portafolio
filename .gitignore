@@ -30,6 +30,10 @@ RAG-Agent/
 RAG Agent/
 artifacts/
 
+# Corpus sintético generado para la demo e índice aislado de la demo
+rag-assistant/demo/corpus/
+rag-assistant/artifacts-demo/
+
 
 # Pesos y artefactos de modelos
 checkpoints/
