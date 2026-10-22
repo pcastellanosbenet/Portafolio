@@ -11,6 +11,8 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 Provider = Literal["groq", "gemini"]
 SearchBackend = Literal["live", "frozen"]
+SearchPrimary = Literal["tavily", "duckduckgo", "frozen"]
+SearchFallback = Literal["duckduckgo", "none"]
 StructuredMethod = Literal["json_schema", "function_calling", "json_mode"]
 
 PROVIDER_BASE_URLS: dict[str, str] = {
@@ -42,7 +44,11 @@ class Settings(BaseSettings):
     llm_temperature: float = Field(default=0.0, ge=0.0, le=2.0)
     llm_timeout_s: float = Field(default=90.0, gt=0)
     llm_max_retries: int = Field(default=3, ge=0, le=10)
-    llm_structured_method: StructuredMethod = "json_schema"
+    llm_structured_method: StructuredMethod = "function_calling"
+    llm_tpm_limit: int = Field(default=8_000, ge=0)
+    llm_tpm_window_s: float = Field(default=60.0, gt=0)
+    llm_max_output_tokens: int = Field(default=3_000, ge=128)
+    llm_tool_fallback: bool = False
 
     groq_api_key: SecretStr | None = None
     gemini_api_key: SecretStr | None = None
@@ -51,6 +57,60 @@ class Settings(BaseSettings):
     search_backend: SearchBackend = Field(
         default="live",
         validation_alias=AliasChoices("RESEARCH_SEARCH_BACKEND", "SEARCH_BACKEND"),
+    )
+    search_primary: SearchPrimary = Field(
+        default="tavily",
+        validation_alias=AliasChoices("RESEARCH_SEARCH_PRIMARY", "SEARCH_PRIMARY"),
+    )
+    search_fallback: SearchFallback = Field(
+        default="duckduckgo",
+        validation_alias=AliasChoices("RESEARCH_SEARCH_FALLBACK", "SEARCH_FALLBACK"),
+    )
+    tavily_monthly_budget: int = Field(
+        default=1000,
+        ge=1,
+        validation_alias=AliasChoices(
+            "RESEARCH_TAVILY_MONTHLY_BUDGET",
+            "TAVILY_MONTHLY_BUDGET",
+        ),
+    )
+    tavily_search_depth: Literal["basic", "advanced"] = "basic"
+    wikipedia_lang: str = "es"
+    cache_ttl_s: int = Field(
+        default=86_400,
+        ge=60,
+        validation_alias=AliasChoices("RESEARCH_CACHE_TTL_S", "CACHE_TTL_S"),
+    )
+    http_timeout_s: float = Field(
+        default=20.0,
+        gt=0,
+        validation_alias=AliasChoices("RESEARCH_HTTP_TIMEOUT_S", "HTTP_TIMEOUT_S"),
+    )
+    http_max_bytes: int = Field(
+        default=2_000_000,
+        ge=10_000,
+        validation_alias=AliasChoices("RESEARCH_HTTP_MAX_BYTES", "HTTP_MAX_BYTES"),
+    )
+    fetch_max_chars: int = Field(
+        default=12_000,
+        ge=1_000,
+        validation_alias=AliasChoices("RESEARCH_FETCH_MAX_CHARS", "FETCH_MAX_CHARS"),
+    )
+    search_max_results: int = Field(
+        default=5,
+        ge=1,
+        le=10,
+        validation_alias=AliasChoices("RESEARCH_SEARCH_MAX_RESULTS", "SEARCH_MAX_RESULTS"),
+    )
+    search_max_retries: int = Field(
+        default=1,
+        ge=0,
+        le=3,
+        validation_alias=AliasChoices("RESEARCH_SEARCH_MAX_RETRIES", "SEARCH_MAX_RETRIES"),
+    )
+    frozen_corpus_path: Path = Field(
+        default=Path("eval/frozen/corpus.json"),
+        validation_alias=AliasChoices("RESEARCH_FROZEN_CORPUS_PATH", "FROZEN_CORPUS_PATH"),
     )
     db_path: Path = Field(
         default=Path("artifacts/research.db"),

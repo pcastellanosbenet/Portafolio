@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import time
 
-from src.agents.base import AgentServices, json_payload
+from src.agents.base import AgentServices, compact_notes, compact_sources, json_payload
 from src.budget import BudgetExceeded, usage_from_metadata
 from src.models import Analysis, Claim, Critique, Note, Source
 from src.prompts import messages
@@ -103,8 +103,8 @@ def make_critic(services: AgentServices):
                     json_payload(
                         {
                             "question": state["brief"].question,
-                            "notes": notes,
-                            "sources": list(sources.values()),
+                            "notes": compact_notes(notes),
+                            "sources": compact_sources(sources.values(), snippet_chars=0),
                             "analysis": analysis,
                         }
                     ),

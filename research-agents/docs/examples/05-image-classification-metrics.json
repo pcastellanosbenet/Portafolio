@@ -1,0 +1,364 @@
+{
+  "run_id": "ba4187d777364e80aae40e4af4ef06ed",
+  "question": "¿Qué métricas y buenas prácticas se usan para evaluar un modelo de clasificación de imágenes?",
+  "run_config": {
+    "max_workers": 2,
+    "max_tool_steps": 1,
+    "max_rounds": 1,
+    "llm_fallback_provider": null,
+    "llm_max_output_tokens": 2500
+  },
+  "report": {
+    "title": "Métricas y buenas prácticas para evaluar modelos de clasificación de imágenes",
+    "answer_markdown": "## Métricas cuantitativas estándar\n\n- **Exactitud (accuracy)**: medida de aciertos globales calculada a partir de la matriz de confusión.  \n  *Fuentes*: [src_a6551b2991c6], [src_43cf49bde12d]\n- **Precisión, recuperación (recall) y F1**: métricas esenciales, sobre todo en conjuntos desbalanceados, que evalúan la proporción de verdaderos positivos respecto a predicciones positivas y a reales positivos respectivamente, y su combinación armonizada.  \n  *Fuentes*: [src_a6551b2991c6], [src_43cf49bde12d]\n- **Curvas ROC‑AUC y PR‑AUC**: permiten valorar el rendimiento independientemente del umbral de decisión; la primera mide la relación entre tasa de verdaderos positivos y falsos positivos, la segunda entre precisión y recall.  \n  *Fuente*: [src_43cf49bde12d]\n\n## Métricas avanzadas específicas de visión por computadora\n\n- **Top‑k accuracy (p.ej., top‑1, top‑5)** y **mean Average Precision (mAP)** son métricas habituales en benchmarks como ImageNet o COCO, pero **no se dispone de evidencia en los documentos proporcionados** que las describa.\n\n## Buenas prácticas de diseño experimental y validación\n\n- Estratificación de splits, validación cruzada (k‑fold o stratified‑k‑fold), prevención de fuga de datos, uso de conjuntos externos para test y protocolos de ajuste de hiperparámetros son recomendaciones comunes en la literatura de visión por computadora. **Sin embargo, los recursos citados no contienen extractos que cubran estos procedimientos**.\n\n## Reporte y visualización de resultados\n\n- Incluir intervalos de confianza o errores estándar, curvas de calibración, análisis de casos de error, y visualizaciones como matrices de confusión, curvas ROC/PR o proyecciones de embeddings (t‑SNE/UMAP) favorece la reproducibilidad e interpretabilidad. **No se encontró documentación que detalle estas directrices**.\n\n---\n\n**Resumen**: Las fuentes disponibles respaldan las métricas estándar (accuracy, precision, recall, F1, ROC‑AUC, PR‑AUC) para la evaluación de clasificadores de imágenes. No hay evidencia suficiente sobre métricas avanzadas (top‑k, mAP) ni sobre buenas prácticas de diseño experimental, validación y reporte.\n",
+    "claims": [
+      {
+        "claim_id": "c1",
+        "text": "La exactitud (accuracy) es una métrica de referencia que se calcula a partir de la matriz de confusión.",
+        "source_ids": [
+          "src_a6551b2991c6",
+          "src_43cf49bde12d"
+        ]
+      },
+      {
+        "claim_id": "c2",
+        "text": "La precisión, la recuperación (recall) y su combinación F1 son métricas esenciales, especialmente en conjuntos de datos desbalanceados.",
+        "source_ids": [
+          "src_a6551b2991c6",
+          "src_43cf49bde12d"
+        ]
+      },
+      {
+        "claim_id": "c3",
+        "text": "Las curvas ROC‑AUC y PR‑AUC ofrecen una evaluación independiente del umbral y son ampliamente empleadas en clasificación de imágenes.",
+        "source_ids": [
+          "src_43cf49bde12d"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "src_34ad3f9ab4e8",
+        "url": "https://arxiv.org/abs/1905.11946",
+        "title": "[1905.11946] EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks",
+        "kind": "web",
+        "snippet": "### References & Citations ### 14 blog links ### DBLP - CS Bibliography ## BibTeX formatted citation ### Bookmark BibSonomy Reddit # Bibliographic and Citation Tools # Code, Data and Media Associated with this Article # Demos # Recommenders and Search Tools # arXivLabs: experimen…",
+        "accessed_at": "2026-10-22T12:37:51.003524Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_43cf49bde12d",
+        "url": "https://acaddemia.com/articulos/metricas-machine-learning-guia-evaluacion-modelos",
+        "title": "Métricas en Machine Learning: guía completa para evaluar modelos de forma profesional",
+        "kind": "web",
+        "snippet": "Problema de clasificación con clases balanceadas → Accuracy podría ser suficiente. Problema de clasificación con clases desbalanceadas (por ejemplo, detección de fraude, enfermedad, spam) → preferir Precision / Recall / F1 / AUC / PR-AUC. Cuando los falsos positivos son críticos…",
+        "accessed_at": "2026-10-22T12:35:51.915610Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_549587568dfd",
+        "url": "https://www.youtube.com/watch?v=h-KeMuYxJYU",
+        "title": "Métricas de Machine Learning e IA para Ciencia de Datos | Cómo Evaluar Modelos",
+        "kind": "web",
+        "snippet": "[10:57] métricas de clasificación son las más importantes si os dais cuenta precision e recall es como la el día y la noche no O sea ahí juegan una cosa de uno quiere [11:05] poner el menor número de positivos posible y el otro quiere poner el mayor número de positivos posi Así q…",
+        "accessed_at": "2026-10-22T12:35:51.915591Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_620ee77ec1f3",
+        "url": "https://ciencialatina.org/index.php/cienciala/article/view/3420/5194",
+        "title": "Vista de Métricas de rendimiento para evaluar el aprendizaje automático en la clasificación de imágenes petroleras utilizando redes neuronales convolucionales | Ciencia Latina Revista Científica Multidisciplinar",
+        "kind": "web",
+        "snippet": "Volver a los detalles del artículo Métricas de rendimiento para evaluar el aprendizaje automático en la clasificación de imágenes petroleras utilizando redes neuronales convolucionales",
+        "accessed_at": "2026-10-22T12:35:51.915626Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_6bd71f842beb",
+        "url": "https://arxiv.org/html/2506.13023v1",
+        "title": "A Practical Guide for Evaluating LLMs and LLM-Reliant Systems",
+        "kind": "web",
+        "snippet": "Recent advances in generative AI have led to remarkable interest in using systems that rely on large language models (LLMs) for practical applications. However, meaningful evaluation of these systems in real-world scenarios comes with a distinct set of challenges, which are not w…",
+        "accessed_at": "2026-10-22T12:37:51.003516Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_7037948ab3a1",
+        "url": "https://ml.recipes/resources/evaluation.html",
+        "title": "1.4. Model Evaluation Resources — Increase citations, ease review & collaboration: Better ML in Science",
+        "kind": "web",
+        "snippet": "covers statistical tests for comparing algorithms and strategies for dealing with multiple comparisons, as well as, alternative methods for algorithm selection on small datasets. [...] Lones was originally developed for research students with a fundamental understanding of machin…",
+        "accessed_at": "2026-10-22T12:37:51.003537Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_7131243002df",
+        "url": "https://sebastianraschka.com/blog/2016/model-evaluation-selection-part1.html",
+        "title": "ML Model Evaluation: Part 1 | Sebastian Raschka, PhD",
+        "kind": "web",
+        "snippet": "\\[f(k;n,p) = \\Pr(X = k) = \\binom n k p^k(1-p)^{n-k},\\] for \\(k = 0, 1, 2, ..., n\\), where \\[\\binom n k =\\frac{n!}{k!(n-k)!}.\\] (Remember, \\(p\\) is the probability of success, and \\((1-p)\\) is the probability of failure – a wrong prediction.) [...] Ahead of AI logo Sebastian Rasch…",
+        "accessed_at": "2026-10-22T12:37:51.003502Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_8cc4d204b2f2",
+        "url": "https://ml-science-book.com/references.html",
+        "title": "References – Supervised Machine Learning for Science",
+        "kind": "web",
+        "snippet": "G. Marcus, “The next decade in AI: Four steps towards robust artificial intelligence,” arXiv preprint arXiv:2002.06177, 2020, doi: 10.48550/arXiv.2002.06177. C. F. Manski, Partial identification of probability distributions, vol. 5. Springer, 2003. doi: 10.1007/b97478. [...] R. R…",
+        "accessed_at": "2026-10-22T12:36:51.099601Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_9ca75139adfc",
+        "url": "https://arxiv.org/pdf/2308.07832",
+        "title": "arXiv:2308.07832v2 [cs.LG] 19 Sep 2023",
+        "kind": "web",
+        "snippet": "reforms diﬀers from this large body of past work in crucial ways. First, past checklists for scientiﬁc research are ﬁeld or method-speciﬁc. For example, the CLAIM checklist provides best practices for reporting research on AI in med-ical imaging. As a result, many items in the ch…",
+        "accessed_at": "2026-10-22T12:36:51.099671Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_a08c216b16f0",
+        "url": "https://www.frontiersin.org/journals/robotics-and-ai/articles/10.3389/frobt.2026.1781874/full",
+        "title": "Frontiers | From vision–language models to structure-aware visual reasoning: foundations, representations, and consistency checking",
+        "kind": "web",
+        "snippet": "19 LiY.DuY.ZhouK.WangJ.ZhaoX.WenJ.-R. (2023). “Evaluating object hallucination in large vision-language models,” in Proceedings of the 2023 conference on empirical methods in natural language processing. 20 LiuH.LiC.WuQ.LeeY. J. (2023). Visual instruction tuning. Adv. Neural Inf.…",
+        "accessed_at": "2026-10-22T12:36:51.099650Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_a309b2bebd4f",
+        "url": "https://arxiv.org/pdf/2002.06177",
+        "title": "The Next Decade in AI:",
+        "kind": "web",
+        "snippet": "had the required properties. Ideas like database-style records for individuals, too, have been surprisingly absent from the vast preponderance of work on neural networks, and complex structured representations such as hierarchically-structured sentences are found only in a small…",
+        "accessed_at": "2026-10-22T12:36:51.099690Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_a6551b2991c6",
+        "url": "https://developers.google.com/machine-learning/crash-course/classification/accuracy-precision-recall?hl=es-419",
+        "title": "Clasificación: Exactitud, recuperación, precisión y métricas relacionadas  |  Machine Learning  |  Google for Developers",
+        "kind": "web",
+        "snippet": "Los verdaderos y falsos positivos y negativos se usan para calcular varias métricas útiles para evaluar modelos. Las métricas de evaluación más significativas dependen del modelo y la tarea específicos, el costo de las diferentes clasificaciones incorrectas y si el conjunto de da…",
+        "accessed_at": "2026-10-22T12:35:51.915556Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_b9c9141c18b6",
+        "url": "https://arxiv.org/pdf/1905.11946",
+        "title": "Rethinking Model Scaling for Convolutional Neural Networks",
+        "kind": "web",
+        "snippet": "Unlike conventional practice that arbitrary scales these fac-tors, our method uniformly scales network width, depth, arXiv:1905.11946v5 [cs.LG] 11 Sep 2020 EfﬁcientNet: Rethinking Model Scaling for Convolutional Neural Networks (a) baseline (b) width scaling (c) depth scaling (d)…",
+        "accessed_at": "2026-10-22T12:37:51.003531Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_ce83e3d2319a",
+        "url": "https://arxiv.org/pdf/2310.06800",
+        "title": "Test & Evaluation Best Practices for Machine Learning- ...",
+        "kind": "web",
+        "snippet": "our knowledge, no work in the literature aims to address the challenges in T&E of ML systems with either a pipeline or hierarchical architecture. Although the current practice aims to provide performance guarantees, it is inefficient and consumes a significant amount of time and…",
+        "accessed_at": "2026-10-22T12:36:51.099629Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_d3c6d211d4bc",
+        "url": "https://www.researchgate.net/publication/365495995_Metricas_de_rendimiento_para_evaluar_el_aprendizaje_automatico_en_la_clasificacion_de_imagenes_petroleras_utilizando_redes_neuronales_convolucionales",
+        "title": "(PDF) Métricas de rendimiento para evaluar el aprendizaje ...",
+        "kind": "web",
+        "snippet": "El objetivo de este trabajo es mostrar cómo se aplica cada una de las métricas de rendimiento para obtener una mejor precisión y exactitud para la clasificación",
+        "accessed_at": "2026-10-22T12:35:51.915641Z",
+        "metadata": {}
+      }
+    ],
+    "confidence": "medium",
+    "limitations": [
+      "Falta evidencia sobre métricas avanzadas específicas de visión por computadora como top‑k accuracy y mean Average Precision (mAP).",
+      "No se dispone de fuentes que describan buenas prácticas de diseño experimental y validación (splits estratificados, cross‑validation, control de data leakage, uso de conjuntos externos).",
+      "No se encontraron documentos que indiquen cómo reportar y visualizar resultados con intervalos de confianza, curvas de calibración, análisis de errores o visualizaciones recomendadas para reproducibilidad e interpretabilidad.",
+      "The critic requested another research round; this report uses the evidence available when the budget or round limit was reached."
+    ],
+    "usage": {
+      "llm_calls": 10,
+      "input_tokens": 17624,
+      "output_tokens": 6125,
+      "total_tokens": 23749,
+      "search_calls": 3,
+      "latency_s": 534.562,
+      "models": {
+        "openai/gpt-oss-120b": 4,
+        "openai/gpt-oss-20b": 6
+      }
+    }
+  },
+  "usage": {
+    "llm_calls": 10,
+    "input_tokens": 17624,
+    "output_tokens": 6125,
+    "total_tokens": 23749,
+    "search_calls": 3,
+    "latency_s": 534.562,
+    "models": {
+      "openai/gpt-oss-120b": 4,
+      "openai/gpt-oss-20b": 6
+    }
+  },
+  "errors": [],
+  "trace": [
+    {
+      "timestamp": "2026-10-22T12:33:51.092980Z",
+      "node": "supervisor",
+      "event": "route_selected",
+      "data": {
+        "next": "planner",
+        "reason": "Only one valid route for this state.",
+        "allowed": [
+          "planner"
+        ],
+        "deterministic": true
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:34:51.904540Z",
+      "node": "planner",
+      "event": "plan_created",
+      "data": {
+        "subquestions": 3,
+        "model": "openai/gpt-oss-120b",
+        "prompt_version": "0.1.0"
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:34:51.905632Z",
+      "node": "supervisor",
+      "event": "route_selected",
+      "data": {
+        "next": "researcher",
+        "reason": "Only one valid route for this state.",
+        "allowed": [
+          "researcher"
+        ],
+        "deterministic": true
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:34:51.907112Z",
+      "node": "researcher",
+      "event": "dispatch",
+      "data": {
+        "workers": 3,
+        "max_workers": 2,
+        "round": 1
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:35:51.917920Z",
+      "node": "researcher_worker",
+      "event": "completed",
+      "data": {
+        "subquestion": "¿Cuáles son las métricas cuantitativas estándar para evaluar modelos de clasificación de imágenes?",
+        "claims": 3,
+        "sources": 5
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:36:51.100764Z",
+      "node": "researcher_worker",
+      "event": "completed",
+      "data": {
+        "subquestion": "¿Qué buenas prácticas de diseño experimental y validación se recomiendan al evaluar modelos de clasificación de imágenes?",
+        "claims": 0,
+        "sources": 5
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:37:51.004266Z",
+      "node": "researcher_worker",
+      "event": "completed",
+      "data": {
+        "subquestion": "¿Cómo deben reportarse y visualizarse los resultados para asegurar reproducibilidad e interpretabilidad en tareas de clasificación de imágenes?",
+        "claims": 0,
+        "sources": 5
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:37:51.005420Z",
+      "node": "supervisor",
+      "event": "route_selected",
+      "data": {
+        "next": "analyst",
+        "reason": "Only one valid route for this state.",
+        "allowed": [
+          "analyst"
+        ],
+        "deterministic": true
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:38:52.449383Z",
+      "node": "analyst",
+      "event": "analysis_created",
+      "data": {
+        "evidence": 3,
+        "gaps": 3,
+        "model": "openai/gpt-oss-120b"
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:38:52.450312Z",
+      "node": "supervisor",
+      "event": "route_selected",
+      "data": {
+        "next": "critic",
+        "reason": "Only one valid route for this state.",
+        "allowed": [
+          "critic"
+        ],
+        "deterministic": true
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:39:51.945018Z",
+      "node": "critic",
+      "event": "critique_created",
+      "data": {
+        "verdict": "revise",
+        "unsupported": 0,
+        "gaps": 3,
+        "model": "openai/gpt-oss-120b"
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:39:51.946015Z",
+      "node": "supervisor",
+      "event": "route_selected",
+      "data": {
+        "next": "writer",
+        "reason": "Only one valid route for this state.",
+        "allowed": [
+          "writer"
+        ],
+        "deterministic": true
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:40:52.772340Z",
+      "node": "writer",
+      "event": "report_created",
+      "data": {
+        "claims": 3,
+        "sources": 15,
+        "fallback": false,
+        "model": "openai/gpt-oss-120b"
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:40:52.773669Z",
+      "node": "supervisor",
+      "event": "run_finished",
+      "data": {}
+    }
+  ]
+}

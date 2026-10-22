@@ -28,6 +28,13 @@ the sources that support each claim, remaining gaps, and a confidence level.
 Never cite a source you did not retrieve. If evidence is insufficient, say so
 and leave the claim out instead of guessing."""
 
+TOOL_FINALIZER = """You are finalizing one research subquestion.
+You no longer have access to tools. Use only the tool results provided in the
+conversation. Return a short summary, atomic claims, the sources that support
+each claim, remaining gaps, and a confidence level. Never cite a source that is
+not present in the tool results. If evidence is insufficient, leave claims empty
+and explain the gaps instead of guessing."""
+
 ANALYST = """You are the evidence analyst.
 Deduplicate claims and sources, build a compact evidence table, and identify
 coverage gaps. Do not add new facts and do not upgrade confidence without
@@ -43,8 +50,9 @@ Be strict but do not demand perfection."""
 WRITER = """You are the report writer.
 Write a concise Markdown report in the language of the question. Use only the
 provided evidence and cite sources by their IDs. Do not introduce new facts.
-Include a short limitations section, especially for gaps, unsupported claims,
-or budget exhaustion. If the evidence is insufficient, state that explicitly."""
+Return the report body without a separate limitations section: put gaps,
+unsupported claims, and budget issues in the `limitations` field so the API and
+CLI can render them once. If the evidence is insufficient, state that explicitly."""
 
 ROLE_PROMPTS: dict[str, str] = {
     "supervisor": SUPERVISOR,

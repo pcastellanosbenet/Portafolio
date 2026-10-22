@@ -78,8 +78,9 @@ es el principal; si Groq falla, Gemini queda como segunda opción.
 
 ## Límites de los tiers gratuitos
 
-- **Tavily:** 1.000 llamadas a la API al mes. Se implementará un contador
-  persistente y se cachearán las búsquedas. El CI no hará llamadas reales.
+- **Tavily:** 1.000 llamadas a la API al mes. Se implementó un contador
+  persistente y se cachean las búsquedas en la Fase 2. El CI no hace llamadas
+  reales.
 - **Groq y Gemini:** los límites de RPM/TPM/RPD cambian con el tiempo. No se
   fijarán cifras en el README sin verificarlas en la consola el día de la
   medición. El cliente ya respeta `Retry-After` mediante backoff y fallback.
@@ -96,3 +97,64 @@ es el principal; si Groq falla, Gemini queda como segunda opción.
 El gate se cumple para el sistema con Groq como principal. Gemini no se usa como
 principal por su inestabilidad observada en el tier gratuito. La decisión quedó
 registrada en `PLANS.md` y se continuó con la Fase 1.
+
+## Fase 2 — uso real y límites observados (2026-10-22)
+
+La Fase 2 ejecutó el grafo completo con herramientas reales. La configuración de
+salida estructurada pasó de `json_schema` (spike) a `function_calling`, con un
+fallback propio a JSON textual (`text_json`) porque Groq emitió en algunos casos
+una tool call con el nombre del esquema (`researchPlan`) que no estaba en
+`request.tools`.
+
+### Cuotas observadas
+
+| Proveedor / servicio | Límite observado | Evidencia |
+| :--- | :--- | :--- |
+| Groq `openai/gpt-oss-120b` | 8.000 TPM | HTTP 413 con `Requested 9349` en el critic |
+| Groq `openai/gpt-oss-120b` | 200.000 TPD | `Used 199038, Requested 5103`; el run se detuvo |
+| Gemini `gemini-3.8-flash` | 20 peticiones/día | Cuota agotada; fallback desactivado en los runs finales |
+| Tavily | 1.000 llamadas/mes | Contador local en 34; 966 restantes |
+| Tavily | Caché por consulta | Los *cache hits* no incrementan el contador |
+
+El TPD de Groq se agotó al intentar repetir la pregunta de RAG. No se hicieron
+más llamadas reales después de ese error. Las cifras no se generalizan a otras
+cuentas ni a fechas posteriores.
+
+### Qué se corrigió durante la fase
+
+- Las tool calls pendientes al llegar al límite de pasos dejaban el subgrafo sin
+  ejecutar la última búsqueda. Ahora el último paso ejecuta su tool y después
+  finaliza.
+- `max_workers` se usaba para recortar la lista de subpreguntas y perder trabajo.
+  Ahora se envían todas con `Send` y la concurrencia se limita con
+  `max_concurrency`; ningún worker se descarta.
+- Los prompts del analyst, critic y writer recibían fuentes completas y podían
+  superar el TPM. Se compactan notas y snippets; el critic recibe solo claims,
+  IDs y títulos, sin snippets.
+- El tope de salida se subió a 3.000 tokens después de observar un JSON truncado
+  en el analista.
+- Las citas en formato `【src_…】` no las detectaba el validador. Se normalizan
+  antes de validar.
+
+### Cinco ejecuciones reales
+
+| Pregunta | Tokens | Latencia | Búsquedas | Errores |
+| :--- | ---: | ---: | ---: | :--- |
+| IA agéntica y limitaciones | 33.827 | 838,9 s | 3 | 0 |
+| Atención en transformers | 33.222 | 597,2 s | 4 | 0 |
+| Evaluación de RAG | 27.339 | 590,6 s | 4 | 1 (analista, recuperado) |
+| LoRA frente a fine-tuning | 18.416 | 416,8 s | 3 | 0 |
+| Métricas de clasificación de imágenes | 23.749 | 534,6 s | 3 | 0 |
+
+Las trazas curadas están en [`examples/`](./examples/). La latencia incluye las
+esperas del limitador TPM, por lo que no debe compararse con la latencia del
+spike, que no tenía herramientas ni limitador.
+
+### Conclusión para las siguientes fases
+
+El free tier alcanza para una demo y para validar el flujo, pero no para una
+evaluación sistemática: el TPD se agota antes de completar un conjunto amplio de
+preguntas. La Fase 4 debe usar el corpus congelado, cachear búsquedas, ejecutar
+por lotes con presupuesto explícito y reportar cuántas preguntas quedaron
+bloqueadas por cuota. El fallback de Gemini no es una reserva infinita: su cuota
+diaria también es limitada.

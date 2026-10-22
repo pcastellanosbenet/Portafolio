@@ -205,6 +205,21 @@ class ResearchTask(BaseModel):
     brief: ResearchBrief
 
 
+class ResearchAnswer(BaseModel):
+    """Compact final answer from a tool-using researcher.
+
+    Source metadata is intentionally omitted: it is reconstructed from the
+    actual tool payloads, which prevents the model from inventing URLs.
+    """
+
+    model_config = ConfigDict(extra="forbid")
+
+    summary: str
+    claims: list[Claim] = Field(default_factory=list)
+    gaps: list[str] = Field(default_factory=list)
+    confidence: Confidence = "medium"
+
+
 class ReportDraft(BaseModel):
     """Writer output before sources and usage are attached."""
 

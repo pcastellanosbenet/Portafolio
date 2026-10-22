@@ -10,7 +10,7 @@ from src.agents.analyst import make_analyst
 from src.agents.base import AgentServices
 from src.agents.critic import make_critic
 from src.agents.planner import make_planner
-from src.agents.researcher import make_researcher
+from src.agents.researcher import make_researcher, make_researcher_worker
 from src.agents.supervisor import make_supervisor
 from src.agents.writer import make_writer
 from src.models import ResearchBrief
@@ -23,12 +23,13 @@ def build_graph(services: AgentServices, *, checkpointer: Any | None = None):
     builder.add_node("supervisor", make_supervisor(services))
     builder.add_node("planner", make_planner(services))
     builder.add_node("researcher", make_researcher(services))
+    builder.add_node("researcher_worker", make_researcher_worker(services))
     builder.add_node("analyst", make_analyst(services))
     builder.add_node("critic", make_critic(services))
     builder.add_node("writer", make_writer(services))
 
     builder.add_edge(START, "supervisor")
-    for node in ("planner", "researcher", "analyst", "critic", "writer"):
+    for node in ("planner", "researcher_worker", "analyst", "critic", "writer"):
         builder.add_edge(node, "supervisor")
     return builder.compile(checkpointer=checkpointer)
 
@@ -39,11 +40,14 @@ def run_research(
     *,
     run_id: str | None = None,
     recursion_limit: int = 30,
+    max_concurrency: int | None = None,
     config: dict[str, Any] | None = None,
 ) -> ResearchState:
     """Invoke the graph with a fresh state and a hard recursion limit."""
     state = initial_state(brief, run_id=run_id)
     run_config: dict[str, Any] = {"recursion_limit": recursion_limit}
+    if max_concurrency is not None:
+        run_config["max_concurrency"] = max_concurrency
     if config:
         run_config.update(config)
     return graph.invoke(state, config=run_config)

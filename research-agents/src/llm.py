@@ -2,13 +2,17 @@
 
 from __future__ import annotations
 
+import json
 import logging
-from collections.abc import Sequence
+import threading
+import time
+from collections import deque
+from collections.abc import Callable, Sequence
 from dataclasses import dataclass
 from typing import Any
 
 from langchain_core.language_models.chat_models import BaseChatModel
-from langchain_core.messages import AIMessage, BaseMessage
+from langchain_core.messages import AIMessage, BaseMessage, HumanMessage
 from langchain_openai import ChatOpenAI
 from pydantic import BaseModel, SecretStr
 from tenacity import Retrying, retry_if_exception, stop_after_attempt, wait_exponential_jitter
@@ -77,9 +81,24 @@ def _is_retryable(exc: BaseException) -> bool:
     )
 
 
-def _is_structured_method_error(exc: BaseException) -> bool:
+def _is_tool_call_error(exc: BaseException) -> bool:
+    """Detect provider-specific failures when a model invents a tool call."""
     message = str(exc).lower()
     return any(
+        token in message
+        for token in (
+            "tool_use_failed",
+            "tool call validation",
+            "not in request.tools",
+            "failed to parse tool call",
+            "failed_generation",
+        )
+    )
+
+
+def _is_structured_method_error(exc: BaseException) -> bool:
+    message = str(exc).lower()
+    return _is_tool_call_error(exc) or any(
         token in message
         for token in (
             "json_schema",
@@ -92,6 +111,28 @@ def _is_structured_method_error(exc: BaseException) -> bool:
     ) or isinstance(exc, StructuredOutputError)
 
 
+def parse_json_text[T: BaseModel](text: str, schema: type[T]) -> T:
+    """Parse a JSON object emitted as text, tolerating fences and wrappers."""
+    cleaned = text.strip()
+    if cleaned.startswith("```"):
+        cleaned = cleaned.split("\n", 1)[1] if "\n" in cleaned else cleaned[3:]
+        if cleaned.rstrip().endswith("```"):
+            cleaned = cleaned.rsplit("```", 1)[0]
+    start = cleaned.find("{")
+    if start == -1:
+        raise StructuredOutputError("The model did not return a JSON object.")
+    data, _ = json.JSONDecoder().raw_decode(cleaned[start:])
+    if not isinstance(data, dict):
+        raise StructuredOutputError("The model returned JSON that is not an object.")
+    if "arguments" in data and isinstance(data["arguments"], (dict, str)):
+        arguments = data["arguments"]
+        if isinstance(arguments, str):
+            arguments = json.loads(arguments)
+        if isinstance(arguments, dict):
+            data = arguments
+    return schema.model_validate(data)
+
+
 def _usage_from_message(message: AIMessage) -> dict[str, int]:
     usage = message.usage_metadata or {}
     return {
@@ -99,6 +140,75 @@ def _usage_from_message(message: AIMessage) -> dict[str, int]:
         for key, value in usage.items()
         if isinstance(value, int)
     }
+
+
+def _estimate_text(value: str) -> int:
+    """Conservative token estimate for mixed prose and JSON."""
+    return max(1, len(value) // 3)
+
+
+def _estimate_messages(messages: Sequence[BaseMessage]) -> int:
+    return sum(_estimate_text(str(message.content)) + 4 for message in messages)
+
+
+def _estimate_tools(tools: Sequence[Any]) -> int:
+    payload = [
+        {
+            "name": getattr(tool, "name", type(tool).__name__),
+            "description": getattr(tool, "description", ""),
+            "args": getattr(tool, "args", {}),
+        }
+        for tool in tools
+    ]
+    return _estimate_text(json.dumps(payload, ensure_ascii=False, default=str))
+
+
+def _estimate_schema(schema: type[BaseModel] | None) -> int:
+    if schema is None:
+        return 0
+    return _estimate_text(json.dumps(schema.model_json_schema(), default=str))
+
+
+class TokenRateLimiter:
+    """Thread-safe sliding-window limiter for provider token quotas.
+
+    Free tiers often cap tokens per minute. Parallel researchers share this
+    limiter, so a burst of ``Send`` workers cannot exceed the configured quota.
+    """
+
+    def __init__(
+        self,
+        *,
+        limit: int,
+        window_s: float,
+        clock: Callable[[], float] = time.monotonic,
+        sleep: Callable[[float], None] = time.sleep,
+    ) -> None:
+        self.limit = limit
+        self.window_s = window_s
+        self._clock = clock
+        self._sleep = sleep
+        self._records: deque[tuple[float, int]] = deque()
+        self._lock = threading.Lock()
+
+    def acquire(self, tokens: int) -> None:
+        if self.limit <= 0:
+            return
+        requested = max(1, min(tokens, self.limit))
+        while True:
+            with self._lock:
+                now = self._clock()
+                while self._records and now - self._records[0][0] >= self.window_s:
+                    self._records.popleft()
+                used = sum(amount for _, amount in self._records)
+                if used + requested <= self.limit:
+                    self._records.append((now, requested))
+                    return
+                if self._records:
+                    wait = self.window_s - (now - self._records[0][0])
+                else:
+                    wait = self.window_s
+            self._sleep(max(0.1, wait))
 
 
 class LLMClient:
@@ -132,6 +242,10 @@ class LLMClient:
                     "fallback disabled for this run.",
                     settings.llm_fallback_provider,
                 )
+        self._limiter = TokenRateLimiter(
+            limit=settings.llm_tpm_limit,
+            window_s=settings.llm_tpm_window_s,
+        )
 
     @property
     def primary(self) -> ModelTarget:
@@ -155,7 +269,12 @@ class LLMClient:
             targets.append(self._fallback)
         return targets
 
-    def _chat_model(self, target: ModelTarget) -> BaseChatModel:
+    def _chat_model(
+        self,
+        target: ModelTarget,
+        *,
+        max_output_tokens: int | None = None,
+    ) -> BaseChatModel:
         return ChatOpenAI(
             model=target.model,
             api_key=target.api_key.get_secret_value(),
@@ -163,7 +282,28 @@ class LLMClient:
             temperature=self.settings.llm_temperature,
             timeout=self.settings.llm_timeout_s,
             max_retries=0,
+            max_tokens=max_output_tokens or self.settings.llm_max_output_tokens,
         )
+
+    def chat_model(self, *, fast: bool = False) -> BaseChatModel:
+        """Return the primary chat model so tools can be bound to it."""
+        return self._chat_model(self._targets(fast=fast)[0])
+
+    def _acquire_for(
+        self,
+        messages: Sequence[BaseMessage],
+        *,
+        tools: Sequence[Any] = (),
+        schema: type[BaseModel] | None = None,
+        max_output_tokens: int | None = None,
+    ) -> None:
+        estimated = (
+            _estimate_messages(messages)
+            + _estimate_tools(tools)
+            + _estimate_schema(schema)
+            + (max_output_tokens or self.settings.llm_max_output_tokens)
+        )
+        self._limiter.acquire(estimated)
 
     def _retrying(self) -> Retrying:
         return Retrying(
@@ -182,10 +322,12 @@ class LLMClient:
         """Invoke a chat model and return the raw message."""
         last_error: BaseException | None = None
         for target in self._targets(fast=fast):
-            model = self._chat_model(target)
+            output_tokens = min(self.settings.llm_max_output_tokens, 3_000)
+            model = self._chat_model(target, max_output_tokens=output_tokens)
             try:
                 for attempt in self._retrying():
                     with attempt:
+                        self._acquire_for(messages, max_output_tokens=output_tokens)
                         response = model.invoke(messages)
                 if not isinstance(response, AIMessage):
                     raise TypeError(f"Expected AIMessage, got {type(response)!r}")
@@ -205,6 +347,80 @@ class LLMClient:
                 f"Last error: {type(last_error).__name__}: {last_error}"
             ) from last_error
         raise RuntimeError("No LLM provider is configured.")
+
+    def invoke_with_tools(
+        self,
+        messages: Sequence[BaseMessage],
+        tools: Sequence[Any],
+        *,
+        fast: bool = False,
+    ) -> AIMessage:
+        """Invoke a model with tools, retrying and falling back on provider errors."""
+        last_error: BaseException | None = None
+        targets = self._targets(fast=fast)
+        if not self.settings.llm_tool_fallback:
+            targets = targets[:1]
+        for target in targets:
+            output_tokens = min(self.settings.llm_max_output_tokens, 1_024)
+            model = self._chat_model(target, max_output_tokens=output_tokens).bind_tools(tools)
+            try:
+                for attempt in self._retrying():
+                    with attempt:
+                        self._acquire_for(
+                            messages,
+                            tools=tools,
+                            max_output_tokens=output_tokens,
+                        )
+                        response = model.invoke(messages)
+                if not isinstance(response, AIMessage):
+                    raise TypeError(f"Expected AIMessage, got {type(response)!r}")
+                return response
+            except Exception as exc:  # noqa: BLE001 - provider errors are normalized
+                last_error = exc
+                if not _is_retryable(exc):
+                    raise
+                logger.warning(
+                    "Tool call failed on %s after retries; trying fallback: %s",
+                    target.provider,
+                    type(exc).__name__,
+                )
+        if last_error is not None:
+            raise RuntimeError(
+                "All configured LLM providers failed. "
+                f"Last error: {type(last_error).__name__}: {last_error}"
+            ) from last_error
+        raise RuntimeError("No LLM provider is configured.")
+
+    def _invoke_structured_text[T: BaseModel](
+        self,
+        schema: type[T],
+        messages: Sequence[BaseMessage],
+        *,
+        fast: bool = False,
+    ) -> tuple[T, InvocationMetadata]:
+        """Last-resort structured output: ask for raw JSON and parse it locally.
+
+        Some free-tier Groq models occasionally emit a tool call to the schema
+        name instead of using the synthetic tool supplied by LangChain. A plain
+        text request with an explicit JSON schema avoids that provider quirk.
+        """
+        schema_text = json.dumps(schema.model_json_schema(), ensure_ascii=False)
+        instruction = HumanMessage(
+            content=(
+                "Return ONLY one JSON object that validates against this JSON schema. "
+                "Do not call tools, do not use Markdown fences, and do not add prose.\n\n"
+                f"{schema_text}"
+            )
+        )
+        response = self.invoke_text([*messages, instruction], fast=fast)
+        parsed = parse_json_text(str(response.content), schema)
+        model_name = str(response.response_metadata.get("model_name") or self.primary.model)
+        return parsed, InvocationMetadata(
+            provider=self.settings.llm_provider,
+            model=model_name,
+            method="text_json",
+            usage=_usage_from_message(response),
+        )
 
     def invoke_structured[T: BaseModel](
         self,
@@ -230,6 +446,7 @@ class LLMClient:
                 try:
                     for attempt in self._retrying():
                         with attempt:
+                            self._acquire_for(messages, schema=schema)
                             response = model.with_structured_output(
                                 schema,
                                 method=method,
@@ -252,6 +469,12 @@ class LLMClient:
                             target.provider,
                         )
                         break
+                    if _is_tool_call_error(exc):
+                        logger.info(
+                            "Provider %s rejected a synthetic tool call; using text JSON fallback.",
+                            target.provider,
+                        )
+                        return self._invoke_structured_text(schema, messages, fast=fast)
                     if _is_structured_method_error(exc):
                         logger.info(
                             "Structured method %s failed for %s; trying another method.",
@@ -260,6 +483,10 @@ class LLMClient:
                         )
                         continue
                     raise
+        try:
+            return self._invoke_structured_text(schema, messages, fast=fast)
+        except Exception as exc:  # noqa: BLE001 - expose the text fallback error
+            last_error = exc
         if last_error is not None:
             raise RuntimeError(
                 "All configured LLM providers failed. "

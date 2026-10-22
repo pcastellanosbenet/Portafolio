@@ -4,8 +4,9 @@ from __future__ import annotations
 
 import time
 
-from src.agents.base import AgentServices, json_payload
+from src.agents.base import AgentServices, compact_sources, json_payload
 from src.budget import BudgetExceeded, usage_from_metadata
+from src.citations import normalize_citations, validate_citations
 from src.models import Claim, FinalReport, Note, ReportDraft, Source, Usage
 from src.prompts import messages
 from src.state import ResearchState
@@ -26,23 +27,35 @@ def _dedupe_claims(notes: list[Note]) -> list[Claim]:
 
 
 def _limitations(state: ResearchState, draft: ReportDraft | None) -> list[str]:
-    limitations: list[str] = []
-    if draft is not None:
-        limitations.extend(draft.limitations)
+    raw: list[str] = []
     critique = state.get("critique")
-    if critique is not None:
-        limitations.extend(critique.gaps)
-        if critique.verdict == "revise":
-            limitations.append(
-                "The critic requested another research round; this report uses the evidence "
-                "available when the budget or round limit was reached."
-            )
-    limitations.extend(state.get("errors", []))
-    for note in state.get("notes", []):
-        limitations.extend(note.gaps)
+    if draft is not None and draft.limitations:
+        raw.extend(draft.limitations)
+    elif critique is not None and critique.gaps:
+        raw.extend(critique.gaps)
+    else:
+        for note in state.get("notes", []):
+            raw.extend(note.gaps)
+    if critique is not None and critique.verdict == "revise":
+        raw.append(
+            "The critic requested another research round; this report uses the evidence "
+            "available when the budget or round limit was reached."
+        )
+    raw.extend(state.get("errors", []))
     if not state.get("notes"):
-        limitations.append("No research notes were collected.")
-    return list(dict.fromkeys(limitations))
+        raw.append("No research notes were collected.")
+
+    limitations: list[str] = []
+    seen: list[str] = []
+    for item in raw:
+        normalized = " ".join(item.casefold().split())
+        if any(normalized in existing or existing in normalized for existing in seen):
+            continue
+        limitations.append(item.strip())
+        seen.append(normalized)
+        if len(limitations) >= 8:
+            break
+    return limitations
 
 
 def fallback_draft(state: ResearchState) -> ReportDraft:
@@ -59,9 +72,6 @@ def fallback_draft(state: ResearchState) -> ReportDraft:
             "The available evidence was insufficient to support a factual answer.",
         ]
     limitations = _limitations(state, None)
-    if limitations:
-        lines.extend(["", "## Limitations", ""])
-        lines.extend(f"- {limitation}" for limitation in limitations)
     return ReportDraft(
         title=f"Research report: {state['brief'].question[:80]}",
         answer_markdown="\n".join(lines),
@@ -83,12 +93,21 @@ def build_final_report(
     )
     return FinalReport(
         title=draft.title,
-        answer_markdown=draft.answer_markdown,
+        answer_markdown=normalize_citations(draft.answer_markdown),
         claims=claims,
         sources=sources,
         confidence=draft.confidence,
         limitations=_limitations(state, draft),
         usage=usage,
+    )
+
+
+def _validate_report(report: FinalReport) -> FinalReport:
+    validation = validate_citations(report)
+    if not validation.issues:
+        return report
+    return report.model_copy(
+        update={"limitations": list(dict.fromkeys([*report.limitations, *validation.issues]))}
     )
 
 
@@ -108,17 +127,19 @@ def make_writer(services: AgentServices):
                             "language": state["brief"].language,
                             "analysis": state.get("analysis"),
                             "notes": state.get("notes", []),
-                            "sources": list(state.get("sources", {}).values()),
+                            "sources": compact_sources(state.get("sources", {}).values()),
                             "critique": state.get("critique"),
                         }
                     ),
                 ),
             )
             delta = usage_from_metadata(metadata, latency_s=time.perf_counter() - started)
-            report = build_final_report(
-                state,
-                draft,
-                usage=current_usage.merged(delta),
+            report = _validate_report(
+                build_final_report(
+                    state,
+                    draft,
+                    usage=current_usage.merged(delta),
+                )
             )
             return {
                 "report": report,
@@ -137,7 +158,7 @@ def make_writer(services: AgentServices):
             }
         except BudgetExceeded as exc:
             draft = fallback_draft(state)
-            report = build_final_report(state, draft, usage=current_usage)
+            report = _validate_report(build_final_report(state, draft, usage=current_usage))
             return {
                 "report": report,
                 "status": "writing",
@@ -146,7 +167,7 @@ def make_writer(services: AgentServices):
             }
         except Exception as exc:  # noqa: BLE001 - always return a report
             draft = fallback_draft(state)
-            report = build_final_report(state, draft, usage=current_usage)
+            report = _validate_report(build_final_report(state, draft, usage=current_usage))
             return {
                 "report": report,
                 "status": "writing",

@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from langchain_core.messages import AIMessage
+
 from src.config import Settings
 from src.llm import InvocationMetadata
 from src.models import Usage
@@ -24,6 +26,23 @@ def usage_from_metadata(metadata: InvocationMetadata, *, latency_s: float = 0.0)
         total_tokens=total_tokens,
         latency_s=round(latency_s, 3),
         models={metadata.model: 1},
+    )
+
+
+def usage_from_ai_message(message: AIMessage, *, latency_s: float = 0.0) -> Usage:
+    """Record one raw chat-model call, including tool-selection calls."""
+    metadata = message.response_metadata or {}
+    model = str(metadata.get("model_name") or metadata.get("model") or "tool-model")
+    provider = str(metadata.get("provider") or "unknown")
+    usage = message.usage_metadata or {}
+    return usage_from_metadata(
+        InvocationMetadata(
+            provider=provider,
+            model=model,
+            method="tool_calling",
+            usage={key: int(value) for key, value in usage.items() if isinstance(value, int)},
+        ),
+        latency_s=latency_s,
     )
 
 

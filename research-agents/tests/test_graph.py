@@ -81,6 +81,50 @@ def test_happy_path_produces_report(settings: Settings) -> None:
     assert {"planner", "researcher", "analyst", "critic", "writer", "supervisor"} <= nodes
 
 
+def test_parallel_research_dispatches_one_worker_per_subquestion(settings: Settings) -> None:
+    responses = base_responses()
+    responses[ResearchPlan] = ResearchPlan(
+        subquestions=[
+            SubQuestion(question="First subquestion?", rationale="Test"),
+            SubQuestion(question="Second subquestion?", rationale="Test"),
+        ]
+    )
+    researcher = StubResearcher()
+    services = make_services(settings, responses, researcher)
+    state = run_research(build_graph(services), ResearchBrief(question="What is the evidence?"))
+
+    assert state["status"] == "done"
+    assert len(researcher.calls) == 2
+    assert {call.subquestion.question for call in researcher.calls} == {
+        "First subquestion?",
+        "Second subquestion?",
+    }
+    assert len(state["notes"]) == 2
+    assert state["report"] is not None
+
+
+def test_max_concurrency_does_not_skip_subquestions(settings: Settings) -> None:
+    responses = base_responses()
+    responses[ResearchPlan] = ResearchPlan(
+        subquestions=[
+            SubQuestion(question=f"Subquestion {index}?", rationale="Test")
+            for index in range(3)
+        ]
+    )
+    researcher = StubResearcher()
+    services = make_services(settings, responses, researcher)
+    state = run_research(
+        build_graph(services),
+        ResearchBrief(question="What is the evidence?"),
+        max_concurrency=2,
+    )
+
+    assert state["status"] == "done"
+    assert len(researcher.calls) == 3
+    assert len(state["notes"]) == 3
+    assert state["report"] is not None
+
+
 def test_critic_revision_runs_a_second_round(settings: Settings) -> None:
     unsupported = make_output(
         task=None,

@@ -1,6 +1,6 @@
 # PLANS.md — `research-agents`
 
-> **Estado:** Fase 1 completada (núcleo con LLM falso); Fase 2 pendiente.
+> **Estado:** Fase 2 completada (herramientas, caché, paralelismo y 5 runs reales); Fase 3 pendiente.
 > **Fecha:** 2026-10-22.
 > **Ubicación:** raíz del repositorio.
 
@@ -272,6 +272,12 @@ Valores iniciales, ajustables tras el spike:
 
 Los límites se aplican en código, no solo en el prompt. Si se alcanza el presupuesto, el sistema debe cerrar con un informe parcial y una limitación explícita, no fallar en silencio.
 
+**Límites observados el 2026-10-22 (free tier):** Groq `openai/gpt-oss-120b`
+8.000 TPM y 200.000 TPD; Gemini `gemini-3.8-flash` 20 peticiones/día; Tavily
+1.000 llamadas/mes. El TPD de Groq se agotó con 5 preguntas amplias, por lo que
+la Fase 4 debe usar corpus congelado, caché y presupuestos por lote. No se fijan
+estas cifras como permanentes.
+
 ---
 
 ## 8. Evaluación
@@ -410,37 +416,44 @@ llamadas mensuales.
 
 **Objetivo:** pasar de un grafo simulado a investigación real con fuentes.
 
-- [ ] Definir `SearchBackend`, `SearchResult` y `FetchedPage` en `src/tools/base.py`.
-- [ ] Implementar el subgrafo researcher con `ToolNode` y límite de pasos.
-- [ ] Implementar el backend de Tavily.
-- [ ] Implementar el backend de DuckDuckGo como fallback.
-- [ ] Implementar el backend de arXiv.
-- [ ] Implementar el backend de Wikipedia.
-- [ ] Implementar la descarga de páginas con validación de URL y protección SSRF.
-- [ ] Implementar la extracción de contenido con `trafilatura`.
-- [ ] Implementar la caché SQLite con TTL y claves canónicas.
-- [ ] Añadir `RESEARCH_TAVILY_MONTHLY_BUDGET=1000` a la configuración.
-- [ ] Implementar un contador persistente de llamadas mensuales a Tavily.
-- [ ] Rechazar búsquedas con un error explícito al agotar el presupuesto mensual.
-- [ ] Implementar la canonicalización y deduplicación de fuentes.
-- [ ] Implementar el registro de tools y la selección por configuración.
-- [ ] Implementar el fan-out con `Send` para las subpreguntas.
-- [ ] Implementar los reducers definitivos de notas y fuentes.
-- [ ] Implementar el validador de citas en `src/citations.py`.
-- [ ] Crear tests de Tavily con `respx`.
-- [ ] Crear tests de DuckDuckGo.
-- [ ] Crear tests de arXiv.
-- [ ] Crear tests de Wikipedia.
-- [ ] Crear tests de validación de URL y SSRF.
-- [ ] Crear tests de caché: hit, miss y expiración.
-- [ ] Crear tests de deduplicación y canonicalización.
-- [ ] Crear tests del validador de citas.
-- [ ] Crear un test de integración del grafo con tools falsas.
-- [ ] Ejecutar 5 preguntas reales con el proveedor principal.
-- [ ] Revisar las trazas y corregir prompts o límites.
-- [ ] Guardar las trazas de ejemplo en `docs/` o `eval/results/` sin datos sensibles.
+- [x] Definir `SearchBackend`, `SearchResult` y `FetchedPage` en `src/tools/base.py`.
+- [x] Implementar el subgrafo researcher con `ToolNode` y límite de pasos.
+- [x] Implementar el backend de Tavily.
+- [x] Implementar el backend de DuckDuckGo como fallback.
+- [x] Implementar el backend de arXiv.
+- [x] Implementar el backend de Wikipedia.
+- [x] Implementar la descarga de páginas con validación de URL y protección SSRF.
+- [x] Implementar la extracción de contenido con `trafilatura`.
+- [x] Implementar la caché SQLite con TTL y claves canónicas.
+- [x] Añadir `RESEARCH_TAVILY_MONTHLY_BUDGET=1000` a la configuración.
+- [x] Implementar un contador persistente de llamadas mensuales a Tavily.
+- [x] Rechazar búsquedas con un error explícito al agotar el presupuesto mensual.
+- [x] Implementar la canonicalización y deduplicación de fuentes.
+- [x] Implementar el registro de tools y la selección por configuración.
+- [x] Implementar el fan-out con `Send` para las subpreguntas.
+- [x] Implementar los reducers definitivos de notas y fuentes.
+- [x] Implementar el validador de citas en `src/citations.py`.
+- [x] Crear tests de Tavily con `respx`.
+- [x] Crear tests de DuckDuckGo.
+- [x] Crear tests de arXiv.
+- [x] Crear tests de Wikipedia.
+- [x] Crear tests de validación de URL y SSRF.
+- [x] Crear tests de caché: hit, miss y expiración.
+- [x] Crear tests de deduplicación y canonicalización.
+- [x] Crear tests del validador de citas.
+- [x] Crear un test de integración del grafo con tools falsas.
+- [x] Ejecutar 5 preguntas reales con el proveedor principal.
+- [x] Revisar las trazas y corregir prompts o límites.
+- [x] Guardar las trazas de ejemplo en `docs/examples/` sin datos sensibles.
 
 **Criterio de salida:** 5 preguntas reales completadas sin intervención manual, con fuentes y citas válidas.
+
+**Resultado:** 5/5 preguntas completadas con Groq. Las trazas curadas están en
+`research-agents/docs/examples/`; las cinco tienen fuentes y citas válidas. Una
+traza (RAG) conserva un `JSONDecodeError` del analista recuperado por el fallback
+determinista. `ruff` limpio y 93 tests en verde. El TPD de Groq (200.000) se agotó
+al intentar repetir esa pregunta; no se pudieron hacer más runs reales.
+
 
 ### Fase 3 — Crítica, HITL y durabilidad
 
@@ -599,11 +612,17 @@ llamadas mensuales.
 | 2026-10-22 | Fase 0 | Estructura, venv, dependencias, configuración, adaptador LLM y script de spike listos. `ruff` limpio y 11 tests en verde. |
 | 2026-10-22 | Fase 0 | Spike ejecutado: Groq `openai/gpt-oss-120b` 5/5 (~0,97 s); Gemini `gemini-3.8-flash` 4/5 por un 503 transitorio. Groq principal, Gemini fallback. Tavily: presupuesto de 1.000 llamadas/mes. |
 | 2026-10-22 | Fase 1 | Núcleo del grafo completo con modelos, estado, presupuesto, prompts, supervisor, planner, researcher secuencial, analyst, critic, writer y trazas. `ruff` limpio y 38 tests en verde. Backend con `ToolNode` trasladado a Fase 2. |
-|  |  |  |
+| 2026-10-22 | Fase 2 | Tavily, DuckDuckGo, arXiv, Wikipedia, fetch con SSRF, caché SQLite, presupuesto mensual, router, `ToolNode`, fan-out con `Send`, `max_concurrency`, validador de citas y trazas. `ruff` limpio y 93 tests en verde. |
+| 2026-10-22 | Fase 2 | Cinco preguntas reales con Groq: 55 llamadas, 136.553 tokens, 17 búsquedas y 2.978 s acumulados. Trazas curadas en `research-agents/docs/examples/`. Una traza de RAG conserva un error de analista recuperado. |
+| 2026-10-22 | Fase 2 | Límites observados: Groq 8.000 TPM y 200.000 TPD (agotado); Gemini 20 peticiones/día (agotado); Tavily 34/1.000. Se compactaron entradas y se subió la salida a 3.000 tokens. |
 |  |  |  |
 
 ---
 
 ## 14. Próximo paso
 
-Ejecutar la **Fase 0 — Spike** y actualizar este archivo marcando cada tarea completada. Si el spike falla, no se continúa con la Fase 1 hasta ajustar proveedor, modelo o alcance.
+Continuar con la **Fase 3 — Crítica, HITL y durabilidad**. Antes de ampliar el
+alcance conviene revalidar el critic con la configuración compacta y decidir si el
+checkpointer SQLite se implementa con `langgraph-checkpoint-sqlite` o con una capa
+propia. La evaluación sistemática de la Fase 4 debe esperar a que se recupere la
+cuota de Groq y debe usar el corpus congelado, no solo búsqueda web en vivo.

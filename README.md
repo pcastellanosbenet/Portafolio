@@ -18,11 +18,15 @@ reporta métricas reales, no solo resultados visuales.
 | [Clasificación de señales de tráfico](./traffic-signs) | Visión por computador: CNN, transfer learning, augmentación, evaluación por clase y análisis de errores | PyTorch · torchvision | 97,47% accuracy · 43 clases | Completado |
 | [Interpretabilidad de BERT](./bert-attention) | NLP: mecanismos de atención, análisis de capas y cabezas, visualización | PyTorch · Transformers | 12 capas × 12 cabezas · 8 mapas curados | Completado |
 | [KNX RAG Assistant](./rag-assistant) | RAG end-to-end: ingesta de PDFs, búsqueda híbrida, citas, evaluación, API y Docker | Transformers · Qdrant · FastAPI · Docker | Recall@10 0,908 · MRR 0,850 · 20 preguntas | Completado |
+| [research-agents](./research-agents) | Agentes: supervisor, planner, researchers paralelos, crítico, citas y trazas | LangGraph · Groq · Tavily · SQLite | 5 preguntas reales · 136.553 tokens · 76 fuentes | En desarrollo (Fase 2/6) |
 
-> Los tres proyectos están terminados y documentados. El corpus del estándar KNX no se
-> redistribuye: se aporta localmente con una licencia válida y se indexa con los scripts
-> del proyecto. `rag-assistant` incluye además un corpus sintético de demostración para
-> probar el flujo completo sin ese corpus; sus métricas están separadas de las de KNX.
+> Los tres primeros proyectos están terminados y documentados. `research-agents`
+> está en desarrollo: la Fase 2 (herramientas, caché, paralelismo y runs reales)
+> está completada y su README documenta las limitaciones y las fases pendientes.
+> El corpus del estándar KNX no se redistribuye: se aporta localmente con una
+> licencia válida y se indexa con los scripts del proyecto. `rag-assistant` incluye
+> además un corpus sintético de demostración para probar el flujo completo sin ese
+> corpus; sus métricas están separadas de las de KNX.
 
 ## Sobre mí
 

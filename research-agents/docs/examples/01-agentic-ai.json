@@ -1,0 +1,381 @@
+{
+  "run_id": "bf1f0c973cb1401ca6672f6cb3c37871",
+  "question": "¿Qué es la inteligencia artificial agéntica y cuáles son sus limitaciones actuales?",
+  "run_config": {
+    "max_workers": 2,
+    "max_tool_steps": 2,
+    "max_rounds": 1,
+    "llm_fallback_provider": null,
+    "llm_max_output_tokens": 2500
+  },
+  "report": {
+    "title": "Inteligencia Artificial Agéntica: Definición y Limitaciones Actuales",
+    "answer_markdown": "## Definición de IA Agéntica\n\nLa IA agéntica se refiere a sistemas autónomos que pueden **iniciar tareas, establecer y priorizar metas, monitorear su progreso y ajustar su comportamiento mediante bucles de retroalimentación**. Esta capacidad de auto‑dirección la diferencia de otras formas de IA que carecen de agencia propia. La literatura la trata como un área de enfoque dentro de la IA, describiendo sus arquitecturas, aplicaciones y direcciones futuras[^1][^2]\n\n## Enfoques y Arquitecturas Principales\n\n1. **Aprendizaje por Refuerzo (RL)** – Técnica central para entrenar agentes autónomos, ejemplificada en investigaciones de locomoción de cuadrúpedos mediante mejora iterativa de políticas[^3].\n2. **Sistemas Multi‑agente** – Utilizan RL colaborativo para coordinar equipos de agentes, como en trabajos de adaptación de trabajo en equipo y logística con robots y humanos[^4].\n3. **Integración de Modelos de Lenguaje Grande (LLM)** – LLMs como GPT‑4 pueden generar recompensas y guiar el aprendizaje en pipelines autónomos, como el sistema ARCHIE[^5].\n4. **Arquitecturas Distribuidas de Actor‑Learning** – Frameworks como IMPALA permiten escalar el entrenamiento de agentes en entornos complejos mediante aprendizaje distribuido[^6].\n\n## Limitaciones Técnicas y Operativas\n\n- **Costos Computacionales y Sostenibilidad** – Los sistemas agénticos requieren recursos de cómputo y energía significativamente mayores que los LLM tradicionales, generando preocupaciones de sostenibilidad[^7].\n- **Alucinaciones y Fragilidad** – Los agentes pueden producir salidas incorrectas o inconsistentes, limitando su fiabilidad[^8].\n- **Comportamiento Emergente y Fallos de Coordinación** – La interacción entre múltiples agentes puede dar lugar a resultados inesperados y peligrosos, comprometiendo la seguridad[^8].\n- **Alineación y Responsabilidad** – Falta de mecanismos claros de transparencia, responsabilidad y alineación con intenciones humanas, lo que dificulta la confianza en despliegues agénticos[^7].\n\n## Conclusión\n\nLa IA agéntica representa un avance hacia sistemas más autónomos y proactivos, apoyada por técnicas de RL, multi‑agente, LLMs y arquitecturas distribuidas. Sin embargo, sus limitaciones actuales en consumo de recursos, fiabilidad, seguridad y alineación deben abordarse para lograr despliegues seguros y sostenibles.\n\n[^1]: src_74ac8cf520f9\n[^2]: src_e72567c5c910\n[^3]: src_586be07ea893\n[^4]: src_7afa57a73ad2\n[^5]: src_f8e6a0dc4807\n[^6]: src_7339759ffae8\n[^7]: src_4cbfc183d5ea\n[^8]: src_5f0f5ba0bd3f",
+    "claims": [
+      {
+        "claim_id": "c1",
+        "text": "Agentic AI synthesizes traits such as initiating tasks, dynamically ranking goals, monitoring progress, and adjusting behavior through feedback loops.",
+        "source_ids": [
+          "src_4cbfc183d5ea",
+          "src_586be07ea893",
+          "src_74ac8cf520f9"
+        ]
+      },
+      {
+        "claim_id": "c2",
+        "text": "Agentic AI is a focus area within AI that is surveyed in terms of architectures, applications, and future directions.",
+        "source_ids": [
+          "src_5f0f5ba0bd3f",
+          "src_7afa57a73ad2",
+          "src_e72567c5c910"
+        ]
+      },
+      {
+        "claim_id": "c3",
+        "text": "Los modelos de lenguaje grande pueden integrarse en pipelines de aprendizaje autónomo para generar recompensas y guiar el aprendizaje, tal como hace el sistema ARCHIE que utiliza GPT‑4.",
+        "source_ids": [
+          "src_5f0f5ba0bd3f",
+          "src_f8e6a0dc4807"
+        ]
+      },
+      {
+        "claim_id": "c4",
+        "text": "Las arquitecturas distribuidas de actor‑aprendizaje, como IMPALA, permiten escalar el entrenamiento de agentes autónomos en entornos complejos.",
+        "source_ids": [
+          "src_4cbfc183d5ea",
+          "src_7339759ffae8"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "src_425530a66d57",
+        "url": "https://arxiv.org/abs/2408.07199",
+        "title": "[2408.07199] Agent Q: Advanced Reasoning and Learning for Autonomous AI Agents",
+        "kind": "web",
+        "snippet": "archive # Computer Science > Artificial Intelligence # Title:Agent Q: Advanced Reasoning and Learning for Autonomous AI Agents | | | --- | | Subjects: | Artificial Intelligence (cs.AI); Machine Learning (cs.LG) | | Cite as: | arXiv:2408.07199 [cs.AI] | | | (or arXiv:2408.07199v1…",
+        "accessed_at": "2026-10-22T11:42:37.139235Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_4cbfc183d5ea",
+        "url": "https://arxiv.org/html/2601.02749v1",
+        "title": "The Path Ahead for Agentic AI: Challenges and Opportunities",
+        "kind": "web",
+        "snippet": "Agentic AI architectures, including long interaction loops, frequent tool calls, and continuous context expansion, significantly increase computational requirements beyond standard LLM inference. Training and deploying such systems raise important sustainability concerns, motivat…",
+        "accessed_at": "2026-10-22T11:44:37.931157Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_50eedecabaec",
+        "url": "https://www.sciencedirect.com/science/article/pii/S1566253525006712",
+        "title": "AI Agents vs. Agentic AI: A Conceptual taxonomy, applications and challenges",
+        "kind": "web",
+        "snippet": "evolution, operational mechanisms, interaction styles, and autonomy levels, we present a comparative analysis across both AI agents and agentic AI paradigms. Application domains enabled by AI Agents such as customer support, scheduling, and data summarization are then contrasted…",
+        "accessed_at": "2026-10-22T11:44:37.931226Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_586be07ea893",
+        "url": "https://arxiv.org/abs/2603.27416",
+        "title": "[2603.27416] Agent-Driven Autonomous Reinforcement Learning Research: Iterative Policy Improvement for Quadruped Locomotion",
+        "kind": "web",
+        "snippet": "archive # Computer Science > Robotics # Title:Agent-Driven Autonomous Reinforcement Learning Research: Iterative Policy Improvement for Quadruped Locomotion | | | --- | | Subjects: | Robotics (cs.RO); Artificial Intelligence (cs.AI) | | Cite as: | arXiv:2603.27416 [cs.RO] | | | (…",
+        "accessed_at": "2026-10-22T11:42:37.139205Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_5f0f5ba0bd3f",
+        "url": "https://huggingface.co/papers/2505.10468",
+        "title": "Paper page - AI Agents vs. Agentic AI: A Conceptual Taxonomy, Applications and\n  Challenge",
+        "kind": "web",
+        "snippet": "domains such as customer support, scheduling, and data summarization are contrasted with Agentic AI deployments in research automation, robotic coordination, and medical decision support. We further examine unique challenges in each paradigm including hallucination, brittleness,…",
+        "accessed_at": "2026-10-22T11:44:37.931182Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_685d73dbaafc",
+        "url": "https://arxiv.org/abs/2605.23989",
+        "title": "[2605.23989] Towards trustworthy agentic AI: a comprehensive survey of safety, robustness, privacy, and system security",
+        "kind": "web",
+        "snippet": "| | | --- | | Comments: | 36 pages, 4 figures. Survey/review article on trustworthy agentic AI. Published in Academia AI and Applications, 2026 | | Subjects: | Artificial Intelligence (cs.AI); Computation and Language (cs.CL); Cryptography and Security (cs.CR) | | ACM classes: |…",
+        "accessed_at": "2026-10-22T11:45:37.120284Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_7339759ffae8",
+        "url": "https://arxiv.org/pdf/2409.18197",
+        "title": "Autonomous Network Defence using Reinforcement ...",
+        "kind": "web",
+        "snippet": "D. Horgan, J. Quan, D. Budden, G. Barth-Maron, M. Hessel, H. van Hasselt, and D. Silver. 2018. Distributed Prioritized Experience Replay. In arXiv:1803.00933 [cs]. Z. Hu, R. Beuran, and Y. Tan. 2020. Automated Penetration Testing Using Deep Reinforcement Learning. In 2020 IEEE Eu…",
+        "accessed_at": "2026-10-22T11:42:37.139230Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_74ac8cf520f9",
+        "url": "https://link.springer.com/article/10.1007/s10462-025-11422-4",
+        "title": "Agentic AI: a comprehensive survey of architectures, applications, and future directions | Artificial Intelligence Review | Springer Nature Link",
+        "kind": "web",
+        "snippet": "(Patel et al. 2020 A demonstration of smart doorbell design using federated deep learning. arXiv [cs.DC]\"); Kolt 2025 Governing AI agents. arXiv [cs.AI]\")). Agentic AI synthesizes these traits by initiating tasks, dynamically ranking goals, monitoring progress, and adjusting beha…",
+        "accessed_at": "2026-10-22T11:45:37.120288Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_7afa57a73ad2",
+        "url": "https://agents-lab.org/pub",
+        "title": "Publications - Autonomous Agents Research Group",
+        "kind": "web",
+        "snippet": "Lukas Schäfer, Filippos Christianos, Amos Storkey, Stefano V. Albrecht Learning Task Embeddings for Teamwork Adaptation in Multi-Agent Reinforcement Learning arxiv:2207.02249, 2022 Abstract) | BibTex) | arXiv deep-rlmulti-agent-rl [...] Aleksandar Krnjaic, Jonathan D. Thomas, Geo…",
+        "accessed_at": "2026-10-22T11:42:37.139218Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_7e3f9010f18e",
+        "url": "https://arxiv.org/abs/2511.11921",
+        "title": "[2511.11921] Looking Forward: Challenges and Opportunities in Agentic AI Reliability",
+        "kind": "web",
+        "snippet": "| | | --- | | Comments: | 13 pages, 6 figures; This is a preprint of a chapter accepted for publication in Generative and Agentic AI Reliability: Architectures, Challenges, and Trust for Autonomous Systems, published by SpringerNature | | Subjects: | Artificial Intelligence (cs.A…",
+        "accessed_at": "2026-10-22T11:44:37.931212Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_9556ea089029",
+        "url": "https://arxiv.org/abs/2508.10146",
+        "title": "[2508.10146] Agentic AI Frameworks: Architectures, Protocols, and Design Challenges",
+        "kind": "web",
+        "snippet": "archive # Computer Science > Artificial Intelligence # Title:Agentic AI Frameworks: Architectures, Protocols, and Design Challenges | | | --- | | Subjects: | Artificial Intelligence (cs.AI) | | Cite as: | arXiv:2508.10146 [cs.AI] | | | (or arXiv:2508.10146v1 [cs.AI] for this vers…",
+        "accessed_at": "2026-10-22T11:44:37.931198Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_ccd49351f378",
+        "url": "https://arxiv.org/abs/2508.07407",
+        "title": "[2508.07407] A Comprehensive Survey of Self-Evolving AI Agents: A New Paradigm Bridging Foundation Models and Lifelong Agentic Systems",
+        "kind": "web",
+        "snippet": "Both individuals and organizations that work with arXivLabs have embraced and accepted our values of openness, community, excellence, and user data privacy. arXiv is committed to these values and only works with partners that adhere to them. Have an idea for a project that will a…",
+        "accessed_at": "2026-10-22T11:45:37.120279Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_e72567c5c910",
+        "url": "https://arxiv.org/abs/2510.25445",
+        "title": "[2510.25445] Agentic AI: A Comprehensive Survey of Architectures, Applications, and Future Directions",
+        "kind": "web",
+        "snippet": "archive # Computer Science > Artificial Intelligence # Title:Agentic AI: A Comprehensive Survey of Architectures, Applications, and Future Directions | | | --- | | Subjects: | Artificial Intelligence (cs.AI); Machine Learning (cs.LG) | | Cite as: | arXiv:2510.25445 [cs.AI] | | |…",
+        "accessed_at": "2026-10-22T11:45:37.120269Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_f3f3b7b836d8",
+        "url": "https://arxiv.org/html/2503.08979v1",
+        "title": "Agentic AI for Scientific Discovery: A Survey of Progress, Challenges, and Future Directions",
+        "kind": "web",
+        "snippet": "appropriate and contextually relevant actions in response to sensory input, whether operating in physical, virtual, or mixed-reality environments. Agentic AI introduces a new paradigm in the AI community, highlighting the concept of embodied intelligence and showing the importanc…",
+        "accessed_at": "2026-10-22T11:45:37.120292Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_f8e6a0dc4807",
+        "url": "https://arxiv.org/html/2503.04280v2",
+        "title": "Towards Autonomous Reinforcement Learning for Real-World Robotic Manipulation with Large Language Models",
+        "kind": "web",
+        "snippet": "In this work, we propose Autonomous Reinforcement learning for Complex Human-Informed Environments (ARCHIE). ARCHIE is a practical automatic RL pipeline for training autonomous agents for robotics manipulation tasks, in an unsupervised manner. ARCHIE employs GPT-4 —a popular pre-…",
+        "accessed_at": "2026-10-22T11:42:37.139225Z",
+        "metadata": {}
+      }
+    ],
+    "confidence": "medium",
+    "limitations": [
+      "No se dispone de una definición universalmente aceptada ni de una taxonomía completa de conceptos fundamentales de IA agéntica; la evidencia se limita a rasgos de agencia y a la descripción de la IA agéntica como área de estudio.",
+      "Falta evidencia sobre arquitecturas de política alternativas (por ejemplo, basadas en transformadores) y sobre métodos de RL jerárquico o por curriculum, así como sus limitaciones prácticas.",
+      "Ausencia de métricas cuantitativas que describan el impacto computacional, consumo energético y huella de carbono de los sistemas agénticos; no se presentan estudios empíricos de mitigación.",
+      "Escasez de estudios empíricos que evalúen la efectividad de mecanismos de alineación, responsabilidad y seguridad en despliegues reales de IA agéntica.",
+      "Falta una definición universalmente aceptada y detallada de IA agéntica, con una taxonomía completa de conceptos fundamentales y una comparación clara con paradigmas de IA no agéntica.",
+      "No se presentan evidencias de arquitecturas de política alternativas (por ejemplo, basadas en transformadores), aprendizaje por refuerzo jerárquico, aprendizaje por curriculum, ni de otras técnicas emergentes relevantes para la IA agéntica.",
+      "Se carece de métricas cuantitativas que describan el impacto computacional y de sostenibilidad (p.ej., consumo de energía, huella de carbono) de los sistemas agénticos, así como de estudios empíricos que evalúen la efectividad de estrategias de alineación y mitigación de riesgos de seguridad.",
+      "Los enfoques prácticos y limitaciones específicas de cada arquitectura (RL, multi‑agente, integración LLM, actor‑learning distribuido) no están suficientemente documentados con ejemplos concretos o evaluaciones de desempeño.",
+      "The critic requested another research round; this report uses the evidence available when the budget or round limit was reached.",
+      "Insufficient evidence to provide a comprehensive, universally accepted definition and full set of fundamental concepts; limited detail on how agentic AI differs from other AI paradigms beyond autonomy."
+    ],
+    "usage": {
+      "llm_calls": 13,
+      "input_tokens": 25787,
+      "output_tokens": 8040,
+      "total_tokens": 33827,
+      "search_calls": 3,
+      "latency_s": 838.933,
+      "models": {
+        "openai/gpt-oss-120b": 4,
+        "openai/gpt-oss-20b": 9
+      }
+    }
+  },
+  "usage": {
+    "llm_calls": 13,
+    "input_tokens": 25787,
+    "output_tokens": 8040,
+    "total_tokens": 33827,
+    "search_calls": 3,
+    "latency_s": 838.933,
+    "models": {
+      "openai/gpt-oss-120b": 4,
+      "openai/gpt-oss-20b": 9
+    }
+  },
+  "errors": [],
+  "trace": [
+    {
+      "timestamp": "2026-10-22T11:39:35.824109Z",
+      "node": "supervisor",
+      "event": "route_selected",
+      "data": {
+        "next": "planner",
+        "reason": "Only one valid route for this state.",
+        "allowed": [
+          "planner"
+        ],
+        "deterministic": true
+      }
+    },
+    {
+      "timestamp": "2026-10-22T11:39:40.262246Z",
+      "node": "planner",
+      "event": "plan_created",
+      "data": {
+        "subquestions": 3,
+        "model": "openai/gpt-oss-120b",
+        "prompt_version": "0.1.0"
+      }
+    },
+    {
+      "timestamp": "2026-10-22T11:39:40.263143Z",
+      "node": "supervisor",
+      "event": "route_selected",
+      "data": {
+        "next": "researcher",
+        "reason": "Only one valid route for this state.",
+        "allowed": [
+          "researcher"
+        ],
+        "deterministic": true
+      }
+    },
+    {
+      "timestamp": "2026-10-22T11:39:40.264006Z",
+      "node": "researcher",
+      "event": "dispatch",
+      "data": {
+        "workers": 3,
+        "max_workers": 2,
+        "round": 1
+      }
+    },
+    {
+      "timestamp": "2026-10-22T11:45:37.120767Z",
+      "node": "researcher_worker",
+      "event": "completed",
+      "data": {
+        "subquestion": "¿Cuál es la definición y los conceptos fundamentales de la inteligencia artificial agéntica?",
+        "claims": 2,
+        "sources": 5
+      }
+    },
+    {
+      "timestamp": "2026-10-22T11:42:37.139722Z",
+      "node": "researcher_worker",
+      "event": "completed",
+      "data": {
+        "subquestion": "¿Qué enfoques y arquitecturas se utilizan actualmente para construir sistemas de IA agéntica?",
+        "claims": 4,
+        "sources": 5
+      }
+    },
+    {
+      "timestamp": "2026-10-22T11:44:37.932421Z",
+      "node": "researcher_worker",
+      "event": "completed",
+      "data": {
+        "subquestion": "¿Cuáles son las limitaciones y desafíos actuales de la IA agéntica en términos técnicos, de alineación y de seguridad?",
+        "claims": 4,
+        "sources": 5
+      }
+    },
+    {
+      "timestamp": "2026-10-22T11:45:37.121759Z",
+      "node": "supervisor",
+      "event": "route_selected",
+      "data": {
+        "next": "analyst",
+        "reason": "Only one valid route for this state.",
+        "allowed": [
+          "analyst"
+        ],
+        "deterministic": true
+      }
+    },
+    {
+      "timestamp": "2026-10-22T11:46:40.197840Z",
+      "node": "analyst",
+      "event": "analysis_created",
+      "data": {
+        "evidence": 10,
+        "gaps": 3,
+        "model": "openai/gpt-oss-120b"
+      }
+    },
+    {
+      "timestamp": "2026-10-22T11:46:40.198685Z",
+      "node": "supervisor",
+      "event": "route_selected",
+      "data": {
+        "next": "critic",
+        "reason": "Only one valid route for this state.",
+        "allowed": [
+          "critic"
+        ],
+        "deterministic": true
+      }
+    },
+    {
+      "timestamp": "2026-10-22T11:47:37.751174Z",
+      "node": "critic",
+      "event": "critique_created",
+      "data": {
+        "verdict": "revise",
+        "unsupported": 0,
+        "gaps": 4,
+        "model": "openai/gpt-oss-120b"
+      }
+    },
+    {
+      "timestamp": "2026-10-22T11:47:37.752219Z",
+      "node": "supervisor",
+      "event": "route_selected",
+      "data": {
+        "next": "writer",
+        "reason": "Only one valid route for this state.",
+        "allowed": [
+          "writer"
+        ],
+        "deterministic": true
+      }
+    },
+    {
+      "timestamp": "2026-10-22T11:48:38.885328Z",
+      "node": "writer",
+      "event": "report_created",
+      "data": {
+        "claims": 4,
+        "sources": 15,
+        "fallback": false,
+        "model": "openai/gpt-oss-120b"
+      }
+    },
+    {
+      "timestamp": "2026-10-22T11:48:38.886191Z",
+      "node": "supervisor",
+      "event": "run_finished",
+      "data": {}
+    }
+  ]
+}

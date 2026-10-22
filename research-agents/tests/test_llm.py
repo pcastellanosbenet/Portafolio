@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 from typing import Any
 
 from langchain_core.messages import AIMessage, HumanMessage
@@ -9,7 +10,7 @@ from langchain_core.runnables import RunnableLambda
 from pydantic import BaseModel
 
 from src.config import Settings
-from src.llm import LLMClient
+from src.llm import LLMClient, TokenRateLimiter
 
 
 class Answer(BaseModel):
@@ -98,3 +99,118 @@ def test_fallback_is_used_after_retryable_primary_failure(monkeypatch: Any) -> N
     assert answer.text == "fallback answer"
     assert metadata.provider == "gemini"
     assert metadata.usage["total_tokens"] == 15
+
+
+class TextFallbackModel:
+    """Model that rejects synthetic tool calls but can emit raw JSON."""
+
+    def with_structured_output(
+        self,
+        schema: type[BaseModel],
+        *,
+        method: str,
+        include_raw: bool,
+    ) -> RunnableLambda[Any, Any]:
+        del schema, method, include_raw
+
+        def invoke(_: Any) -> dict[str, Any]:
+            raise ProviderError(
+                "tool_use_failed: attempted to call tool 'Answer' which was not in request.tools",
+                status_code=400,
+            )
+
+        return RunnableLambda(invoke)
+
+    def invoke(self, messages: Any) -> AIMessage:
+        del messages
+        return AIMessage(
+            content=json.dumps({"text": "text fallback"}),
+            usage_metadata={"input_tokens": 7, "output_tokens": 3, "total_tokens": 10},
+            response_metadata={"model_name": "test-fast-model"},
+        )
+
+
+def test_tool_use_failure_falls_back_to_raw_json(monkeypatch: Any) -> None:
+    client = LLMClient(make_settings())
+    model = TextFallbackModel()
+
+    def fake_chat_model(target: Any, max_output_tokens: int | None = None) -> TextFallbackModel:
+        del target, max_output_tokens
+        return model
+
+    monkeypatch.setattr(client, "_chat_model", fake_chat_model)
+    answer, metadata = client.invoke_structured(Answer, [HumanMessage(content="hello")])
+    assert answer.text == "text fallback"
+    assert metadata.method == "text_json"
+    assert metadata.usage["total_tokens"] == 10
+
+
+class ToolChatModel:
+    def __init__(self, behavior: str) -> None:
+        self.behavior = behavior
+        self.calls = 0
+
+    def bind_tools(self, tools: Any) -> ToolChatModel:
+        assert tools
+        return self
+
+    def invoke(self, messages: Any) -> AIMessage:
+        del messages
+        self.calls += 1
+        if self.behavior == "fail":
+            raise ProviderError("rate limited", status_code=429)
+        return AIMessage(content="tool answer")
+
+
+def test_tool_calls_do_not_use_fallback_by_default(monkeypatch: Any) -> None:
+    client = LLMClient(make_settings(llm_tool_fallback=False))
+    models: dict[str, ToolChatModel] = {}
+
+    def fake_chat_model(target: Any, max_output_tokens: int | None = None) -> ToolChatModel:
+        del max_output_tokens
+        model = ToolChatModel("fail" if target.provider == "groq" else "ok")
+        models[target.provider] = model
+        return model
+
+    monkeypatch.setattr(client, "_chat_model", fake_chat_model)
+    try:
+        client.invoke_with_tools([HumanMessage(content="hello")], [object()])
+    except RuntimeError:
+        pass
+    else:
+        raise AssertionError("primary tool failure should not silently succeed")
+    assert models["groq"].calls == 1
+    assert "gemini" not in models
+
+
+def test_tool_calls_can_use_fallback_when_enabled(monkeypatch: Any) -> None:
+    client = LLMClient(make_settings(llm_tool_fallback=True))
+    models: dict[str, ToolChatModel] = {}
+
+    def fake_chat_model(target: Any, max_output_tokens: int | None = None) -> ToolChatModel:
+        del max_output_tokens
+        model = ToolChatModel("fail" if target.provider == "groq" else "ok")
+        models[target.provider] = model
+        return model
+
+    monkeypatch.setattr(client, "_chat_model", fake_chat_model)
+    answer = client.invoke_with_tools([HumanMessage(content="hello")], [object()])
+    assert answer.content == "tool answer"
+    assert models["gemini"].calls == 1
+
+
+def test_token_rate_limiter_waits_for_window() -> None:
+    now = [0.0]
+    sleeps: list[float] = []
+
+    def clock() -> float:
+        return now[0]
+
+    def sleep(seconds: float) -> None:
+        sleeps.append(seconds)
+        now[0] += seconds
+
+    limiter = TokenRateLimiter(limit=10, window_s=10, clock=clock, sleep=sleep)
+    limiter.acquire(8)
+    limiter.acquire(4)
+    assert sleeps == [10.0]

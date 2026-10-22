@@ -1,0 +1,328 @@
+{
+  "run_id": "c4c08bd30ef6400c8c736380ee9d1575",
+  "question": "¿Qué es LoRA y en qué se diferencia del fine-tuning completo?",
+  "run_config": {
+    "max_workers": 2,
+    "max_tool_steps": 1,
+    "max_rounds": 1,
+    "llm_fallback_provider": null,
+    "llm_max_output_tokens": 2500
+  },
+  "report": {
+    "title": "LoRA vs. Fine‑tuning completo",
+    "answer_markdown": "## ¿Qué es LoRA?\n\nLoRA (Low‑Rank Adaptation) es una técnica de ajuste de modelos que **congela los pesos pre‑entrenados** y **inyecta matrices de bajo rango entrenables** en las capas del modelo. Estas matrices actúan como una descomposición de bajo rango de las actualizaciones de peso, lo que permite adaptar el modelo con **muchos menos parámetros entrenables** (aproximadamente un **90 % menos** que el fine‑tuning completo) y con menor demanda computacional[src_86a3481886e0],[src_ff9a4dddd353],[src_f1f053ac5975].\n\n## Diferencias con el fine‑tuning completo\n\n| Aspecto | LoRA | Fine‑tuning completo |\n|---|---|---|\n| **Parámetros actualizados** | Sólo las matrices de bajo rango añadidas; los pesos originales permanecen congelados[src_86a3481886e0][src_ff9a4dddd353][src_f1f053ac5975] | Todos los parámetros del modelo se actualizan[src_86a3481886e0] |\n| **Número de parámetros entrenables** | Reduce en ~90 % el número de parámetros entrenables[src_86a3481886e0] | Igual al número total de parámetros del modelo original[src_86a3481886e0] |\n| **Coste computacional** | Menor, porque se entrenan matrices pequeñas de bajo rango[src_ff9a4dddd353][src_a127b2cb5d2f] | Mayor, requiere actualizar todo el modelo, lo que implica mayor uso de GPU y tiempo de entrenamiento (aunque los detalles exactos no están especificados en las fuentes) |\n| **Almacenamiento** | Sólo se guardan las matrices de bajo rango, lo que implica un archivo de adaptación mucho más pequeño | Se necesita almacenar una copia completa del modelo con todos los pesos actualizados |\n| **Rendimiento** | No se dispone de datos comparativos de precisión o métricas de desempeño entre LoRA y el fine‑tuning completo en las fuentes consultadas | No se dispone de datos comparativos de precisión o métricas de desempeño entre LoRA y el fine‑tuning completo en las fuentes consultadas |\n\n## Resumen\n\nLoRA permite adaptar grandes modelos de forma **más eficiente en parámetros y recursos**, manteniendo los pesos originales congelados y entrenando únicamente pequeñas matrices de bajo rango. En contraste, el fine‑tuning completo actualiza **todos** los pesos, lo que conlleva un mayor consumo de memoria, tiempo de cómputo y almacenamiento, aunque la literatura citada no brinda cifras exactas ni comparaciones de rendimiento.\n\n---\n\n**Limitaciones**:\n- No se encuentran fuentes que proporcionen cifras concretas de memoria GPU, tiempo de entrenamiento o volumen de datos necesario para el fine‑tuning completo de modelos grandes.\n- Falta información directa sobre el **costo de almacenamiento** (tamaño del modelo adaptado) comparando LoRA y el fine‑tuning completo.\n- No hay evidencia empírica en las fuentes que compare el **rendimiento** (precisión, BLEU, etc.) de modelos adaptados con LoRA frente a los totalmente fine‑tuned.",
+    "claims": [
+      {
+        "claim_id": "c1",
+        "text": "LoRA es una técnica de ajuste de modelos que mantiene congelados los pesos pre‑entrenados y añade matrices de bajo rango entrenables.",
+        "source_ids": [
+          "src_86a3481886e0",
+          "src_ff9a4dddd353",
+          "src_f1f053ac5975"
+        ]
+      },
+      {
+        "claim_id": "c2",
+        "text": "Al usar la descomposición de bajo rango, LoRA reduce los parámetros entrenables en aproximadamente 90 % respecto al fine‑tuning completo.",
+        "source_ids": [
+          "src_86a3481886e0"
+        ]
+      },
+      {
+        "claim_id": "c3",
+        "text": "LoRA descompone las actualizaciones de pesos en matrices más pequeñas, lo que permite adaptar modelos con menos recursos computacionales.",
+        "source_ids": [
+          "src_ff9a4dddd353",
+          "src_a127b2cb5d2f"
+        ]
+      },
+      {
+        "claim_id": "c4",
+        "text": "A diferencia del fine‑tuning completo, que actualiza todos los parámetros, LoRA mantiene los pesos originales congelados y entrena únicamente las matrices de bajo rango añadidas.",
+        "source_ids": [
+          "src_86a3481886e0",
+          "src_ff9a4dddd353",
+          "src_f1f053ac5975"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "src_11c0d93d5681",
+        "url": "https://www.coursera.org/articles/low-rank-adaptation",
+        "title": "Low Rank Adaptation: Reduce the Cost of Model Fine-Tuning | Coursera",
+        "kind": "web",
+        "snippet": "Ends soon! Get $70+ in savings and build skills with Coursera Plus. Save 40% for 3 months. # Low Rank Adaptation: Reduce the Cost of Model Fine-Tuning Written by Coursera Staff • Updated on Low rank adaptation (LoRA) is a retraining method that repurposes a foundation language mo…",
+        "accessed_at": "2026-10-22T12:29:50.129201Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_1ad0166f018d",
+        "url": "https://www.reddit.com/r/MLQuestions/comments/1n0wjk3/finetuning_models_where_to_start_and_key_best?tl=es-419",
+        "title": "Fine-Tuning de Modelos: ¿Por dónde empezar y las ...",
+        "kind": "web",
+        "snippet": "Hola a todos! Soy un principiante en machine learning y ando buscando aprender más sobre el proceso de fine-tuning de modelos.",
+        "accessed_at": "2026-10-22T12:28:50.570141Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_5642a119cc6f",
+        "url": "https://aimultiple.com/es/llm-fine-tuning",
+        "title": "LLM Guía de Fine-Tuning para Empresas",
+        "kind": "web",
+        "snippet": "El fine-tuning de un LLM ajusta un modelo pre-entrenado para realizar tareas específicas o para atender un dominio particular de manera más",
+        "accessed_at": "2026-10-22T12:28:50.570115Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_86a3481886e0",
+        "url": "https://huggingface.co/learn/llm-course/en/chapter11/4",
+        "title": "LoRA (Low-Rank Adaptation) · Hugging Face",
+        "kind": "web",
+        "snippet": "LoRA (Low-Rank Adaptation) is a parameter-efficient fine-tuning technique that freezes the pre-trained model weights and injects trainable rank decomposition matrices into the model’s layers. Instead of training all model parameters during fine-tuning, LoRA decomposes the weight…",
+        "accessed_at": "2026-10-22T12:29:50.129142Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_99b519f889f1",
+        "url": "https://www.databricks.com/es/blog/what-is-fine-tuning",
+        "title": "¿Qué es el ajuste fino? ​​Guía de modelos de IA",
+        "kind": "web",
+        "snippet": "El ajuste fino eficiente en parámetros (PEFT) es un conjunto de técnicas diseñadas para adaptar grandes modelos preentrenados a tareas específicas mientras se",
+        "accessed_at": "2026-10-22T12:28:50.570101Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_a127b2cb5d2f",
+        "url": "https://medium.com/@zilliz_learn/lora-explained-low-rank-adaptation-for-fine-tuning-llms-066c9bdd0b32",
+        "title": "LoRA Explained: Low-Rank Adaptation for Fine-Tuning LLMs | by Zilliz | Medium",
+        "kind": "web",
+        "snippet": "LoRA (Low-Rank Adaptation) is a technique for efficiently fine-tuning large language models (LLMs)) by introducing low-rank trainable weight matrices into specific model layers. It enables us to fine-tune large models, even those with tens of billions of parameters. In this artic…",
+        "accessed_at": "2026-10-22T12:29:50.129189Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_b6b1d52da1dc",
+        "url": "https://cohere.com/blog/fine-tuning",
+        "title": "What is fine-tuning? A guide to fine-tuning LLMs",
+        "kind": "web",
+        "snippet": "Resources Blog Hugging Face Events Featured The future of work debate has an evidence problem About Careers Newsroom Aug 03, 2024 10 minutes read # What is fine-tuning? A guide to fine-tuning LLMs Fine-tuning gives your AI models the context and steering they need to be most usef…",
+        "accessed_at": "2026-10-22T12:28:50.570129Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_f1f053ac5975",
+        "url": "https://www.ibm.com/think/topics/lora",
+        "title": "What is LoRA (Low-Rank Adaption)? | IBM",
+        "kind": "web",
+        "snippet": "## What is LoRA? Low-rank adaptation (LoRA) is a technique used to adapt machine learning models to new contexts. It can adapt large models to specific uses by adding lightweight pieces to the original model rather than changing the entire model. A data scientist can quickly expa…",
+        "accessed_at": "2026-10-22T12:29:50.129177Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_f7559ccdb00a",
+        "url": "https://www.ibm.com/es-es/think/topics/fine-tuning",
+        "title": "¿Qué es el fine-tuning? | IBM",
+        "kind": "web",
+        "snippet": "El fine-tuning eficiente en parámetros (PEFT) abarca una variedad de métodos para reducir el número de parámetros entrenables que deben actualizarse para adaptar de manera efectiva un modelo preentrenado grande a aplicaciones posteriores específicas. Al hacerlo, PEFT disminuye si…",
+        "accessed_at": "2026-10-22T12:28:50.570074Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_ff9a4dddd353",
+        "url": "https://en.wikipedia.org/wiki/LoRA_(machine_learning)",
+        "title": "LoRA (machine learning) - Wikipedia",
+        "kind": "web",
+        "snippet": "LoRA (Low-Rank Adaptation) is a parameter-efficient fine-tuning \"Fine-tuning (deep learning)\") technique for large language models and other deep neural networks. Introduced in 2021 by researchers at Microsoft, LoRA enables adaptation of pre-trained models to specific tasks while…",
+        "accessed_at": "2026-10-22T12:29:50.129166Z",
+        "metadata": {}
+      }
+    ],
+    "confidence": "high",
+    "limitations": [
+      "No se encuentran fuentes que proporcionen cifras concretas de memoria GPU, tiempo de entrenamiento o volumen de datos necesario para el fine‑tuning completo de modelos grandes.",
+      "Falta información directa sobre el costo de almacenamiento (tamaño del modelo adaptado) comparando LoRA y el fine‑tuning completo.",
+      "No hay evidencia empírica en las fuentes que compare el rendimiento (precisión, BLEU, etc.) de modelos adaptados con LoRA frente a los totalmente fine‑tuned."
+    ],
+    "usage": {
+      "llm_calls": 9,
+      "input_tokens": 12708,
+      "output_tokens": 5708,
+      "total_tokens": 18416,
+      "search_calls": 3,
+      "latency_s": 416.828,
+      "models": {
+        "openai/gpt-oss-120b": 4,
+        "openai/gpt-oss-20b": 5
+      }
+    }
+  },
+  "usage": {
+    "llm_calls": 9,
+    "input_tokens": 12708,
+    "output_tokens": 5708,
+    "total_tokens": 18416,
+    "search_calls": 3,
+    "latency_s": 416.828,
+    "models": {
+      "openai/gpt-oss-120b": 4,
+      "openai/gpt-oss-20b": 5
+    }
+  },
+  "errors": [],
+  "trace": [
+    {
+      "timestamp": "2026-10-22T12:26:51.455050Z",
+      "node": "supervisor",
+      "event": "route_selected",
+      "data": {
+        "next": "planner",
+        "reason": "Only one valid route for this state.",
+        "allowed": [
+          "planner"
+        ],
+        "deterministic": true
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:27:50.421149Z",
+      "node": "planner",
+      "event": "plan_created",
+      "data": {
+        "subquestions": 3,
+        "model": "openai/gpt-oss-120b",
+        "prompt_version": "0.1.0"
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:27:50.421983Z",
+      "node": "supervisor",
+      "event": "route_selected",
+      "data": {
+        "next": "researcher",
+        "reason": "Only one valid route for this state.",
+        "allowed": [
+          "researcher"
+        ],
+        "deterministic": true
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:27:50.422815Z",
+      "node": "researcher",
+      "event": "dispatch",
+      "data": {
+        "workers": 3,
+        "max_workers": 2,
+        "round": 1
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:29:50.129979Z",
+      "node": "researcher_worker",
+      "event": "completed",
+      "data": {
+        "subquestion": "¿Qué es LoRA (Low‑Rank Adaptation) y cómo funciona en la adaptación de modelos de aprendizaje profundo?",
+        "claims": 4,
+        "sources": 5
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:28:50.571108Z",
+      "node": "researcher_worker",
+      "event": "completed",
+      "data": {
+        "subquestion": "¿En qué consiste el fine‑tuning completo de modelos grandes y cuáles son sus requerimientos de recursos?",
+        "claims": 0,
+        "sources": 5
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:30:50.136057Z",
+      "node": "researcher_worker",
+      "event": "completed",
+      "data": {
+        "subquestion": "¿Cuáles son las diferencias clave entre LoRA y el fine‑tuning completo en términos de número de parámetros entrenados, coste computacional, almacenamiento y rendimiento?",
+        "claims": 0,
+        "sources": 0
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:30:50.137500Z",
+      "node": "supervisor",
+      "event": "route_selected",
+      "data": {
+        "next": "analyst",
+        "reason": "Only one valid route for this state.",
+        "allowed": [
+          "analyst"
+        ],
+        "deterministic": true
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:31:50.864631Z",
+      "node": "analyst",
+      "event": "analysis_created",
+      "data": {
+        "evidence": 4,
+        "gaps": 3,
+        "model": "openai/gpt-oss-120b"
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:31:50.865557Z",
+      "node": "supervisor",
+      "event": "route_selected",
+      "data": {
+        "next": "critic",
+        "reason": "Only one valid route for this state.",
+        "allowed": [
+          "critic"
+        ],
+        "deterministic": true
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:32:49.446398Z",
+      "node": "critic",
+      "event": "critique_created",
+      "data": {
+        "verdict": "approve",
+        "unsupported": 0,
+        "gaps": 0,
+        "model": "openai/gpt-oss-120b"
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:32:49.448078Z",
+      "node": "supervisor",
+      "event": "route_selected",
+      "data": {
+        "next": "writer",
+        "reason": "Only one valid route for this state.",
+        "allowed": [
+          "writer"
+        ],
+        "deterministic": true
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:33:51.086357Z",
+      "node": "writer",
+      "event": "report_created",
+      "data": {
+        "claims": 4,
+        "sources": 10,
+        "fallback": false,
+        "model": "openai/gpt-oss-120b"
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:33:51.087477Z",
+      "node": "supervisor",
+      "event": "run_finished",
+      "data": {}
+    }
+  ]
+}

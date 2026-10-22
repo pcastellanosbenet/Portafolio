@@ -58,7 +58,14 @@ class StubResearcher:
         self.outputs = list(outputs or [])
         self.calls: list[ResearchTask] = []
 
-    def research(self, task: ResearchTask, *, max_steps: int = 3) -> ResearchResult:
+    def research(
+        self,
+        task: ResearchTask,
+        *,
+        max_steps: int = 3,
+        usage: Usage | None = None,
+    ) -> ResearchResult:
+        del max_steps, usage
         self.calls.append(task)
         if self.outputs:
             output = self.outputs.pop(0) if len(self.outputs) > 1 else self.outputs[0]

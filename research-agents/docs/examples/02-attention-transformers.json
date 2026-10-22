@@ -1,0 +1,413 @@
+{
+  "run_id": "a89fe7b24b904c3d8511b24e747d324b",
+  "question": "¿Qué es el mecanismo de atención en los transformers y por qué es importante?",
+  "run_config": {
+    "max_workers": 2,
+    "max_tool_steps": 1,
+    "max_rounds": 1,
+    "llm_fallback_provider": null,
+    "llm_max_output_tokens": 2500
+  },
+  "report": {
+    "title": "Mecanismo de atención en los Transformers y su importancia",
+    "answer_markdown": "## Definición y funcionamiento básico\n\nEl mecanismo de atención permite que cada token de una secuencia asigne **pesos dinámicos** a los demás tokens, de modo que pueda “centrarse” en la información más relevante para la tarea en cuestión[src_af7b839716b7].  Cada token se proyecta linealmente a tres vectores:\n\n- **Query (Q)**\n- **Key (K)**\n- **Value (V)**[src_e470297888c8][src_a7468c685165]\n\nLa atención se calcula mediante el **scaled dot‑product attention**:\n\n```\nAttention(Q, K, V) = softmax\\bigl(\\frac{Q K^{\\top}}{\\sqrt{d_k}}\\bigr) \\; V\n```\n\nEsta fórmula, que incluye la normalización por \\(\\sqrt{d_k}\\) y la función softmax, está descrita en los materiales de referencia[src_b2a8c48b3669].\n\nEn los **transformers** se emplea **self‑attention multi‑cabeza**: se crean *h* conjuntos independientes de Q, K y V, se calcula la atención para cada cabeza y luego se concatenan los resultados, que se proyectan nuevamente[src_e470297888c8][src_a7468c685165].\n\n## Por qué es importante\n\n1. **Paralelismo** – A diferencia de las RNN, la atención permite procesar todos los tokens simultáneamente, lo que acelera el entrenamiento en GPU[src_6f388a53dc49][src_397e26943af8].\n2. **Captura de dependencias a larga distancia** – Al poder atender a cualquier posición de la secuencia, la atención supera las limitaciones de alcance de CNN y RNN[src_11cd6256c939].\n3. **Rendimiento de vanguardia** – Los transformers basados en atención han alcanzado resultados superiores en tareas de NLP frente a arquitecturas previas basadas en convoluciones o recurrencias[src_11cd6256c939].\n4. **Visión global del texto** – Cada token interactúa con todos los demás en tiempo constante, proporcionando una visión global del documento[src_da8927933768].\n\n## Limitaciones de la evidencia disponible\n\n- No se dispone de la **fórmula completa de cross‑attention** (atención entre encoder y decoder) ni de su descripción en los materiales citados.\n- Las **dimensiones exactas** de las matrices de proyección \\(W_Q, W_K, W_V\\) y la relación entre \\(d_k\\) y \\(d_{model}\\) no se especifican en las fuentes.\n- Falta evidencia **cuantitativa** (por ejemplo, métricas BLEU, GLUE, velocidad de entrenamiento) que compare directamente transformers con RNN o CNN.\n- No se citan estudios que demuestren el papel de la atención como base de modelos posteriores como **BERT, GPT o Vision Transformers**.\n\nEn consecuencia, la respuesta se basa en la información disponible y reconoce los vacíos señalados.",
+    "claims": [
+      {
+        "claim_id": "c1",
+        "text": "El mecanismo de atención en los transformers asigna pesos dinámicos a los tokens de una secuencia, permitiendo que cada token se centre en los demás.",
+        "source_ids": [
+          "src_397e26943af8",
+          "src_6f388a53dc49",
+          "src_a7468c685165",
+          "src_af7b839716b7",
+          "src_da8927933768",
+          "src_e470297888c8"
+        ]
+      },
+      {
+        "claim_id": "c2",
+        "text": "La operación central es la atención por producto escalar escalado, que utiliza consultas, claves y valores proyectados desde las incrustaciones y calcula los pesos con softmax(QKᵀ/√d_k).",
+        "source_ids": [
+          "src_11cd6256c939",
+          "src_5642ba2e1e7d",
+          "src_b2a8c48b3669",
+          "src_da8927933768"
+        ]
+      },
+      {
+        "claim_id": "c3",
+        "text": "Los transformers emplean atención multi‑cabeza auto‑atención, donde cada token puede atender a todos los demás tokens de la misma secuencia, capturando dependencias a larga distancia en paralelo.",
+        "source_ids": [
+          "src_11cd6256c939",
+          "src_34c4c8ee90c4",
+          "src_9f4a03c31c61",
+          "src_af7b839716b7",
+          "src_b2a8c48b3669"
+        ]
+      },
+      {
+        "claim_id": "c4",
+        "text": "La atención sustituye a las redes recurrentes, proporcionando paralelismo y mejor rendimiento en tareas de procesamiento de secuencias.",
+        "source_ids": [
+          "src_34c4c8ee90c4",
+          "src_87513bde3fb6",
+          "src_a7468c685165",
+          "src_e470297888c8"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "src_11cd6256c939",
+        "url": "https://www.ibm.com/es-es/think/topics/attention-mechanism",
+        "title": "¿Qué es un mecanismo de atención? | IBM",
+        "kind": "web",
+        "snippet": "Los modelos de transformadores y los mecanismos de atención que los impulsan han logrado resultados de vanguardia en casi todos los subdominios del deep learning. La naturaleza de los mecanismos de atención les otorga ventajas significativas sobre los mecanismos de convolución ut…",
+        "accessed_at": "2026-10-22T12:14:46.336488Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_34c4c8ee90c4",
+        "url": "https://en.wikipedia.org/wiki/Attention_Is_All_You_Need",
+        "title": "Attention Is All You Need - Wikipedia",
+        "kind": "web",
+        "snippet": "Cite error: A list-defined reference named \"Gulati2020\" is not used in the content (see the help page). ## External links [edit] \"Attention Is All You Need\" on Google Research \"Attention Is All You Need\" on arXiv Uszkoreit, Jakob (31 August 2017). \"Transformer: A Novel Neural Net…",
+        "accessed_at": "2026-10-22T12:13:47.148557Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_397e26943af8",
+        "url": "https://parseur.com/es/blog/atencion-es-todo-lo-que-necesitas",
+        "title": "Explicación de \"Attention Is All You Need\" – El artículo que ...",
+        "kind": "web",
+        "snippet": "Al sustituir el lento procesamiento secuencial por mecanismos de atención, los Transformers hicieron que la IA fuera más rápida, más",
+        "accessed_at": "2026-10-22T12:14:46.336525Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_44e9a350d3df",
+        "url": "https://papers.neurips.cc/paper/7181-attention-is-all-you-need.pdf",
+        "title": "Attention is All you Need",
+        "kind": "web",
+        "snippet": "Ankur Parikh, Oscar Täckström, Dipanjan Das, and Jakob Uszkoreit. A decomposable attention model. In Empirical Methods in Natural Language Processing, 2016. Romain Paulus, Caiming Xiong, and Richard Socher. A deep reinforced model for abstractive summarization. arXiv preprint arX…",
+        "accessed_at": "2026-10-22T12:13:47.148593Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_4543821d250d",
+        "url": "https://focalx.ai/es/inteligencia-artificial-es/arquitecturas-modelos-ia",
+        "title": "Arquitecturas de Modelos de IA: CNNs, RNNs y ...",
+        "kind": "web",
+        "snippet": "Las CNN destacan en el procesamiento de imágenes y vídeo, las RNN son ideales para datos secuenciales como el texto y el habla, y los Transformadores han",
+        "accessed_at": "2026-10-22T12:14:46.336507Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_5642ba2e1e7d",
+        "url": "https://en.wikipedia.org/wiki/Transformer_(deep_learning)",
+        "title": "Transformer (deep learning)",
+        "kind": "web",
+        "snippet": "In deep learning, the transformer is a family of artificial neural network architectures based on the multi-head attention \"Attention (machine learning)\") mechanism, in which input data such as text, images, or audio is converted to a sequence of numerical representations called…",
+        "accessed_at": "2026-10-22T12:11:46.929681Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_6f388a53dc49",
+        "url": "https://www.aprendemachinelearning.com/como-funcionan-los-transformers-espanol-nlp-gpt-bert",
+        "title": "¿Cómo funcionan los Transformers? en Español | Aprende Machine Learning",
+        "kind": "web",
+        "snippet": "Los Transformers aparecieron en un paper de 2017 implementando un eficiente mecanismo de atención como punto clave para resolver problemas de traducción en el campo del Procesamiento del Lenguaje Natural. Como bien sabemos, el lenguaje escrito conlleva implícitamente un orden tem…",
+        "accessed_at": "2026-10-22T12:14:46.336516Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_7778e1acbf52",
+        "url": "https://www.ibm.com/think/topics/attention-mechanism",
+        "title": "What is an attention mechanism? | IBM",
+        "kind": "web",
+        "snippet": "An attention mechanism is a machine learning technique that directs deep learning models to prioritize (or attend to) the most relevant parts of input data. Innovation in attention mechanisms enabled the transformer architecture that yielded the modern large language models (LLMs…",
+        "accessed_at": "2026-10-22T12:11:46.929696Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_87513bde3fb6",
+        "url": "https://en.wikipedia.org/wiki/Attention_(machine_learning)",
+        "title": "Attention (machine learning) - Wikipedia",
+        "kind": "web",
+        "snippet": "Unlike \"hard\" weights, which are computed during the backwards training pass, \"soft\" weights exist only in the forward pass and therefore change with every step of the input. Earlier designs implemented the attention mechanism in a serial recurrent neural network (RNN) language t…",
+        "accessed_at": "2026-10-22T12:11:46.929689Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_9f4a03c31c61",
+        "url": "https://huggingface.co/papers/1706.03762",
+        "title": "Paper page - Attention Is All You Need",
+        "kind": "web",
+        "snippet": "Introduces language transformer architecture for natural language processing (NLP). Transformer: Input (encoded) added with positional encodings (1D sine and cosine of different frequencies) given to encoder layers (multi-headed self-attention and linear layers in a residual setu…",
+        "accessed_at": "2026-10-22T12:13:47.148585Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_a7468c685165",
+        "url": "https://arxiv.org/abs/1706.03762",
+        "title": "[1706.03762] Attention Is All You Need",
+        "kind": "web",
+        "snippet": "> Abstract:The dominant sequence transduction models are based on complex recurrent or convolutional neural networks in an encoder-decoder configuration. The best performing models also connect the encoder and decoder through an attention mechanism. We propose a new simple networ…",
+        "accessed_at": "2026-10-22T12:13:47.148601Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_af7b839716b7",
+        "url": "https://www.youtube.com/watch?v=KMHkbXzHn7s",
+        "title": "How Attention Mechanism Works in Transformer Architecture",
+        "kind": "web",
+        "snippet": "The attention mechanism in transformers is a key component that allows models to focus on different parts of an input sequence when making predictions. Attention assigns varying degrees of importance to different parts of the input, enabling the model to capture contextual relati…",
+        "accessed_at": "2026-10-22T12:11:46.929647Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_b2a8c48b3669",
+        "url": "https://aimedinsights.substack.com/p/self-attention-in-transformers-computation",
+        "title": "Self-Attention in Transformers: Computation Logic and Implementation",
+        "kind": "web",
+        "snippet": "Attention serves as a fundamental concept for transformer architecture and for Large Language Models, playing a pivotal role in capturing dependencies between different words in a sequence. It intervenes in several building blocks of the Transformer architecture, more specificall…",
+        "accessed_at": "2026-10-22T12:12:46.220086Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_da8927933768",
+        "url": "https://www.alphaxiv.org/abs/1706.03762",
+        "title": "Attention Is All You Need | alphaXiv",
+        "kind": "web",
+        "snippet": "### # The Dot Product Is Scaffolding 谢苹果 谢苹果8 months ago 我用自己的话总结了一下：transformer，从NLP领域开启的生成式AI的革命。它的核心就是注意力，最知名的就是论文中的注意力公式。运用注意力机制，建立自然语言的句子/段落的全局视野。获取某token和任意一个token的关联的时间复杂度永远是O（1）。该论文一开始是作为seq2seq，处理自然语言的。它的架构是编码器-解码器架构，然后，采用多头注意力机制，其实就是一个注意力机制做n次，理解的更深更多角度。同时它支持并行。相比于RNN的串…",
+        "accessed_at": "2026-10-22T12:13:47.148575Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_e470297888c8",
+        "url": "https://towardsdatascience.com/what-are-query-key-and-value-in-the-transformer-architecture-and-why-are-they-used-acbe73f731f2",
+        "title": "What are Query, Key, and Value in the Transformer Architecture and Why Are They Used? | Towards Data Science",
+        "kind": "web",
+        "snippet": "Vaswani et al. (2017), first introduced the transformer in their paper \"Attention Is All You Need\", in which they used the self-attention mechanism without incorporating recurrent connections while the model can focus selectively on specific portions of input sequences. The Trans…",
+        "accessed_at": "2026-10-22T12:12:46.220105Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_e7e7ce68fa57",
+        "url": "https://arxiv.org/html/2405.14880v3",
+        "title": "Dissecting Query-Key Interaction in Vision Transformers",
+        "kind": "web",
+        "snippet": "In the previous section, we empirically study the allocation of self-attention and find that self-attention does not only do grouping. In this section, we try to find whether this self-attention property can be better understood by analyzing the underlying computation. The self-a…",
+        "accessed_at": "2026-10-22T12:12:46.220114Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_f7e6b2901cb8",
+        "url": "https://www.youtube.com/watch?v=8nkOV8UKpNM",
+        "title": "13 - Auto Attention, Encoder | Transformer",
+        "kind": "web",
+        "snippet": "Avanzamos en nuestro conocimiento de la arquitectura de Transformer y nos sumergimos en un análisis detallado del codificador.",
+        "accessed_at": "2026-10-22T12:14:46.336533Z",
+        "metadata": {}
+      }
+    ],
+    "confidence": "high",
+    "limitations": [
+      "Falta la fórmula de cross‑attention y su explicación.",
+      "No se detallan dimensiones de W_Q, W_K, W_V ni de d_k.",
+      "Ausencia de comparaciones cuantitativas de rendimiento con RNN/CNN.",
+      "No se citan trabajos que muestren la influencia de la atención en BERT, GPT o Vision Transformers.",
+      "The critic requested another research round; this report uses the evidence available when the budget or round limit was reached."
+    ],
+    "usage": {
+      "llm_calls": 12,
+      "input_tokens": 23792,
+      "output_tokens": 9430,
+      "total_tokens": 33222,
+      "search_calls": 4,
+      "latency_s": 597.2,
+      "models": {
+        "openai/gpt-oss-120b": 4,
+        "openai/gpt-oss-20b": 8
+      }
+    }
+  },
+  "usage": {
+    "llm_calls": 12,
+    "input_tokens": 23792,
+    "output_tokens": 9430,
+    "total_tokens": 33222,
+    "search_calls": 4,
+    "latency_s": 597.2,
+    "models": {
+      "openai/gpt-oss-120b": 4,
+      "openai/gpt-oss-20b": 8
+    }
+  },
+  "errors": [],
+  "trace": [
+    {
+      "timestamp": "2026-10-22T12:10:43.382100Z",
+      "node": "supervisor",
+      "event": "route_selected",
+      "data": {
+        "next": "planner",
+        "reason": "Only one valid route for this state.",
+        "allowed": [
+          "planner"
+        ],
+        "deterministic": true
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:10:47.450129Z",
+      "node": "planner",
+      "event": "plan_created",
+      "data": {
+        "subquestions": 4,
+        "model": "openai/gpt-oss-120b",
+        "prompt_version": "0.1.0"
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:10:47.450903Z",
+      "node": "supervisor",
+      "event": "route_selected",
+      "data": {
+        "next": "researcher",
+        "reason": "Only one valid route for this state.",
+        "allowed": [
+          "researcher"
+        ],
+        "deterministic": true
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:10:47.451627Z",
+      "node": "researcher",
+      "event": "dispatch",
+      "data": {
+        "workers": 4,
+        "max_workers": 2,
+        "round": 1
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:11:46.930528Z",
+      "node": "researcher_worker",
+      "event": "completed",
+      "data": {
+        "subquestion": "¿Cuál es la definición y el funcionamiento básico del mecanismo de atención en los modelos transformer?",
+        "claims": 4,
+        "sources": 5
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:12:46.221071Z",
+      "node": "researcher_worker",
+      "event": "completed",
+      "data": {
+        "subquestion": "¿Cómo se calcula la atención (self‑attention) en un transformer, incluyendo las fórmulas de queries, keys y values?",
+        "claims": 4,
+        "sources": 5
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:14:46.337425Z",
+      "node": "researcher_worker",
+      "event": "completed",
+      "data": {
+        "subquestion": "¿Por qué el mecanismo de atención es considerado importante en comparación con arquitecturas previas como RNNs y CNNs?",
+        "claims": 3,
+        "sources": 5
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:13:47.149413Z",
+      "node": "researcher_worker",
+      "event": "completed",
+      "data": {
+        "subquestion": "¿Qué impactos y aplicaciones ha tenido la atención en transformers en tareas de NLP y otras áreas?",
+        "claims": 3,
+        "sources": 5
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:14:46.339573Z",
+      "node": "supervisor",
+      "event": "route_selected",
+      "data": {
+        "next": "analyst",
+        "reason": "Only one valid route for this state.",
+        "allowed": [
+          "analyst"
+        ],
+        "deterministic": true
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:15:50.038132Z",
+      "node": "analyst",
+      "event": "analysis_created",
+      "data": {
+        "evidence": 14,
+        "gaps": 4,
+        "model": "openai/gpt-oss-120b"
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:15:50.039098Z",
+      "node": "supervisor",
+      "event": "route_selected",
+      "data": {
+        "next": "critic",
+        "reason": "Only one valid route for this state.",
+        "allowed": [
+          "critic"
+        ],
+        "deterministic": true
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:16:47.175799Z",
+      "node": "critic",
+      "event": "critique_created",
+      "data": {
+        "verdict": "revise",
+        "unsupported": 0,
+        "gaps": 5,
+        "model": "openai/gpt-oss-120b"
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:16:47.176772Z",
+      "node": "supervisor",
+      "event": "route_selected",
+      "data": {
+        "next": "writer",
+        "reason": "Only one valid route for this state.",
+        "allowed": [
+          "writer"
+        ],
+        "deterministic": true
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:17:49.129268Z",
+      "node": "writer",
+      "event": "report_created",
+      "data": {
+        "claims": 4,
+        "sources": 17,
+        "fallback": false,
+        "model": "openai/gpt-oss-120b"
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:17:49.130075Z",
+      "node": "supervisor",
+      "event": "run_finished",
+      "data": {}
+    }
+  ]
+}

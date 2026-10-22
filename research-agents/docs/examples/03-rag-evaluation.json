@@ -1,0 +1,433 @@
+{
+  "run_id": "00964b1d12d14311aab67ad844639fee",
+  "question": "¿Cómo se evalúa la calidad de un sistema RAG y qué métricas se usan?",
+  "run_config": {
+    "max_workers": 2,
+    "max_tool_steps": 1,
+    "max_rounds": 1,
+    "llm_fallback_provider": null,
+    "llm_max_output_tokens": 2500
+  },
+  "report": {
+    "title": "Evaluación de la calidad de sistemas Retrieval‑Augmented Generation (RAG) y métricas utilizadas",
+    "answer_markdown": "## 1. Marcos y benchmarks de referencia\n- **BEIR** y **MS‑Marco** son los benchmarks más usados para medir la eficacia de la fase de recuperación en RAG, proporcionando colecciones de preguntas y documentos de dominio diverso.[src_e6b60c2ff59f]\n- **RAGAS** es un framework de evaluación que combina métricas de recuperación y de fidelidad de la generación.[src_1aaf97be5439]\n- **RAGBench** ofrece un benchmark unificado y explicable con métricas formalizadas para comparar diferentes sistemas RAG.[src_5306a408451a]\n\n## 2. Métricas de recuperación (IR)\n| Métrica | Qué mide | Fuente |\n|---|---|---|\n| **Recall@k** | Proporción de documentos relevantes que aparecen entre los primeros *k* resultados. | [src_7507c224c398] |\n| **MRR (Mean Reciprocal Rank)** | Inverso de la posición del primer documento relevante; evalúa rapidez de recuperación. | [src_7507c224c398] |\n| **Precision** | Proporción de documentos recuperados que son relevantes. | [src_7507c224c398] |\n| **NDCG** | Relevancia graduada y posición en la lista de resultados. | [src_b6d60ae6a208] |\n| **Precision (contextual)** | Evalúa la coincidencia entre contexto recuperado y consulta. | [src_6bfaccad4d76] |\n\n## 3. Métricas de generación (NLG)\n- **Fluidez**: se evalúa con métricas tradicionales como **BLEU**, **ROUGE** y **perplexity**; cada vez se complementan con evaluaciones *LLM‑as‑judge* que capturan matices de estilo y coherencia.[src_d43189836efb][src_6bfaccad4d76]\n- **Factualidad / fidelidad**: se mide la alineación de la respuesta generada con los documentos recuperados (grounding). La literatura menciona métricas de *answer relevancy* y *faithfulness* aunque no se citan nombres específicos en los fragmentos disponibles.[src_6bfaccad4d76]\n\n## 4. Evaluación end‑to‑end\nUna evaluación completa combina métricas de ambas fases y, opcionalmente, evaluaciones humanas:\n- **Recuperación**: Recall@K, Precision@K y relevancia de los documentos.\n- **Generación**: **Exact Match (EM)**, **F1**, métricas de grounding y fluidez.\n- **Evaluación humana**: juicios de relevancia, coherencia y fidelidad que complementan los indicadores automáticos.[src_5f3ce844e0a7][src_473f274251ba]\n- **Latencia**: métricas como *Time to First Token (TTFT)* para medir rapidez de respuesta.[src_0057eb34c387]\n- **Verificación de relevancia**: asegurar que los documentos recuperados sustentan la respuesta generada.[src_0057eb34c387][src_5f3ce844e0a7]\n\n## 5. Resumen de flujo de evaluación\n1. **Benchmark de recuperación** (BEIR, MS‑Marco) → métricas *Recall@k*, *MRR*, *Precision*, *NDCG*.\n2. **Benchmark de generación** (RAGAS, RAGBench) → métricas *BLEU*, *ROUGE*, *perplexity*, *EM*, *F1*, *grounding*.\n3. **Combinación** de resultados mediante reportes estructurados que incluyen tanto indicadores cuantitativos como evaluaciones humanas y métricas de latencia.\n\n---\n**Conclusión**: La calidad de un sistema RAG se evalúa mediante un conjunto de benchmarks estandarizados y métricas que cubren la recuperación de información (recall, precision, MRR, NDCG) y la generación de texto (BLEU, ROUGE, perplexity, EM, F1, grounding). La evaluación end‑to‑end integra estos indicadores con juicios humanos y métricas operacionales como la latencia.\n",
+    "claims": [
+      {
+        "claim_id": "c1",
+        "text": "BEIR y MS‑Marco son benchmarks estándar para evaluar la eficacia de la recuperación en sistemas RAG.",
+        "source_ids": [
+          "src_473f274251ba",
+          "src_5f3ce844e0a7",
+          "src_6bfaccad4d76",
+          "src_7507c224c398",
+          "src_d43189836efb",
+          "src_e6b60c2ff59f"
+        ]
+      },
+      {
+        "claim_id": "c2",
+        "text": "RAGAS es un framework de evaluación que mide tanto la recuperación como la fidelidad de la generación.",
+        "source_ids": [
+          "src_1aaf97be5439",
+          "src_473f274251ba",
+          "src_6bfaccad4d76",
+          "src_7507c224c398",
+          "src_b6d60ae6a208"
+        ]
+      },
+      {
+        "claim_id": "c3",
+        "text": "RAGBench ofrece un benchmark unificado y explicable con métricas formalizadas para comparar sistemas RAG.",
+        "source_ids": [
+          "src_0057eb34c387",
+          "src_5306a408451a",
+          "src_7507c224c398",
+          "src_d43189836efb"
+        ]
+      },
+      {
+        "claim_id": "c4",
+        "text": "Giskard genera automáticamente conjuntos de prueba y aborda las debilidades de métodos como RAGAS y BERTScore.",
+        "source_ids": [
+          "src_0057eb34c387",
+          "src_1aaf97be5439",
+          "src_5f3ce844e0a7",
+          "src_6bfaccad4d76"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "src_0057eb34c387",
+        "url": "https://arxiv.org/html/2504.14891v1",
+        "title": "Retrieval Augmented Generation Evaluation in the Era of Large Language Models: A Comprehensive Survey",
+        "kind": "web",
+        "snippet": "EM (Exact Match) is a simple, stringent and widely-used evaluation metric that assesses the accuracy of model-generated answers compared to the ground truth. It scores as 1 if a generated answer precisely aligns with the standard otherwise 0. Typically, the responses need standar…",
+        "accessed_at": "2026-10-22T12:21:48.228985Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_1aaf97be5439",
+        "url": "https://www.giskard.ai/knowledge/rag-benchmarking-for-ai-evaluation",
+        "title": "RAG Benchmarking | Giskard",
+        "kind": "web",
+        "snippet": "RAGAS (Retrieval-Augmented Generation Assessment System) is an evaluation framework offering various metrics to measure the quality of a RAG model’s responses. Below is an explanation of these metrics along with usage examples: [...] Discover the best tools for benchmarking Retri…",
+        "accessed_at": "2026-10-22T12:19:48.009800Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_2e43d4c6a615",
+        "url": "https://arxiv.org/html/2405.07437v2",
+        "title": "Evaluation of Retrieval-Augmented Generation: A Survey",
+        "kind": "web",
+        "snippet": "In the realm of generation, evaluation transcends the mere accuracy of generated responses, venturing into the quality of text in terms of coherence, relevance, fluency, and alignment with human judgment. This necessitates metrics that can assess the nuanced aspects of language p…",
+        "accessed_at": "2026-10-22T12:22:49.159321Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_32394edf63c9",
+        "url": "https://treysaddler.com/posts/rag-evaluation-frameworks-and-tracing.html",
+        "title": "TreySaddler.com – RAG Evaluation Frameworks and Tracing",
+        "kind": "web",
+        "snippet": "The academic research community plays a crucial role in pushing the boundaries of Retrieval-Augmented Generation, not only by developing new architectures but also by creating more rigorous and realistic methods for their evaluation. Recent work presented at top-tier conferences…",
+        "accessed_at": "2026-10-22T12:19:48.009814Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_3e715cb82939",
+        "url": "https://www.ibm.com/think/architectures/rag-cookbook/result-evaluation",
+        "title": "Result Evaluation for RAG: Metrics & Best Practices | IBM",
+        "kind": "web",
+        "snippet": "Pros: Effective for tasks where precision and exact matches are important; Standard Metric: Widely adopted in the machine translation community, providing a benchmark for comparison. Cons: May penalize legitimate variations in phrasing that do not exactly match reference texts; P…",
+        "accessed_at": "2026-10-22T12:21:48.229087Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_45ad9234f32c",
+        "url": "https://atlan.com/know/llm-evaluation-frameworks-compared",
+        "title": "RAGAS, TruLens, DeepEval: LLM Evaluation Frameworks (2026)",
+        "kind": "web",
+        "snippet": "--- ## What is RAGAS? An overview of core metrics, setup, costs. RAGAS (Retrieval Augmented Generation Assessment) is an open-source Python framework for reference-free evaluation of RAG pipelines. Reference-free implies not tied to having ground truth available. Its design premi…",
+        "accessed_at": "2026-10-22T12:19:48.009821Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_473f274251ba",
+        "url": "https://www.meilisearch.com/blog/rag-evaluation",
+        "title": "RAG evaluation: Metrics, methodologies, best practices & more | Meilisearch",
+        "kind": "web",
+        "snippet": "Share the article RAG (retrieval-augmented generation) evaluation is the process of measuring how well a system actually retrieves relevant information to generate accurate answers for the users. It helps improve retrieval logic as well as the response quality. RAG evaluation is…",
+        "accessed_at": "2026-10-22T12:21:48.229009Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_5306a408451a",
+        "url": "https://www.alphaxiv.org/abs/2407.11005",
+        "title": "RAGBench: Explainable Benchmark for Retrieval-Augmented Generation Systems | alphaXiv",
+        "kind": "web",
+        "snippet": "RAGBench and the TRACe framework address critical gaps in the RAG evaluation landscape and have several important implications for the field: Standardization: By providing a unified benchmark and formalized metrics, this work enables systematic comparison of RAG systems and evalu…",
+        "accessed_at": "2026-10-22T12:19:48.009808Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_5f3ce844e0a7",
+        "url": "https://toloka.ai/blog/rag-evaluation-a-technical-guide-to-measuring-retrieval-augmented-generation",
+        "title": "RAG evaluation: a technical guide to measuring retrieval-augmented generation",
+        "kind": "web",
+        "snippet": "Answer accuracy — Compares the generated answer to reference answers or gold-standard responses, often using exact match, F1 score, or semantic similarity. Grounding — Assesses whether statements in the output are directly supported by the retrieved content, helping detect halluc…",
+        "accessed_at": "2026-10-22T12:21:48.229001Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_6bfaccad4d76",
+        "url": "https://deepchecks.com/rag-evaluation-metrics-answer-relevancy-faithfulness-accuracy",
+        "title": "RAG Evaluation Metrics: Answer Relevancy, Faithfulness, and Accuracy | Deepchecks",
+        "kind": "web",
+        "snippet": "For instance, when querying “quarterly revenue trends” in a business’s knowledge base, low precision may return HR policies alongside financial reports, drastically lowering answer quality. Precision is commonly calculated using binary (relevant/irrelevant) or graded relevance ju…",
+        "accessed_at": "2026-10-22T12:21:48.229017Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_7507c224c398",
+        "url": "https://www.ibm.com/es-es/think/architectures/rag-cookbook/result-evaluation",
+        "title": "Evaluación de resultados para RAG: métricas y buenas prácticas | IBM",
+        "kind": "web",
+        "snippet": "Las siguientes métricas de recuperación se basan en referencias, lo que significa que cada fragmento debe identificarse de forma única (contexts\\_id) y cada pregunta tiene ID únicos de los contextos de verdad fundamental. Las métricas de evaluación conscientes del rango utilizada…",
+        "accessed_at": "2026-10-22T12:20:48.119586Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_8bd8e15b60e6",
+        "url": "https://www.patronus.ai/llm-testing/rag-evaluation-metrics",
+        "title": "RAG Evaluation Metrics: Best Practices for Evaluating RAG Systems",
+        "kind": "web",
+        "snippet": "| Concept | Description | --- | | RAG evaluation | RAG evaluation involves measuring the effectiveness of two key components: context retrieval and the generated response. | | RAG evaluation metrics | Five key metrics are used to evaluate RAG performance: context relevance, conte…",
+        "accessed_at": "2026-10-22T12:22:49.159339Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_b459a542e8d2",
+        "url": "https://learn.microsoft.com/es-es/azure/architecture/ai-ml/guide/rag/rag-llm-evaluation-phase",
+        "title": "fase de evaluación de un extremo a otro del modelo ...",
+        "kind": "web",
+        "snippet": "Las métricas de uso e integridad ayudan a evaluar la eficacia del sistema de recuperación. Un uso elevado (0,9) con una integridad baja (0,3)",
+        "accessed_at": "2026-10-22T12:20:48.119633Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_b6d60ae6a208",
+        "url": "https://redis.io/blog/rag-system-evaluation",
+        "title": "RAG evaluation guide: metrics, frameworks & infrastructure",
+        "kind": "web",
+        "snippet": "RAG has a modular design: chunking, retrieval, reranking, context assembly, and generation. This architecture makes RAG great at improving factuality by grounding LLM outputs in external sources, but it also introduces new failure modes across these stages. When answers go wrong,…",
+        "accessed_at": "2026-10-22T12:22:49.159285Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_d035f6ae1d0e",
+        "url": "https://cloud.google.com/use-cases/retrieval-augmented-generation?hl=es",
+        "title": "¿Qué es la generación aumentada de recuperación (RAG)? | Google Cloud",
+        "kind": "web",
+        "snippet": "proporcionado). Al implementar estas evaluaciones, obtienes una medida de referencia y puedes optimizar la calidad de las respuestas automáticas configurando tu buscador, seleccionando tus datos de origen, mejorando las estrategias de análisis o segmentación del diseño de la fuen…",
+        "accessed_at": "2026-10-22T12:20:48.119616Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_d43189836efb",
+        "url": "https://galileo.ai/blog/fluency-metrics-llm-rag",
+        "title": "What Are RAG Fluency Metrics? | Galileo",
+        "kind": "web",
+        "snippet": "Fluency is now \"table stakes\"—focus evaluation resources on informativeness and accuracy Traditional metrics (BLEU, ROUGE, perplexity) are inadequate for modern RAG evaluation High retrieval accuracy (95%+) does not guarantee fluent output integration Production RAG systems shoul…",
+        "accessed_at": "2026-10-22T12:22:49.159257Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_e6b60c2ff59f",
+        "url": "https://arxiv.org/html/2605.14488v1",
+        "title": "Deepchecks: Evaluating Retrieval-Augmented Generation (RAG)",
+        "kind": "web",
+        "snippet": "Effective evaluation also requires standardization in the form of robust benchmarks. For instance, the BEIR and MS-Marco benchmarks facilitate comprehensive assessment, standardization, and real-world applicability of retrieval-augmented generation systems. BEIR (Benchmarking IR)…",
+        "accessed_at": "2026-10-22T12:19:48.009785Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_f2ea79a00340",
+        "url": "https://www.databricks.com/es/blog/rag-workflow",
+        "title": "Flujo de trabajo de RAG de extremo a extremo: cómo funciona la generación aumentada por recuperación | Databricks Blog",
+        "kind": "web",
+        "snippet": "La generación aumentada por recuperación (RAG) es un patrón de arquitectura de AI que conecta modelos de lenguaje grandes con fuentes de conocimiento externas en el momento de la inferencia, lo que permite a esos modelos generar respuestas precisas y conscientes del contexto que…",
+        "accessed_at": "2026-10-22T12:20:48.119607Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_fafa6f85cdbc",
+        "url": "https://aws.amazon.com/es/what-is/retrieval-augmented-generation",
+        "title": "¿Qué es RAG?: explicación de la IA de generación aumentada por recuperación, AWS",
+        "kind": "web",
+        "snippet": "traducir idiomas y completar frases. La RAG extiende las ya poderosas capacidades de los LLM a dominios específicos o a la base de conocimientos interna de una organización, todo ello sin la necesidad de volver a entrenar el modelo. Se trata de un método rentable para mejorar los…",
+        "accessed_at": "2026-10-22T12:20:48.119625Z",
+        "metadata": {}
+      }
+    ],
+    "confidence": "medium",
+    "limitations": [
+      "No se dispone de evidencia sobre métricas de recuperación como MAP en el contexto RAG.",
+      "Faltan fuentes que describan métricas de factualidad específicas (FactCC, QuestEval, GPT‑Score) y su cálculo.",
+      "No se encontró documentación que detalle metodologías numéricas para combinar métricas de recuperación y generación (p.ej., ponderaciones, medias armónicas).",
+      "No se citan benchmarks que integren explícitamente ambas fases (recuperación + generación) con una puntuación compuesta.",
+      "Los valores numéricos de fluidez (0.94‑1.00) y fidelidad (87‑94 %) no están respaldados por fuentes verificables.",
+      "The critic requested another research round; this report uses the evidence available when the budget or round limit was reached.",
+      "analyst: JSONDecodeError: Unterminated string starting at: line 91 column 22 (char 4584)"
+    ],
+    "usage": {
+      "llm_calls": 11,
+      "input_tokens": 18835,
+      "output_tokens": 8504,
+      "total_tokens": 27339,
+      "search_calls": 4,
+      "latency_s": 590.555,
+      "models": {
+        "openai/gpt-oss-120b": 3,
+        "openai/gpt-oss-20b": 8
+      }
+    }
+  },
+  "usage": {
+    "llm_calls": 11,
+    "input_tokens": 18835,
+    "output_tokens": 8504,
+    "total_tokens": 27339,
+    "search_calls": 4,
+    "latency_s": 590.555,
+    "models": {
+      "openai/gpt-oss-120b": 3,
+      "openai/gpt-oss-20b": 8
+    }
+  },
+  "errors": [
+    "analyst: JSONDecodeError: Unterminated string starting at: line 91 column 22 (char 4584)"
+  ],
+  "trace": [
+    {
+      "timestamp": "2026-10-22T12:17:49.134856Z",
+      "node": "supervisor",
+      "event": "route_selected",
+      "data": {
+        "next": "planner",
+        "reason": "Only one valid route for this state.",
+        "allowed": [
+          "planner"
+        ],
+        "deterministic": true
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:18:48.925660Z",
+      "node": "planner",
+      "event": "plan_created",
+      "data": {
+        "subquestions": 4,
+        "model": "openai/gpt-oss-120b",
+        "prompt_version": "0.1.0"
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:18:48.927053Z",
+      "node": "supervisor",
+      "event": "route_selected",
+      "data": {
+        "next": "researcher",
+        "reason": "Only one valid route for this state.",
+        "allowed": [
+          "researcher"
+        ],
+        "deterministic": true
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:18:48.928309Z",
+      "node": "researcher",
+      "event": "dispatch",
+      "data": {
+        "workers": 4,
+        "max_workers": 2,
+        "round": 1
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:19:48.010546Z",
+      "node": "researcher_worker",
+      "event": "completed",
+      "data": {
+        "subquestion": "¿Cuáles son los marcos y benchmarks estándar para evaluar sistemas Retrieval‑Augmented Generation (RAG)?",
+        "claims": 4,
+        "sources": 5
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:20:48.120511Z",
+      "node": "researcher_worker",
+      "event": "completed",
+      "data": {
+        "subquestion": "¿Qué métricas intrínsecas se emplean para medir la calidad del componente de recuperación en un sistema RAG?",
+        "claims": 3,
+        "sources": 5
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:22:49.160708Z",
+      "node": "researcher_worker",
+      "event": "completed",
+      "data": {
+        "subquestion": "¿Qué métricas se utilizan para evaluar la calidad del texto generado por un RAG, tanto en fluidez como en factualidad?",
+        "claims": 4,
+        "sources": 5
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:21:48.229989Z",
+      "node": "researcher_worker",
+      "event": "completed",
+      "data": {
+        "subquestion": "¿Cómo se combinan las métricas de recuperación y generación para obtener una evaluación end‑to‑end de un sistema RAG, incluyendo métricas de exact match, precisión de respuesta y evaluaciones humanas?",
+        "claims": 4,
+        "sources": 5
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:22:49.162252Z",
+      "node": "supervisor",
+      "event": "route_selected",
+      "data": {
+        "next": "analyst",
+        "reason": "Only one valid route for this state.",
+        "allowed": [
+          "analyst"
+        ],
+        "deterministic": true
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:24:52.653856Z",
+      "node": "analyst",
+      "event": "llm_error",
+      "data": {
+        "fallback": true
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:24:52.654730Z",
+      "node": "supervisor",
+      "event": "route_selected",
+      "data": {
+        "next": "critic",
+        "reason": "Only one valid route for this state.",
+        "allowed": [
+          "critic"
+        ],
+        "deterministic": true
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:25:50.413426Z",
+      "node": "critic",
+      "event": "critique_created",
+      "data": {
+        "verdict": "revise",
+        "unsupported": 2,
+        "gaps": 5,
+        "model": "openai/gpt-oss-120b"
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:25:50.414649Z",
+      "node": "supervisor",
+      "event": "route_selected",
+      "data": {
+        "next": "writer",
+        "reason": "Only one valid route for this state.",
+        "allowed": [
+          "writer"
+        ],
+        "deterministic": true
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:26:51.444163Z",
+      "node": "writer",
+      "event": "report_created",
+      "data": {
+        "claims": 4,
+        "sources": 19,
+        "fallback": false,
+        "model": "openai/gpt-oss-120b"
+      }
+    },
+    {
+      "timestamp": "2026-10-22T12:26:51.445022Z",
+      "node": "supervisor",
+      "event": "run_finished",
+      "data": {}
+    }
+  ]
+}
