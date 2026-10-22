@@ -1,0 +1,295 @@
+"""Provider-agnostic LLM client with retries, fallback and structured output."""
+
+from __future__ import annotations
+
+import logging
+from collections.abc import Sequence
+from dataclasses import dataclass
+from typing import Any
+
+from langchain_core.language_models.chat_models import BaseChatModel
+from langchain_core.messages import AIMessage, BaseMessage
+from langchain_openai import ChatOpenAI
+from pydantic import BaseModel, SecretStr
+from tenacity import Retrying, retry_if_exception, stop_after_attempt, wait_exponential_jitter
+
+from src.config import Provider, Settings, StructuredMethod
+
+logger = logging.getLogger(__name__)
+
+_RETRYABLE_STATUS = {408, 409, 429, 500, 502, 503, 504}
+_STRUCTURED_METHODS: tuple[StructuredMethod, ...] = (
+    "json_schema",
+    "function_calling",
+    "json_mode",
+)
+
+
+class StructuredOutputError(RuntimeError):
+    """Raised when a model cannot produce the requested structured output."""
+
+
+@dataclass(frozen=True)
+class ModelTarget:
+    """A concrete provider/model pair with its credentials."""
+
+    provider: Provider
+    model: str
+    api_key: SecretStr
+    base_url: str
+
+
+@dataclass(frozen=True)
+class InvocationMetadata:
+    """Metadata recorded for every structured invocation."""
+
+    provider: str
+    model: str
+    method: str
+    usage: dict[str, int]
+
+
+def _status_code(exc: BaseException) -> int | None:
+    status = getattr(exc, "status_code", None)
+    if status is not None:
+        try:
+            return int(status)
+        except (TypeError, ValueError):
+            return None
+    response = getattr(exc, "response", None)
+    status = getattr(response, "status_code", None)
+    if status is None:
+        return None
+    try:
+        return int(status)
+    except (TypeError, ValueError):
+        return None
+
+
+def _is_retryable(exc: BaseException) -> bool:
+    status = _status_code(exc)
+    if status in _RETRYABLE_STATUS:
+        return True
+    name = type(exc).__name__.lower()
+    return any(
+        token in name
+        for token in ("ratelimit", "timeout", "connection", "apiconnection", "internalserver")
+    )
+
+
+def _is_structured_method_error(exc: BaseException) -> bool:
+    message = str(exc).lower()
+    return any(
+        token in message
+        for token in (
+            "json_schema",
+            "response_format",
+            "structured output",
+            "function calling",
+            "tool_choice",
+            "parsing error",
+        )
+    ) or isinstance(exc, StructuredOutputError)
+
+
+def _usage_from_message(message: AIMessage) -> dict[str, int]:
+    usage = message.usage_metadata or {}
+    return {
+        key: int(value)
+        for key, value in usage.items()
+        if isinstance(value, int)
+    }
+
+
+class LLMClient:
+    """Small adapter around ``ChatOpenAI`` for Groq and Gemini.
+
+    Both providers expose OpenAI-compatible endpoints, so a single client
+    implementation can switch providers through settings. Retries and fallback
+    are handled here rather than in agent nodes, keeping the graph simple.
+    """
+
+    def __init__(self, settings: Settings) -> None:
+        self.settings = settings
+        self._primary = ModelTarget(
+            provider=settings.llm_provider,
+            model=settings.llm_model,
+            api_key=settings.primary_api_key,
+            base_url=settings.base_url_for(settings.llm_provider),
+        )
+        self._fallback: ModelTarget | None = None
+        if settings.llm_fallback_provider:
+            if settings.has_api_key_for(settings.llm_fallback_provider):
+                self._fallback = ModelTarget(
+                    provider=settings.llm_fallback_provider,
+                    model=settings.llm_fallback_model,
+                    api_key=settings.fallback_api_key,  # type: ignore[arg-type]
+                    base_url=settings.base_url_for(settings.llm_fallback_provider),
+                )
+            else:
+                logger.warning(
+                    "Fallback provider %s is configured but its API key is missing; "
+                    "fallback disabled for this run.",
+                    settings.llm_fallback_provider,
+                )
+
+    @property
+    def primary(self) -> ModelTarget:
+        return self._primary
+
+    @property
+    def fallback(self) -> ModelTarget | None:
+        return self._fallback
+
+    def _targets(self, *, fast: bool) -> list[ModelTarget]:
+        primary_model = self.settings.fast_model if fast else self._primary.model
+        targets = [
+            ModelTarget(
+                provider=self._primary.provider,
+                model=primary_model,
+                api_key=self._primary.api_key,
+                base_url=self._primary.base_url,
+            )
+        ]
+        if self._fallback is not None:
+            targets.append(self._fallback)
+        return targets
+
+    def _chat_model(self, target: ModelTarget) -> BaseChatModel:
+        return ChatOpenAI(
+            model=target.model,
+            api_key=target.api_key.get_secret_value(),
+            base_url=target.base_url,
+            temperature=self.settings.llm_temperature,
+            timeout=self.settings.llm_timeout_s,
+            max_retries=0,
+        )
+
+    def _retrying(self) -> Retrying:
+        return Retrying(
+            retry=retry_if_exception(_is_retryable),
+            stop=stop_after_attempt(self.settings.llm_max_retries + 1),
+            wait=wait_exponential_jitter(initial=1, max=20),
+            reraise=True,
+        )
+
+    def invoke_text(
+        self,
+        messages: Sequence[BaseMessage],
+        *,
+        fast: bool = False,
+    ) -> AIMessage:
+        """Invoke a chat model and return the raw message."""
+        last_error: BaseException | None = None
+        for target in self._targets(fast=fast):
+            model = self._chat_model(target)
+            try:
+                for attempt in self._retrying():
+                    with attempt:
+                        response = model.invoke(messages)
+                if not isinstance(response, AIMessage):
+                    raise TypeError(f"Expected AIMessage, got {type(response)!r}")
+                return response
+            except Exception as exc:  # noqa: BLE001 - provider errors are normalized
+                last_error = exc
+                if not _is_retryable(exc):
+                    raise
+                logger.warning(
+                    "Provider %s failed after retries; trying fallback if available: %s",
+                    target.provider,
+                    type(exc).__name__,
+                )
+        if last_error is not None:
+            raise RuntimeError(
+                "All configured LLM providers failed. "
+                f"Last error: {type(last_error).__name__}: {last_error}"
+            ) from last_error
+        raise RuntimeError("No LLM provider is configured.")
+
+    def invoke_structured[T: BaseModel](
+        self,
+        schema: type[T],
+        messages: Sequence[BaseMessage],
+        *,
+        fast: bool = False,
+    ) -> tuple[T, InvocationMetadata]:
+        """Invoke a model and parse its answer into ``schema``.
+
+        The configured structured-output method is attempted first. If the
+        provider rejects that method, the remaining methods are tried before
+        moving to the fallback provider. Retryable provider errors trigger
+        exponential backoff and then fallback.
+        """
+        methods = [self.settings.llm_structured_method]
+        methods.extend(method for method in _STRUCTURED_METHODS if method not in methods)
+
+        last_error: BaseException | None = None
+        for target in self._targets(fast=fast):
+            model = self._chat_model(target)
+            for method in methods:
+                try:
+                    for attempt in self._retrying():
+                        with attempt:
+                            response = model.with_structured_output(
+                                schema,
+                                method=method,
+                                include_raw=True,
+                            ).invoke(messages)
+                    parsed, raw, parsing_error = _unpack_structured_response(response, schema)
+                    if parsing_error is not None:
+                        raise StructuredOutputError(str(parsing_error))
+                    return parsed, InvocationMetadata(
+                        provider=target.provider,
+                        model=target.model,
+                        method=method,
+                        usage=_usage_from_message(raw),
+                    )
+                except Exception as exc:  # noqa: BLE001 - provider errors are normalized
+                    last_error = exc
+                    if _is_retryable(exc):
+                        logger.warning(
+                            "Provider %s failed after retries; trying fallback if available.",
+                            target.provider,
+                        )
+                        break
+                    if _is_structured_method_error(exc):
+                        logger.info(
+                            "Structured method %s failed for %s; trying another method.",
+                            method,
+                            target.provider,
+                        )
+                        continue
+                    raise
+        if last_error is not None:
+            raise RuntimeError(
+                "All configured LLM providers failed. "
+                f"Last error: {type(last_error).__name__}: {last_error}"
+            ) from last_error
+        raise RuntimeError("No LLM provider is configured.")
+
+
+def _unpack_structured_response[T: BaseModel](
+    response: Any,
+    schema: type[T],
+) -> tuple[T, AIMessage, BaseException | None]:
+    if isinstance(response, dict) and "parsed" in response:
+        parsed = response.get("parsed")
+        raw = response.get("raw")
+        parsing_error = response.get("parsing_error")
+        if not isinstance(raw, AIMessage):
+            raise TypeError("Structured response did not include a raw AIMessage.")
+        if parsing_error is not None:
+            return parsed, raw, parsing_error
+        if not isinstance(parsed, schema):
+            raise StructuredOutputError(
+                f"Expected {schema.__name__}, got {type(parsed).__name__}."
+            )
+        return parsed, raw, None
+    if isinstance(response, schema):
+        raise StructuredOutputError(
+            "Provider returned a parsed object without raw metadata; "
+            "structured output must be invoked with include_raw=True."
+        )
+    raise StructuredOutputError(
+        f"Unexpected structured response type: {type(response).__name__}."
+    )
