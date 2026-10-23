@@ -205,6 +205,14 @@ class ToolResearcherBackend:
                     confidence="low",
                 ),
                 usage=Usage(),
+                errors=[f"researcher: {type(exc).__name__}: {exc}"],
+                trace=[
+                    trace(
+                        "researcher",
+                        "failed",
+                        error=f"{type(exc).__name__}: {exc}",
+                    )
+                ],
             )
 
         output = result.get("output") or ResearchOutput(
@@ -216,6 +224,13 @@ class ToolResearcherBackend:
         tool_messages = [
             message for message in result.get("messages", []) if isinstance(message, ToolMessage)
         ]
+        tools_used = sorted(
+            {
+                str(getattr(message, "name", "") or "")
+                for message in tool_messages
+                if getattr(message, "name", "")
+            }
+        )
         search_calls = sum(
             1
             for message in tool_messages
@@ -225,7 +240,13 @@ class ToolResearcherBackend:
             total_usage = total_usage.model_copy(
                 update={"search_calls": total_usage.search_calls + search_calls}
             )
-        return ResearchResult(output=output, usage=total_usage)
+        return ResearchResult(
+            output=output,
+            usage=total_usage,
+            tools_used=tools_used,
+            trace=list(result.get("trace", [])),
+            errors=list(result.get("errors", [])),
+        )
 
     def _build_graph(self):
         builder = StateGraph(ToolResearchState)
@@ -260,7 +281,13 @@ class ToolResearcherBackend:
                 "budget_exhausted": True,
                 "steps": state.get("max_steps", self.max_steps),
                 "errors": [str(exc)],
-                "trace": [trace("researcher:agent", "budget_exhausted")],
+                "trace": [
+                    trace(
+                        "researcher:agent",
+                        "budget_exhausted",
+                        error=str(exc),
+                    )
+                ],
             }
 
         started = time.perf_counter()
@@ -268,6 +295,12 @@ class ToolResearcherBackend:
         if not isinstance(response, AIMessage):
             raise TypeError(f"Expected AIMessage from tool call, got {type(response)!r}")
         delta = usage_from_ai_message(response, latency_s=time.perf_counter() - started)
+        model_name = str(response.response_metadata.get("model_name") or "tool-model")
+        tool_names = [
+            str(call.get("name", ""))
+            for call in response.tool_calls
+            if call.get("name")
+        ]
         return {
             "messages": [response],
             "steps": state.get("steps", 0) + 1,
@@ -278,6 +311,11 @@ class ToolResearcherBackend:
                     "tool_call" if response.tool_calls else "answer",
                     step=state.get("steps", 0) + 1,
                     tool_calls=len(response.tool_calls),
+                    tools=tool_names,
+                    model=model_name,
+                    tokens=delta.total_tokens,
+                    latency_s=delta.latency_s,
+                    llm_calls=delta.llm_calls,
                 )
             ],
         }
@@ -345,7 +383,13 @@ class ToolResearcherBackend:
                     confidence="low",
                 ),
                 "errors": [f"researcher: {type(exc).__name__}: {exc}"],
-                "trace": [trace("researcher:finalize", "llm_error")],
+                "trace": [
+                    trace(
+                        "researcher:finalize",
+                        "llm_error",
+                        error=f"{type(exc).__name__}: {exc}",
+                    )
+                ],
             }
 
         output = sanitize_research_output(
@@ -354,6 +398,13 @@ class ToolResearcherBackend:
         )
         delta = usage_from_ai_message(response, latency_s=time.perf_counter() - started)
         model_name = str(response.response_metadata.get("model_name") or "tool-model")
+        tools_used = sorted(
+            {
+                str(getattr(message, "name", "") or "")
+                for message in state.get("messages", [])
+                if isinstance(message, ToolMessage) and getattr(message, "name", "")
+            }
+        )
         return {
             "output": output,
             "usage": delta,
@@ -364,6 +415,10 @@ class ToolResearcherBackend:
                     claims=len(output.claims),
                     sources=len(output.sources),
                     model=model_name,
+                    tools=tools_used,
+                    tokens=delta.total_tokens,
+                    latency_s=delta.latency_s,
+                    llm_calls=delta.llm_calls,
                 )
             ],
         }

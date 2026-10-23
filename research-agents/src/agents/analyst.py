@@ -62,10 +62,11 @@ def make_analyst(services: AgentServices):
                     ),
                 ),
             )
+            usage = usage_from_metadata(metadata, latency_s=time.perf_counter() - started)
             return {
                 "analysis": analysis,
                 "status": "analyzing",
-                "usage": usage_from_metadata(metadata, latency_s=time.perf_counter() - started),
+                "usage": usage,
                 "trace": [
                     trace(
                         "analyst",
@@ -73,6 +74,9 @@ def make_analyst(services: AgentServices):
                         evidence=len(analysis.evidence),
                         gaps=len(analysis.gaps),
                         model=metadata.model,
+                        tokens=usage.total_tokens,
+                        latency_s=usage.latency_s,
+                        llm_calls=usage.llm_calls,
                     )
                 ],
             }
@@ -82,7 +86,7 @@ def make_analyst(services: AgentServices):
                 "analysis": analysis,
                 "status": "analyzing",
                 "errors": [str(exc)],
-                "trace": [trace("analyst", "budget_exhausted", fallback=True)],
+                "trace": [trace("analyst", "budget_exhausted", fallback=True, error=str(exc))],
             }
         except Exception as exc:  # noqa: BLE001 - deterministic fallback keeps the run alive
             analysis = fallback_analysis(notes)
@@ -90,7 +94,14 @@ def make_analyst(services: AgentServices):
                 "analysis": analysis,
                 "status": "analyzing",
                 "errors": [f"analyst: {type(exc).__name__}: {exc}"],
-                "trace": [trace("analyst", "llm_error", fallback=True)],
+                "trace": [
+                    trace(
+                        "analyst",
+                        "llm_error",
+                        fallback=True,
+                        error=f"{type(exc).__name__}: {exc}",
+                    )
+                ],
             }
 
     return analyst

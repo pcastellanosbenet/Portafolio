@@ -56,9 +56,16 @@ def test_initial_route_is_planner(settings: Settings) -> None:
     assert allowed_routes(state, services) == ["planner"]
 
 
-def test_revision_allows_research_or_writer(settings: Settings) -> None:
+def test_revision_routes_to_researcher_when_budget_is_available(settings: Settings) -> None:
     services = make_services(settings, {})
-    assert allowed_routes(populated_state(settings), services) == ["researcher", "writer"]
+    assert allowed_routes(populated_state(settings), services) == ["researcher"]
+
+
+def test_revision_routes_to_writer_when_round_limit_is_reached(settings: Settings) -> None:
+    services = make_services(settings, {})
+    state = populated_state(settings)
+    state["round"] = settings.max_rounds
+    assert allowed_routes(state, services) == ["writer"]
 
 
 def test_report_ends_the_run(settings: Settings) -> None:
@@ -68,10 +75,17 @@ def test_report_ends_the_run(settings: Settings) -> None:
     assert allowed_routes(state, services) == ["finish"]
 
 
-def test_invalid_llm_route_falls_back_to_allowed_route(settings: Settings) -> None:
+def test_invalid_llm_route_falls_back_to_allowed_route(
+    settings: Settings,
+    monkeypatch,
+) -> None:
     services = make_services(
         settings,
         {Route: Route(next="analyst", reason="Invalid for this state.")},
+    )
+    monkeypatch.setattr(
+        "src.agents.supervisor.allowed_routes",
+        lambda state, services: ["researcher", "writer"],
     )
     supervisor = make_supervisor(services)
     command = supervisor(populated_state(settings))

@@ -183,6 +183,8 @@ def test_tool_researcher_calls_tool_and_returns_sanitized_output() -> None:
     assert result.output.sources[0].source_id == VALID_ID
     assert result.usage.llm_calls == 3
     assert result.usage.search_calls == 1
+    assert result.tools_used == ["search_web"]
+    assert any(event.data.get("tools") == ["search_web"] for event in result.trace)
     assert llm.text_calls == 1
 
 

@@ -22,6 +22,7 @@ def test_valid_claim_keeps_approval() -> None:
     critique = Critique(verdict="approve")
     result = enforce_critique(critique, [note], {"s1": source})
     assert result.verdict == "approve"
+    assert result.supported_claim_ids == ["c1"]
 
 
 def test_missing_source_forces_revision() -> None:
@@ -29,6 +30,7 @@ def test_missing_source_forces_revision() -> None:
     critique = Critique(verdict="approve")
     result = enforce_critique(critique, [note], {})
     assert result.verdict == "revise"
+    assert result.supported_claim_ids == []
     assert result.unsupported_claim_ids == ["c1"]
     assert result.missing_source_ids == ["missing"]
 

@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 from typing import Any
 
+import pytest
 from langchain_core.messages import AIMessage, HumanMessage
 from langchain_core.runnables import RunnableLambda
 from pydantic import BaseModel
@@ -28,6 +29,7 @@ class FakeChatModel:
 
     def __init__(self, behavior: str) -> None:
         self.behavior = behavior
+        self.calls = 0
 
     def with_structured_output(
         self,
@@ -37,8 +39,13 @@ class FakeChatModel:
         include_raw: bool,
     ) -> RunnableLambda[Any, Any]:
         def invoke(_: Any) -> dict[str, Any]:
+            self.calls += 1
             if self.behavior == "fail":
                 raise ProviderError("upstream unavailable", status_code=503)
+            if self.behavior == "429_once" and self.calls == 1:
+                raise ProviderError("rate limited", status_code=429)
+            if self.behavior == "timeout_once" and self.calls == 1:
+                raise TimeoutError("request timed out")
             return {
                 "parsed": schema(text="fallback answer"),
                 "raw": AIMessage(
@@ -99,6 +106,32 @@ def test_fallback_is_used_after_retryable_primary_failure(monkeypatch: Any) -> N
     assert answer.text == "fallback answer"
     assert metadata.provider == "gemini"
     assert metadata.usage["total_tokens"] == 15
+
+
+@pytest.mark.parametrize("behavior", ["429_once", "timeout_once"])
+def test_retryable_errors_recover_on_the_same_provider(
+    behavior: str,
+    monkeypatch: Any,
+) -> None:
+    settings = make_settings(
+        llm_fallback_provider=None,
+        llm_max_retries=1,
+    )
+    client = LLMClient(settings)
+    model = FakeChatModel(behavior)
+
+    def fake_chat_model(target: Any) -> FakeChatModel:
+        del target
+        return model
+
+    monkeypatch.setattr(client, "_chat_model", fake_chat_model)
+    monkeypatch.setattr("tenacity.nap.sleep", lambda _: None)
+
+    answer, metadata = client.invoke_structured(Answer, [HumanMessage(content="hello")])
+
+    assert answer.text == "fallback answer"
+    assert metadata.provider == "groq"
+    assert model.calls == 2
 
 
 class TextFallbackModel:

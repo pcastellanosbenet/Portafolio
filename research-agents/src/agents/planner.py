@@ -46,6 +46,9 @@ def make_planner(services: AgentServices):
                         "plan_created",
                         subquestions=len(plan.subquestions),
                         model=metadata.model,
+                        tokens=usage.total_tokens,
+                        latency_s=usage.latency_s,
+                        llm_calls=usage.llm_calls,
                         prompt_version="0.1.0",
                     )
                 ],
@@ -55,14 +58,21 @@ def make_planner(services: AgentServices):
                 "plan": fallback_plan(brief),
                 "status": "planning",
                 "errors": [str(exc)],
-                "trace": [trace("planner", "budget_exhausted", fallback=True)],
+                "trace": [trace("planner", "budget_exhausted", fallback=True, error=str(exc))],
             }
         except Exception as exc:  # noqa: BLE001 - preserve the run with a safe plan
             return {
                 "plan": fallback_plan(brief),
                 "status": "planning",
                 "errors": [f"planner: {type(exc).__name__}: {exc}"],
-                "trace": [trace("planner", "llm_error", fallback=True)],
+                "trace": [
+                    trace(
+                        "planner",
+                        "llm_error",
+                        fallback=True,
+                        error=f"{type(exc).__name__}: {exc}",
+                    )
+                ],
             }
 
     return planner

@@ -1,7 +1,7 @@
 # PLANS.md — `research-agents`
 
-> **Estado:** Fase 2 completada (herramientas, caché, paralelismo y 5 runs reales); Fase 3 pendiente.
-> **Fecha:** 2026-10-22.
+> **Estado:** Fase 3 completada (crítica determinista, HITL, checkpointer SQLite y reanudación real); Fase 4 pendiente.
+> **Fecha:** 2026-10-23.
 > **Ubicación:** raíz del repositorio.
 
 ## Convención de progreso
@@ -459,27 +459,42 @@ al intentar repetir esa pregunta; no se pudieron hacer más runs reales.
 
 **Objetivo:** hacer el sistema robusto ante fallos y controlable por una persona.
 
-- [ ] Definir el esquema final de `Critique`.
-- [ ] Implementar la política de máximo 2 rondas de investigación.
-- [ ] Implementar el routing de gaps del critic al researcher.
-- [ ] Implementar la comprobación de soporte de claims.
-- [ ] Implementar `interrupt()` antes del writer cuando HITL esté activo.
-- [ ] Implementar el camino de reanudación tras aprobación.
-- [ ] Implementar el camino de reanudación tras rechazo.
-- [ ] Configurar el checkpointer SQLite asíncrono.
-- [ ] Implementar el ciclo de vida de `thread_id`.
-- [ ] Ampliar la traza con nodo, modelo, tokens, latencia, tools y errores.
-- [ ] Implementar las condiciones de terminación por presupuesto, rondas y `recursion_limit`.
-- [ ] Crear test de aprobación HITL.
-- [ ] Crear test de rechazo HITL.
-- [ ] Crear test de reanudación tras fallo simulado.
-- [ ] Crear test del tope de rondas.
-- [ ] Crear test del esquema de traza.
-- [ ] Simular 429 y timeout y verificar la recuperación.
-- [ ] Ejecutar un run real, matarlo y reanudarlo con el mismo `thread_id`.
-- [ ] Documentar el procedimiento de resume.
+- [x] Definir el esquema final de `Critique`.
+- [x] Implementar la política de máximo 2 rondas de investigación.
+- [x] Implementar el routing de gaps del critic al researcher.
+- [x] Implementar la comprobación de soporte de claims.
+- [x] Implementar `interrupt()` antes del writer cuando HITL esté activo.
+- [x] Implementar el camino de reanudación tras aprobación.
+- [x] Implementar el camino de reanudación tras rechazo.
+- [x] Configurar el checkpointer SQLite asíncrono.
+- [x] Implementar el ciclo de vida de `thread_id`.
+- [x] Ampliar la traza con nodo, modelo, tokens, latencia, tools y errores.
+- [x] Implementar las condiciones de terminación por presupuesto, rondas y `recursion_limit`.
+- [x] Crear test de aprobación HITL.
+- [x] Crear test de rechazo HITL.
+- [x] Crear test de reanudación tras fallo simulado.
+- [x] Crear test del tope de rondas.
+- [x] Crear test del esquema de traza.
+- [x] Simular 429 y timeout y verificar la recuperación.
+- [x] Ejecutar un run real, interrumpirlo y reanudarlo con el mismo `thread_id`.
+- [x] Documentar el procedimiento de resume.
 
 **Criterio de salida:** un run interrumpido se reanuda sin perder estado y los ciclos quedan acotados.
+
+**Resultado:** Fase 3 cerrada el 2026-10-23. `Critique` incorpora
+`supported_claim_ids`; el critic aplica una comprobación determinista de citas y
+el supervisor envía los gaps al researcher solo si quedan rondas y presupuesto.
+El HITL usa `interrupt()` en el nodo `approval`; la aprobación continúa al writer
+y el rechazo termina con `status="failed"` sin informe. El checkpointer
+`AsyncSqliteSaver` serializa con una allowlist de modelos y el CLI conserva el
+`thread_id` para reanudar en otro proceso. `ruff` limpio y 103 tests en verde.
+
+Run real HITL `phase3-hitl-20261023`: 10 llamadas, 24.652 tokens, 3 búsquedas y
+301,8 s; el writer terminó con `fallback=False` y sin errores. La traza curada
+está en `research-agents/docs/phase3/hitl-resume.json`. Un intento anterior
+expuso un `413` del writer (8.046 tokens frente a 8.000 TPM); se recortaron notas
+y snippets y el run posterior validó el arreglo. El fallo de proceso se cubre con
+un `KeyboardInterrupt` simulado y reanudación desde el checkpoint.
 
 ### Fase 4 — Evaluación
 
@@ -615,14 +630,18 @@ al intentar repetir esa pregunta; no se pudieron hacer más runs reales.
 | 2026-10-22 | Fase 2 | Tavily, DuckDuckGo, arXiv, Wikipedia, fetch con SSRF, caché SQLite, presupuesto mensual, router, `ToolNode`, fan-out con `Send`, `max_concurrency`, validador de citas y trazas. `ruff` limpio y 93 tests en verde. |
 | 2026-10-22 | Fase 2 | Cinco preguntas reales con Groq: 55 llamadas, 136.553 tokens, 17 búsquedas y 2.978 s acumulados. Trazas curadas en `research-agents/docs/examples/`. Una traza de RAG conserva un error de analista recuperado. |
 | 2026-10-22 | Fase 2 | Límites observados: Groq 8.000 TPM y 200.000 TPD (agotado); Gemini 20 peticiones/día (agotado); Tavily 34/1.000. Se compactaron entradas y se subió la salida a 3.000 tokens. |
+| 2026-10-23 | Fase 3 | `Critique.supported_claim_ids`, soporte determinista de claims, máximo de rondas, routing de gaps al researcher, nodo `approval` con `interrupt()`, checkpointer `AsyncSqliteSaver` con allowlist y CLI `--resume`. `ruff` limpio y 103 tests. |
+| 2026-10-23 | Fase 3 | Cuotas verificadas: Groq y Gemini respondieron 200; Tavily 34/1.000 (límite mensual). Run HITL real `phase3-hitl-20261023`: 10 llamadas, 24.652 tokens, 3 búsquedas, 301,8 s; writer sin fallback y sin errores. Traza en `docs/phase3/`. |
+| 2026-10-23 | Fase 3 | Un resume anterior expuso `413` del writer (8.046/8.000 TPM). Se recortaron notas a 300 caracteres y snippets a 120; el run HITL posterior validó el writer real. |
 |  |  |  |
 
 ---
 
 ## 14. Próximo paso
 
-Continuar con la **Fase 3 — Crítica, HITL y durabilidad**. Antes de ampliar el
-alcance conviene revalidar el critic con la configuración compacta y decidir si el
-checkpointer SQLite se implementa con `langgraph-checkpoint-sqlite` o con una capa
-propia. La evaluación sistemática de la Fase 4 debe esperar a que se recupere la
-cuota de Groq y debe usar el corpus congelado, no solo búsqueda web en vivo.
+Continuar con la **Fase 4 — Evaluación**. Las cuotas de Groq y Gemini se
+restablecieron el 2026-10-23, pero la evaluación debe usar el corpus congelado y
+no depender de búsqueda web en vivo. El siguiente trabajo es definir el conjunto
+de 15–20 preguntas, congelar las fuentes con licencia y SHA-256, implementar
+`FrozenCorpusSearch` y el runner reanudable. La API/UI/Docker quedan para la
+Fase 5, después de tener métricas reales.

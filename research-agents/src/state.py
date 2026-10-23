@@ -52,6 +52,7 @@ class ResearchState(TypedDict, total=False):
     critique: Critique | None
     report: FinalReport | None
     route: Route | None
+    hitl: dict[str, object] | None
     round: int
     usage: Annotated[Usage, merge_usage]
     trace: Annotated[list[TraceEvent], operator.add]
@@ -70,6 +71,7 @@ def initial_state(brief: ResearchBrief, *, run_id: str | None = None) -> Researc
         critique=None,
         report=None,
         route=None,
+        hitl=None,
         round=0,
         usage=Usage(),
         trace=[],

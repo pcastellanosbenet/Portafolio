@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import time
 
-from src.agents.base import AgentServices, compact_sources, json_payload
+from src.agents.base import AgentServices, compact_notes, compact_sources, json_payload
 from src.budget import BudgetExceeded, usage_from_metadata
 from src.citations import normalize_citations, validate_citations
 from src.models import Claim, FinalReport, Note, ReportDraft, Source, Usage
@@ -126,8 +126,15 @@ def make_writer(services: AgentServices):
                             "question": state["brief"].question,
                             "language": state["brief"].language,
                             "analysis": state.get("analysis"),
-                            "notes": state.get("notes", []),
-                            "sources": compact_sources(state.get("sources", {}).values()),
+                            "notes": compact_notes(
+                                state.get("notes", []),
+                                summary_chars=300,
+                                max_gaps=4,
+                            ),
+                            "sources": compact_sources(
+                                state.get("sources", {}).values(),
+                                snippet_chars=120,
+                            ),
                             "critique": state.get("critique"),
                         }
                     ),
@@ -153,6 +160,10 @@ def make_writer(services: AgentServices):
                         sources=len(report.sources),
                         fallback=False,
                         model=metadata.model,
+                        tokens=delta.total_tokens,
+                        latency_s=delta.latency_s,
+                        llm_calls=delta.llm_calls,
+                        hitl=state.get("hitl"),
                     )
                 ],
             }
@@ -163,7 +174,7 @@ def make_writer(services: AgentServices):
                 "report": report,
                 "status": "writing",
                 "errors": [str(exc)],
-                "trace": [trace("writer", "budget_exhausted", fallback=True)],
+                "trace": [trace("writer", "budget_exhausted", fallback=True, error=str(exc))],
             }
         except Exception as exc:  # noqa: BLE001 - always return a report
             draft = fallback_draft(state)
@@ -172,7 +183,14 @@ def make_writer(services: AgentServices):
                 "report": report,
                 "status": "writing",
                 "errors": [f"writer: {type(exc).__name__}: {exc}"],
-                "trace": [trace("writer", "llm_error", fallback=True)],
+                "trace": [
+                    trace(
+                        "writer",
+                        "llm_error",
+                        fallback=True,
+                        error=f"{type(exc).__name__}: {exc}",
+                    )
+                ],
             }
 
     return writer

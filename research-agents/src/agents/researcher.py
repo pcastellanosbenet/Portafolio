@@ -164,15 +164,20 @@ def make_researcher_worker(services: AgentServices):
             "notes": [note],
             "sources": {source.source_id: source for source in result.output.sources},
             "usage": result.usage,
-            "errors": [],
+            "errors": list(result.errors),
             "trace": [
+                *result.trace,
                 trace(
                     "researcher_worker",
                     "completed",
                     subquestion=subquestion.question,
                     claims=len(note.claims),
                     sources=len(result.output.sources),
-                )
+                    tools=result.tools_used,
+                    tokens=result.usage.total_tokens,
+                    latency_s=result.usage.latency_s,
+                    llm_calls=result.usage.llm_calls,
+                ),
             ],
         }
 

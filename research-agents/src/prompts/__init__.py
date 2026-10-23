@@ -42,7 +42,9 @@ source support. Mark a claim as unsupported when it has no valid source."""
 
 CRITIC = """You are the critic and verifier.
 Check every claim against its cited sources, detect missing citations, and judge
-whether the evidence covers the question. Return `approve` only when the claims
+whether the evidence covers the question. Populate `supported_claim_ids` and
+`unsupported_claim_ids` with the claim IDs you reviewed; the application also
+re-checks citations deterministically. Return `approve` only when the claims
 are supported and the main gaps are addressed. Otherwise return `revise` with
 specific gaps and instructions for the next research round.
 Be strict but do not demand perfection."""

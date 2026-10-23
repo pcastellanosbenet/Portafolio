@@ -38,8 +38,10 @@ def allowed_routes(state: ResearchState, services: AgentServices) -> list[RouteN
         return ["analyst"]
     if state.get("critique") is None:
         return ["critic"]
-    if state["critique"].verdict == "revise" and services.budget.can_research(state):
-        return ["researcher", "writer"]
+    if state["critique"].verdict == "revise":
+        if services.budget.can_research(state):
+            return ["researcher"]
+        return ["writer"]
     return ["writer"]
 
 
@@ -113,7 +115,11 @@ def make_supervisor(services: AgentServices):
 
         update: dict[str, object] = {
             "route": route,
-            "status": _STATUS_BY_ROUTE[route.next],
+            "status": (
+                "awaiting_approval"
+                if services.settings.hitl and route.next == "writer"
+                else _STATUS_BY_ROUTE[route.next]
+            ),
             "usage": usage,
             "trace": [
                 trace(
@@ -121,6 +127,9 @@ def make_supervisor(services: AgentServices):
                     "route_selected",
                     next=route.next,
                     reason=route.reason,
+                    tokens=usage.total_tokens,
+                    latency_s=usage.latency_s,
+                    llm_calls=usage.llm_calls,
                     **trace_data,
                 )
             ],
@@ -131,6 +140,10 @@ def make_supervisor(services: AgentServices):
             update["analysis"] = None
             update["critique"] = None
 
-        return Command(goto=END if route.next == "finish" else route.next, update=update)
+        if route.next == "finish":
+            return Command(goto=END, update=update)
+        if services.settings.hitl and route.next == "writer":
+            return Command(goto="approval", update=update)
+        return Command(goto=route.next, update=update)
 
     return supervisor

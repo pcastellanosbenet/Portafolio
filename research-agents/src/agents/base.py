@@ -15,6 +15,7 @@ from src.budget import BudgetGuard
 from src.config import Settings
 from src.llm import InvocationMetadata
 from src.models import ResearchOutput, ResearchTask, Source, Usage
+from src.trace import TraceEvent
 
 
 class StructuredLLM(Protocol):
@@ -56,6 +57,9 @@ class ResearchResult:
 
     output: ResearchOutput
     usage: Usage = field(default_factory=Usage)
+    tools_used: list[str] = field(default_factory=list)
+    trace: list[TraceEvent] = field(default_factory=list)
+    errors: list[str] = field(default_factory=list)
 
 
 class ResearcherBackend(Protocol):

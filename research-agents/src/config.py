@@ -116,6 +116,10 @@ class Settings(BaseSettings):
         default=Path("artifacts/research.db"),
         validation_alias=AliasChoices("RESEARCH_DB_PATH", "DB_PATH"),
     )
+    checkpoint_path: Path = Field(
+        default=Path("artifacts/checkpoints.db"),
+        validation_alias=AliasChoices("RESEARCH_CHECKPOINT_PATH", "CHECKPOINT_PATH"),
+    )
     max_llm_calls: int = Field(
         default=30,
         ge=1,
@@ -202,6 +206,7 @@ class Settings(BaseSettings):
     def ensure_runtime_dirs(self) -> None:
         """Create local runtime directories without touching tracked files."""
         self.db_path.parent.mkdir(parents=True, exist_ok=True)
+        self.checkpoint_path.parent.mkdir(parents=True, exist_ok=True)
 
 
 @lru_cache(maxsize=1)

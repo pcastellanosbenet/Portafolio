@@ -16,6 +16,7 @@ Status = Literal[
     "researching",
     "analyzing",
     "reviewing",
+    "awaiting_approval",
     "writing",
     "done",
     "failed",
@@ -164,6 +165,7 @@ class Critique(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     verdict: Verdict
+    supported_claim_ids: list[str] = Field(default_factory=list)
     gaps: list[str] = Field(default_factory=list)
     unsupported_claim_ids: list[str] = Field(default_factory=list)
     missing_source_ids: list[str] = Field(default_factory=list)

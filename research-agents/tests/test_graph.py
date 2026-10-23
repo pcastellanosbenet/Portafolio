@@ -2,6 +2,9 @@
 
 from __future__ import annotations
 
+import pytest
+from langgraph.errors import GraphRecursionError
+
 from src.agents.base import AgentServices, ResearcherBackend
 from src.agents.researcher import SingleShotResearcherBackend
 from src.budget import BudgetGuard
@@ -170,6 +173,41 @@ def test_critic_revision_runs_a_second_round(settings: Settings) -> None:
     assert state["report"].claims[0].source_ids == ["src_1"]
 
 
+def test_round_limit_stops_revision_after_the_configured_number(
+    settings: Settings,
+) -> None:
+    limited = settings.model_copy(update={"max_rounds": 1})
+    responses = base_responses()
+    responses[Critique] = Critique(verdict="revise", gaps=["Still missing evidence."])
+    researcher = StubResearcher()
+    services = make_services(limited, responses, researcher)
+
+    state = run_research(
+        build_graph(services),
+        ResearchBrief(question="What is the evidence?"),
+    )
+
+    assert state["round"] == 1
+    assert len(researcher.calls) == 1
+    assert state["report"] is not None
+    assert any("another research round" in item for item in state["report"].limitations)
+
+
+def test_trace_events_have_the_expected_schema(settings: Settings) -> None:
+    services = make_services(settings, base_responses())
+    state = run_research(build_graph(services), ResearchBrief(question="What is the evidence?"))
+
+    for event in state["trace"]:
+        payload = event.model_dump(mode="json")
+        assert {"timestamp", "node", "event", "data"} <= payload.keys()
+        assert isinstance(payload["node"], str)
+        assert isinstance(payload["event"], str)
+
+    assert any("tokens" in event.data for event in state["trace"])
+    assert any("latency_s" in event.data for event in state["trace"])
+    assert any("llm_calls" in event.data for event in state["trace"])
+
+
 def test_budget_exhaustion_still_returns_a_report(settings: Settings) -> None:
     exhausted = settings.model_copy(update={"max_llm_calls": 0})
     services = make_services(exhausted, {})
@@ -223,3 +261,14 @@ def test_single_shot_backend_uses_the_structured_schema(settings: Settings) -> N
     result = backend.research(task)
     assert result.output.claims[0].claim_id == "claim_1"
     assert result.usage.llm_calls == 1
+
+
+def test_recursion_limit_is_a_hard_stop(settings: Settings) -> None:
+    services = make_services(settings, base_responses())
+
+    with pytest.raises(GraphRecursionError):
+        run_research(
+            build_graph(services),
+            ResearchBrief(question="What is the evidence?"),
+            recursion_limit=1,
+        )

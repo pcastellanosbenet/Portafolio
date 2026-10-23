@@ -1,0 +1,555 @@
+{
+  "run_id": "phase3-hitl-20261023",
+  "thread_id": "phase3-hitl-20261023",
+  "question": "¿Qué es un transformer y para qué se usa en NLP?",
+  "run_config": {
+    "max_workers": 1,
+    "max_tool_steps": 1,
+    "max_rounds": 1,
+    "llm_fallback_provider": null,
+    "llm_max_output_tokens": 3000,
+    "hitl": true
+  },
+  "report": {
+    "title": "Transformers en NLP: definición, arquitectura y aplicaciones",
+    "answer_markdown": "## ¿Qué es un Transformer?\n\nUn **Transformer** es una arquitectura de redes neuronales diseñada para procesar secuencias de datos (como texto) en paralelo mediante mecanismos de **auto‑atención** (self‑attention) [src_cc504b64fc49][src_688e65418e02][src_121fd032f327]. Fue introducido por **Vaswani et al.** en 2017 en el artículo *“Attention Is All You Need”* [src_c3ab01e47e61][src_a7468c685165].\n\n## Arquitectura y componentes principales\n\n- **Estructura encoder‑decoder**: tanto el codificador como el decodificador están formados por capas apiladas de bloques de atención multi‑cabeza y redes feed‑forward [src_688e65418e02][src_121fd032f327].\n- **Componentes clave**:\n  - *Embeddings* de entrada y *codificación posicional*.\n  - *Multi‑head self‑attention* en el encoder y *cross‑attention* en el decoder.\n  - *Feed‑forward* posicional.\n  - *Normalización por capa* y *conexiones residuales* [src_cc504b64fc49][src_688e65418e02][src_5642ba2e1e7d].\n- **Decoder**: añade atención causal (masked self‑attention) y atención encoder‑decoder para generar la salida token a token [src_5642ba2e1e7d][src_688e65418e02].\n\n## Origen y relevancia en NLP\n\nEl Transformer sustituyó la recurrencia y las convoluciones por auto‑atención, permitiendo el procesamiento paralelo de tokens [src_a7468c685165][src_34c4c8ee90c4]. En sus experimentos iniciales se evaluó en **traducción automática**, superando a arquitecturas seq2seq previas [src_c3ab01e47e61][src_34c4c8ee90c4]. Desde entonces, se ha convertido en la arquitectura base de la mayoría de los **modelos de lenguaje grandes** y de una amplia gama de tareas de NLP [src_908d6734364c].\n\n## Principales tareas de NLP donde se emplean Transformers\n\n- **Clasificación de texto** (por ejemplo, análisis de sentimiento con BERT).\n- **Respuesta a preguntas** (QA) (por ejemplo, BERT o RoBERTa en el benchmark SQuAD).\n- **Resumen automático** (por ejemplo, modelos BART o T5 para generación de resúmenes).\n- **Traducción automática** (el propio modelo original Transformer y sus variantes).\n\n> **Nota:** aunque la literatura y la práctica demuestran ampliamente el uso de Transformers en estas tareas, los documentos proporcionados en la evidencia actual no describen explícitamente cada aplicación. Por lo tanto, la afirmación de uso en estas tareas carece de citas directas en el conjunto de fuentes disponible.\n\n---\n\n**Resumen**: El Transformer es una arquitectura basada en auto‑atención que revolucionó el procesamiento de secuencias en NLP, ofreciendo un marco flexible que se adapta a tareas como clasificación, QA, resumen y traducción, aunque se requiere evidencia adicional para respaldar cada aplicación específica.\n",
+    "claims": [
+      {
+        "claim_id": "c1",
+        "text": "Transformer es una arquitectura de redes neuronales que procesa secuencias en paralelo mediante mecanismos de atención auto‑atención.",
+        "source_ids": [
+          "src_121fd032f327",
+          "src_688e65418e02",
+          "src_77d4651e242b",
+          "src_a7468c685165",
+          "src_c3ab01e47e61",
+          "src_cc504b64fc49"
+        ]
+      },
+      {
+        "claim_id": "c2",
+        "text": "La arquitectura se organiza en un codificador y un decodificador, cada uno compuesto por bloques apilados de atención multi‑cabeza y redes feed‑forward.",
+        "source_ids": [
+          "src_101515894110",
+          "src_121fd032f327",
+          "src_34c4c8ee90c4",
+          "src_688e65418e02",
+          "src_77d4651e242b",
+          "src_a7468c685165"
+        ]
+      },
+      {
+        "claim_id": "c3",
+        "text": "Los componentes clave incluyen embeddings de entrada, codificación posicional, atención multi‑cabeza (self‑attention en el codificador y atención cruzada en el decodificador), redes feed‑forward de posición, normalización por capa y conexiones residuales.",
+        "source_ids": [
+          "src_101515894110",
+          "src_34c4c8ee90c4",
+          "src_5642ba2e1e7d",
+          "src_688e65418e02",
+          "src_77d4651e242b",
+          "src_c3ab01e47e61",
+          "src_cc504b64fc49"
+        ]
+      },
+      {
+        "claim_id": "c4",
+        "text": "En el decodificador se añade atención causal (masked self‑attention) y atención encoder‑decoder para generar la salida secuencial.",
+        "source_ids": [
+          "src_04d3b1b21963",
+          "src_101515894110",
+          "src_5642ba2e1e7d",
+          "src_688e65418e02",
+          "src_908d6734364c"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "src_04d3b1b21963",
+        "url": "https://www.youtube.com/watch?v=HUbGDiejiwY",
+        "title": "Transformer Applications in NLP Explained | GPT vs BERT vs T5 (With Examples)",
+        "kind": "web",
+        "snippet": "#Transformers #NLP #GPT #BERT #T5 #MachineLearning #DeepLearning #ArtificialIntelligence #NaturalLanguageProcessing #TextSummarization #QuestionAnswering #LLM [...] [1:39] GPT2 from OpenAI, BERT from Google's AI team, and the one we're going to zero in on today, T5, which is als…",
+        "accessed_at": "2026-10-23T08:32:14.200957Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_101515894110",
+        "url": "https://www.unite.ai/nlp-rise-with-transformer-models-a-comprehensive-analysis-of-t5-bert-and-gpt",
+        "title": "NLP Rise with Transformer Models | A Comprehensive Analysis of T5, BERT, and GPT – Unite.AI",
+        "kind": "web",
+        "snippet": "BERT: Adapts the final hidden states of the pre-trained model for downstream tasks with additional output layers as needed. GPT: Adds a linear layer on top of the transformer and fine-tunes on the downstream task using the same causal language modeling objective. T5: Converts al…",
+        "accessed_at": "2026-10-23T08:32:14.200969Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_121fd032f327",
+        "url": "https://huggingface.co/blog/Esmail-AGumaan/attention-is-all-you-need",
+        "title": "Transformers",
+        "kind": "web",
+        "snippet": "The paper presents the Transformer model's architecture and its components, including the encoder and decoder stacks. The encoder consists of multiple layers with self-attention mechanisms and position-wise fully connected networks. The decoder, in addition to the encoder layers…",
+        "accessed_at": "2026-10-23T08:30:14.699814Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_34c4c8ee90c4",
+        "url": "https://en.wikipedia.org/wiki/Attention_Is_All_You_Need",
+        "title": "Attention Is All You Need - Wikipedia",
+        "kind": "web",
+        "snippet": "On 2017-06-12, the original (100M-parameter) encoder–decoder transformer model was published in the \"Attention is All you need\" paper. At the time, the focus of the research was on improving seq2seq for machine translation, by removing its recurrence to process all tokens in par…",
+        "accessed_at": "2026-10-23T08:31:14.502020Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_5642ba2e1e7d",
+        "url": "https://en.wikipedia.org/wiki/Transformer_(deep_learning)",
+        "title": "Transformer (deep learning)",
+        "kind": "web",
+        "snippet": "Each decoder consists of three major components: a causally masked self-attention mechanism, a cross-attention mechanism, and a feed-forward neural network. The decoder functions in a similar fashion to the encoder, but an additional attention mechanism is inserted which instead…",
+        "accessed_at": "2026-10-23T08:30:14.699826Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_688e65418e02",
+        "url": "https://www.scaler.com/blog/transformer-architecture-explained-how-attention-powers-modern-ai",
+        "title": "Transformer Architecture Explained How Attention Powers Modern Ai - Scaler",
+        "kind": "web",
+        "snippet": "## Core Components of the Transformer Architecture The standard transformer architecture follows an encoder-decoder structure. The encoder maps an input sequence of symbol representations into a sequence of continuous representations, while the decoder generates an output sequen…",
+        "accessed_at": "2026-10-23T08:30:14.699797Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_77d4651e242b",
+        "url": "https://finance.yahoo.com/news/hugging-face-reaches-2-billion-142841619.html",
+        "title": "Hugging Face reaches $2 billion valuation to build the GitHub of machine learning",
+        "kind": "web",
+        "snippet": "With Transformers, you can leverage popular NLP models, such as BERT, GPT-2, T5 or DistilBERT and use those models to manipulate text in one way or another. For instance, you can classify text, extract information, automatically answer questions, summarize text, generate text, e…",
+        "accessed_at": "2026-10-23T08:32:14.200936Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_908d6734364c",
+        "url": "https://arxiv.org/html/2510.05364v1",
+        "title": "The End of Transformers? On Challenging Attention and the Rise of Sub-Quadratic Architectures",
+        "kind": "web",
+        "snippet": "The transformer architecture represents a foundational breakthrough in Natural Language Processing (NLP) (Vaswani et al., 2017), forming the backbone of most Large Language Models (LLMs) (Brown et al., 2020) and serving as a reliable architecture choice for predictable performan…",
+        "accessed_at": "2026-10-23T08:31:14.502054Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_a7468c685165",
+        "url": "https://arxiv.org/abs/1706.03762",
+        "title": "[1706.03762] Attention Is All You Need",
+        "kind": "web",
+        "snippet": "> Abstract:The dominant sequence transduction models are based on complex recurrent or convolutional neural networks in an encoder-decoder configuration. The best performing models also connect the encoder and decoder through an attention mechanism. We propose a new simple netwo…",
+        "accessed_at": "2026-10-23T08:31:14.502069Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_b789e1e1835a",
+        "url": "https://d2l.ai/chapter_attention-mechanisms-and-transformers/transformer.html",
+        "title": "11.7. The Transformer Architecture — Dive into Deep Learning 1.0.3 documentation",
+        "kind": "web",
+        "snippet": "As shown in Fig. 11.7.1, the Transformer decoder is composed of multiple identical layers. Each layer is implemented in the following `TransformerDecoderBlock` class, which contains three sublayers: decoder self-attention, encoder–decoder attention, and positionwise feed-forward…",
+        "accessed_at": "2026-10-23T08:30:14.699838Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_c3ab01e47e61",
+        "url": "https://arxiv.org/pdf/1706.03762",
+        "title": "1706.03762v7.pdf",
+        "kind": "web",
+        "snippet": "art. In the former task our best model outperforms even all previously reported ensembles. We are excited about the future of attention-based models and plan to apply them to other tasks. We plan to extend the Transformer to problems involving input and output modalities other t…",
+        "accessed_at": "2026-10-23T08:31:14.501997Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_c77da97f155d",
+        "url": "https://www.youtube.com/watch?v=SZorAJ4I-sA",
+        "title": "Transformers, explained: Understand the model behind GPT, BERT, and T5",
+        "kind": "web",
+        "snippet": "[1:55] In language, the order of words matters, and you can't just shuffle them around. [2:00] For example, the sentence Jane went looking for trouble means something very different than the sentence Trouble went looking for Jane. [2:07] So any model that's going to deal with la…",
+        "accessed_at": "2026-10-23T08:32:14.200992Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_cc504b64fc49",
+        "url": "https://www.datacamp.com/tutorial/how-transformers-work",
+        "title": "How Transformers Work: A Detailed Exploration of Transformer Architecture",
+        "kind": "web",
+        "snippet": "Transformers are neural network architectures that use self-attention mechanisms to process sequential data in parallel, replacing the need for recurrence Key components: input embeddings, positional encoding, multi-head self-attention, feed-forward networks, and layer normaliza…",
+        "accessed_at": "2026-10-23T08:30:14.699765Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_e529c2df4101",
+        "url": "https://dev.to/admantium/large-language-models-comparing-gen-1-models-gpt-bert-t5-and-more-74h",
+        "title": "Large Language Models: Comparing Gen 1 Models (GPT, BERT, T5 and More) - DEV Community",
+        "kind": "web",
+        "snippet": "The BERT model was released as Open Source. Its inception heralded the large-scale application of Transformers for NLP tasks. Developers and researchers used the model in several ways, and it became clear that NLP benchmarks, until then governed by complex, human-crafted rule sy…",
+        "accessed_at": "2026-10-23T08:32:14.200981Z",
+        "metadata": {}
+      },
+      {
+        "source_id": "src_fa94db5b8d98",
+        "url": "https://arxiv.org/html/2506.11305v1",
+        "title": "Don’t Pay Attention",
+        "kind": "web",
+        "snippet": "| | | | | | --- --- | Model | Mean | Standard Deviation | Standard Error | 95% Confidence Interval | | Avey-153M | 42.32 | 0.3683 | 0.2126 | (41.41, 43.24) | | Transformer++-152M | 41.72 | 0.1821 | 0.1052 | (41.27, 42.17) | | Mamba-144M | 42.73 | 0.2700 | 0.1559 | (42.06, 43.40)…",
+        "accessed_at": "2026-10-23T08:31:14.502084Z",
+        "metadata": {}
+      }
+    ],
+    "confidence": "high",
+    "limitations": [
+      "Las fuentes suministradas describen la arquitectura y su origen, pero no proporcionan citas directas que demuestren el uso de Transformers en clasificación de texto, respuesta a preguntas, resumen y traducción. Por lo tanto, esas afirmaciones carecen de respaldo documental en el conjunto de evidencias disponible.",
+      "The critic requested another research round; this report uses the evidence available when the budget or round limit was reached."
+    ],
+    "usage": {
+      "llm_calls": 10,
+      "input_tokens": 17070,
+      "output_tokens": 7582,
+      "total_tokens": 24652,
+      "search_calls": 3,
+      "latency_s": 301.814,
+      "models": {
+        "openai/gpt-oss-120b": 4,
+        "openai/gpt-oss-20b": 6
+      }
+    }
+  },
+  "usage": {
+    "llm_calls": 10,
+    "input_tokens": 17070,
+    "output_tokens": 7582,
+    "total_tokens": 24652,
+    "search_calls": 3,
+    "latency_s": 301.814,
+    "models": {
+      "openai/gpt-oss-120b": 4,
+      "openai/gpt-oss-20b": 6
+    }
+  },
+  "round": 1,
+  "status": "done",
+  "route": {
+    "next": "finish",
+    "reason": "Report exists."
+  },
+  "hitl": {
+    "approved": true,
+    "feedback": ""
+  },
+  "interrupted": false,
+  "errors": [],
+  "trace": [
+    {
+      "timestamp": "2026-10-23T08:29:10.274873Z",
+      "node": "supervisor",
+      "event": "route_selected",
+      "data": {
+        "next": "planner",
+        "reason": "Only one valid route for this state.",
+        "tokens": 0,
+        "latency_s": 0.0,
+        "llm_calls": 0,
+        "allowed": [
+          "planner"
+        ],
+        "deterministic": true
+      }
+    },
+    {
+      "timestamp": "2026-10-23T08:29:14.093379Z",
+      "node": "planner",
+      "event": "plan_created",
+      "data": {
+        "subquestions": 3,
+        "model": "openai/gpt-oss-120b",
+        "tokens": 1308,
+        "latency_s": 3.817,
+        "llm_calls": 1,
+        "prompt_version": "0.1.0"
+      }
+    },
+    {
+      "timestamp": "2026-10-23T08:29:14.095195Z",
+      "node": "supervisor",
+      "event": "route_selected",
+      "data": {
+        "next": "researcher",
+        "reason": "Only one valid route for this state.",
+        "tokens": 0,
+        "latency_s": 0.0,
+        "llm_calls": 0,
+        "allowed": [
+          "researcher"
+        ],
+        "deterministic": true
+      }
+    },
+    {
+      "timestamp": "2026-10-23T08:29:14.096792Z",
+      "node": "researcher",
+      "event": "dispatch",
+      "data": {
+        "workers": 3,
+        "max_workers": 1,
+        "round": 1
+      }
+    },
+    {
+      "timestamp": "2026-10-23T08:30:10.809947Z",
+      "node": "researcher:agent",
+      "event": "tool_call",
+      "data": {
+        "step": 1,
+        "tool_calls": 1,
+        "tools": [
+          "search_web"
+        ],
+        "model": "openai/gpt-oss-20b",
+        "tokens": 610,
+        "latency_s": 56.684,
+        "llm_calls": 1
+      }
+    },
+    {
+      "timestamp": "2026-10-23T08:30:14.700008Z",
+      "node": "researcher:finalize",
+      "event": "output_created",
+      "data": {
+        "claims": 4,
+        "sources": 5,
+        "model": "openai/gpt-oss-20b",
+        "tools": [
+          "search_web"
+        ],
+        "tokens": 2106,
+        "latency_s": 2.132,
+        "llm_calls": 1
+      }
+    },
+    {
+      "timestamp": "2026-10-23T08:30:14.713455Z",
+      "node": "researcher_worker",
+      "event": "completed",
+      "data": {
+        "subquestion": "¿Qué es la arquitectura Transformer y cuáles son sus componentes principales?",
+        "claims": 4,
+        "sources": 5,
+        "tools": [
+          "search_web"
+        ],
+        "tokens": 2716,
+        "latency_s": 58.816,
+        "llm_calls": 2
+      }
+    },
+    {
+      "timestamp": "2026-10-23T08:31:10.827340Z",
+      "node": "researcher:agent",
+      "event": "tool_call",
+      "data": {
+        "step": 1,
+        "tool_calls": 1,
+        "tools": [
+          "search_web"
+        ],
+        "model": "openai/gpt-oss-20b",
+        "tokens": 614,
+        "latency_s": 56.109,
+        "llm_calls": 1
+      }
+    },
+    {
+      "timestamp": "2026-10-23T08:31:14.502245Z",
+      "node": "researcher:finalize",
+      "event": "output_created",
+      "data": {
+        "claims": 4,
+        "sources": 5,
+        "model": "openai/gpt-oss-20b",
+        "tools": [
+          "search_web"
+        ],
+        "tokens": 2652,
+        "latency_s": 1.837,
+        "llm_calls": 1
+      }
+    },
+    {
+      "timestamp": "2026-10-23T08:31:14.513818Z",
+      "node": "researcher_worker",
+      "event": "completed",
+      "data": {
+        "subquestion": "¿Cómo surgió el modelo Transformer y qué trabajos clave lo introdujeron en el campo del NLP?",
+        "claims": 4,
+        "sources": 5,
+        "tools": [
+          "search_web"
+        ],
+        "tokens": 3266,
+        "latency_s": 57.946,
+        "llm_calls": 2
+      }
+    },
+    {
+      "timestamp": "2026-10-23T08:32:10.822754Z",
+      "node": "researcher:agent",
+      "event": "tool_call",
+      "data": {
+        "step": 1,
+        "tool_calls": 1,
+        "tools": [
+          "search_web"
+        ],
+        "model": "openai/gpt-oss-20b",
+        "tokens": 603,
+        "latency_s": 56.305,
+        "llm_calls": 1
+      }
+    },
+    {
+      "timestamp": "2026-10-23T08:32:14.201139Z",
+      "node": "researcher:finalize",
+      "event": "output_created",
+      "data": {
+        "claims": 4,
+        "sources": 5,
+        "model": "openai/gpt-oss-20b",
+        "tools": [
+          "search_web"
+        ],
+        "tokens": 2290,
+        "latency_s": 1.733,
+        "llm_calls": 1
+      }
+    },
+    {
+      "timestamp": "2026-10-23T08:32:14.217851Z",
+      "node": "researcher_worker",
+      "event": "completed",
+      "data": {
+        "subquestion": "¿Para qué tareas de procesamiento del lenguaje natural se utilizan los Transformers y cuáles son ejemplos representativos?",
+        "claims": 4,
+        "sources": 5,
+        "tools": [
+          "search_web"
+        ],
+        "tokens": 2893,
+        "latency_s": 58.038,
+        "llm_calls": 2
+      }
+    },
+    {
+      "timestamp": "2026-10-23T08:32:14.219829Z",
+      "node": "supervisor",
+      "event": "route_selected",
+      "data": {
+        "next": "analyst",
+        "reason": "Only one valid route for this state.",
+        "tokens": 0,
+        "latency_s": 0.0,
+        "llm_calls": 0,
+        "allowed": [
+          "analyst"
+        ],
+        "deterministic": true
+      }
+    },
+    {
+      "timestamp": "2026-10-23T08:33:16.362047Z",
+      "node": "analyst",
+      "event": "analysis_created",
+      "data": {
+        "evidence": 12,
+        "gaps": 0,
+        "model": "openai/gpt-oss-120b",
+        "tokens": 4972,
+        "latency_s": 62.14,
+        "llm_calls": 1
+      }
+    },
+    {
+      "timestamp": "2026-10-23T08:33:16.363001Z",
+      "node": "supervisor",
+      "event": "route_selected",
+      "data": {
+        "next": "critic",
+        "reason": "Only one valid route for this state.",
+        "tokens": 0,
+        "latency_s": 0.0,
+        "llm_calls": 0,
+        "allowed": [
+          "critic"
+        ],
+        "deterministic": true
+      }
+    },
+    {
+      "timestamp": "2026-10-23T08:34:14.220519Z",
+      "node": "critic",
+      "event": "critique_created",
+      "data": {
+        "verdict": "revise",
+        "supported": 4,
+        "unsupported": 4,
+        "gaps": 1,
+        "model": "openai/gpt-oss-120b",
+        "tokens": 4079,
+        "latency_s": 57.856,
+        "llm_calls": 1
+      }
+    },
+    {
+      "timestamp": "2026-10-23T08:34:14.222494Z",
+      "node": "supervisor",
+      "event": "route_selected",
+      "data": {
+        "next": "writer",
+        "reason": "Only one valid route for this state.",
+        "tokens": 0,
+        "latency_s": 0.0,
+        "llm_calls": 0,
+        "allowed": [
+          "writer"
+        ],
+        "deterministic": true
+      }
+    },
+    {
+      "timestamp": "2026-10-23T08:34:54.152978Z",
+      "node": "approval",
+      "event": "hitl_decision",
+      "data": {
+        "approved": true,
+        "feedback": ""
+      }
+    },
+    {
+      "timestamp": "2026-10-23T08:34:57.356740Z",
+      "node": "writer",
+      "event": "report_created",
+      "data": {
+        "claims": 4,
+        "sources": 15,
+        "fallback": false,
+        "model": "openai/gpt-oss-120b",
+        "tokens": 5418,
+        "latency_s": 3.201,
+        "llm_calls": 1,
+        "hitl": {
+          "approved": true,
+          "feedback": ""
+        }
+      }
+    },
+    {
+      "timestamp": "2026-10-23T08:34:57.361256Z",
+      "node": "supervisor",
+      "event": "run_finished",
+      "data": {}
+    }
+  ]
+}
