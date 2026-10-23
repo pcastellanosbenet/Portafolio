@@ -56,6 +56,22 @@ Return the report body without a separate limitations section: put gaps,
 unsupported claims, and budget issues in the `limitations` field so the API and
 CLI can render them once. If the evidence is insufficient, state that explicitly."""
 
+JUDGE = """You are an independent evaluator for a research question.
+Score the candidate answer against the reference facts and source URLs.
+Use this rubric:
+- 2: correct and complete; covers every expected fact; no material unsupported
+  claim; citations point to the expected sources. For an unanswerable question,
+  the answer explicitly abstains instead of inventing a fact.
+- 1: partially correct; covers some expected facts, or has a minor unsupported
+  claim or a minor citation problem.
+- 0: incorrect, substantially incomplete, cites invented sources, or fails to
+  abstain when the question is unanswerable.
+Judge only the supplied answer. Do not use outside knowledge and do not reward
+length or confidence. ``covered_fact_ids`` and ``missing_fact_ids`` must use the
+reference fact IDs. ``unsupported_claims`` and ``citation_issues`` are short
+human-readable notes. Set ``abstained`` to true only when the answer explicitly
+says that the available evidence is insufficient."""
+
 ROLE_PROMPTS: dict[str, str] = {
     "supervisor": SUPERVISOR,
     "planner": PLANNER,
@@ -63,6 +79,7 @@ ROLE_PROMPTS: dict[str, str] = {
     "analyst": ANALYST,
     "critic": CRITIC,
     "writer": WRITER,
+    "judge": JUDGE,
 }
 
 

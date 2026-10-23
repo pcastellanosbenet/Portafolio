@@ -1,6 +1,6 @@
 # PLANS.md — `research-agents`
 
-> **Estado:** Fase 3 completada (crítica determinista, HITL, checkpointer SQLite y reanudación real); Fase 4 pendiente.
+> **Estado:** Fase 4 implementada (corpus congelado, baselines, juez, runner y smoke real); la evaluación completa de 20 preguntas y la Fase 5 siguen pendientes.
 > **Fecha:** 2026-10-23.
 > **Ubicación:** raíz del repositorio.
 
@@ -500,32 +500,32 @@ un `KeyboardInterrupt` simulado y reanudación desde el checkpoint.
 
 **Objetivo:** medir el sistema contra baselines y producir resultados reales.
 
-- [ ] Definir el esquema de preguntas de evaluación.
-- [ ] Seleccionar 15–20 preguntas en las cuatro categorías.
-- [ ] Verificar la licencia de las fuentes elegidas.
-- [ ] Congelar el corpus de evaluación con URL, fecha, licencia y SHA-256.
-- [ ] Implementar `FrozenCorpusSearch`.
-- [ ] Implementar el runner de evaluación reanudable.
-- [ ] Implementar la rúbrica del juez.
-- [ ] Implementar el parser y la validación de la salida del juez.
-- [ ] Implementar la métrica de éxito de tarea.
-- [ ] Implementar la métrica de cobertura factual.
-- [ ] Implementar las métricas de citas.
-- [ ] Implementar la métrica de soporte de claims.
-- [ ] Implementar la métrica de abstención.
-- [ ] Implementar las métricas de eficiencia.
-- [ ] Implementar el baseline B0 de agente único.
-- [ ] Implementar el baseline B1 de pipeline fijo.
-- [ ] Implementar el sistema B2 completo.
-- [ ] Implementar los flags de ablación.
-- [ ] Ejecutar un smoke eval de 2 preguntas.
-- [ ] Ejecutar la evaluación completa B0/B1/B2 por lotes.
-- [ ] Ejecutar 3 repeticiones sobre el subconjunto de robustez.
-- [ ] Revisar manualmente el 20% de las respuestas.
-- [ ] Construir la taxonomía de fallos.
-- [ ] Guardar los resultados crudos en `eval/results/`.
-- [ ] Generar la tabla resumen y el gráfico calidad vs. coste.
-- [ ] Escribir `docs/evaluation.md` con metodología, resultados y limitaciones.
+- [x] Definir el esquema de preguntas de evaluación.
+- [x] Seleccionar 15–20 preguntas en las cuatro categorías (20, cinco por categoría).
+- [x] Verificar la licencia de las fuentes elegidas (Wikipedia, CC BY-SA 4.0).
+- [x] Congelar el corpus de evaluación con URL, fecha, licencia y SHA-256.
+- [x] Implementar `FrozenCorpusSearch` y `FrozenPageFetcher` (sin fallback web).
+- [x] Implementar el runner de evaluación reanudable.
+- [x] Implementar la rúbrica del juez.
+- [x] Implementar el parser y la validación de la salida del juez.
+- [x] Implementar la métrica de éxito de tarea.
+- [x] Implementar la métrica de cobertura factual.
+- [x] Implementar las métricas de citas.
+- [x] Implementar la métrica de soporte de claims.
+- [x] Implementar la métrica de abstención.
+- [x] Implementar las métricas de eficiencia.
+- [x] Implementar el baseline B0 de agente único.
+- [x] Implementar el baseline B1 de pipeline fijo.
+- [x] Implementar el sistema B2 completo.
+- [x] Implementar los flags de ablación (B0/B1/B2 y overrides de presupuesto).
+- [x] Ejecutar un smoke eval de 2 preguntas (6 ejecuciones, F01/U01).
+- [ ] Ejecutar la evaluación completa B0/B1/B2 por lotes (pendiente de cuota/tiempo).
+- [ ] Ejecutar 3 repeticiones sobre el subconjunto de robustez (pendiente).
+- [ ] Revisar manualmente el 20% de las respuestas (hecho el 100% del smoke, no el lote completo).
+- [x] Construir la taxonomía inicial de fallos observados en el smoke.
+- [x] Guardar los resultados crudos en `eval/results/`.
+- [x] Generar la tabla resumen y el gráfico calidad vs. coste.
+- [x] Escribir `docs/evaluation.md` con metodología, resultados y limitaciones.
 
 **Criterio de salida:** resultados reales y reproducibles para B0/B1/B2, con fallos analizados y sin métricas inventadas.
 
@@ -633,15 +633,18 @@ un `KeyboardInterrupt` simulado y reanudación desde el checkpoint.
 | 2026-10-23 | Fase 3 | `Critique.supported_claim_ids`, soporte determinista de claims, máximo de rondas, routing de gaps al researcher, nodo `approval` con `interrupt()`, checkpointer `AsyncSqliteSaver` con allowlist y CLI `--resume`. `ruff` limpio y 103 tests. |
 | 2026-10-23 | Fase 3 | Cuotas verificadas: Groq y Gemini respondieron 200; Tavily 34/1.000 (límite mensual). Run HITL real `phase3-hitl-20261023`: 10 llamadas, 24.652 tokens, 3 búsquedas, 301,8 s; writer sin fallback y sin errores. Traza en `docs/phase3/`. |
 | 2026-10-23 | Fase 3 | Un resume anterior expuso `413` del writer (8.046/8.000 TPM). Se recortaron notas a 300 caracteres y snippets a 120; el run HITL posterior validó el writer real. |
+| 2026-10-23 | Fase 4 | Corpus congelado de 30 documentos de Wikipedia (CC BY-SA 4.0) con URL, fecha y SHA-256; 20 preguntas en cuatro categorías; `FrozenSearchBackend`/`FrozenPageFetcher`; runner reanudable; juez ciego con validación; métricas de cobertura, citas, claims, abstención y eficiencia; B0/B1/B2. `ruff` limpio y 139 tests. |
+| 2026-10-23 | Fase 4 | Smoke real de 6 ejecuciones (F01/U01 × B0/B1/B2): B0 1,00 de éxito y 1.786 tokens; B1 0,50 y 9.703; B2 1,00 y 16.128,5. Gemini falló como juez por timeouts y se usó Groq `gpt-oss-20b`; se documenta como limitación. Registros en `eval/results/smoke-20261023b/`. |
+| 2026-10-23 | Fase 4 | La evaluación completa de 20 preguntas y las 3 repeticiones de robustez no se ejecutaron por cuota/tiempo. El runner permite reanudar por lotes; no se inventaron resultados. |
 |  |  |  |
 
 ---
 
 ## 14. Próximo paso
 
-Continuar con la **Fase 4 — Evaluación**. Las cuotas de Groq y Gemini se
-restablecieron el 2026-10-23, pero la evaluación debe usar el corpus congelado y
-no depender de búsqueda web en vivo. El siguiente trabajo es definir el conjunto
-de 15–20 preguntas, congelar las fuentes con licencia y SHA-256, implementar
-`FrozenCorpusSearch` y el runner reanudable. La API/UI/Docker quedan para la
-Fase 5, después de tener métricas reales.
+Terminar la **evaluación completa de Fase 4** cuando haya cuota suficiente:
+ejecutar las 20 preguntas × B0/B1/B2 por lotes con `--resume`, usar un juez de un
+proveedor distinto si Gemini responde, completar las 3 repeticiones de robustez y
+revisar el 20% de las respuestas del lote completo. Después, actualizar
+`docs/evaluation.md` y el README con la tabla de 20 preguntas. La API/UI/Docker
+quedan para la Fase 5.

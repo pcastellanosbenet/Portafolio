@@ -122,3 +122,25 @@ def test_collect_sources_from_tool_messages() -> None:
     message = ToolMessage(content=json.dumps(payload), tool_call_id="call-1", name="search_web")
     sources = collect_sources_from_messages([message])
     assert sources[VALID_ID].title == "Example"
+
+
+def test_footnote_source_ids_are_counted_for_validation() -> None:
+    report = FinalReport(
+        title="Report",
+        answer_markdown=f"A claim [^c1].\n\n[^c1]: Fuente {VALID_ID}.",
+        claims=[],
+        sources=[make_source()],
+    )
+    assert validate_citations(report).valid
+
+
+def test_unknown_footnote_source_id_is_an_issue() -> None:
+    report = FinalReport(
+        title="Report",
+        answer_markdown=f"A claim [^c1].\n\n[^c1]: Fuente {UNKNOWN_ID}.",
+        claims=[],
+        sources=[make_source()],
+    )
+    validation = validate_citations(report)
+    assert not validation.valid
+    assert UNKNOWN_ID in validation.unknown_source_ids

@@ -50,6 +50,32 @@ class Settings(BaseSettings):
     llm_max_output_tokens: int = Field(default=3_000, ge=128)
     llm_tool_fallback: bool = False
 
+    judge_provider: Provider | None = Field(
+        default=None,
+        validation_alias=AliasChoices("RESEARCH_JUDGE_PROVIDER", "JUDGE_PROVIDER"),
+    )
+    judge_model: str = Field(
+        default="",
+        validation_alias=AliasChoices("RESEARCH_JUDGE_MODEL", "JUDGE_MODEL"),
+    )
+    judge_max_output_tokens: int = Field(
+        default=1_200,
+        ge=128,
+        validation_alias=AliasChoices(
+            "RESEARCH_JUDGE_MAX_OUTPUT_TOKENS",
+            "JUDGE_MAX_OUTPUT_TOKENS",
+        ),
+    )
+    judge_max_retries: int = Field(
+        default=1,
+        ge=0,
+        le=5,
+        validation_alias=AliasChoices(
+            "RESEARCH_JUDGE_MAX_RETRIES",
+            "JUDGE_MAX_RETRIES",
+        ),
+    )
+
     groq_api_key: SecretStr | None = None
     gemini_api_key: SecretStr | None = None
     tavily_api_key: SecretStr | None = None
@@ -153,9 +179,9 @@ class Settings(BaseSettings):
         validation_alias=AliasChoices("RESEARCH_HITL", "HITL"),
     )
 
-    @field_validator("llm_fallback_provider", mode="before")
+    @field_validator("llm_fallback_provider", "judge_provider", mode="before")
     @classmethod
-    def _empty_fallback_is_none(cls, value: object) -> object:
+    def _empty_provider_is_none(cls, value: object) -> object:
         if value == "":
             return None
         return value
@@ -170,12 +196,27 @@ class Settings(BaseSettings):
             raise ValueError(
                 "LLM_FALLBACK_MODEL is required when LLM_FALLBACK_PROVIDER is set."
             )
+        if (
+            self.judge_provider
+            and self.judge_provider != self.llm_provider
+            and not self.judge_model.strip()
+        ):
+            raise ValueError(
+                "JUDGE_MODEL is required when JUDGE_PROVIDER differs from LLM_PROVIDER."
+            )
         return self
 
     @property
     def fast_model(self) -> str:
         """Return the configured fast model or fall back to the main model."""
         return self.llm_fast_model.strip() or self.llm_model
+
+    @property
+    def judge_target(self) -> tuple[Provider, str]:
+        """Return the provider and model used by the independent judge."""
+        provider = self.judge_provider or self.llm_provider
+        model = self.judge_model.strip() or self.fast_model
+        return provider, model
 
     def has_api_key_for(self, provider: Provider) -> bool:
         key = self.groq_api_key if provider == "groq" else self.gemini_api_key

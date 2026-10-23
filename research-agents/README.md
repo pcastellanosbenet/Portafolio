@@ -5,10 +5,13 @@ con OpenAI. Recibe una pregunta abierta, la descompone, busca evidencia en la we
 en fuentes académicas, verifica las citas y entrega un informe en Markdown con
 trazabilidad de herramientas, tokens y latencia.
 
-> **Estado:** Fase 3 de 6 completada (2026-10-23). El CLI, el grafo con
-> herramientas reales, el HITL y la reanudación con checkpointer SQLite están
-> cubiertos por tests. La evaluación sistemática (Fase 4) y la API FastAPI/SSE,
-> la UI y Docker (Fase 5) todavía no están implementados.
+> **Estado:** Fases 0–3 completadas y Fase 4 implementada en infraestructura
+> (2026-10-23). El CLI, el grafo con herramientas reales, el HITL, la reanudación
+> con checkpointer SQLite y el marco de evaluación con corpus congelado están
+> cubiertos por tests. Se ejecutó un smoke real de 6 ejecuciones (2 preguntas ×
+> B0/B1/B2); la evaluación completa de 20 preguntas sigue pendiente por cuota y
+> tiempo. La API FastAPI/SSE, la UI y Docker (Fase 5) todavía no están
+> implementados.
 
 ## Qué demuestra
 
@@ -31,6 +34,11 @@ trazabilidad de herramientas, tokens y latencia.
 - Trazas reproducibles sin claves ni datos privados. Cinco ejecuciones reales de
   la Fase 2 están en [`docs/examples/`](./docs/examples/) y una ejecución HITL
   reanudada está en [`docs/phase3/`](./docs/phase3/).
+- **Evaluación con corpus congelado:** 30 documentos de Wikipedia con licencia,
+  URL y SHA-256, 20 preguntas en cuatro categorías y comparación de B0 (agente
+  único), B1 (pipeline fijo) y B2 (equipo completo) con juez ciego, métricas de
+  citas y abstención, y reanudación por lotes. Metodología y resultados en
+  [`docs/evaluation.md`](./docs/evaluation.md).
 
 ## Arquitectura
 
@@ -104,6 +112,47 @@ registrado en la traza. A partir de ese caso se aumentó
 el analyst, el critic y el writer. No se pudo repetir la ejecución para obtener
 una traza limpia porque la cuota diaria de Groq se agotó durante la sesión.
 
+### Evaluación con corpus congelado (Fase 4)
+
+La Fase 4 sustituye la búsqueda web por un corpus versionado y ejecuta los tres
+sistemas con las mismas herramientas y límites. El smoke real usa F01 (factual) y
+U01 (sin respuesta), con Groq `openai/gpt-oss-120b` como sistema y
+`openai/gpt-oss-20b` como juez. Gemini no respondió como juez por timeouts, así
+que el smoke no tiene un juez de proveedor independiente; se documenta como
+limitación.
+
+| Sistema | Éxito tarea | Score juez | Cobertura | Precisión citas | Validez citas | Abstención | Llamadas | Tokens | p50 |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| B0 · agente único | 1,00 | 2,00 | 1,00 | 0,67 | 1,00 | 1,00 | 2 | 1.786 | 1,8 s |
+| B1 · pipeline fijo | 0,50 | 1,50 | 1,00 | 0,40 | 1,00 | 1,00 | 8 | 9.703 | 241,9 s |
+| B2 · equipo completo | 1,00 | 2,00 | 1,00 | 0,25 | 1,00 | 1,00 | 10 | 16.128,5 | 363,6 s |
+
+El smoke demuestra que el pipeline es ejecutable y que las métricas se calculan
+con datos reales, pero **no es la evaluación completa**: solo hay 2 de 20
+preguntas. B1 falló F01 por una claim no soportada; B2 acertó ambas, pero en F01
+citó 8 fuentes para 2 esperadas y consumió ~9× los tokens de B0. La revisión manual de las
+6 respuestas y la taxonomía de fallos están en
+[`docs/evaluation.md`](./docs/evaluation.md). Los registros crudos, el resumen y
+el gráfico están en
+[`eval/results/smoke-20261023b/`](./eval/results/smoke-20261023b/).
+
+```bash
+# Validar el corpus y el plan sin llamar a APIs
+.venv/bin/python -m scripts.run_eval --dry-run
+
+# Reproducir el smoke
+.venv/bin/python -m scripts.run_eval \
+  --systems b0,b1,b2 --question-id F01 --question-id U01 \
+  --run-id smoke-20261023b \
+  --max-rounds 1 --max-workers 1 --max-tool-steps 1 \
+  --max-llm-calls 12 --max-tokens 30000 \
+  --judge-provider groq --judge-model openai/gpt-oss-20b
+```
+
+Un lote interrumpido se reanuda con el mismo `--run-id` y `--resume`; las claves
+`(pregunta, sistema, repetición)` ya completadas se omiten. La evaluación completa
+de las 20 preguntas y las 3 repeticiones de robustez queda pendiente de cuota.
+
 ### Consumo de cuotas observado
 
 | Recurso | Límite observado | Uso en esta sesión |
@@ -142,8 +191,10 @@ por nodo. La explicación está en [`docs/phase3/README.md`](./docs/phase3/READM
 
 ## Cómo ejecutarlo
 
-Requiere Python 3.12, [`uv`](https://docs.astral.sh/uv/) y claves de Groq, Gemini
-y Tavily. Las claves se leen de `.env` y nunca se versionan.
+Requiere Python 3.12, [`uv`](https://docs.astral.sh/uv/) y una clave de Groq para
+ejecutar. Gemini y Tavily son necesarios para el fallback y las trazas en vivo;
+la evaluación con corpus congelado no usa Tavily. Las claves se leen de `.env` y
+nunca se versionan.
 
 ```bash
 cd research-agents
@@ -244,6 +295,11 @@ Todo se controla desde `.env`; los valores completos están en
 | `RESEARCH_TAVILY_MONTHLY_BUDGET` | `1000` | Contador persistente de Tavily |
 | `RESEARCH_DB_PATH` | `artifacts/research.db` | Caché y contador de presupuesto |
 | `RESEARCH_CHECKPOINT_PATH` | `artifacts/checkpoints.db` | Checkpoints HITL y reanudación |
+| `RESEARCH_FROZEN_CORPUS_PATH` | `eval/frozen/corpus.json` | Corpus de la evaluación congelada |
+| `RESEARCH_JUDGE_PROVIDER` | vacío | Proveedor del juez; vacío usa el principal |
+| `RESEARCH_JUDGE_MODEL` | vacío | Modelo del juez; vacío usa el modelo rápido |
+| `RESEARCH_JUDGE_MAX_OUTPUT_TOKENS` | `1200` | Tope de salida del juez |
+| `RESEARCH_JUDGE_MAX_RETRIES` | `1` | Reintentos del juez ante errores del proveedor |
 
 `RESEARCH_SEARCH_BACKEND=frozen` permite usar un corpus local; la demo y las
 trazas de este README usan `live`.
@@ -274,34 +330,46 @@ cd research-agents
 .venv/bin/pytest -q
 ```
 
-Estado actual: **103 tests pasan** y `ruff` no reporta errores. Los tests no hacen
+Estado actual: **139 tests pasan** y `ruff` no reporta errores. Los tests no hacen
 llamadas reales a APIs: usan fakes, `respx` y fixtures. Pueden ejecutarse en CI
 sin claves. Cubren, entre otros, el tope de rondas, la aprobación y el rechazo
 HITL, la reanudación tras un fallo simulado, el checkpointer SQLite asíncrono,
-el esquema de traza y la recuperación ante `429` y timeouts.
+el esquema de traza, la recuperación ante `429` y timeouts, la integridad del
+corpus congelado, la búsqueda y el fetch offline, las métricas, el parser del
+juez y los runners B0/B1/B2.
 
 ## Limitaciones
 
-- **No hay evaluación sistemática todavía.** Las cinco preguntas de la Fase 2 y
-  el run HITL de la Fase 3 demuestran que el flujo funciona, pero no constituyen
-  un benchmark. Falta el corpus congelado, los baselines y la comparación
-  multiagente frente a un agente único (Fase 4).
+- **La evaluación completa está pendiente.** El corpus congelado, los baselines,
+  el juez y el runner están implementados, y el smoke de 6 ejecuciones es real.
+  Pero solo cubre F01 y U01: no es un benchmark de 20 preguntas. La evaluación
+  completa y las 3 repeticiones de robustez no se ejecutaron por cuota/tiempo.
 - **La calidad no está garantizada por el validador.** El validador comprueba que
   los IDs citados existan y que los claims tengan fuentes; la comprobación del
   critic es estructural (claim con citas válidas), no entailment semántico. Esa
   comprobación requiere revisión humana o un juez independiente.
+- **El juez del smoke no fue independiente.** Gemini devolvió timeouts y se usó
+  Groq `openai/gpt-oss-20b`. La infraestructura permite un proveedor distinto,
+  pero el smoke no lo consiguió.
+- **Cobertura léxica y citas estrictas.** La cobertura factual se basa en
+  variantes escritas a mano y la precisión de citas penaliza fuentes adicionales
+  válidas. Se reportan validez y recall por separado; ninguna métrica mide
+  entailment.
 - **Free tier.** Durante la Fase 2 Groq agotó su TPD y Gemini su cuota diaria. El
-  2026-10-23 ambas volvieron a responder; para reproducir las trazas hay que
-  respetar los límites o usar un plan de pago. Tavily queda lejos del límite,
-  pero no es ilimitado.
-- **Datos vivos.** Las URLs y snippets pueden cambiar. Las trazas son una foto del
-  2026-10-22 y del 2026-10-23, no una garantía de disponibilidad futura.
+  2026-10-23 ambas volvieron a responder; para reproducir las trazas y el smoke
+  hay que respetar los límites o usar un plan de pago. Tavily queda lejos del
+  límite, pero no es ilimitado. El smoke consumió 55.235 tokens de sistema y
+  13.250 del juez.
+- **Datos vivos en las trazas.** Las URLs y snippets de la Fase 2 y 3 pueden
+  cambiar. La evaluación de Fase 4 no depende de la web: usa el corpus congelado
+  del 2026-10-23.
 - **Un error recuperado.** La traza de RAG conserva el `JSONDecodeError` del
   analista y su fallback determinista. Se documenta para no ocultar el fallo.
 - **HITL solo por CLI.** El rechazo termina el run sin informe y no reinyecta el
   feedback al researcher. La API/UI para aprobar desde fuera del CLI es Fase 5.
-- **Alcance pendiente.** API FastAPI/SSE, UI mínima, Docker y la evaluación
-  sistemática están en fases posteriores. No se incluye MCP.
+- **Alcance pendiente.** API FastAPI/SSE, UI mínima y Docker están en la Fase 5;
+  la evaluación completa de 20 preguntas y las repeticiones de robustez quedan
+  pendientes de cuota. No se incluye MCP.
 - **Solo CLI.** No hay autenticación, multiusuario ni límites por usuario; no es
   un servicio listo para exponer a Internet.
 
@@ -315,14 +383,21 @@ research-agents/
 ├── .env.example
 ├── docs/
 │   ├── spike.md
+│   ├── evaluation.md      # metodología, smoke y limitaciones (Fase 4)
 │   ├── examples/          # 5 trazas reales curadas (Fase 2)
 │   └── phase3/            # run HITL real reanudado (Fase 3)
+├── eval/
+│   ├── frozen/corpus.json # 30 documentos con licencia y SHA-256
+│   ├── questions.json     # 20 preguntas en cuatro categorías
+│   └── results/           # smoke real y resúmenes
 ├── scripts/
 │   ├── run_research.py
+│   ├── run_eval.py        # runner de evaluación B0/B1/B2
 │   └── spike_provider.py
 ├── src/
 │   ├── agents/            # supervisor, planner, researcher, approval, analyst, critic, writer
-│   ├── tools/             # Tavily, DDG, arXiv, Wikipedia, fetch, SSRF, router
+│   ├── eval/              # corpus, métricas, juez, runners, resumen
+│   ├── tools/             # Tavily, DDG, arXiv, Wikipedia, fetch, SSRF, router, frozen
 │   ├── budget.py
 │   ├── cache.py
 │   ├── checkpoint.py
@@ -339,7 +414,8 @@ research-agents/
 ## Seguridad
 
 - `.env` y `artifacts/` están en `.gitignore`.
-- No se publican claves, pesos, datasets ni páginas completas.
+- No se publican claves, pesos ni datasets privados. El corpus de evaluación sí
+  se versiona: son extractos de Wikipedia con atribución y licencia CC BY-SA 4.0.
 - Las trazas de ejemplo no contienen claves ni rutas locales; los snippets se
   recortaron.
 - Las búsquedas y descargas pasan por límites de tamaño, timeout y validación SSRF.

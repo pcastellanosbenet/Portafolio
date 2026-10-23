@@ -18,13 +18,14 @@ from src.tools.arxiv_search import ArxivSearchBackend
 from src.tools.base import (
     FetchedPage,
     FetchError,
+    PageFetcher,
     SearchBackend,
     SearchError,
     SearchResult,
 )
 from src.tools.duckduckgo import DuckDuckGoSearchBackend
 from src.tools.fetch import HttpPageFetcher
-from src.tools.frozen import FrozenSearchBackend
+from src.tools.frozen import FrozenPageFetcher, FrozenSearchBackend
 from src.tools.tavily import TavilySearchBackend
 from src.tools.wikipedia import WikipediaSearchBackend
 
@@ -72,9 +73,9 @@ class SearchRouter:
 class ToolRegistry:
     tools: list[BaseTool]
     search: SearchRouter
-    arxiv: ArxivSearchBackend
-    wikipedia: WikipediaSearchBackend
-    fetcher: HttpPageFetcher
+    arxiv: SearchBackend
+    wikipedia: SearchBackend
+    fetcher: PageFetcher
 
 
 def _search_payload(results: list[SearchResult]) -> str:
@@ -127,7 +128,10 @@ def _build_fallback(
     primary: SearchBackend,
     ddg_search_fn: Callable[[str, int], list[dict[str, Any]]] | None,
 ) -> SearchBackend | None:
-    if settings.search_fallback == "none" or primary.name == "duckduckgo":
+    if (
+        settings.search_fallback == "none"
+        or primary.name in {"duckduckgo", "frozen"}
+    ):
         return None
     if settings.search_fallback == "duckduckgo":
         return DuckDuckGoSearchBackend(cache=cache, search_fn=ddg_search_fn)
@@ -162,9 +166,17 @@ def build_registry(
         ddg_search_fn=ddg_search_fn,
     )
     router = SearchRouter(primary, fallback)
-    arxiv = ArxivSearchBackend(cache=cache, settings=settings, client=client)
-    wikipedia = WikipediaSearchBackend(cache=cache, settings=settings, client=client)
-    fetcher = HttpPageFetcher(cache=cache, settings=settings, client=client)
+    offline = settings.search_backend == "frozen"
+    if offline:
+        if not isinstance(primary, FrozenSearchBackend):
+            raise TypeError("Frozen search mode requires a FrozenSearchBackend.")
+        arxiv: SearchBackend = primary
+        wikipedia: SearchBackend = primary
+        fetcher: PageFetcher = FrozenPageFetcher(primary)
+    else:
+        arxiv = ArxivSearchBackend(cache=cache, settings=settings, client=client)
+        wikipedia = WikipediaSearchBackend(cache=cache, settings=settings, client=client)
+        fetcher = HttpPageFetcher(cache=cache, settings=settings, client=client)
 
     def _limit(value: int) -> int:
         return max(1, min(value, settings.search_max_results))

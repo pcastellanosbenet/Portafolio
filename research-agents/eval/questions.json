@@ -1,0 +1,819 @@
+{
+  "version": 1,
+  "created_at": "2026-10-23",
+  "description": "20 questions in four categories for the Phase 4 frozen evaluation.",
+  "questions": [
+    {
+      "id": "F01",
+      "category": "factual",
+      "question": "¿Qué es el aprendizaje automático y en qué se diferencia del aprendizaje profundo?",
+      "answerable": true,
+      "expected_facts": [
+        {
+          "id": "F01-1",
+          "text": "El aprendizaje automático es un subcampo de las ciencias de la computación y una rama de la inteligencia artificial.",
+          "any_of": [
+            "subcampo de las ciencias de la computacion",
+            "rama de la inteligencia artificial",
+            "subcampo de la inteligencia artificial"
+          ]
+        },
+        {
+          "id": "F01-2",
+          "text": "Su objetivo es desarrollar técnicas que permitan que las computadoras aprendan a partir de datos o experiencia.",
+          "any_of": [
+            "computadoras aprendan",
+            "aprender de la experiencia",
+            "aprendan de los datos",
+            "mejora con la experiencia"
+          ]
+        },
+        {
+          "id": "F01-3",
+          "text": "El aprendizaje profundo es una rama del aprendizaje automático que usa múltiples capas de procesamiento.",
+          "any_of": [
+            "rama del aprendizaje automatico",
+            "múltiples capas de procesamiento",
+            "multiples capas de procesamiento",
+            "múltiples capas",
+            "multiples capas"
+          ]
+        }
+      ],
+      "expected_source_urls": [
+        "https://es.wikipedia.org/wiki/Aprendizaje_autom%C3%A1tico",
+        "https://es.wikipedia.org/wiki/Aprendizaje_profundo"
+      ],
+      "rubric": "Debe definir ambos conceptos y explicar la relación de subconjunto."
+    },
+    {
+      "id": "F02",
+      "category": "factual",
+      "question": "¿Cómo se estructura una red neuronal artificial y qué papel cumple la retropropagación en su entrenamiento?",
+      "answerable": true,
+      "expected_facts": [
+        {
+          "id": "F02-1",
+          "text": "Una red neuronal artificial está formada por nodos o neuronas conectadas por aristas que modelan sinapsis.",
+          "any_of": [
+            "nodos conectados",
+            "neuronas artificiales",
+            "aristas",
+            "sinapsis"
+          ]
+        },
+        {
+          "id": "F02-2",
+          "text": "Las neuronas se agrupan en capas: entrada, capas ocultas y salida.",
+          "any_of": [
+            "capas ocultas",
+            "capa de entrada",
+            "capa de salida",
+            "se agrupan en capas"
+          ]
+        },
+        {
+          "id": "F02-3",
+          "text": "Una red se considera profunda si tiene al menos dos capas ocultas.",
+          "any_of": [
+            "al menos dos capas ocultas",
+            "dos capas ocultas"
+          ]
+        },
+        {
+          "id": "F02-4",
+          "text": "La retropropagación es un algoritmo de aprendizaje supervisado que calcula el gradiente para entrenar redes prealimentadas.",
+          "any_of": [
+            "algoritmo de aprendizaje supervisado",
+            "calcular el gradiente",
+            "propagación hacia atrás",
+            "propagacion hacia atras",
+            "redes neuronales prealimentadas",
+            "redes prealimentadas"
+          ]
+        }
+      ],
+      "expected_source_urls": [
+        "https://es.wikipedia.org/wiki/Red_neuronal_artificial",
+        "https://es.wikipedia.org/wiki/Retropropagaci%C3%B3n"
+      ],
+      "rubric": "Debe describir la estructura por capas y el papel del gradiente en el entrenamiento."
+    },
+    {
+      "id": "F03",
+      "category": "factual",
+      "question": "¿Qué es un transformer y por qué se usa en los modelos de lenguaje grandes?",
+      "answerable": true,
+      "expected_facts": [
+        {
+          "id": "F03-1",
+          "text": "Un transformer es una familia de arquitecturas de redes neuronales basada en atención multi-cabeza.",
+          "any_of": [
+            "multi-head attention",
+            "atención multi-cabeza",
+            "atencion multi-cabeza",
+            "basada en la atención"
+          ]
+        },
+        {
+          "id": "F03-2",
+          "text": "Convierte la entrada en tokens y cada token en un vector mediante una capa de embedding.",
+          "any_of": [
+            "tokens",
+            "embedding",
+            "capa de embedding",
+            "vector"
+          ]
+        },
+        {
+          "id": "F03-3",
+          "text": "Usa atención paralela y añade información posicional para que el orden de los tokens afecte la salida.",
+          "any_of": [
+            "información posicional",
+            "informacion posicional",
+            "positional encodings",
+            "posición",
+            "posicion"
+          ]
+        },
+        {
+          "id": "F03-4",
+          "text": "Los LLM suelen basarse en la arquitectura transformer.",
+          "any_of": [
+            "los llm suelen basarse en la arquitectura transformer",
+            "llm suelen basarse",
+            "arquitectura transformer"
+          ]
+        }
+      ],
+      "expected_source_urls": [
+        "https://en.wikipedia.org/wiki/Transformer_(deep_learning)",
+        "https://es.wikipedia.org/wiki/Modelo_de_lenguaje_de_gran_tama%C3%B1o"
+      ],
+      "rubric": "Debe explicar atención, tokens/embeddings y la relación con los LLM."
+    },
+    {
+      "id": "F04",
+      "category": "factual",
+      "question": "¿Qué es la generación aumentada por recuperación (RAG) y qué problema resuelve?",
+      "answerable": true,
+      "expected_facts": [
+        {
+          "id": "F04-1",
+          "text": "RAG permite a un LLM recuperar e incorporar nueva información antes de responder.",
+          "any_of": [
+            "recuperar e incorporar nueva informacion",
+            "recuperar informacion",
+            "incorporar nueva informacion"
+          ]
+        },
+        {
+          "id": "F04-2",
+          "text": "El modelo consulta un conjunto específico de documentos antes de generar la respuesta.",
+          "any_of": [
+            "consultar un conjunto especifico de documentos",
+            "consultan un conjunto especifico de documentos",
+            "consultar documentos"
+          ]
+        },
+        {
+          "id": "F04-3",
+          "text": "Así puede usar información específica del dominio o actualizada que no está en sus datos de entrenamiento.",
+          "any_of": [
+            "informacion especifica del dominio",
+            "información específica del dominio",
+            "informacion actualizada",
+            "información actualizada",
+            "no esta disponible en los datos de entrenamiento"
+          ]
+        },
+        {
+          "id": "F04-4",
+          "text": "Los LLM son modelos de IA entrenados con grandes cantidades de texto para tareas de PLN.",
+          "any_of": [
+            "enorme cantidad de texto",
+            "gran cantidad de texto",
+            "entrenado con una enorme cantidad de texto"
+          ]
+        }
+      ],
+      "expected_source_urls": [
+        "https://es.wikipedia.org/wiki/Generaci%C3%B3n_aumentada_por_recuperaci%C3%B3n",
+        "https://es.wikipedia.org/wiki/Modelo_de_lenguaje_de_gran_tama%C3%B1o"
+      ],
+      "rubric": "Debe explicar la recuperación previa a la generación y la limitación de los datos estáticos."
+    },
+    {
+      "id": "F05",
+      "category": "factual",
+      "question": "¿Qué es una alucinación de IA y por qué se considera un riesgo?",
+      "answerable": true,
+      "expected_facts": [
+        {
+          "id": "F05-1",
+          "text": "Una alucinación es una respuesta segura de una IA que no está justificada por sus datos de entrenamiento.",
+          "any_of": [
+            "respuesta segura",
+            "no parece estar justificada por sus datos de entrenamiento",
+            "no esta justificada",
+            "injustificada"
+          ]
+        },
+        {
+          "id": "F05-2",
+          "text": "Puede consistir en información falsa o inventada, por ejemplo cifras financieras incorrectas.",
+          "any_of": [
+            "informacion falsa",
+            "afirmar falsamente",
+            "cifras",
+            "inventada"
+          ]
+        },
+        {
+          "id": "F05-3",
+          "text": "Se volvió un problema importante en los LLM y puede reducir la fiabilidad de sus respuestas.",
+          "any_of": [
+            "problema importante en la tecnologia llm",
+            "problema importante",
+            "respuestas de un llm sean menos fiables",
+            "fiabilidad"
+          ]
+        }
+      ],
+      "expected_source_urls": [
+        "https://es.wikipedia.org/wiki/Alucinaci%C3%B3n_(inteligencia_artificial)",
+        "https://es.wikipedia.org/wiki/Modelo_de_lenguaje_de_gran_tama%C3%B1o"
+      ],
+      "rubric": "Debe definir la alucinación y explicar el riesgo de desinformación."
+    },
+    {
+      "id": "C01",
+      "category": "comparison",
+      "question": "Compara el aprendizaje supervisado con el aprendizaje no supervisado.",
+      "answerable": true,
+      "expected_facts": [
+        {
+          "id": "C01-1",
+          "text": "El aprendizaje supervisado usa pares de entrada y salida deseada, es decir, datos etiquetados.",
+          "any_of": [
+            "pares de objetos",
+            "datos de formacion",
+            "datos etiquetados",
+            "entrada y salida",
+            "resultados deseados",
+            "etiqueta de clase"
+          ]
+        },
+        {
+          "id": "C01-2",
+          "text": "Puede resolver regresión, con salida numérica, o clasificación, con etiquetas de clase.",
+          "any_of": [
+            "valor numerico",
+            "etiqueta de clase",
+            "regresion",
+            "clasificacion"
+          ]
+        },
+        {
+          "id": "C01-3",
+          "text": "El aprendizaje no supervisado no tiene un conocimiento a priori ni etiquetas.",
+          "any_of": [
+            "no hay un conocimiento a priori",
+            "sin etiquetas",
+            "no hay etiquetas"
+          ]
+        },
+        {
+          "id": "C01-4",
+          "text": "El aprendizaje no supervisado modela la estructura o densidad de los datos, por ejemplo mediante agrupamiento.",
+          "any_of": [
+            "modelo de densidad",
+            "agrupamiento",
+            "clustering",
+            "estructura de los datos"
+          ]
+        }
+      ],
+      "expected_source_urls": [
+        "https://es.wikipedia.org/wiki/Aprendizaje_supervisado",
+        "https://es.wikipedia.org/wiki/Aprendizaje_no_supervisado"
+      ],
+      "rubric": "Debe contrastar explícitamente la presencia o ausencia de etiquetas."
+    },
+    {
+      "id": "C02",
+      "category": "comparison",
+      "question": "Compara la regresión logística con una máquina de vectores de soporte (SVM).",
+      "answerable": true,
+      "expected_facts": [
+        {
+          "id": "C02-1",
+          "text": "La regresión logística predice una variable categórica o la probabilidad de un evento usando la función logit/logística.",
+          "any_of": [
+            "variable categorica",
+            "probabilidad de un evento",
+            "funcion logit",
+            "funcion logistica"
+          ]
+        },
+        {
+          "id": "C02-2",
+          "text": "La SVM es un conjunto de algoritmos de aprendizaje supervisado para clasificación y regresión.",
+          "any_of": [
+            "conjunto de algoritmos de aprendizaje supervisado",
+            "aprendizaje supervisado",
+            "clasificacion y regresion"
+          ]
+        },
+        {
+          "id": "C02-3",
+          "text": "La SVM construye un hiperplano de separación en un espacio de alta dimensionalidad.",
+          "any_of": [
+            "hiperplano",
+            "espacio de dimensionalidad",
+            "separacion"
+          ]
+        },
+        {
+          "id": "C02-4",
+          "text": "La SVM fue desarrollada por Vladimir Vapnik y su equipo en los laboratorios de AT&T Bell.",
+          "any_of": [
+            "vladimir vapnik",
+            "at&t bell",
+            "at&t"
+          ]
+        }
+      ],
+      "expected_source_urls": [
+        "https://es.wikipedia.org/wiki/Regresi%C3%B3n_log%C3%ADstica",
+        "https://es.wikipedia.org/wiki/M%C3%A1quina_de_vectores_de_soporte"
+      ],
+      "rubric": "Debe comparar el modelo probabilístico con el enfoque de margen máximo."
+    },
+    {
+      "id": "C03",
+      "category": "comparison",
+      "question": "Compara el método de los k vecinos más próximos con un árbol de decisión.",
+      "answerable": true,
+      "expected_facts": [
+        {
+          "id": "C03-1",
+          "text": "KNN es un método de clasificación supervisada no paramétrico que usa los ejemplos más cercanos en el espacio de características.",
+          "any_of": [
+            "metodo de clasificacion supervisada",
+            "no parametrico",
+            "ejemplos cercanos",
+            "vecinos mas cercanos"
+          ]
+        },
+        {
+          "id": "C03-2",
+          "text": "KNN es un tipo de aprendizaje vago (lazy learning): almacena los ejemplos y difiere el cómputo a la clasificación.",
+          "any_of": [
+            "lazy learning",
+            "aprendizaje vago",
+            "almacenar los vectores",
+            "difiere",
+            "computo es diferido"
+          ]
+        },
+        {
+          "id": "C03-3",
+          "text": "Un árbol de decisión es una estructura de partición recursiva con nodos internos que prueban atributos y hojas que dan una clase.",
+          "any_of": [
+            "particion recursiva",
+            "nodos internos",
+            "nodo hoja",
+            "prueba sobre un atributo",
+            "etiqueta de clase"
+          ]
+        },
+        {
+          "id": "C03-4",
+          "text": "Las rutas de la raíz a la hoja representan reglas de clasificación.",
+          "any_of": [
+            "reglas de clasificacion",
+            "raiz a la hoja"
+          ]
+        }
+      ],
+      "expected_source_urls": [
+        "https://es.wikipedia.org/wiki/K_vecinos_m%C3%A1s_pr%C3%B3ximos",
+        "https://es.wikipedia.org/wiki/%C3%81rbol_de_decisi%C3%B3n"
+      ],
+      "rubric": "Debe contrastar el enfoque basado en instancias con el particionamiento recursivo."
+    },
+    {
+      "id": "C04",
+      "category": "comparison",
+      "question": "Compara una red generativa adversaria (GAN) con un modelo de difusión.",
+      "answerable": true,
+      "expected_facts": [
+        {
+          "id": "C04-1",
+          "text": "Una GAN usa dos redes neuronales que compiten en un juego de suma cero.",
+          "any_of": [
+            "two neural networks compete",
+            "dos redes neuronales",
+            "juego de suma cero",
+            "zero-sum game",
+            "compiten"
+          ]
+        },
+        {
+          "id": "C04-2",
+          "text": "La GAN aprende a generar nuevos datos con las mismas estadísticas que los datos de entrenamiento.",
+          "any_of": [
+            "generate new data",
+            "generar nuevos datos",
+            "mismas estadisticas",
+            "same statistics",
+            "datos de entrenamiento"
+          ]
+        },
+        {
+          "id": "C04-3",
+          "text": "Un modelo de difusión es una clase de modelo de variables latentes formado por cadenas de Markov entrenadas con inferencia variacional.",
+          "any_of": [
+            "variables latentes",
+            "cadenas de markov",
+            "inferencia variacional",
+            "markov"
+          ]
+        },
+        {
+          "id": "C04-4",
+          "text": "El modelo de difusión aprende a eliminar ruido de imágenes, invirtiendo el proceso de difusión.",
+          "any_of": [
+            "eliminar el ruido",
+            "ruido gaussiano",
+            "invertir el proceso de difusion",
+            "denoising"
+          ]
+        }
+      ],
+      "expected_source_urls": [
+        "https://en.wikipedia.org/wiki/Generative_adversarial_network",
+        "https://es.wikipedia.org/wiki/Modelo_de_difusi%C3%B3n"
+      ],
+      "rubric": "Debe contrastar el juego adversarial con el proceso de denoising probabilístico."
+    },
+    {
+      "id": "C05",
+      "category": "comparison",
+      "question": "Compara el fine-tuning con la ingeniería de prompts.",
+      "answerable": true,
+      "expected_facts": [
+        {
+          "id": "C05-1",
+          "text": "El fine-tuning adapta un modelo preentrenado a una tarea downstream mediante entrenamiento adicional.",
+          "any_of": [
+            "adapting a computational model",
+            "adaptar un modelo",
+            "tarea downstream",
+            "downstream task",
+            "entrenamiento adicional",
+            "additional training"
+          ]
+        },
+        {
+          "id": "C05-2",
+          "text": "El fine-tuning puede entrenar toda la red o solo algunas capas, dejando otras congeladas.",
+          "any_of": [
+            "entire neural network",
+            "toda la red",
+            "subset of its layers",
+            "algunas capas",
+            "congeladas",
+            "frozen"
+          ]
+        },
+        {
+          "id": "C05-3",
+          "text": "La ingeniería de prompts estructura las entradas en lenguaje natural para obtener salidas específicas de un modelo generativo.",
+          "any_of": [
+            "structuring natural language inputs",
+            "estructurar las entradas",
+            "entradas en lenguaje natural",
+            "specified outputs",
+            "salidas especificas"
+          ]
+        },
+        {
+          "id": "C05-4",
+          "text": "Incluye técnicas como few-shot prompting y chain-of-thought.",
+          "any_of": [
+            "few-shot prompting",
+            "chain-of-thought",
+            "few-shot",
+            "cadena de pensamiento"
+          ]
+        }
+      ],
+      "expected_source_urls": [
+        "https://en.wikipedia.org/wiki/Fine-tuning_(deep_learning)",
+        "https://en.wikipedia.org/wiki/Prompt_engineering"
+      ],
+      "rubric": "Debe contrastar el cambio de parámetros con el diseño de la entrada."
+    },
+    {
+      "id": "M01",
+      "category": "multi_hop",
+      "question": "¿Qué relación hay entre el mecanismo de atención, la arquitectura transformer y los modelos de lenguaje grandes?",
+      "answerable": true,
+      "expected_facts": [
+        {
+          "id": "M01-1",
+          "text": "La atención es una técnica que realza unas partes de la entrada y reduce otras según su importancia.",
+          "any_of": [
+            "realza algunas partes",
+            "disminuye otras",
+            "atencion cognitiva",
+            "partes importantes",
+            "importancia"
+          ]
+        },
+        {
+          "id": "M01-2",
+          "text": "El transformer se basa en atención multi-cabeza y contextualiza cada token con los demás.",
+          "any_of": [
+            "multi-head attention",
+            "atencion multi-cabeza",
+            "contextualized",
+            "contextualiza",
+            "cada token"
+          ]
+        },
+        {
+          "id": "M01-3",
+          "text": "Los LLM suelen basarse en la arquitectura transformer.",
+          "any_of": [
+            "los llm suelen basarse en la arquitectura transformer",
+            "llm suelen basarse",
+            "arquitectura transformer"
+          ]
+        }
+      ],
+      "expected_source_urls": [
+        "https://es.wikipedia.org/wiki/Atenci%C3%B3n_(aprendizaje_autom%C3%A1tico)",
+        "https://en.wikipedia.org/wiki/Transformer_(deep_learning)",
+        "https://es.wikipedia.org/wiki/Modelo_de_lenguaje_de_gran_tama%C3%B1o"
+      ],
+      "rubric": "Debe encadenar atención -> transformer -> LLM sin saltarse el vínculo intermedio."
+    },
+    {
+      "id": "M02",
+      "category": "multi_hop",
+      "question": "¿Cómo se entrenan las redes neuronales profundas y qué papel tienen los datos etiquetados y la retropropagación?",
+      "answerable": true,
+      "expected_facts": [
+        {
+          "id": "M02-1",
+          "text": "El aprendizaje profundo usa múltiples capas no lineales para aprender representaciones jerárquicas.",
+          "any_of": [
+            "multiples capas",
+            "capas no lineales",
+            "representaciones jerarquicas"
+          ]
+        },
+        {
+          "id": "M02-2",
+          "text": "En el aprendizaje supervisado el modelo se entrena con datos etiquetados o pares de entrada y salida.",
+          "any_of": [
+            "datos etiquetados",
+            "pares de entrada y salida",
+            "datos de formacion",
+            "etiquetas"
+          ]
+        },
+        {
+          "id": "M02-3",
+          "text": "La retropropagación calcula el gradiente y actualiza los parámetros para minimizar la pérdida.",
+          "any_of": [
+            "calcular el gradiente",
+            "gradiente",
+            "actualizando iterativamente sus parametros",
+            "minimizar una funcion de perdida"
+          ]
+        }
+      ],
+      "expected_source_urls": [
+        "https://es.wikipedia.org/wiki/Aprendizaje_profundo",
+        "https://es.wikipedia.org/wiki/Aprendizaje_supervisado",
+        "https://es.wikipedia.org/wiki/Retropropagaci%C3%B3n"
+      ],
+      "rubric": "Debe conectar profundidad, supervisión y optimización por gradiente."
+    },
+    {
+      "id": "M03",
+      "category": "multi_hop",
+      "question": "¿Por qué una base de datos vectorial es útil para un sistema RAG?",
+      "answerable": true,
+      "expected_facts": [
+        {
+          "id": "M03-1",
+          "text": "Una base de datos vectorial almacena y recupera embeddings en un espacio vectorial.",
+          "any_of": [
+            "stores and retrieves embeddings",
+            "almacena y recupera",
+            "embeddings",
+            "espacio vectorial"
+          ]
+        },
+        {
+          "id": "M03-2",
+          "text": "Implementa búsqueda aproximada de vecinos más cercanos para encontrar registros semánticamente similares.",
+          "any_of": [
+            "approximate nearest neighbor",
+            "vecinos mas cercanos",
+            "semantically similar",
+            "semanticamente similares"
+          ]
+        },
+        {
+          "id": "M03-3",
+          "text": "RAG recupera documentos relevantes antes de que el LLM genere la respuesta.",
+          "any_of": [
+            "recuperar informacion",
+            "recupera documentos",
+            "antes de generar",
+            "retrieval-augmented generation",
+            "recuperacion de informacion"
+          ]
+        },
+        {
+          "id": "M03-4",
+          "text": "La base de datos puede añadir los documentos recuperados a la ventana de contexto del LLM.",
+          "any_of": [
+            "context window",
+            "ventana de contexto",
+            "added into the context",
+            "contexto del llm"
+          ]
+        }
+      ],
+      "expected_source_urls": [
+        "https://en.wikipedia.org/wiki/Vector_database",
+        "https://es.wikipedia.org/wiki/Generaci%C3%B3n_aumentada_por_recuperaci%C3%B3n"
+      ],
+      "rubric": "Debe explicar por qué la búsqueda semántica alimenta la generación."
+    },
+    {
+      "id": "M04",
+      "category": "multi_hop",
+      "question": "¿Qué prácticas y métricas permiten detectar el sobreajuste de un modelo?",
+      "answerable": true,
+      "expected_facts": [
+        {
+          "id": "M04-1",
+          "text": "El sobreajuste ocurre cuando el modelo se ajusta demasiado a los datos de entrenamiento y generaliza mal.",
+          "any_of": [
+            "sobreentrenar",
+            "ajustado a unas caracteristicas muy especificas",
+            "datos de entrenamiento",
+            "generalizando",
+            "generaliza"
+          ]
+        },
+        {
+          "id": "M04-2",
+          "text": "La validación cruzada divide los datos en particiones de entrenamiento y prueba y repite la evaluación.",
+          "any_of": [
+            "validacion cruzada",
+            "particiones",
+            "datos de entrenamiento y prueba",
+            "k-1",
+            "cross-validation"
+          ]
+        },
+        {
+          "id": "M04-3",
+          "text": "La regularización introduce información adicional para impedir el sobreajuste.",
+          "any_of": [
+            "regularizacion",
+            "informacion adicional",
+            "impedir el sobreajuste"
+          ]
+        },
+        {
+          "id": "M04-4",
+          "text": "Comparar el rendimiento en entrenamiento y en un conjunto de prueba independiente revela la brecha de generalización.",
+          "any_of": [
+            "conjunto de pruebas independiente",
+            "conjunto de prueba",
+            "datos de prueba",
+            "rendimiento en entrenamiento",
+            "generalizacion"
+          ]
+        }
+      ],
+      "expected_source_urls": [
+        "https://es.wikipedia.org/wiki/Sobreajuste",
+        "https://es.wikipedia.org/wiki/Validaci%C3%B3n_cruzada",
+        "https://es.wikipedia.org/wiki/Regularizaci%C3%B3n_(matem%C3%A1ticas)"
+      ],
+      "rubric": "Debe relacionar el diagnóstico con la validación y la regularización."
+    },
+    {
+      "id": "M05",
+      "category": "multi_hop",
+      "question": "¿Cómo se relacionan el perceptrón, la retropropagación y las redes neuronales modernas?",
+      "answerable": true,
+      "expected_facts": [
+        {
+          "id": "M05-1",
+          "text": "El perceptrón es un algoritmo de aprendizaje supervisado para clasificadores binarios, introducido por Frank Rosenblatt en 1958.",
+          "any_of": [
+            "clasificadores binarios",
+            "clasificador binario",
+            "frank rosenblatt",
+            "rosenblatt",
+            "1958",
+            "aprendizaje supervisado"
+          ]
+        },
+        {
+          "id": "M05-2",
+          "text": "Los perceptrones pueden combinarse para formar redes neuronales artificiales más complejas.",
+          "any_of": [
+            "formar una red neuronal artificial",
+            "red neuronal artificial mas compleja",
+            "combinarse",
+            "perceptrones"
+          ]
+        },
+        {
+          "id": "M05-3",
+          "text": "La retropropagación entrena redes prealimentadas calculando gradientes.",
+          "any_of": [
+            "retropropagacion",
+            "redes neuronales prealimentadas",
+            "redes prealimentadas",
+            "gradiente"
+          ]
+        },
+        {
+          "id": "M05-4",
+          "text": "Las redes neuronales modernas agrupan neuronas en capas y usan funciones de activación no lineales.",
+          "any_of": [
+            "se agrupan en capas",
+            "capas ocultas",
+            "funcion no lineal",
+            "funciones de activacion"
+          ]
+        }
+      ],
+      "expected_source_urls": [
+        "https://es.wikipedia.org/wiki/Perceptr%C3%B3n",
+        "https://es.wikipedia.org/wiki/Retropropagaci%C3%B3n",
+        "https://es.wikipedia.org/wiki/Red_neuronal_artificial"
+      ],
+      "rubric": "Debe trazar la evolución desde el perceptrón hasta las redes multicapa."
+    },
+    {
+      "id": "U01",
+      "category": "unanswerable",
+      "question": "¿Cuál es la cuota mensual gratuita de la API de Groq en octubre de 2026?",
+      "answerable": false,
+      "expected_facts": [],
+      "expected_source_urls": [],
+      "rubric": "El corpus no contiene información sobre la cuota de Groq; debe abstenerse."
+    },
+    {
+      "id": "U02",
+      "category": "unanswerable",
+      "question": "¿Qué modelo lidera el ranking LMSYS Chatbot Arena en 2026?",
+      "answerable": false,
+      "expected_facts": [],
+      "expected_source_urls": [],
+      "rubric": "El corpus no contiene el ranking LMSYS; debe abstenerse."
+    },
+    {
+      "id": "U03",
+      "category": "unanswerable",
+      "question": "¿Cuántos parámetros tiene el modelo Gemini 1.5 Pro?",
+      "answerable": false,
+      "expected_facts": [],
+      "expected_source_urls": [],
+      "rubric": "El corpus no contiene el número de parámetros de Gemini 1.5 Pro; debe abstenerse."
+    },
+    {
+      "id": "U04",
+      "category": "unanswerable",
+      "question": "¿Qué GPU se usó para entrenar el modelo Llama 3 de Meta?",
+      "answerable": false,
+      "expected_facts": [],
+      "expected_source_urls": [],
+      "rubric": "El corpus no contiene detalles de hardware de Llama 3; debe abstenerse."
+    },
+    {
+      "id": "U05",
+      "category": "unanswerable",
+      "question": "¿Cuál es el precio por millón de tokens de GPT-4.1 en la API de OpenAI?",
+      "answerable": false,
+      "expected_facts": [],
+      "expected_source_urls": [],
+      "rubric": "El corpus no contiene precios de la API; debe abstenerse."
+    }
+  ]
+}

@@ -11,7 +11,7 @@ from langchain_core.messages import BaseMessage, ToolMessage
 
 from src.models import Claim, FinalReport, ResearchOutput, Source
 
-_CITATION_RE = re.compile(r"\[(src_[0-9a-f]{12})\]")
+_SOURCE_ID_RE = re.compile(r"src_[0-9a-f]{12}")
 _FULLWIDTH_CITATION_RE = re.compile(r"[【\[]\[?\s*\^?\s*(src_[0-9a-f]{12})\s*[】\]]\]?")
 
 def normalize_citations(markdown: str) -> str:
@@ -44,7 +44,7 @@ def validate_citations(report: FinalReport) -> CitationValidation:
             unknown.extend(missing)
             issues.append(f"Claim {claim.claim_id} cites unknown sources: {', '.join(missing)}.")
 
-    referenced = _CITATION_RE.findall(normalize_citations(report.answer_markdown))
+    referenced = _SOURCE_ID_RE.findall(normalize_citations(report.answer_markdown))
     unknown_refs = [source_id for source_id in referenced if source_id not in known]
     if unknown_refs:
         unknown.extend(unknown_refs)

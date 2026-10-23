@@ -69,3 +69,29 @@ def test_runtime_directory_is_created(tmp_path: Path) -> None:
     settings = make_settings(db_path=db_path)
     settings.ensure_runtime_dirs()
     assert db_path.parent.is_dir()
+
+
+def test_judge_target_defaults_to_the_fast_model() -> None:
+    settings = make_settings()
+    assert settings.judge_target == ("groq", "test-fast-model")
+
+
+def test_judge_target_can_use_an_independent_provider() -> None:
+    settings = make_settings(
+        judge_provider="gemini",
+        judge_model="test-gemini-judge",
+        gemini_api_key="gm-test",
+    )
+    assert settings.judge_target == ("gemini", "test-gemini-judge")
+
+
+def test_judge_provider_requires_a_judge_model() -> None:
+    with pytest.raises(ValueError, match="JUDGE_MODEL is required"):
+        make_settings(judge_provider="gemini", judge_model="", gemini_api_key="gm-test")
+
+
+def test_judge_settings_use_research_env_aliases(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("RESEARCH_JUDGE_PROVIDER", "gemini")
+    monkeypatch.setenv("RESEARCH_JUDGE_MODEL", "test-env-judge")
+    settings = make_settings(gemini_api_key="gm-test")
+    assert settings.judge_target == ("gemini", "test-env-judge")

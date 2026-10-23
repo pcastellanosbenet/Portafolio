@@ -1,0 +1,43 @@
+{
+  "run_id": "smoke-20261023b",
+  "created_at": "2026-10-23T09:53:44.004871+00:00",
+  "systems": [
+    "b0",
+    "b1",
+    "b2"
+  ],
+  "question_count": 2,
+  "repetitions": 1,
+  "corpus": {
+    "path": "eval/frozen/corpus.json",
+    "sha256": "6125c9438883e55fa4cbddfe3037692e050fa104b0b8a703cf9515ded80197ec",
+    "documents": 30,
+    "license": "CC BY-SA 4.0"
+  },
+  "questions": {
+    "path": "eval/questions.json",
+    "sha256": "6d31ea666266cc12ec13f7cfabddf1346139b0267b8178a1d3ab02a32993702b",
+    "version": 1
+  },
+  "config": {
+    "llm_provider": "groq",
+    "llm_model": "openai/gpt-oss-120b",
+    "llm_fast_model": "openai/gpt-oss-20b",
+    "fallback_enabled": false,
+    "search_backend": "frozen",
+    "max_llm_calls": 12,
+    "max_tokens": 30000,
+    "max_rounds": 1,
+    "max_workers": 1,
+    "max_tool_steps": 1,
+    "judge_provider": "groq",
+    "judge_model": "openai/gpt-oss-20b"
+  },
+  "resume_supported": true,
+  "question_ids": [
+    "F01",
+    "U01"
+  ],
+  "resumed": true,
+  "note": "The final record was completed with --resume; records.jsonl contains the full 6-run smoke set."
+}
