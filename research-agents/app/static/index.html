@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Research Agents · demo</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Portafolio · AI Engineer</p>
+        <h1>Research Agents</h1>
+        <p class="subtitle">
+          Pregunta abierta, evidencia trazable y un informe con citas.
+        </p>
+      </div>
+      <div class="health" id="health" aria-live="polite">Comprobando servicio…</div>
+    </header>
+
+    <main>
+      <section class="card">
+        <form id="research-form">
+          <label for="question">Pregunta de investigación</label>
+          <textarea
+            id="question"
+            name="question"
+            rows="4"
+            minlength="3"
+            maxlength="4000"
+            placeholder="¿Qué es un transformer y para qué se usa en NLP?"
+            required
+          ></textarea>
+
+          <div class="row">
+            <div class="field">
+              <label for="language">Idioma</label>
+              <select id="language" name="language">
+                <option value="es" selected>Español</option>
+                <option value="en">English</option>
+              </select>
+            </div>
+            <label class="check">
+              <input id="hitl" name="hitl" type="checkbox" />
+              Pedir aprobación antes del informe
+            </label>
+          </div>
+
+          <div class="actions">
+            <button id="submit" type="submit">Investigar</button>
+            <span id="form-status" class="muted" aria-live="polite"></span>
+          </div>
+        </form>
+      </section>
+
+      <section id="run-panel" class="card hidden" aria-live="polite">
+        <div class="run-heading">
+          <div>
+            <p class="eyebrow">Ejecución</p>
+            <h2 id="run-id">—</h2>
+          </div>
+          <span id="run-status" class="badge">queued</span>
+        </div>
+
+        <p id="run-question" class="question"></p>
+
+        <div id="approval-panel" class="approval hidden">
+          <h3>Revisión humana</h3>
+          <p id="approval-summary"></p>
+          <label for="feedback">Comentario (opcional)</label>
+          <input id="feedback" type="text" maxlength="2000" placeholder="Motivo o instrucción" />
+          <div class="actions">
+            <button id="approve" type="button">Aprobar y escribir</button>
+            <button id="reject" type="button" class="secondary">Rechazar</button>
+          </div>
+        </div>
+
+        <div class="grid">
+          <div>
+            <h3>Traza</h3>
+            <ol id="trace" class="trace"></ol>
+          </div>
+          <div>
+            <h3>Resultado</h3>
+            <div id="result" class="result">
+              <p class="muted">Esperando el informe…</p>
+            </div>
+          </div>
+        </div>
+
+        <p id="error" class="error hidden"></p>
+      </section>
+    </main>
+
+    <footer>
+      <span>FastAPI · LangGraph · SSE</span>
+      <span>Demo local; no expongas claves en el navegador.</span>
+    </footer>
+
+    <script src="/static/app.js" defer></script>
+  </body>
+</html>

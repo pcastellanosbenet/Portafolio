@@ -1,0 +1,639 @@
+{
+  "run_id": "api-live-20261024",
+  "question": "¿Qué es un transformer y para qué se usa en NLP?",
+  "status": "completed",
+  "graph_status": "done",
+  "elapsed_s": 308.8,
+  "usage": {
+    "llm_calls": 10,
+    "input_tokens": 12172,
+    "output_tokens": 7793,
+    "total_tokens": 19965,
+    "search_calls": 4,
+    "latency_s": 300.921,
+    "models": {
+      "openai/gpt-oss-120b": 2,
+      "openai/gpt-oss-20b": 8
+    }
+  },
+  "errors": [
+    "LLM call budget exhausted (10/10).",
+    "LLM call budget exhausted (10/10)."
+  ],
+  "report": {
+    "title": "Research report: ¿Qué es un transformer y para qué se usa en NLP?",
+    "answer_markdown": "## Findings\n\n- El transformer está compuesto por un codificador y un decodificador, cada uno formado por capas apiladas de atención multi‑cabeza seguidas de redes feed‑forward, con conexiones residuales y normalización de capa. [src_17c0561e031f], [src_397e26943af8], [src_4198b1e25e03], [src_5344fe21ce85], [src_c3ab01e47e61], [src_f2447ea21a6c]\n- Las codificaciones posicionales se suman a las incrustaciones de tokens para proporcionar información de orden, ya que el modelo no utiliza recurrencia ni convolución. [src_4198b1e25e03], [src_ba4cccdb61ab], [src_c3ab01e47e61], [src_d3d5fac37de0]\n- El decodificador emplea atención multi‑cabeza auto‑mascarada, atención cruzada con las salidas del codificador y una capa lineal final que produce logits para la generación autoregresiva. [src_17c0561e031f], [src_35cd7a61f509], [src_bc7e24201539], [src_dc052d0fd806], [src_f2447ea21a6c]\n- Los componentes esenciales del transformer son: incrustaciones de tokens, codificaciones posicionales, atención multi‑cabeza (auto y cruzada), redes feed‑forward, conexiones residuales, normalización de capa y capa de softmax final. [src_11cd6256c939], [src_c3ab01e47e61], [src_f2447ea21a6c]",
+    "claims": [
+      {
+        "claim_id": "c1",
+        "text": "El transformer está compuesto por un codificador y un decodificador, cada uno formado por capas apiladas de atención multi‑cabeza seguidas de redes feed‑forward, con conexiones residuales y normalización de capa.",
+        "source_ids": [
+          "src_17c0561e031f",
+          "src_397e26943af8",
+          "src_4198b1e25e03",
+          "src_5344fe21ce85",
+          "src_c3ab01e47e61",
+          "src_f2447ea21a6c"
+        ]
+      },
+      {
+        "claim_id": "c2",
+        "text": "Las codificaciones posicionales se suman a las incrustaciones de tokens para proporcionar información de orden, ya que el modelo no utiliza recurrencia ni convolución.",
+        "source_ids": [
+          "src_4198b1e25e03",
+          "src_ba4cccdb61ab",
+          "src_c3ab01e47e61",
+          "src_d3d5fac37de0"
+        ]
+      },
+      {
+        "claim_id": "c3",
+        "text": "El decodificador emplea atención multi‑cabeza auto‑mascarada, atención cruzada con las salidas del codificador y una capa lineal final que produce logits para la generación autoregresiva.",
+        "source_ids": [
+          "src_17c0561e031f",
+          "src_35cd7a61f509",
+          "src_bc7e24201539",
+          "src_dc052d0fd806",
+          "src_f2447ea21a6c"
+        ]
+      },
+      {
+        "claim_id": "c4",
+        "text": "Los componentes esenciales del transformer son: incrustaciones de tokens, codificaciones posicionales, atención multi‑cabeza (auto y cruzada), redes feed‑forward, conexiones residuales, normalización de capa y capa de softmax final.",
+        "source_ids": [
+          "src_11cd6256c939",
+          "src_c3ab01e47e61",
+          "src_f2447ea21a6c"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "src_11cd6256c939",
+        "url": "https://www.ibm.com/es-es/think/topics/attention-mechanism",
+        "title": "¿Qué es un mecanismo de atención? | IBM",
+        "kind": "web",
+        "snippet": "La función principal del mecanismo de atención es sopesar la importancia de los pares de claves de consulta entre cada token. Para cada token x de una secuencia de entrada, el modelo de transformador calcula (y luego aplica) las ponderaciones de atención de la siguiente manera: [...] Diagrama del mecanismo de atención de un modelo de transformador Un diagrama simplificado del mecanismo de atención del transformador: las incrustaciones vectoriales originales para los tokens de una entrada se multiplican por matrices de peso W, K y V para obtener sus respectivos vectores W, K y V. [...] Aquí se demuestra el circuito completo de multiplicación de matrices en el bloque de atención de un transformador estándar. Cabe señalar que las evoluciones posteriores del mecanismo de atención del transformador, como la atención a consultas múltiples y la atención a consultas agrupadas, simplifican o combinan algunos elementos del proceso para reducir las exigencias computacionales.",
+        "accessed_at": "2026-10-24T07:27:34.973934Z",
+        "metadata": {
+          "backend": "tavily"
+        }
+      },
+      {
+        "source_id": "src_14dc44e874e3",
+        "url": "https://www.scitepress.org/Papers/2024/129811/129811.pdf",
+        "title": "[PDF] LSTM versus Transformers: A Practical Comparison of Deep ...",
+        "kind": "web",
+        "snippet": "2.2 Transformers On its part, Transformers are deep learning models that also handle sequential data but unlike RNNs they use a self-attention mechanism across their encoder-decoder pair. At a high level, transformers can even be seen as a sequence to sequence model but with an encoder-decoder pair. The encoder is used to encode the input sequence while the decoder produces the output sequence (Vaswani et al., 2017); (Lin, 2023). [...] Lin, Z. (2023). Comparative study of lstm and transformer for a-share stock price prediction. In 2023 2nd Inter-national Conference on Artificial Intelligence, Inter-net and Digital Economy (ICAID 2023), pages 72–82. Atlantis Press. Roondiwala, M., Patel, H., Varma, S., et al. (2017). Predict-ing stock prices using lstm. International Journal of Science and Research (IJSR), 6(4):1754–1756. Siami-Namini, S., Tavakoli, N., and Namin, A. S. (2019). [...] 2 RELATED WORKS Deep learning algorithms have shown great model-ing prowess with non-linearity problems.…",
+        "accessed_at": "2026-10-24T07:29:35.503000Z",
+        "metadata": {
+          "backend": "tavily"
+        }
+      },
+      {
+        "source_id": "src_17c0561e031f",
+        "url": "https://www.youtube.com/watch?v=xVq4ZrgkwVY",
+        "title": "The AI Revolution: RNN → LSTM → Transformers",
+        "kind": "web",
+        "snippet": "[8:48] different ways. Here's a crucial difference. Parallelism. RNN's, LSTMs, and GRUs must process sequentially. [8:57] Transformers can process everything at once. This is huge for training speed and scalability. Training speed reflects [9:04] this. LSTMs are slow because of their complexity and sequential nature. [9:09] Transformers are fast when you have lots of data and powerful GPUs. And scalability. This is why we have billion [...] [9:47] problem. With direct connections between all positions through attention, information flows freely across long [9:54] distances. Number two, massive parallelism. Training transformers on modern GPUs is incredibly efficient. [10:03] What would take weeks with LSTMs takes days with transformers. Number three, scalability. Want a bigger, more [10:12] powerful model? Just add more layers, more attention heads, more parameters. Transformers scale gracefully. [...] [9:16] parameter models today. Transformers scale beautifully. You can't build GPT4 …",
+        "accessed_at": "2026-10-24T07:29:35.503081Z",
+        "metadata": {
+          "backend": "tavily"
+        }
+      },
+      {
+        "source_id": "src_35cd7a61f509",
+        "url": "https://aws.amazon.com/es/what-is/transformers-in-artificial-intelligence",
+        "title": "¿Qué son los transformadores?: explicación de los transformadores en inteligencia artificial: AWS",
+        "kind": "web",
+        "snippet": "### Bloque transformador Un modelo de transformador típico tiene varios bloques de transformadores apilados juntos. Cada bloque transformador tiene dos componentes principales: un mecanismo de autoatención con múltiples cabezales y una red neuronal de retroalimentación por posición. El mecanismo de autoatención permite al modelo sopesar la importancia de las diferentes fichas dentro de la secuencia. Al hacer predicciones, se centra en las partes relevantes de la entrada. [...] Los modelos de transformadores modifican este proceso al incorporar algo llamado mecanismo de autoatención. En lugar de procesar los datos en orden, el mecanismo le permite al modelo observar diferentes partes de la secuencia a la vez y determinar qué partes son las más importantes. [...] Imagine que está en una habitación concurrida e intenta escuchar a alguien hablar. El cerebro se centra automáticamente en su voz mientras desconecta los ruidos menos importantes. La autoatención permite al modelo hacer algo sim…",
+        "accessed_at": "2026-10-24T07:27:34.973928Z",
+        "metadata": {
+          "backend": "tavily"
+        }
+      },
+      {
+        "source_id": "src_397e26943af8",
+        "url": "https://parseur.com/es/blog/atencion-es-todo-lo-que-necesitas",
+        "title": "Explicación de \"Attention Is All You Need\" – El artículo que cambió la IA | Parseur®",
+        "kind": "web",
+        "snippet": "La idea más importante en la arquitectura Transformer es la auto-atención. La auto-atención permite que cada palabra en una frase observe todas las demás palabras y decida cuáles son más importantes. Ese es el corazón del mecanismo de atención. Imagina la frase: \"El gato se sentó en la alfombra.\" Al procesar la palabra \"gato\", el modelo no solo mira las palabras cercanas. Evalúa toda la frase de forma simultánea. Internamente, el Transformer hace tres preguntas para cada palabra. [...] La Vision AI basada en Transformers funciona de manera diferente. En lugar de procesar una sección a la vez, los Transformers analizan todo el documento simultáneamente. El mecanismo de atención ayuda al modelo a comprender tanto el texto como la estructura visual de la página al mismo tiempo. Esto significa que la IA puede aprender qué etiquetas pertenecen a qué valores, cómo se organizan las tablas, qué totales se relacionan con qué líneas de detalle, cómo los encabezados se conectan con las [...] Esta…",
+        "accessed_at": "2026-10-24T07:27:34.973920Z",
+        "metadata": {
+          "backend": "tavily"
+        }
+      },
+      {
+        "source_id": "src_4198b1e25e03",
+        "url": "https://www.truefoundry.com/es/blog/transformer-architecture",
+        "title": "Desmitificando la arquitectura de transformadores en modelos de lenguaje de gran tamaño",
+        "kind": "web",
+        "snippet": "## Conclusión En resumen, los Transformers han remodelado significativamente el panorama de la inteligencia artificial y el procesamiento del lenguaje natural. Su arquitectura única, capaz de comprender el contexto y los matices del lenguaje, ha permitido avances notables en tareas como la traducción, el resumen de textos e incluso más allá del ámbito del reconocimiento de imágenes, entre otras. [...] ## Aplicaciones prácticas de los transformadores Los transformadores no solo han revolucionado el campo del procesamiento del lenguaje natural (PNL), sino que también han demostrado su versatilidad al extender su alcance a otros dominios. Así es como están teniendo un impacto: ### Tareas de procesamiento del lenguaje natural (PNL) #### Ejemplos de traducción y resumen de textos [...] Este mecanismo de colaboración garantiza que la salida no solo tenga sentido desde el punto de vista lingüístico, sino que también sea una representación o transformación fiel de la entrada. Es esta sinergia …",
+        "accessed_at": "2026-10-24T07:28:35.699231Z",
+        "metadata": {
+          "backend": "tavily"
+        }
+      },
+      {
+        "source_id": "src_464f0334448d",
+        "url": "https://coinmarketcap.com/academy/es/glossary/decentralized-applications-dapps?amp%3Bamp%3Bapp=ios%3D",
+        "title": "Aplicaciones descentralizadas (DApps) Definition",
+        "kind": "web",
+        "snippet": "EVM esTuring-complete, lo que significa que puede ejecutar todas las operaciones que se espera que un equipo normal pueda realizar. Tiene su propio lenguaje de programación,Solidity, que permite a los desarrolladores codificar y ejecutar cualquier aplicación que deseen en el EVM de manera descentralizada. [...] Como resultado de la forma en que se ejecutan, las aplicaciones pueden proporcionar la misma calidad de servicio que las aplicaciones regulares, al tiempo que disfrutan de las ventajas completas de ladescentralización, como el tiempo de actividad casi constante y la resistencia a la censura y la corrupción. [...] # Aplicaciones descentralizadas (DApps) Moderate ? Las DApps son todas las aplicaciones informáticas cuyo funcionamiento es mantenido por una red distribuida de nodos informáticos, a diferencia de un único servidor.",
+        "accessed_at": "2026-10-24T07:28:35.699277Z",
+        "metadata": {
+          "backend": "tavily"
+        }
+      },
+      {
+        "source_id": "src_52087e214aa3",
+        "url": "https://leadiq.com/c/redsys-servicios-de-procesamiento-s-l/5a1d93d25400005300781422",
+        "title": "Redsys Servicios de Procesamiento Company Overview, Contact Details & Competitors | LeadIQ",
+        "kind": "web",
+        "snippet": "Mobile Phone Email Director Of Security And Fraud Prevention Services at Redsys Servicios de Procesamiento J. A. G. F. Director Of Security And Fraud Prevention Services Mobile Phone Email ## Employee Directory Digital (ia) Transformation Director (caito) at Redsys Servicios de Procesamiento F. D. A. L. Digital (ia) Transformation Director (caito) Mobile Phone Email Director De Ti at Redsys Servicios de Procesamiento J. A. J. Director De Ti [...] Logo of the company Facebook that links directly to the LeadIQ Facebook page.Logo of the company Twitter that links directly to the LeadIQ Twitter page.Logo of the company LinkedIn that links directly to the LeadIQ LinkedIn page.Logo of the company Youtube that links directly to the LeadIQ Youtube page. [...] ### Moneris Employees2.1KRevenue$1B - $10B Adyen logo ### Adyen Employees5.6KRevenue$1B - $10B ## Redsys Servicios de Procesamiento Tech Stack Redsys Servicios de Procesamiento uses 8 technology products and services including MicroStrate…",
+        "accessed_at": "2026-10-24T07:28:35.699287Z",
+        "metadata": {
+          "backend": "tavily"
+        }
+      },
+      {
+        "source_id": "src_5344fe21ce85",
+        "url": "https://www.reddit.com/r/MachineLearning/comments/gqxcjq/d_are_transformers_strictly_more_effective_than",
+        "title": "[D] Are Transformers Strictly More Effective Than LSTM RNNs? : r/MachineLearning",
+        "kind": "web",
+        "snippet": "This is a problem if your model has to maintain an internal belief that needs to be updated with each input. For example, if inputs are movements of an object and the model has to keep track of its location. 1 more reply 1 more reply 1 more reply # People also ask about section People also ask about LSTM RNNs versus Transformers RNNs compared to Transformers Top machine learning frameworks to explore Most impactful ML research papers of 2023 [...] It is my understanding, that transformers are mainly used for their time efficiency during large scale training, e.g. the most famous transformers are all language models pre-trained on gigabytes of text data. They are then fine-tuned with other tasks, but language modeling is their original task. Note that RNNs have O(N) time complexity because they need to process the input token by token. On the other hand, transformers can do it in O(1). Of course, this is balanced by having bigger memory [...] In practice, I've found that Transformers ar…",
+        "accessed_at": "2026-10-24T07:29:35.503018Z",
+        "metadata": {
+          "backend": "tavily"
+        }
+      },
+      {
+        "source_id": "src_652e910789d3",
+        "url": "https://mindfulml.vialabsdigital.com/post/el-mecanismo-de-atencion-en-modelos-transformer",
+        "title": "El Mecanismo de Atención en Modelos Transformer •",
+        "kind": "web",
+        "snippet": "El mecanismo de atención permite que un modelo enfoque dinámicamente en partes específicas de una entrada, en lugar de procesarla toda por igual. Esto se logra utilizando tres componentes fundamentales: Q (query), K (key) y V (value). ### ¿Por qué es tan importante? En modelos modernos como BERT y GPT, este enfoque permite que el modelo: ## Conceptos Clave en los Mecanismos de Atención ### Definiciones de Q, K y V ### Fórmula Fundamental Q=Wq​⋅x,K=Wk​⋅x,V=Wv​⋅x Donde: [...] Publicado 7 ene 2025 - 3 min tiempo de lectura # El Mecanismo de Atención en Modelos Transformer El Mecanismo de Atención en Modelos Transformer Índice Los Transformers han revolucionado el campo del procesamiento del lenguaje natural (NLP), y en el corazón de su éxito está el mecanismo de atención. Este artículo desglosa cómo funciona, explicando los conceptos clave y las fórmulas que lo sustentan. ## Introducción a los Mecanismos de Atención",
+        "accessed_at": "2026-10-24T07:27:34.973941Z",
+        "metadata": {
+          "backend": "tavily"
+        }
+      },
+      {
+        "source_id": "src_9f4a03c31c61",
+        "url": "https://huggingface.co/papers/1706.03762",
+        "title": "Paper page - Attention Is All You Need",
+        "kind": "web",
+        "snippet": "Introduces language transformer architecture for natural language processing (NLP). Transformer: Input (encoded) added with positional encodings (1D sine and cosine of different frequencies) given to encoder layers (multi-headed self-attention and linear layers in a residual setup), then the encoder output along with previous output (encoding added with positional embeddings) is given to decoder layers (masked multi-headed self-attention, multi-headed cross attention from encoder output, and [...] Hugging Face's logo # Attention Is All You Need ## Abstract The Transformer architecture, based purely on attention mechanisms, achieves superior performance on machine translation and parsing tasks with improved parallelizability and reduced training time. [...] We have tried to breakdown the Insights from the paper here: Check it Out! and also made a song about it on: · Sign up or log in to comment Get this paper in your agent: `hf papers read 1706.03762` `curl -LsSf | bash` ## Models citin…",
+        "accessed_at": "2026-10-24T07:26:35.172145Z",
+        "metadata": {
+          "backend": "tavily"
+        }
+      },
+      {
+        "source_id": "src_ba4cccdb61ab",
+        "url": "https://ai.stackexchange.com/questions/20075/why-does-the-transformer-do-better-than-rnn-and-lstm-in-long-range-context-depen",
+        "title": "Why does the transformer do better than RNN and LSTM in long-range context dependencies?",
+        "kind": "web",
+        "snippet": "The self-attention with every other token in the input means that the processing will be in the order of O(N 2)$\\mathcal{O} \\left(\\right. N^{2} \\left.\\right)$ (glossing over details), which means that it's going to be costly to apply transformers on long sequences, compared to RNNs. That's probably one area that RNNs still have an advantage over transformers. Share Share a link to this answer Copy linkCC BY-SA 4.0 Short permalink to this answer Improve this answer Follow [...] To summarize, Transformers are better than all the other architectures because they totally avoid recursion, by processing sentences as a whole and by learning relationships between words thanks to multi-head attention mechanisms and positional embeddings. Nevertheless, it must be pointed out that also transformers can capture only dependencies within the fixed input size used to train them, i.e. if I use as a maximum sentence size 50, the model will not be able to capture dependencies between [...] The first poi…",
+        "accessed_at": "2026-10-24T07:29:35.503071Z",
+        "metadata": {
+          "backend": "tavily"
+        }
+      },
+      {
+        "source_id": "src_bc7e24201539",
+        "url": "https://sapinn.com/los-transformers-mas-alla-de-gpt-como-funcionan-y-sus-aplicaciones-mas-alla-del-lenguaje",
+        "title": "Los transformers más allá de GPT: Cómo funcionan y sus aplicaciones más allá del lenguaje",
+        "kind": "web",
+        "snippet": "Los transformers son un tipo de modelo de aprendizaje profundo que se ha vuelto fundamental en el campo de la inteligencia artificial, especialmente en el procesamiento del lenguaje natural. Introducidos por primera vez en el artículo «Attention is All You Need» en 2017, los transformers revolucionaron la forma en que las máquinas entienden y generan lenguaje. Pero su diseño no se limita solo al lenguaje; su arquitectura puede ser aplicada a diferentes tipos de datos, lo que los hace versátiles [...] En el mundo actual, la inteligencia artificial (IA) se está convirtiendo en una herramienta esencial para las pequeñas y medianas empresas (pymes) en España. La implementación de tecnologías avanzadas, como los modelos de transformers, puede ser un factor decisivo para mejorar la eficiencia y la productividad de una empresa. Sin embargo, más allá de su uso en aplicaciones de procesamiento del lenguaje natural (PLN), los transformers tienen un amplio espectro de aplicaciones en diversas áre…",
+        "accessed_at": "2026-10-24T07:28:35.699254Z",
+        "metadata": {
+          "backend": "tavily"
+        }
+      },
+      {
+        "source_id": "src_c3ab01e47e61",
+        "url": "https://arxiv.org/pdf/1706.03762",
+        "title": "1706.03762v7.pdf",
+        "kind": "web",
+        "snippet": "2Figure 1: The Transformer - model architecture. The Transformer follows this overall architecture using stacked self-attention and point-wise, fully connected layers for both the encoder and decoder, shown in the left and right halves of Figure 1, respectively. [...] The dominant sequence transduction models are based on complex recurrent or convolutional neural networks that include an encoder and a decoder. The best performing models also connect the encoder and decoder through an attention mechanism. We propose a new simple network architecture, the Transformer, based solely on attention mechanisms, dispensing with recurrence and convolutions entirely. Experiments on two machine translation tasks show these models to be superior in quality while being [...] mechanisms are used in conjunction with a recurrent network. In this work we propose the Transformer, a model architecture eschewing recurrence and instead relying entirely on an attention mechanism to draw global dependencies b…",
+        "accessed_at": "2026-10-24T07:26:35.172084Z",
+        "metadata": {
+          "backend": "tavily"
+        }
+      },
+      {
+        "source_id": "src_d3d5fac37de0",
+        "url": "https://github.com/abideenml/TransformerImplementationfromScratch",
+        "title": "GitHub - abideenml/TransformerImplementationfromScratch: My implementation of the \"Attention is all you Need\" 📝 Transformer model Ⓜ️ (Vaswani et al.) in Tensorflow. (https://arxiv.org/abs/1706.03762) · GitHub",
+        "kind": "web",
+        "snippet": "Positional encodings are a crucial component in the Transformer architecture, specifically in the context of natural language processing tasks like machine translation. Since the Transformer model lacks any inherent notion of sequence order, it is unable to differentiate between words solely based on their positions in the input sequence. This limitation could be detrimental to its performance in tasks where word order is significant. To address this issue, the authors propose using positional [...] The transformer architecture is the basis for recent well-known models like BERT and GPT-3. Researchers have already applied the transformer architecture in Computer Vision and Reinforcement Learning. So, understanding the transformer architecture is crucial if anybody wants to know where machine learning is heading. Transformer architecture: [...] What are transformers? Positional Encodings Custom Learning Rate Schedule Greedy and Beam Search Decoding Machine translation Evaluation Setup T…",
+        "accessed_at": "2026-10-24T07:26:35.172116Z",
+        "metadata": {
+          "backend": "tavily"
+        }
+      },
+      {
+        "source_id": "src_dc052d0fd806",
+        "url": "https://community.deeplearning.ai/t/attention-is-all-you-need-paper-discussions-transformers/654588",
+        "title": "Attention is all you need paper discussions - Transformers - Generative AI with Large Language Models - DeepLearning.AI",
+        "kind": "web",
+        "snippet": "Hi！ According to the paper, as you can find below, the key differences between the encoder and decoder are： [image image428×581 37.7 KB Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, L., & Polosukhin, I. (2017). Attention Is All You Need. ArXiv. /abs/1706.03762 image",
+        "accessed_at": "2026-10-24T07:26:35.172138Z",
+        "metadata": {
+          "backend": "tavily"
+        }
+      },
+      {
+        "source_id": "src_ef9c43d28b47",
+        "url": "https://aws.amazon.com/es/what-is/nlp",
+        "title": "¿Qué es el procesamiento de lenguaje natural? - Explicación del procesamiento de lenguaje natural - AWS",
+        "kind": "web",
+        "snippet": "Las técnicas de procesamiento de lenguaje natural (NLP) o tareas de NLP dividen el texto o el habla humanos en partes más pequeñas que los programas de computación pueden entender con mayor facilidad. A continuación, se muestran las capacidades comunes de procesamiento y análisis de textos en el NLP. ### Etiquetado de categorías gramaticales [...] Las empresas utilizan el procesamiento del lenguaje natural para varias tareas automatizadas, como: Las empresas utilizan el software y las herramientas de procesamiento de lenguaje natural (NLP) para simplificar, automatizar y agilizar las operaciones de manera eficiente y precisa. A continuación, se indican algunos casos de uso de ejemplo. ### Eliminación de información confidencial [...] Gracias a la autoatención, los transformadores pueden aprender de conjuntos de datos más grandes y procesar textos muy grandes en los que un contexto muy anterior influye en el significado de lo que viene a continuación. ## ¿Cómo funciona el NLP?",
+        "accessed_at": "2026-10-24T07:28:35.699266Z",
+        "metadata": {
+          "backend": "tavily"
+        }
+      },
+      {
+        "source_id": "src_f2447ea21a6c",
+        "url": "https://self-supervised.cs.jhu.edu/fa2025/files/slides/transformers.pdf",
+        "title": "Transformer Architecture",
+        "kind": "web",
+        "snippet": "▪Multiple parallel attention layers. o Each attention layer has its own parameters. o Concatenate the results and run them through a linear projection. Self-Attention Layer Self-Attention Layer 𝑥4 𝑥3 𝑥2 𝑥1 [Attention Is All You Need, Vaswani et al. 2017] 27 Multi-Headed Self-Attention ▪Just concatenate all the heads and apply an output projection. [...] [Vaswani et al. 2017] 83 Positional Encoding Positional Encoding × N × N Decoding Procedure 𝑦𝑡 𝑡++ (shift right) auto-regressive decoding Add & Norm Add & Norm Add & Norm Multi-Head Self-Attention Add & Norm Feed Forward Masked Multi-Head Self-Attention Add & Norm Feed Forward Input Embedding Output Embedding Linear Softmax Multi-Head Cross-Attention 𝑥1 𝑥2 𝑥𝑛 ••• 𝑦1 𝑦𝑡−1 ••• Output Probabilities (for 𝑦𝑡) [Slide credit: CS886 at UWaterloo] Transformer [Vaswani et al. 2017] 84 How does training [...] ▪Residual connections let the model “skip” layers o These connections are particularly useful for training deep networks ▪Use layer normaliz…",
+        "accessed_at": "2026-10-24T07:26:35.172129Z",
+        "metadata": {
+          "backend": "tavily"
+        }
+      },
+      {
+        "source_id": "src_f77bb5980bbe",
+        "url": "https://www.geeksforgeeks.org/deep-learning/rnn-vs-lstm-vs-gru-vs-transformers",
+        "title": "RNN vs LSTM vs GRU vs Transformers - GeeksforGeeks",
+        "kind": "web",
+        "snippet": "| Parameter Count | Fewer parameters overall. | More parameters than RNNs because of gates and memory cells. | Fewer parameters than LSTMs due to its simplified gating structure. | A large number of parameters in multi-head attention layers. | [...] Transformers solved these problems by using self-attention which processes the entire sequence at once. This allows transformers to capture long-range dependencies more effectively and train much faster. Unlike RNN-based models, transformers do not rely on sequential steps helps in making them highly scalable and suitable for larger datasets and more complex tasks. ## RNN vs LSTM vs GRU vs Transformers [...] ## Transformers Transformers process sequences differently by using a self-attention mechanism that analyzes the entire sequence at once. This allows them to handle long sequences efficiently and capture long-range dependencies without relying on sequential steps.",
+        "accessed_at": "2026-10-24T07:29:35.503089Z",
+        "metadata": {
+          "backend": "tavily"
+        }
+      }
+    ],
+    "confidence": "low",
+    "limitations": [
+      "No se especifican valores concretos de hiperparámetros (número de cabezas, dimensión de la capa oculta, número de capas) en la descripción de la arquitectura.",
+      "Falta detalle explícito de los vectores de consulta, clave y valor, la normalización softmax, la combinación de cabezales y la integración exacta de las codificaciones posicionales con la atención.",
+      "No hay evidencia directa sobre el uso de transformers en tareas específicas como clasificación de texto, reconocimiento de entidades nombradas, respuesta a preguntas o análisis de sentimientos.",
+      "No se presentan datos cuantitativos de rendimiento ni análisis de costos de memoria que comparen transformers con RNN/LSTM.",
+      "No se especifican valores concretos de hiperparámetros como número de cabezas, tamaño de la capa oculta o número de capas en los bloques.",
+      "No se describen explícitamente los vectores de consulta, clave y valor, ni la normalización softmax ni la combinación de cabezales. También falta detalle sobre cómo se integran las codificaciones posicionales con la atención.",
+      "No hay evidencia directa en los resultados sobre el uso de transformers en tareas específicas como clasificación de texto, reconocimiento de entidades nombradas, respuesta a preguntas o análisis de sentimientos.",
+      "No se presentan datos cuantitativos de rendimiento ni análisis de costos de memoria asociados a los transformers en comparación con RNN/LSTM."
+    ],
+    "usage": {
+      "llm_calls": 10,
+      "input_tokens": 12172,
+      "output_tokens": 7793,
+      "total_tokens": 19965,
+      "search_calls": 4,
+      "latency_s": 300.921,
+      "models": {
+        "openai/gpt-oss-120b": 2,
+        "openai/gpt-oss-20b": 8
+      }
+    }
+  },
+  "trace": [
+    {
+      "timestamp": "2026-10-24T07:25:31.265961Z",
+      "node": "supervisor",
+      "event": "route_selected",
+      "data": {
+        "next": "planner",
+        "reason": "Only one valid route for this state.",
+        "tokens": 0,
+        "latency_s": 0.0,
+        "llm_calls": 0,
+        "allowed": [
+          "planner"
+        ],
+        "deterministic": true
+      }
+    },
+    {
+      "timestamp": "2026-10-24T07:25:35.382584Z",
+      "node": "planner",
+      "event": "plan_created",
+      "data": {
+        "subquestions": 4,
+        "model": "openai/gpt-oss-120b",
+        "tokens": 1423,
+        "latency_s": 4.115,
+        "llm_calls": 1,
+        "prompt_version": "0.1.0"
+      }
+    },
+    {
+      "timestamp": "2026-10-24T07:25:35.384267Z",
+      "node": "supervisor",
+      "event": "route_selected",
+      "data": {
+        "next": "researcher",
+        "reason": "Only one valid route for this state.",
+        "tokens": 0,
+        "latency_s": 0.0,
+        "llm_calls": 0,
+        "allowed": [
+          "researcher"
+        ],
+        "deterministic": true
+      }
+    },
+    {
+      "timestamp": "2026-10-24T07:25:35.386312Z",
+      "node": "researcher",
+      "event": "dispatch",
+      "data": {
+        "workers": 4,
+        "max_workers": 1,
+        "round": 1
+      }
+    },
+    {
+      "timestamp": "2026-10-24T07:26:31.793022Z",
+      "node": "researcher:agent",
+      "event": "tool_call",
+      "data": {
+        "step": 1,
+        "tool_calls": 1,
+        "tools": [
+          "search_web"
+        ],
+        "model": "openai/gpt-oss-20b",
+        "tokens": 589,
+        "latency_s": 56.345,
+        "llm_calls": 1
+      }
+    },
+    {
+      "timestamp": "2026-10-24T07:26:35.172288Z",
+      "node": "researcher:finalize",
+      "event": "output_created",
+      "data": {
+        "claims": 4,
+        "sources": 5,
+        "model": "openai/gpt-oss-20b",
+        "tools": [
+          "search_web"
+        ],
+        "tokens": 2435,
+        "latency_s": 1.732,
+        "llm_calls": 1
+      }
+    },
+    {
+      "timestamp": "2026-10-24T07:26:35.210079Z",
+      "node": "researcher_worker",
+      "event": "completed",
+      "data": {
+        "subquestion": "¿Cuál es la arquitectura básica de un modelo transformer y cuáles son sus componentes principales?",
+        "claims": 4,
+        "sources": 5,
+        "tools": [
+          "search_web"
+        ],
+        "tokens": 3024,
+        "latency_s": 58.077,
+        "llm_calls": 2
+      }
+    },
+    {
+      "timestamp": "2026-10-24T07:27:31.800120Z",
+      "node": "researcher:agent",
+      "event": "tool_call",
+      "data": {
+        "step": 1,
+        "tool_calls": 1,
+        "tools": [
+          "search_web"
+        ],
+        "model": "openai/gpt-oss-20b",
+        "tokens": 575,
+        "latency_s": 56.583,
+        "llm_calls": 1
+      }
+    },
+    {
+      "timestamp": "2026-10-24T07:27:34.974086Z",
+      "node": "researcher:finalize",
+      "event": "output_created",
+      "data": {
+        "claims": 4,
+        "sources": 5,
+        "model": "openai/gpt-oss-20b",
+        "tools": [
+          "search_web"
+        ],
+        "tokens": 2351,
+        "latency_s": 1.529,
+        "llm_calls": 1
+      }
+    },
+    {
+      "timestamp": "2026-10-24T07:27:34.987046Z",
+      "node": "researcher_worker",
+      "event": "completed",
+      "data": {
+        "subquestion": "¿Cómo funciona el mecanismo de auto‑atención en los transformers?",
+        "claims": 4,
+        "sources": 5,
+        "tools": [
+          "search_web"
+        ],
+        "tokens": 2926,
+        "latency_s": 58.112,
+        "llm_calls": 2
+      }
+    },
+    {
+      "timestamp": "2026-10-24T07:28:31.704543Z",
+      "node": "researcher:agent",
+      "event": "tool_call",
+      "data": {
+        "step": 1,
+        "tool_calls": 1,
+        "tools": [
+          "search_web"
+        ],
+        "model": "openai/gpt-oss-20b",
+        "tokens": 578,
+        "latency_s": 56.713,
+        "llm_calls": 1
+      }
+    },
+    {
+      "timestamp": "2026-10-24T07:28:35.699427Z",
+      "node": "researcher:finalize",
+      "event": "output_created",
+      "data": {
+        "claims": 3,
+        "sources": 5,
+        "model": "openai/gpt-oss-20b",
+        "tools": [
+          "search_web"
+        ],
+        "tokens": 2269,
+        "latency_s": 1.523,
+        "llm_calls": 1
+      }
+    },
+    {
+      "timestamp": "2026-10-24T07:28:35.740207Z",
+      "node": "researcher_worker",
+      "event": "completed",
+      "data": {
+        "subquestion": "¿Para qué tareas de procesamiento de lenguaje natural se utilizan habitualmente los transformers?",
+        "claims": 3,
+        "sources": 5,
+        "tools": [
+          "search_web"
+        ],
+        "tokens": 2847,
+        "latency_s": 58.236,
+        "llm_calls": 2
+      }
+    },
+    {
+      "timestamp": "2026-10-24T07:29:31.814798Z",
+      "node": "researcher:agent",
+      "event": "tool_call",
+      "data": {
+        "step": 1,
+        "tool_calls": 1,
+        "tools": [
+          "search_web"
+        ],
+        "model": "openai/gpt-oss-20b",
+        "tokens": 585,
+        "latency_s": 56.068,
+        "llm_calls": 1
+      }
+    },
+    {
+      "timestamp": "2026-10-24T07:29:35.503207Z",
+      "node": "researcher:finalize",
+      "event": "output_created",
+      "data": {
+        "claims": 3,
+        "sources": 5,
+        "model": "openai/gpt-oss-20b",
+        "tools": [
+          "search_web"
+        ],
+        "tokens": 2397,
+        "latency_s": 2.031,
+        "llm_calls": 1
+      }
+    },
+    {
+      "timestamp": "2026-10-24T07:29:35.526296Z",
+      "node": "researcher_worker",
+      "event": "completed",
+      "data": {
+        "subquestion": "¿Qué ventajas ofrecen los transformers frente a modelos secuenciales como RNN o LSTM en NLP?",
+        "claims": 3,
+        "sources": 5,
+        "tools": [
+          "search_web"
+        ],
+        "tokens": 2982,
+        "latency_s": 58.099,
+        "llm_calls": 2
+      }
+    },
+    {
+      "timestamp": "2026-10-24T07:29:35.529463Z",
+      "node": "supervisor",
+      "event": "route_selected",
+      "data": {
+        "next": "analyst",
+        "reason": "Only one valid route for this state.",
+        "tokens": 0,
+        "latency_s": 0.0,
+        "llm_calls": 0,
+        "allowed": [
+          "analyst"
+        ],
+        "deterministic": true
+      }
+    },
+    {
+      "timestamp": "2026-10-24T07:30:39.815125Z",
+      "node": "analyst",
+      "event": "analysis_created",
+      "data": {
+        "evidence": 14,
+        "gaps": 4,
+        "model": "openai/gpt-oss-120b",
+        "tokens": 6763,
+        "latency_s": 64.282,
+        "llm_calls": 1
+      }
+    },
+    {
+      "timestamp": "2026-10-24T07:30:39.818434Z",
+      "node": "supervisor",
+      "event": "route_selected",
+      "data": {
+        "next": "critic",
+        "reason": "Only one valid route for this state.",
+        "tokens": 0,
+        "latency_s": 0.0,
+        "llm_calls": 0,
+        "allowed": [
+          "critic"
+        ],
+        "deterministic": true
+      }
+    },
+    {
+      "timestamp": "2026-10-24T07:30:39.821200Z",
+      "node": "critic",
+      "event": "budget_exhausted",
+      "data": {
+        "fallback": true,
+        "error": "LLM call budget exhausted (10/10)."
+      }
+    },
+    {
+      "timestamp": "2026-10-24T07:30:39.825169Z",
+      "node": "supervisor",
+      "event": "route_selected",
+      "data": {
+        "next": "writer",
+        "reason": "Only one valid route for this state.",
+        "tokens": 0,
+        "latency_s": 0.0,
+        "llm_calls": 0,
+        "allowed": [
+          "writer"
+        ],
+        "deterministic": true
+      }
+    },
+    {
+      "timestamp": "2026-10-24T07:30:39.829470Z",
+      "node": "writer",
+      "event": "budget_exhausted",
+      "data": {
+        "fallback": true,
+        "error": "LLM call budget exhausted (10/10)."
+      }
+    },
+    {
+      "timestamp": "2026-10-24T07:30:39.833783Z",
+      "node": "supervisor",
+      "event": "run_finished",
+      "data": {}
+    }
+  ]
+}

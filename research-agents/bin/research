@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Local launcher for the product CLI. Inside Docker, use `python -m scripts.research`.
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+PYTHON="${PYTHON:-$ROOT/.venv/bin/python}"
+if [[ ! -x "$PYTHON" ]]; then
+  PYTHON="python"
+fi
+cd "$ROOT"
+exec "$PYTHON" -m scripts.research "$@"

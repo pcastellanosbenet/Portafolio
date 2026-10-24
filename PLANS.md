@@ -1,7 +1,7 @@
 # PLANS.md — `research-agents`
 
-> **Estado:** Fase 4 implementada (corpus congelado, baselines, juez, runner y smoke real); la evaluación completa de 20 preguntas y la Fase 5 siguen pendientes.
-> **Fecha:** 2026-10-23.
+> **Estado:** Fase 4 parcial: corpus congelado, baselines, juez, runner y B0/20 completos; B1/B2 y las repeticiones de robustez siguen pendientes. Fase 5 (API/SSE, UI, CLI y Docker) cerrada el 2026-10-24.
+> **Fecha:** 2026-10-24.
 > **Ubicación:** raíz del repositorio.
 
 ## Convención de progreso
@@ -520,6 +520,9 @@ un `KeyboardInterrupt` simulado y reanudación desde el checkpoint.
 - [x] Implementar los flags de ablación (B0/B1/B2 y overrides de presupuesto).
 - [x] Ejecutar un smoke eval de 2 preguntas (6 ejecuciones, F01/U01).
 - [ ] Ejecutar la evaluación completa B0/B1/B2 por lotes (pendiente de cuota/tiempo).
+  - [x] B0 completo sobre las 20 preguntas (2026-10-24; 42.860 tokens del sistema y 40.477 del juez).
+  - [ ] B1 completo sobre las 20 preguntas.
+  - [ ] B2 completo sobre las 20 preguntas.
 - [ ] Ejecutar 3 repeticiones sobre el subconjunto de robustez (pendiente).
 - [ ] Revisar manualmente el 20% de las respuestas (hecho el 100% del smoke, no el lote completo).
 - [x] Construir la taxonomía inicial de fallos observados en el smoke.
@@ -533,27 +536,35 @@ un `KeyboardInterrupt` simulado y reanudación desde el checkpoint.
 
 **Objetivo:** ofrecer una demo usable por CLI, API y UI.
 
-- [ ] Crear la app FastAPI y el ciclo de vida de recursos.
-- [ ] Definir los esquemas de request/response.
-- [ ] Implementar `POST /v1/research`.
-- [ ] Implementar `GET /v1/research/{id}`.
-- [ ] Implementar `GET /v1/research/{id}/events` con SSE.
-- [ ] Implementar `POST /v1/research/{id}/approve` para HITL.
-- [ ] Implementar `GET /health` con estado de proveedor, modelo y checkpointer.
-- [ ] Crear la UI mínima de pregunta, traza y resultado.
-- [ ] Implementar el comando CLI `research`.
-- [ ] Implementar el comando CLI `resume`.
-- [ ] Crear el `Dockerfile`.
-- [ ] Crear `.dockerignore`.
-- [ ] Crear `docker-compose.yml` con volumen para SQLite y `env_file`.
-- [ ] Crear tests de API con un grafo falso.
-- [ ] Ejecutar una prueba E2E real con proveedor en vivo.
-- [ ] Verificar SSE, HITL y resume desde la API.
-- [ ] Revisar que las claves no aparezcan en logs ni respuestas.
-- [ ] Añadir rate limit básico y CORS local.
-- [ ] Documentar los comandos de ejecución.
+- [x] Crear la app FastAPI y el ciclo de vida de recursos.
+- [x] Definir los esquemas de request/response.
+- [x] Implementar `POST /v1/research`.
+- [x] Implementar `GET /v1/research/{id}`.
+- [x] Implementar `GET /v1/research/{id}/events` con SSE.
+- [x] Implementar `POST /v1/research/{id}/approve` para HITL.
+- [x] Implementar `GET /health` con estado de proveedor, modelo y checkpointer.
+- [x] Crear la UI mínima de pregunta, traza y resultado.
+- [x] Implementar el comando CLI `research`.
+- [x] Implementar el comando CLI `resume`.
+- [x] Crear el `Dockerfile`.
+- [x] Crear `.dockerignore`.
+- [x] Crear `docker-compose.yml` con volumen para SQLite y `env_file`.
+- [x] Crear tests de API con un grafo falso.
+- [x] Ejecutar una prueba E2E real con proveedor en vivo.
+- [x] Verificar SSE, HITL y resume desde la API.
+- [x] Revisar que las claves no aparezcan en logs ni respuestas.
+- [x] Añadir rate limit básico y CORS local.
+- [x] Documentar los comandos de ejecución.
 
 **Criterio de salida:** un comando levanta la demo y una pregunta real produce informe, citas, traza y usage.
+
+**Resultado:** Fase 5 cerrada el 2026-10-24. La app vive en `research-agents/app/`,
+la CLI en `bin/research`, y la documentación en `docs/phase5/README.md`. La prueba
+real `api-live-20261024` terminó en `completed` con 4 claims, 19 fuentes, traza de
+23 eventos y 19.965 tokens. El presupuesto ajustado de la prueba (10 llamadas)
+agotó critic/writer y produjo fallbacks deterministas con confianza `low`; se
+documenta como límite de la prueba, no como calidad del sistema sin restricción.
+La suite completa tiene 149 tests y `ruff` está limpio.
 
 ### Fase 6 — Documentación, CI y cierre
 
@@ -636,6 +647,9 @@ un `KeyboardInterrupt` simulado y reanudación desde el checkpoint.
 | 2026-10-23 | Fase 4 | Corpus congelado de 30 documentos de Wikipedia (CC BY-SA 4.0) con URL, fecha y SHA-256; 20 preguntas en cuatro categorías; `FrozenSearchBackend`/`FrozenPageFetcher`; runner reanudable; juez ciego con validación; métricas de cobertura, citas, claims, abstención y eficiencia; B0/B1/B2. `ruff` limpio y 139 tests. |
 | 2026-10-23 | Fase 4 | Smoke real de 6 ejecuciones (F01/U01 × B0/B1/B2): B0 1,00 de éxito y 1.786 tokens; B1 0,50 y 9.703; B2 1,00 y 16.128,5. Gemini falló como juez por timeouts y se usó Groq `gpt-oss-20b`; se documenta como limitación. Registros en `eval/results/smoke-20261023b/`. |
 | 2026-10-23 | Fase 4 | La evaluación completa de 20 preguntas y las 3 repeticiones de robustez no se ejecutaron por cuota/tiempo. El runner permite reanudar por lotes; no se inventaron resultados. |
+| 2026-10-24 | Fase 4 | B0 completo sobre 20 preguntas: éxito 0,25, score 1,20, cobertura 0,56, precisión de citas 0,83 y abstención 1,00. Consumió 42.860 tokens del sistema y 40.477 del juez. B1/B2 siguen pendientes. |
+| 2026-10-24 | Fase 5 | App FastAPI con lifespan/checkpointer, esquemas, `/v1/research`, estado, SSE, aprobación HITL, `/health`, UI mínima, CLI `research`/`resume`, Docker, rate limit y CORS local. Tests de API con grafo falso y grafo real en memoria. `ruff` limpio y 149 tests. |
+| 2026-10-24 | Fase 5 | E2E real `api-live-20261024`: 4 claims, 19 fuentes, 23 eventos SSE, 19.965 tokens y 4 búsquedas. Agotó el presupuesto de 10 llamadas; critic/writer usaron fallback y el informe salió con confianza `low`. Se documenta el límite. |
 |  |  |  |
 
 ---
@@ -643,8 +657,8 @@ un `KeyboardInterrupt` simulado y reanudación desde el checkpoint.
 ## 14. Próximo paso
 
 Terminar la **evaluación completa de Fase 4** cuando haya cuota suficiente:
-ejecutar las 20 preguntas × B0/B1/B2 por lotes con `--resume`, usar un juez de un
-proveedor distinto si Gemini responde, completar las 3 repeticiones de robustez y
-revisar el 20% de las respuestas del lote completo. Después, actualizar
-`docs/evaluation.md` y el README con la tabla de 20 preguntas. La API/UI/Docker
-quedan para la Fase 5.
+ejecutar B1 y B2 sobre las 20 preguntas por lotes con `--resume`, usar un juez de
+un proveedor distinto si Gemini responde, completar las 3 repeticiones de
+robustez y revisar el 20% de las respuestas del lote completo. Después, actualizar
+`docs/evaluation.md` y el README con la tabla B0/B1/B2. La Fase 5 (API/UI/CLI/
+Docker) ya está cerrada; queda la Fase 6 de documentación, CI y cierre.

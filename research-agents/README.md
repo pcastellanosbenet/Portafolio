@@ -5,13 +5,14 @@ con OpenAI. Recibe una pregunta abierta, la descompone, busca evidencia en la we
 en fuentes académicas, verifica las citas y entrega un informe en Markdown con
 trazabilidad de herramientas, tokens y latencia.
 
-> **Estado:** Fases 0–3 completadas y Fase 4 implementada en infraestructura
-> (2026-10-23). El CLI, el grafo con herramientas reales, el HITL, la reanudación
-> con checkpointer SQLite y el marco de evaluación con corpus congelado están
-> cubiertos por tests. Se ejecutó un smoke real de 6 ejecuciones (2 preguntas ×
-> B0/B1/B2); la evaluación completa de 20 preguntas sigue pendiente por cuota y
-> tiempo. La API FastAPI/SSE, la UI y Docker (Fase 5) todavía no están
-> implementados.
+> **Estado (2026-10-24):** Fases 0–3 y 5 completadas. La Fase 4 está **parcial**:
+> el CLI, el grafo con herramientas reales, el HITL, la reanudación con
+> checkpointer SQLite y el marco de evaluación con corpus congelado están
+> cubiertos por tests, y **B0 está completo sobre las 20 preguntas**; **B1/B2 y
+> las repeticiones de robustez siguen pendientes por cuota/tiempo**. La demo
+> FastAPI/SSE de la Fase 5 se verificó con una pregunta real: el informe, las
+> citas, la traza y el usage existen, pero el run agotó el presupuesto de la
+> prueba y usó fallbacks deterministas. Nada de eso se oculta en este README.
 
 ## Qué demuestra
 
@@ -28,7 +29,11 @@ trazabilidad de herramientas, tokens y latencia.
   referencias del informe se normalizan antes de validarse. El critic añade una
   comprobación determinista de soporte estructural de cada claim.
 - **HITL real:** `interrupt()` antes del writer, aprobación o rechazo y
-  reanudación en otro proceso con el mismo `thread_id`.
+  reanudación en otro proceso con el mismo `thread_id`, tanto por CLI como por
+  API/UI.
+- **Producto local:** FastAPI con `POST /v1/research`, estado por run, SSE de
+  traza, aprobación HITL, `/health`, UI mínima, CLI `research`/`resume`, Docker
+  con volumen SQLite y rate limit básico.
 - **Durabilidad:** checkpointer `AsyncSqliteSaver` con serialización JSON+ y una
   allowlist explícita de tipos de la aplicación.
 - Trazas reproducibles sin claves ni datos privados. Cinco ejecuciones reales de
@@ -116,10 +121,10 @@ una traza limpia porque la cuota diaria de Groq se agotó durante la sesión.
 
 La Fase 4 sustituye la búsqueda web por un corpus versionado y ejecuta los tres
 sistemas con las mismas herramientas y límites. El smoke real usa F01 (factual) y
-U01 (sin respuesta), con Groq `openai/gpt-oss-120b` como sistema y
-`openai/gpt-oss-20b` como juez. Gemini no respondió como juez por timeouts, así
-que el smoke no tiene un juez de proveedor independiente; se documenta como
-limitación.
+U01 (sin respuesta) con Groq: `openai/gpt-oss-120b` para las llamadas principales
+de B1/B2 y `openai/gpt-oss-20b` para B0, los researchers y el juez. Gemini no
+respondió como juez por timeouts, así que el smoke no tiene un juez de proveedor
+independiente; se documenta como limitación.
 
 | Sistema | Éxito tarea | Score juez | Cobertura | Precisión citas | Validez citas | Abstención | Llamadas | Tokens | p50 |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
@@ -150,8 +155,31 @@ el gráfico están en
 ```
 
 Un lote interrumpido se reanuda con el mismo `--run-id` y `--resume`; las claves
-`(pregunta, sistema, repetición)` ya completadas se omiten. La evaluación completa
-de las 20 preguntas y las 3 repeticiones de robustez queda pendiente de cuota.
+`(pregunta, sistema, repetición)` ya completadas se omiten.
+
+### Lote B0 completo (20 preguntas)
+
+El 2026-10-24 se ejecutó B0 sobre las 20 preguntas con el mismo corpus congelado.
+B0 usó el modelo rápido `openai/gpt-oss-20b`, que también fue el juez; es un
+resultado real, pero **no es la comparación completa B0/B1/B2**:
+
+| Sistema | Éxito tarea | Score juez | Cobertura | Precisión citas | Validez citas | Recall fuentes | Abstención | Llamadas | Tokens | p50 |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| B0 · agente único | 0,25 | 1,20 | 0,56 | 0,83 | 1,00 | 0,89 | 1,00 | 2 | 2.143 | 58,5 s |
+
+| Categoría | B0 |
+| :--- | :---: |
+| Factual | 0,20 |
+| Comparación | 0,20 |
+| Multi-hop | 0,00 |
+| Sin respuesta | 0,60 |
+
+B0 acertó 5 de 20 con la rúbrica estricta. Las cinco preguntas sin respuesta se
+abstuvieron, pero U01/U03 citaron fuentes irrelevantes y el juez les dio 1. La
+latencia está dominada por el limitador de TPM. B1/B2 y las 3 repeticiones de
+robustez no se ejecutaron por cuota/tiempo; no se presentan como hechas.
+Registros y resumen en
+[`eval/results/eval-full-20261024/`](./eval/results/eval-full-20261024/).
 
 ### Consumo de cuotas observado
 
@@ -169,6 +197,12 @@ Wikipedia y arXiv; no todas consumen Tavily.
 El 2026-10-23 se verificó que Groq y Gemini volvieron a responder `200` con una
 llamada mínima; Tavily seguía con 34 usos de 1.000, porque su límite es mensual.
 El run HITL de la Fase 3 se ejecutó con esas cuotas restablecidas.
+
+El 2026-10-24 el lote B0/20 consumió 42.860 tokens del sistema y 40.477 del juez
+Groq. La prueba E2E de la API consumió 19.965 tokens y 4 búsquedas. Gemini siguió
+fallando como juez por `OpenAITimeoutError`; por eso B0 usó Groq como juez y se
+declara como limitación. B1/B2 no se ejecutaron para no agotar la cuota ni
+presentar resultados parciales como si fueran la comparación completa.
 
 ## Trazas de ejemplo
 
@@ -229,6 +263,66 @@ El CLI imprime el informe en Markdown y escribe una traza JSON en
 `artifacts/traces/`, que está ignorado por Git. `--no-save` evita el archivo.
 `--no-fallback` es útil cuando el proveedor secundario no tiene cuota.
 
+## Demo de producto (Fase 5)
+
+La API, la UI y el CLI comparten el mismo grafo y el mismo checkpointer SQLite.
+
+```bash
+cd research-agents
+.venv/bin/uvicorn app.main:app --reload --port 8000
+```
+
+Abre `http://127.0.0.1:8000/` para la UI y
+`http://127.0.0.1:8000/docs` para OpenAPI. Endpoints:
+
+| Método | Ruta | Uso |
+| :--- | :--- | :--- |
+| `GET` | `/health` | Checkpointer, proveedor, modelo y runs activos |
+| `POST` | `/v1/research` | Crea un run (`202`) |
+| `GET` | `/v1/research/{id}` | Estado, informe, usage, errores y traza |
+| `GET` | `/v1/research/{id}/events` | Stream SSE |
+| `POST` | `/v1/research/{id}/approve` | Aprobar o rechazar el HITL |
+
+```bash
+curl -sS http://127.0.0.1:8000/v1/research \
+  -H 'content-type: application/json' \
+  -d '{"question":"¿Qué es un transformer y para qué se usa en NLP?","language":"es"}'
+
+# El id devuelto se usa para el estado y el stream:
+curl -sS http://127.0.0.1:8000/v1/research/<run_id>
+curl -N  http://127.0.0.1:8000/v1/research/<run_id>/events
+```
+
+CLI equivalente:
+
+```bash
+./bin/research research "¿Qué es un transformer?" --hitl --no-fallback
+./bin/research resume --thread-id <thread_id> --approve --no-fallback
+```
+
+Docker:
+
+```bash
+cp .env.example .env   # edita las claves; no se versiona
+docker compose up --build
+```
+
+El compose usa un volumen nombrado `research-data` para que el usuario no root
+del contenedor pueda escribir `research.db` y `checkpoints.db` sin depender del
+UID del host.
+
+La prueba E2E real del 2026-10-24 (`api-live-20261024`) terminó en `completed`
+con 4 claims, 19 fuentes, 19.965 tokens, 4 búsquedas y 23 eventos de traza. Usó
+el límite ajustado de la prueba y agotó el presupuesto en critic/writer; por eso
+el informe tiene confianza `low` y fallbacks deterministas. La API y el SSE
+funcionaron; el resultado **no** representa la calidad sin esos límites. Detalles
+en [`docs/phase5/README.md`](./docs/phase5/README.md) y traza en
+[`docs/phase5/api-live-20261024.json`](./docs/phase5/api-live-20261024.json).
+
+La demo es local: no tiene autenticación y el registro de runs vive en memoria.
+No la expongas a Internet. Tras reiniciar la API, el checkpointer conserva el
+estado para reanudar por CLI, pero `GET` no lista runs antiguos.
+
 ## HITL y durabilidad
 
 El checkpointer `AsyncSqliteSaver` guarda el estado en
@@ -274,6 +368,12 @@ La aprobación, el rechazo y la reanudación tras un fallo simulado tienen tests
 con `AsyncSqliteSaver` y con un checkpointer en memoria. Si el run se pausa, la
 traza se guarda como `artifacts/traces/<run_id>.paused.json`; al reanudar se
 escribe la traza final como `artifacts/traces/<run_id>.json`.
+
+La API expone el mismo HITL: crea el run con `"hitl": true`, espera a
+`status="awaiting_approval"` y llama a
+`POST /v1/research/{id}/approve` con `{"approved": true|false, "feedback": "..."}`.
+El stream SSE permanece abierto durante la pausa y recibe los eventos del writer
+cuando se reanuda. La UI muestra los botones de aprobación y rechazo.
 
 ## Configuración
 
@@ -330,27 +430,28 @@ cd research-agents
 .venv/bin/pytest -q
 ```
 
-Estado actual: **139 tests pasan** y `ruff` no reporta errores. Los tests no hacen
+Estado actual: **149 tests pasan** y `ruff` no reporta errores. Los tests no hacen
 llamadas reales a APIs: usan fakes, `respx` y fixtures. Pueden ejecutarse en CI
 sin claves. Cubren, entre otros, el tope de rondas, la aprobación y el rechazo
 HITL, la reanudación tras un fallo simulado, el checkpointer SQLite asíncrono,
 el esquema de traza, la recuperación ante `429` y timeouts, la integridad del
 corpus congelado, la búsqueda y el fetch offline, las métricas, el parser del
-juez y los runners B0/B1/B2.
+juez, los runners B0/B1/B2 y la API con un grafo falso y un grafo LangGraph real
+en memoria.
 
 ## Limitaciones
 
-- **La evaluación completa está pendiente.** El corpus congelado, los baselines,
-  el juez y el runner están implementados, y el smoke de 6 ejecuciones es real.
-  Pero solo cubre F01 y U01: no es un benchmark de 20 preguntas. La evaluación
-  completa y las 3 repeticiones de robustez no se ejecutaron por cuota/tiempo.
+- **La comparación completa está pendiente.** El corpus congelado, los baselines,
+  el juez y el runner están implementados. El smoke de 6 ejecuciones es real y
+  B0 está medido sobre las 20 preguntas, pero **B1 y B2 no**: no hay una tabla
+  B0/B1/B2 de 20 preguntas ni las 3 repeticiones de robustez.
 - **La calidad no está garantizada por el validador.** El validador comprueba que
   los IDs citados existan y que los claims tengan fuentes; la comprobación del
   critic es estructural (claim con citas válidas), no entailment semántico. Esa
   comprobación requiere revisión humana o un juez independiente.
-- **El juez del smoke no fue independiente.** Gemini devolvió timeouts y se usó
-  Groq `openai/gpt-oss-20b`. La infraestructura permite un proveedor distinto,
-  pero el smoke no lo consiguió.
+- **El juez no fue independiente.** Gemini devolvió timeouts y se usó Groq
+  `openai/gpt-oss-20b` tanto en el smoke como en B0. La infraestructura permite
+  un proveedor distinto, pero estos resultados no lo consiguieron.
 - **Cobertura léxica y citas estrictas.** La cobertura factual se basa en
   variantes escritas a mano y la precisión de citas penaliza fuentes adicionales
   válidas. Se reportan validez y recall por separado; ninguna métrica mide
@@ -365,13 +466,19 @@ juez y los runners B0/B1/B2.
   del 2026-10-23.
 - **Un error recuperado.** La traza de RAG conserva el `JSONDecodeError` del
   analista y su fallback determinista. Se documenta para no ocultar el fallo.
-- **HITL solo por CLI.** El rechazo termina el run sin informe y no reinyecta el
-  feedback al researcher. La API/UI para aprobar desde fuera del CLI es Fase 5.
-- **Alcance pendiente.** API FastAPI/SSE, UI mínima y Docker están en la Fase 5;
-  la evaluación completa de 20 preguntas y las repeticiones de robustez quedan
-  pendientes de cuota. No se incluye MCP.
-- **Solo CLI.** No hay autenticación, multiusuario ni límites por usuario; no es
-  un servicio listo para exponer a Internet.
+- **El feedback del rechazo no se reinyecta.** La API/UI permiten aprobar o
+  rechazar, pero un rechazo termina el run sin informe y sin una nueva ronda.
+- **La API es una demo local.** El registro de runs vive en memoria y no se
+  reconstruye tras reiniciar; el checkpointer sí conserva el estado para reanudar
+  por CLI. No hay autenticación, multiusuario, cuotas por usuario ni persistencia
+  del historial. Usa un solo worker.
+- **La prueba E2E expuso el límite de presupuesto.** El run real agotó las 10
+  llamadas, el critic y el writer usaron fallback y el informe salió con confianza
+  `low`. Es un resultado honesto del límite de la prueba, no la calidad esperada
+  con más cuota.
+- **Alcance pendiente.** B1/B2 de las 20 preguntas, las 3 repeticiones de
+  robustez, la revisión manual del 20% del lote completo y la integración en CI.
+  No se incluye MCP.
 
 ## Estructura
 
@@ -381,17 +488,29 @@ research-agents/
 ├── requirements.txt
 ├── requirements-dev.txt
 ├── .env.example
+├── Dockerfile
+├── docker-compose.yml
+├── .dockerignore
+├── bin/research            # launcher de la CLI research/resume
+├── app/
+│   ├── main.py             # app FastAPI, rutas y SSE
+│   ├── manager.py          # registro de runs y fan-out de eventos
+│   ├── schemas.py          # request/response
+│   ├── rate_limit.py
+│   └── static/             # UI mínima
 ├── docs/
 │   ├── spike.md
-│   ├── evaluation.md      # metodología, smoke y limitaciones (Fase 4)
+│   ├── evaluation.md      # metodología, smoke, B0/20 y limitaciones
 │   ├── examples/          # 5 trazas reales curadas (Fase 2)
-│   └── phase3/            # run HITL real reanudado (Fase 3)
+│   ├── phase3/            # run HITL real reanudado (Fase 3)
+│   └── phase5/            # API/UI/Docker y E2E real (Fase 5)
 ├── eval/
 │   ├── frozen/corpus.json # 30 documentos con licencia y SHA-256
 │   ├── questions.json     # 20 preguntas en cuatro categorías
-│   └── results/           # smoke real y resúmenes
+│   └── results/           # smoke, B0/20 y resúmenes
 ├── scripts/
 │   ├── run_research.py
+│   ├── research.py        # subcomandos research/resume
 │   ├── run_eval.py        # runner de evaluación B0/B1/B2
 │   └── spike_provider.py
 ├── src/
@@ -420,8 +539,12 @@ research-agents/
   recortaron.
 - Las búsquedas y descargas pasan por límites de tamaño, timeout y validación SSRF.
 - Los checkpoints solo deserializan una allowlist de modelos de la aplicación.
-- Este proyecto es una demostración técnica, no un servicio de producción. No debe
-  desplegarse públicamente sin autenticación, rate limiting y revisión de seguridad.
+- La API no devuelve claves: `/health` solo indica si están configuradas y los
+  errores públicos se redactan. CORS está limitado a orígenes locales y hay un
+  rate limit en memoria de 30 peticiones/minuto por IP.
+- La API no tiene autenticación y el registro de runs no persiste: es una demo
+  local, no un servicio de producción. No debe desplegarse públicamente sin
+  autenticación, rate limiting distribuido y revisión de seguridad.
 
 ## Licencia
 

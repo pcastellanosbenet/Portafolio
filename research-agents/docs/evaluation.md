@@ -1,10 +1,11 @@
 # Evaluación con corpus congelado
 
-> **Estado (2026-10-23):** el marco de evaluación está implementado y se ejecutó
-> un *smoke eval* real de 6 ejecuciones (2 preguntas × B0/B1/B2). La evaluación
-> completa de las 20 preguntas y las 3 repeticiones de robustez sigue pendiente
-> por cuota y tiempo. Este documento separa explícitamente ambas cosas: el smoke
-> demuestra que el pipeline funciona, pero **no es un benchmark representativo**.
+> **Estado (2026-10-24):** el marco de evaluación está implementado. Se ejecutó
+> el *smoke eval* real de 6 ejecuciones (2 preguntas × B0/B1/B2) y, por separado,
+> **B0 completo sobre las 20 preguntas**. B1 y B2 siguen pendientes por cuota y
+> tiempo, y las 3 repeticiones de robustez tampoco se han ejecutado. Este
+> documento separa explícitamente el smoke, el lote B0 y la evaluación completa:
+> **B0/20 no es todavía el benchmark B0/B1/B2**.
 
 ## Por qué un corpus congelado
 
@@ -128,8 +129,9 @@ Configuración:
 | Sistemas | B0, B1, B2 |
 | Repeticiones | 1 |
 | Corpus | `eval/frozen/corpus.json`, 30 documentos |
-| Proveedor principal | Groq `openai/gpt-oss-120b` |
-| Modelo rápido | Groq `openai/gpt-oss-20b` |
+| Proveedor principal | Groq |
+| Modelo principal | `openai/gpt-oss-120b` (planner/analyst/critic/writer de B1/B2) |
+| Modelo rápido | `openai/gpt-oss-20b` (B0, researchers y juez) |
 | Juez | Groq `openai/gpt-oss-20b` (Gemini no respondió) |
 | Fallback del sistema | Desactivado |
 | Límites | 1 ronda, 1 worker, 1 paso de herramienta, 12 llamadas, 30.000 tokens |
@@ -182,6 +184,65 @@ coincidió con la del juez en las 6 para la rúbrica 0/1/2. Los hallazgos fueron
 
 Esta revisión es una muestra pequeña y no sustituye la revisión del 20% de una
 evaluación completa.
+
+## Lote B0 completo (20 preguntas)
+
+El 2026-10-24 se ejecutó **B0 sobre las 20 preguntas** con el corpus congelado,
+una repetición, una ronda, un worker y un paso de herramienta. B0 usó el modelo
+rápido `openai/gpt-oss-20b`, que también actuó como juez; las trazas lo confirman
+aunque `run_meta.json` registre ambos modelos. Es un lote real, pero **solo de
+B0**: no sustituye la comparación B0/B1/B2.
+
+| Métrica | B0 |
+| :--- | :---: |
+| Registros | 20 |
+| Éxito de tarea | 0,25 |
+| Score medio del juez | 1,20 |
+| Cobertura factual | 0,56 |
+| Precisión estricta de citas | 0,83 |
+| Validez de citas | 1,00 |
+| Recall de fuentes | 0,89 |
+| Soporte de claims | 1,00 |
+| Abstención correcta (U01–U05) | 1,00 |
+| Llamadas medias | 2 |
+| Tokens medios | 2.143 |
+| Latencia p50 / p95 | 58,5 s / 59,8 s |
+
+Éxito de tarea por categoría:
+
+| Categoría | B0 |
+| :--- | :---: |
+| Factual | 0,20 |
+| Comparación | 0,20 |
+| Multi-hop | 0,00 |
+| Sin respuesta | 0,60 |
+
+Lectura honesta:
+
+- **B0 acierta 5 de 20 preguntas con la rúbrica estricta** (2/2 del juez). Es un
+  resultado bajo y debe mostrarse tal cual.
+- **Las cinco preguntas sin respuesta se abstuvieron**, pero U01 y U03 incluyeron
+  citas irrelevantes y el juez les dio 1 en lugar de 2. Por eso la abstención
+  correcta es 1,00 mientras el éxito de tarea de esa categoría es 0,60: son
+  métricas distintas.
+- **La latencia de ~58 s por ejecución está dominada por el limitador de TPM**,
+  no por inferencia pura. Los tokens medios son bajos (2.143) porque B0 hace
+  pocas llamadas.
+- **No se debe concluir que B0 sea el mejor sistema.** Solo hay resultados B0;
+  B1 y B2 siguen pendientes, y las 15 preguntas respondibles necesitan revisión
+  manual antes de atribuir los fallos a una causa concreta.
+
+Registros, resumen y gráfico:
+[`eval/results/eval-full-20261024/`](../eval/results/eval-full-20261024/).
+El resumen se regenera con:
+
+```bash
+.venv/bin/python -m scripts.run_eval \
+  --systems b0 --run-id eval-full-20261024 --resume \
+  --max-rounds 1 --max-workers 1 --max-tool-steps 1 \
+  --max-llm-calls 12 --max-tokens 30000 \
+  --judge-provider groq --judge-model openai/gpt-oss-20b
+```
 
 ## Taxonomía de fallos observada
 
@@ -239,8 +300,11 @@ preguntas completas.
 
 - **El smoke no es la evaluación completa.** Solo hay 2 preguntas; las métricas
   agregadas no son representativas.
-- **El juez no fue independiente en el smoke.** Gemini falló por timeouts. Un
-  juez del mismo proveedor puede compartir sesgos con el sistema evaluado.
+- **El lote B0/20 tampoco es la evaluación completa.** B0 está medido, pero B1 y
+  B2 no; no hay comparación entre sistemas ni 3 repeticiones de robustez.
+- **El juez no fue independiente.** Gemini falló por timeouts tanto en el smoke
+  como en el lote B0. Un juez del mismo proveedor puede compartir sesgos con el
+  sistema evaluado.
 - **La cobertura factual es léxica.** Las variantes están escritas a mano; una
   respuesta correcta con otra formulación puede no coincidir.
 - **La precisión de citas es estricta.** Penaliza fuentes adicionales válidas.
@@ -251,8 +315,9 @@ preguntas completas.
   las respuestas se evalúan contra ese corpus, no contra el estado actual de la web.
 - **La latencia incluye rate limiting.** No debe presentarse como latencia pura
   del proveedor.
-- **La evaluación completa sigue pendiente.** No se han inventado resultados para
-  llenar la tabla de 20 preguntas.
+- **La evaluación completa sigue pendiente.** B0 tiene 20/20, pero B1/B2 no se
+  ejecutaron por cuota/tiempo. No se han inventado resultados para llenar la
+  comparación de 20 preguntas.
 
 ## Licencia y atribución del corpus
 

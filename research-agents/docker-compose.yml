@@ -1,0 +1,17 @@
+services:
+  api:
+    build:
+      context: .
+    env_file:
+      - .env
+    environment:
+      RESEARCH_DB_PATH: /app/artifacts/research.db
+      RESEARCH_CHECKPOINT_PATH: /app/artifacts/checkpoints.db
+    ports:
+      - "8000:8000"
+    volumes:
+      - research-data:/app/artifacts
+    restart: unless-stopped
+
+volumes:
+  research-data:
