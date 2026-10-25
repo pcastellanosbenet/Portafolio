@@ -375,6 +375,29 @@ Debe ejecutarse por lotes con `--resume` para respetar la cuota. Las 3
 repeticiones de robustez se harán sobre un subconjunto acordado, no sobre las 20
 preguntas completas.
 
+Para completar los 9 registros restantes de B1 en una sesión nueva:
+
+```bash
+.venv/bin/python -m scripts.run_eval \
+  --systems b1 --run-id eval-full-20261024 --resume \
+  --max-rounds 1 --max-workers 1 --max-tool-steps 1 \
+  --max-llm-calls 12 --max-tokens 30000 \
+  --judge-provider groq --judge-model openai/gpt-oss-20b
+```
+
+B2 necesita otra sesión/día porque su volumen de 120b ya roza el TPD por sí solo:
+
+```bash
+.venv/bin/python -m scripts.run_eval \
+  --systems b2 --run-id eval-full-20261024 --resume \
+  --max-rounds 1 --max-workers 1 --max-tool-steps 1 \
+  --max-llm-calls 12 --max-tokens 30000 \
+  --judge-provider groq --judge-model openai/gpt-oss-20b
+```
+
+No ejecutes `--systems b0,b1,b2 --resume` en el mismo día con el plan gratuito:
+sumaría los 9 registros de B1 y B2 y volvería a agotar el TPD.
+
 ## Presupuesto de cuota y decisión de ejecución
 
 El plan gratuito de Groq limita **cada modelo** a 30 RPM, 1.000 RPD, 8.000 TPM y
