@@ -46,9 +46,16 @@ checkpoints/
 *.pkl
 *.joblib
 
-# Experimentos y secretos
+# Experimentos, artefactos de ejecución y secretos
 mlruns/
 wandb/
+artifacts/
+*.db
+*.sqlite
+*.sqlite3
+*.log
+.coverage
+htmlcov/
 .env
 .env.*
 !.env.example
