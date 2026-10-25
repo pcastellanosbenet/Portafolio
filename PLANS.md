@@ -1,7 +1,7 @@
 # PLANS.md — `research-agents`
 
-> **Estado:** Fase 4 parcial: corpus congelado, baselines, juez, runner y B0/20 completos; B1/B2 y las repeticiones de robustez siguen pendientes. Fase 5 (API/SSE, UI, CLI y Docker) cerrada el 2026-10-24.
-> **Fecha:** 2026-10-24.
+> **Estado:** Fase 4 parcial: corpus congelado, baselines, juez, runner, B0/20 y B1 en curso; B2 y las repeticiones de robustez siguen pendientes por el TPD del free tier. Fase 5 (API/SSE, UI, CLI y Docker) cerrada el 2026-10-24. Fase 6 (documentación, CI y cierre) en curso.
+> **Fecha:** 2026-10-25.
 > **Ubicación:** raíz del repositorio.
 
 ## Convención de progreso
@@ -570,30 +570,30 @@ La suite completa tiene 149 tests y `ruff` está limpio.
 
 **Objetivo:** dejar el proyecto publicable y reproducible.
 
-- [ ] Crear el `README.md` con problema, hipótesis y arquitectura.
-- [ ] Añadir la tabla de resultados reales al README.
-- [ ] Añadir las limitaciones y los casos en que NO conviene multiagente.
-- [ ] Añadir el diagrama de arquitectura.
-- [ ] Escribir `docs/architecture.md`.
-- [ ] Escribir `docs/patterns.md` con el mapa patrón → código → trade-off.
-- [ ] Revisar `docs/evaluation.md`.
-- [ ] Escribir `docs/security.md` sobre prompt injection, secretos y copyright.
-- [ ] Revisar `docs/spike.md` y fechar los límites medidos.
-- [ ] Revisar `.env.example` y sus comentarios.
-- [ ] Añadir el job `research-agents` al CI.
-- [ ] Verificar que el CI no necesita claves ni red externa.
-- [ ] Añadir la fila del cuarto proyecto al `README.md` raíz.
-- [ ] Actualizar el texto “los tres proyectos” a cuatro.
-- [ ] Actualizar `AGENTS.md` con el estado real.
-- [ ] Actualizar `.gitignore` para artefactos, `.env` y fixtures pesados.
-- [ ] Ejecutar `ruff check` y `pytest` en local.
+- [x] Crear el `README.md` con problema, hipótesis y arquitectura.
+- [x] Añadir la tabla de resultados reales al README.
+- [x] Añadir las limitaciones y los casos en que NO conviene multiagente.
+- [x] Añadir el diagrama de arquitectura.
+- [x] Escribir `docs/architecture.md`.
+- [x] Escribir `docs/patterns.md` con el mapa patrón → código → trade-off.
+- [ ] Revisar `docs/evaluation.md` (pendiente de cerrar B1/B2 y la revisión manual).
+- [x] Escribir `docs/security.md` sobre prompt injection, secretos y copyright.
+- [x] Revisar `docs/spike.md` y fechar los límites medidos.
+- [x] Revisar `.env.example` y sus comentarios.
+- [x] Añadir el job `research-agents` al CI.
+- [x] Verificar que el CI no necesita claves ni red externa (151 tests sin `.env`).
+- [x] Añadir la fila del cuarto proyecto al `README.md` raíz.
+- [x] Actualizar el texto “los tres proyectos” a cuatro.
+- [x] Actualizar `AGENTS.md` con el estado real.
+- [x] Actualizar `.gitignore` para artefactos, `.env` y fixtures pesados.
+- [x] Ejecutar `ruff check` y `pytest` en local.
 - [ ] Hacer una prueba de clonado limpio en `/tmp`.
 - [ ] Ejecutar la demo de fixtures en el clon limpio.
 - [ ] Revisar `git status` y confirmar que no hay secretos ni artefactos.
 - [ ] Verificar que los comandos del README funcionan tal como están escritos.
 - [ ] Hacer commits en español, en imperativo.
 - [ ] Revisar que no queden placeholders ni métricas sin respaldo.
-- [ ] Confirmar que no se hará `push --force` sin autorización.
+- [x] Confirmar que no se hará `push --force` sin autorización.
 
 **Criterio de salida:** CI verde, README reproducible, demo funcional y repositorio limpio.
 
@@ -650,6 +650,8 @@ La suite completa tiene 149 tests y `ruff` está limpio.
 | 2026-10-24 | Fase 4 | B0 completo sobre 20 preguntas: éxito 0,25, score 1,20, cobertura 0,56, precisión de citas 0,83 y abstención 1,00. Consumió 42.860 tokens del sistema y 40.477 del juez. B1/B2 siguen pendientes. |
 | 2026-10-24 | Fase 5 | App FastAPI con lifespan/checkpointer, esquemas, `/v1/research`, estado, SSE, aprobación HITL, `/health`, UI mínima, CLI `research`/`resume`, Docker, rate limit y CORS local. Tests de API con grafo falso y grafo real en memoria. `ruff` limpio y 149 tests. |
 | 2026-10-24 | Fase 5 | E2E real `api-live-20261024`: 4 claims, 19 fuentes, 23 eventos SSE, 19.965 tokens y 4 búsquedas. Agotó el presupuesto de 10 llamadas; critic/writer usaron fallback y el informe salió con confianza `low`. Se documenta el límite. |
+| 2026-10-25 | Fase 4 | B1 reanudado con `--resume`; el runner conserva sistemas/configuración en `run_meta.json` y tolera cortes. Primeras preguntas completadas sin errores. B2 sigue bloqueado por el TPD de 200.000 tokens/modelo/día. |
+| 2026-10-25 | Fase 6 | README raíz y README del proyecto actualizados; `docs/architecture.md`, `docs/patterns.md` y `docs/security.md`; `.env.example` con fallback opt-in; job `research-agents` en CI; 151 tests sin `.env`; `.gitignore` para artefactos de ejecución. |
 |  |  |  |
 
 ---

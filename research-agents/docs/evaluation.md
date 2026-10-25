@@ -1,11 +1,12 @@
 # Evaluación con corpus congelado
 
-> **Estado (2026-10-24):** el marco de evaluación está implementado. Se ejecutó
-> el *smoke eval* real de 6 ejecuciones (2 preguntas × B0/B1/B2) y, por separado,
-> **B0 completo sobre las 20 preguntas**. B1 y B2 siguen pendientes por cuota y
-> tiempo, y las 3 repeticiones de robustez tampoco se han ejecutado. Este
-> documento separa explícitamente el smoke, el lote B0 y la evaluación completa:
-> **B0/20 no es todavía el benchmark B0/B1/B2**.
+> **Estado (2026-10-25):** el marco de evaluación está implementado. Se ejecutó
+> el *smoke eval* real de 6 ejecuciones (2 preguntas × B0/B1/B2), **B0 completo
+> sobre las 20 preguntas** y B1 está en ejecución por lotes. B2 sigue pendiente:
+> el free tier de Groq limita cada modelo a 200.000 TPD y B1+B2 no caben en la
+> misma sesión. Las 3 repeticiones de robustez tampoco se han ejecutado. Este
+> documento separa explícitamente el smoke, los lotes B0/B1 y la evaluación
+> completa: **B0/20 y B1 parcial no son todavía el benchmark B0/B1/B2**.
 
 ## Por qué un corpus congelado
 
@@ -27,6 +28,7 @@ Archivos:
 | `eval/frozen/corpus.json` | Documentos, metadatos de licencia, URLs y hashes |
 | `eval/questions.json` | 20 preguntas, hechos de referencia, fuentes esperadas y rúbrica |
 | `eval/results/smoke-20261023b/` | Registros crudos, resumen y gráfico del smoke real |
+| `eval/results/eval-full-20261024/` | Lote B0/20 y B1 por lotes; B2 pendiente |
 
 El corpus se valida al cargarlo: si un documento cambia y su SHA-256 no coincide,
 la evaluación falla antes de ejecutar modelos. Los tests comprueban la integridad,
@@ -228,9 +230,24 @@ Lectura honesta:
 - **La latencia de ~58 s por ejecución está dominada por el limitador de TPM**,
   no por inferencia pura. Los tokens medios son bajos (2.143) porque B0 hace
   pocas llamadas.
-- **No se debe concluir que B0 sea el mejor sistema.** Solo hay resultados B0;
-  B1 y B2 siguen pendientes, y las 15 preguntas respondibles necesitan revisión
+- **No se debe concluir que B0 sea el mejor sistema.** Hay B0 completo y B1
+  parcial; B2 sigue pendiente. Las 15 preguntas respondibles necesitan revisión
   manual antes de atribuir los fallos a una causa concreta.
+
+### Revisión manual de B0 (4 de 20)
+
+Se revisaron una pregunta por categoría: F01, C01, M01 y U01. La puntuación
+humana coincidió con la del juez en las cuatro:
+
+| Pregunta | Juez | Humano | Hallazgo |
+| :--- | :---: | :---: | :--- |
+| F01 | 2 | 2 | Define AA y AD; la cobertura determinista da 1,00 |
+| C01 | 2 | 2 | Comparación correcta; precisión estricta 0,67 por fuentes adicionales |
+| M01 | 1 | 1 | Falta la idea de atención como selección/supresión de información |
+| U01 | 1 | 1 | Se abstiene, pero cita fuentes irrelevantes |
+
+Esta muestra es el 20% del lote B0, no del lote completo B0/B1. La revisión de
+B1 se añade cuando el lote termine.
 
 Registros, resumen y gráfico:
 [`eval/results/eval-full-20261024/`](../eval/results/eval-full-20261024/).
@@ -296,12 +313,34 @@ Debe ejecutarse por lotes con `--resume` para respetar la cuota. Las 3
 repeticiones de robustez se harán sobre un subconjunto acordado, no sobre las 20
 preguntas completas.
 
+## Presupuesto de cuota y decisión de ejecución
+
+El plan gratuito de Groq limita **cada modelo** a 30 RPM, 1.000 RPD, 8.000 TPM y
+**200.000 TPD** (comprobado en la documentación oficial el 2026-10-25). El juez
+también consume tokens del modelo que se le asigna. Esto hace que el benchmark
+completo no quepa en una sola sesión:
+
+| Bloque | 120b estimado | 20b estimado | Base de la estimación |
+| :--- | ---: | ---: | :--- |
+| B0/20 | 0 | ~83.000 | 42.860 del sistema + 40.477 del juez (medido) |
+| B1/20 | ~91.000 | ~196.000 | smoke + primeras preguntas del lote |
+| B2/20 | ~199.000 | ~173.000 | smoke B2 y 20 preguntas |
+| **Total** | **~290.000** | **~452.000** | **supera 200.000 en ambos modelos** |
+
+No son resultados: son estimaciones para planificar. La consecuencia práctica es
+que B0, B1 y B2 deben ejecutarse en días distintos (o con un plan de pago) y que
+no se debe presentar un lote parcial como si fuera la matriz completa. El runner
+permite reanudar con el mismo `run_id` y `--resume`; B1 se está ejecutando así.
+El 2026-10-25, tras F01–F05, B1 llevaba ~55.000 tokens de 20b (sistema + juez) y
+~22.800 de 120b.
+
 ## Limitaciones
 
 - **El smoke no es la evaluación completa.** Solo hay 2 preguntas; las métricas
   agregadas no son representativas.
-- **El lote B0/20 tampoco es la evaluación completa.** B0 está medido, pero B1 y
-  B2 no; no hay comparación entre sistemas ni 3 repeticiones de robustez.
+- **El lote B0/20 tampoco es la evaluación completa.** B0 está medido y B1 se
+  está ejecutando por lotes, pero B2 no; todavía no hay comparación completa
+  entre sistemas ni 3 repeticiones de robustez.
 - **El juez no fue independiente.** Gemini falló por timeouts tanto en el smoke
   como en el lote B0. Un juez del mismo proveedor puede compartir sesgos con el
   sistema evaluado.
@@ -315,9 +354,10 @@ preguntas completas.
   las respuestas se evalúan contra ese corpus, no contra el estado actual de la web.
 - **La latencia incluye rate limiting.** No debe presentarse como latencia pura
   del proveedor.
-- **La evaluación completa sigue pendiente.** B0 tiene 20/20, pero B1/B2 no se
-  ejecutaron por cuota/tiempo. No se han inventado resultados para llenar la
-  comparación de 20 preguntas.
+- **La evaluación completa sigue pendiente.** B0 tiene 20/20; B1 se está
+  ejecutando y B2 no cabe en la misma sesión por el TPD de 200.000 tokens por
+  modelo y día. No se han inventado resultados para llenar la comparación de 20
+  preguntas.
 
 ## Licencia y atribución del corpus
 

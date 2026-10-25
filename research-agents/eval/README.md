@@ -1,8 +1,8 @@
 # Datos de evaluación
 
 Este directorio contiene el corpus congelado y el conjunto de preguntas de la
-Fase 4. La metodología, las métricas y los resultados del smoke y de B0/20 están
-en [`../docs/evaluation.md`](../docs/evaluation.md).
+Fase 4. La metodología, las métricas y los resultados del smoke, de B0/20 y del
+lote B1 en curso están en [`../docs/evaluation.md`](../docs/evaluation.md).
 
 ## Archivos
 
@@ -11,7 +11,7 @@ en [`../docs/evaluation.md`](../docs/evaluation.md).
 | `frozen/corpus.json` | 30 documentos de Wikipedia con licencia, URL, fecha, atribución y SHA-256 |
 | `questions.json` | 20 preguntas en cuatro categorías |
 | `results/smoke-20261023b/` | Smoke real de 6 ejecuciones con B0/B1/B2 |
-| `results/eval-full-20261024/` | B0 completo sobre las 20 preguntas (B1/B2 pendientes) |
+| `results/eval-full-20261024/` | B0 completo sobre 20 preguntas; B1 en ejecución por lotes; B2 pendiente |
 
 ## Corpus
 
@@ -77,9 +77,9 @@ fuentes, uso, traza, juicio y métricas. `summary.json`, `summary.md` y
 `quality_vs_tokens.svg` se generan a partir de esos registros. `run_meta.json`
 guarda los hashes del corpus y de las preguntas y la configuración efectiva.
 
-Los resultados publicados incluyen el smoke y el lote B0/20; no se presentan como
-la evaluación completa B0/B1/B2. Para reproducirlos, consulta los comandos de
-`docs/evaluation.md`.
+Los resultados publicados incluyen el smoke, el lote B0/20 y el lote B1 en curso;
+no se presentan como la evaluación completa B0/B1/B2. Para reproducirlos, consulta
+los comandos de `docs/evaluation.md`.
 
 ## Licencia
 

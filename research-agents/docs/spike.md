@@ -158,3 +158,26 @@ preguntas. La Fase 4 debe usar el corpus congelado, cachear búsquedas, ejecutar
 por lotes con presupuesto explícito y reportar cuántas preguntas quedaron
 bloqueadas por cuota. El fallback de Gemini no es una reserva infinita: su cuota
 diaria también es limitada.
+
+## Cierre de límites medidos (2026-10-25)
+
+En la sesión de cierre se volvieron a comprobar los endpoints con una petición
+mínima. Groq `openai/gpt-oss-120b` y `openai/gpt-oss-20b` respondieron `200` y
+declararon `x-ratelimit-limit-tokens: 8000` (TPM). La página oficial de rate
+limits confirma para ambos modelos **30 RPM, 1.000 RPD, 8.000 TPM y 200.000
+TPD** en el plan gratuito. Gemini respondió `200` en `/models`. Las cabeceras no
+incluyen el TPD, así que el valor se toma de la documentación y se contrasta con
+el agotamiento observado en la Fase 2; no es una garantía futura.
+
+| Recurso | Límite medido / observado | Uso conocido |
+| :--- | :--- | :--- |
+| Groq `openai/gpt-oss-120b` | 8.000 TPM; 200.000 TPD | B0/B1/B2 y juez; el TPD puede agotarse |
+| Groq `openai/gpt-oss-20b` | 8.000 TPM; 200.000 TPD | B0, researchers y juez |
+| Gemini `gemini-3.8-flash` | 20 peticiones/día observadas | Fallback; cuota agotada en sesiones anteriores |
+| Tavily | 1.000 llamadas/mes | Contador persistente; no se usa en modo frozen |
+| Corpus frozen | 30 documentos, 20 preguntas | No consume cuota de búsqueda |
+
+Las cifras cambian con el proveedor y la cuenta. El cliente respeta `Retry-After`
+y aplica backoff, pero la evaluación debe ejecutarse por lotes con `--resume` y
+reportar cuántas preguntas quedaron bloqueadas. No se debe prometer una
+reproducción completa del benchmark en una sola sesión de free tier.

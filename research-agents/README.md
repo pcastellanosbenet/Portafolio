@@ -5,14 +5,16 @@ con OpenAI. Recibe una pregunta abierta, la descompone, busca evidencia en la we
 en fuentes académicas, verifica las citas y entrega un informe en Markdown con
 trazabilidad de herramientas, tokens y latencia.
 
-> **Estado (2026-10-24):** Fases 0–3 y 5 completadas. La Fase 4 está **parcial**:
+> **Estado (2026-10-25):** Fases 0–3 y 5 completadas. La Fase 4 está **parcial**:
 > el CLI, el grafo con herramientas reales, el HITL, la reanudación con
 > checkpointer SQLite y el marco de evaluación con corpus congelado están
-> cubiertos por tests, y **B0 está completo sobre las 20 preguntas**; **B1/B2 y
-> las repeticiones de robustez siguen pendientes por cuota/tiempo**. La demo
-> FastAPI/SSE de la Fase 5 se verificó con una pregunta real: el informe, las
-> citas, la traza y el usage existen, pero el run agotó el presupuesto de la
-> prueba y usó fallbacks deterministas. Nada de eso se oculta en este README.
+> cubiertos por tests; **B0 está completo sobre las 20 preguntas** y **B1 se
+> ejecuta por lotes**. **B2 y las repeticiones de robustez siguen pendientes**:
+> el free tier de Groq limita cada modelo a 200.000 TPD y B1+B2 no caben en la
+> misma sesión. La demo FastAPI/SSE de la Fase 5 se verificó con una pregunta
+> real: el informe, las citas, la traza y el usage existen, pero el run agotó el
+> presupuesto de la prueba y usó fallbacks deterministas. Nada de eso se oculta
+> en este README.
 
 ## Qué demuestra
 
@@ -45,6 +47,17 @@ trazabilidad de herramientas, tokens y latencia.
   citas y abstención, y reanudación por lotes. Metodología y resultados en
   [`docs/evaluation.md`](./docs/evaluation.md).
 
+## Documentación
+
+| Documento | Contenido |
+| :--- | :--- |
+| [`docs/architecture.md`](./docs/architecture.md) | Flujo del grafo, estado, contratos, herramientas, persistencia y producto |
+| [`docs/patterns.md`](./docs/patterns.md) | Patrón → código → trade-off y cuándo no usar el equipo completo |
+| [`docs/security.md`](./docs/security.md) | Secretos, prompt injection, SSRF, cuotas, HITL y límites de la demo |
+| [`docs/evaluation.md`](./docs/evaluation.md) | Corpus congelado, juez, métricas, resultados y limitaciones |
+| [`docs/spike.md`](./docs/spike.md) | Viabilidad de proveedores y límites medidos |
+| [`docs/phase5/README.md`](./docs/phase5/README.md) | API, SSE, UI, CLI, Docker y prueba E2E |
+
 ## Arquitectura
 
 ```text
@@ -66,8 +79,10 @@ supervisor ◄──────────────────────
                                   └──► fin (o rechazo sin informe)
 ```
 
-El supervisor decide la siguiente ruta. El planner produce entre 1 y 4
-subpreguntas. El researcher es un subgrafo ReAct con `ToolNode`: puede buscar,
+El supervisor aplica guardas deterministas sobre el estado y elige la siguiente
+ruta; en la implementación actual siempre hay una sola ruta válida, así que la
+decisión es predecible y no consume una llamada LLM. El planner produce entre 1 y
+4 subpreguntas. El researcher es un subgrafo ReAct con `ToolNode`: puede buscar,
 leer una página y finalizar con un JSON estructurado. El analyst consolida la
 evidencia; el critic comprueba cobertura y citas; el writer redacta sin introducir
 hechos nuevos. Si el critic pide revisar y quedan rondas y presupuesto, el
@@ -176,9 +191,9 @@ resultado real, pero **no es la comparación completa B0/B1/B2**:
 
 B0 acertó 5 de 20 con la rúbrica estricta. Las cinco preguntas sin respuesta se
 abstuvieron, pero U01/U03 citaron fuentes irrelevantes y el juez les dio 1. La
-latencia está dominada por el limitador de TPM. B1/B2 y las 3 repeticiones de
-robustez no se ejecutaron por cuota/tiempo; no se presentan como hechas.
-Registros y resumen en
+latencia está dominada por el limitador de TPM. B1 se ejecuta por lotes; B2 y las
+3 repeticiones de robustez siguen pendientes por el TPD de 200.000 tokens/modelo/día.
+No se presentan resultados parciales como la comparación completa. Registros y resumen en
 [`eval/results/eval-full-20261024/`](./eval/results/eval-full-20261024/).
 
 ### Consumo de cuotas observado
@@ -186,13 +201,14 @@ Registros y resumen en
 | Recurso | Límite observado | Uso en esta sesión |
 | :--- | :--- | :--- |
 | Groq `openai/gpt-oss-120b` | 8.000 TPM · 200.000 TPD | TPD agotado: 199.038 usados; 5.103 solicitados al final |
-| Groq `openai/gpt-oss-20b` | Límites del free tier de Groq | 36 llamadas en las cinco trazas |
+| Groq `openai/gpt-oss-20b` | 8.000 TPM · 200.000 TPD | 36 llamadas en las cinco trazas |
 | Gemini `gemini-3.8-flash` | 20 peticiones/día | Agotado; fallback desactivado |
 | Tavily | 1.000 llamadas/mes | 34 usadas; 966 restantes |
 
-Las cifras son las que devolvieron las APIs el 2026-10-22. No se presentan como
-una garantía de cuota futura. Las 17 búsquedas de la tabla incluyen Tavily,
-Wikipedia y arXiv; no todas consumen Tavily.
+Las cifras de TPM/TPD son las del plan gratuito; el TPD de ambos modelos de Groq
+se confirmó en la documentación oficial el 2026-10-25. No se presentan como una
+garantía de cuota futura. Las 17 búsquedas de la tabla incluyen Tavily, Wikipedia
+y arXiv; no todas consumen Tavily.
 
 El 2026-10-23 se verificó que Groq y Gemini volvieron a responder `200` con una
 llamada mínima; Tavily seguía con 34 usos de 1.000, porque su límite es mensual.
@@ -201,8 +217,10 @@ El run HITL de la Fase 3 se ejecutó con esas cuotas restablecidas.
 El 2026-10-24 el lote B0/20 consumió 42.860 tokens del sistema y 40.477 del juez
 Groq. La prueba E2E de la API consumió 19.965 tokens y 4 búsquedas. Gemini siguió
 fallando como juez por `OpenAITimeoutError`; por eso B0 usó Groq como juez y se
-declara como limitación. B1/B2 no se ejecutaron para no agotar la cuota ni
-presentar resultados parciales como si fueran la comparación completa.
+declara como limitación. El 2026-10-25 se reanudó B1 con el mismo `run_id`; el
+runner conserva el estado y evita repetir preguntas. B2 no cabe en la misma
+sesión por el TPD, así que no se presenta un lote parcial como la comparación
+completa.
 
 ## Trazas de ejemplo
 
@@ -384,7 +402,7 @@ Todo se controla desde `.env`; los valores completos están en
 | :--- | :--- | :--- |
 | `LLM_PROVIDER` / `LLM_MODEL` | `groq` / `openai/gpt-oss-120b` | Proveedor y modelo principal |
 | `LLM_FAST_MODEL` | `openai/gpt-oss-20b` | Routing y tareas rápidas |
-| `LLM_FALLBACK_PROVIDER` | `gemini` | Fallback opcional; vacío lo desactiva |
+| `LLM_FALLBACK_PROVIDER` | vacío | Fallback opcional; vacío lo desactiva |
 | `LLM_TPM_LIMIT` | `8000` | Limitador compartido de tokens/minuto; `0` lo desactiva |
 | `LLM_MAX_OUTPUT_TOKENS` | `3000` | Tope de salida por llamada |
 | `RESEARCH_MAX_LLM_CALLS` | `30` | Presupuesto duro de llamadas |
@@ -430,7 +448,7 @@ cd research-agents
 .venv/bin/pytest -q
 ```
 
-Estado actual: **149 tests pasan** y `ruff` no reporta errores. Los tests no hacen
+Estado actual: **151 tests pasan** y `ruff` no reporta errores. Los tests no hacen
 llamadas reales a APIs: usan fakes, `respx` y fixtures. Pueden ejecutarse en CI
 sin claves. Cubren, entre otros, el tope de rondas, la aprobación y el rechazo
 HITL, la reanudación tras un fallo simulado, el checkpointer SQLite asíncrono,
@@ -442,9 +460,10 @@ en memoria.
 ## Limitaciones
 
 - **La comparación completa está pendiente.** El corpus congelado, los baselines,
-  el juez y el runner están implementados. El smoke de 6 ejecuciones es real y
-  B0 está medido sobre las 20 preguntas, pero **B1 y B2 no**: no hay una tabla
-  B0/B1/B2 de 20 preguntas ni las 3 repeticiones de robustez.
+  el juez y el runner están implementados. El smoke de 6 ejecuciones es real, B0
+  está medido sobre las 20 preguntas y B1 se ejecuta por lotes; **B2 no cabe en la
+  misma sesión** por el TPD de 200.000 tokens por modelo y día. No hay todavía una
+  tabla B0/B1/B2 de 20 preguntas ni las 3 repeticiones de robustez.
 - **La calidad no está garantizada por el validador.** El validador comprueba que
   los IDs citados existan y que los claims tengan fuentes; la comprobación del
   critic es estructural (claim con citas válidas), no entailment semántico. Esa
@@ -476,9 +495,31 @@ en memoria.
   llamadas, el critic y el writer usaron fallback y el informe salió con confianza
   `low`. Es un resultado honesto del límite de la prueba, no la calidad esperada
   con más cuota.
-- **Alcance pendiente.** B1/B2 de las 20 preguntas, las 3 repeticiones de
-  robustez, la revisión manual del 20% del lote completo y la integración en CI.
-  No se incluye MCP.
+- **Alcance pendiente.** B2 de las 20 preguntas, las 3 repeticiones de robustez y
+  la revisión manual completa del 20% del lote B0/B1. La integración en CI ya está
+  añadida y los tests no necesitan claves. No se incluye MCP.
+
+## Cuándo no usar el equipo completo
+
+B2 no es la respuesta por defecto. La comparación B0/B1/B2 y el propio diseño
+sugieren reservarlo para preguntas que realmente necesitan descomposición,
+evidencia múltiple y crítica:
+
+- **Preguntas simples o autocontenidas:** B0 puede responder con una o dos
+  llamadas y mucho menos coste.
+- **Presupuesto ajustado o free tier:** el fan-out y las rondas consumen cuota
+  rápido; un pipeline fijo es más predecible.
+- **Latencia crítica:** B2 encadena planner, researchers, analyst, critic y
+  writer, además de las esperas del rate limiter.
+- **Verificación factual estricta:** el critic solo comprueba estructura de
+  citas, no entailment. Si el coste de un error es alto, hace falta revisión
+  humana o un verificador específico.
+- **Reproducibilidad estricta:** los modelos generativos añaden variabilidad
+  incluso con temperatura 0; el corpus congelado reduce el problema, no lo elimina.
+
+La lectura honesta es usar B0/B1 cuando basten y reservar B2 para preguntas que
+se beneficien de coordinación. Los detalles están en
+[`docs/patterns.md`](./docs/patterns.md).
 
 ## Estructura
 
@@ -499,15 +540,18 @@ research-agents/
 │   ├── rate_limit.py
 │   └── static/             # UI mínima
 ├── docs/
+│   ├── architecture.md    # flujo, estado, contratos y persistencia
+│   ├── patterns.md        # patrón → código → trade-off
+│   ├── security.md        # amenazas, defensas y límites
 │   ├── spike.md
-│   ├── evaluation.md      # metodología, smoke, B0/20 y limitaciones
+│   ├── evaluation.md      # metodología, resultados y limitaciones
 │   ├── examples/          # 5 trazas reales curadas (Fase 2)
 │   ├── phase3/            # run HITL real reanudado (Fase 3)
 │   └── phase5/            # API/UI/Docker y E2E real (Fase 5)
 ├── eval/
 │   ├── frozen/corpus.json # 30 documentos con licencia y SHA-256
 │   ├── questions.json     # 20 preguntas en cuatro categorías
-│   └── results/           # smoke, B0/20 y resúmenes
+│   └── results/           # smoke, lote B0/B1/B2 y resúmenes
 ├── scripts/
 │   ├── run_research.py
 │   ├── research.py        # subcomandos research/resume
@@ -531,6 +575,9 @@ research-agents/
 ```
 
 ## Seguridad
+
+El análisis completo de amenazas, defensas y riesgos residuales está en
+[`docs/security.md`](./docs/security.md). En resumen:
 
 - `.env` y `artifacts/` están en `.gitignore`.
 - No se publican claves, pesos ni datasets privados. El corpus de evaluación sí

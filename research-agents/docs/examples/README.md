@@ -80,4 +80,4 @@ RESEARCH_MAX_ROUNDS=1 RESEARCH_MAX_TOOL_STEPS=1 RESEARCH_MAX_WORKERS=2 \
 ```
 
 La traza se guarda en `artifacts/traces/` (ignorado por Git). Consulta el
-[`README`](../README.md) para la configuración y los límites.
+[`README`](../../README.md) para la configuración y los límites.
