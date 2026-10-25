@@ -7,7 +7,7 @@ from pathlib import Path
 
 from src.eval.models import EvaluationRecord
 from src.eval.report import aggregate, load_records, write_summary
-from src.eval.runner import load_done_keys
+from src.eval.runner import load_done_keys, merge_run_meta
 from src.models import Usage
 
 
@@ -66,6 +66,39 @@ def test_load_records_ignores_blank_lines(tmp_path: Path) -> None:
 
     assert len(records) == 1
     assert records[0].system == "b1"
+
+
+def test_merge_run_meta_preserves_earlier_systems_and_creation_time() -> None:
+    existing = {
+        "created_at": "2026-10-24T07:02:45+00:00",
+        "systems": ["b0"],
+        "question_ids": ["F01"],
+        "config": {"max_llm_calls": 12},
+    }
+    new = {
+        "created_at": "2026-10-25T08:00:00+00:00",
+        "systems": ["b1"],
+        "question_ids": ["F02"],
+        "config": {"max_llm_calls": 12},
+    }
+
+    merged = merge_run_meta(existing, new)
+
+    assert merged["created_at"] == existing["created_at"]
+    assert merged["systems"] == ["b0", "b1"]
+    assert merged["question_ids"] == ["F01", "F02"]
+    assert merged["resumed"] is True
+    assert "configs" not in merged
+
+
+def test_merge_run_meta_keeps_distinct_configs() -> None:
+    existing = {"systems": ["b0"], "config": {"max_llm_calls": 12}}
+    new = {"systems": ["b1"], "config": {"max_llm_calls": 20}}
+
+    merged = merge_run_meta(existing, new)
+
+    assert merged["config"] == {"max_llm_calls": 20}
+    assert merged["configs"] == [{"max_llm_calls": 12}, {"max_llm_calls": 20}]
 
 
 def test_aggregate_groups_by_system_and_category() -> None:

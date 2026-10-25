@@ -74,7 +74,10 @@ def _build_parser() -> argparse.ArgumentParser:
         "--limit",
         type=int,
         default=None,
-        help="Only evaluate the first N selected questions.",
+        help=(
+            "Only evaluate the first N selected questions. It selects by position, "
+            "not the next N unfinished; use --question-id for later batches."
+        ),
     )
     parser.add_argument(
         "--repetitions",
@@ -236,7 +239,7 @@ def main() -> int:
             repetitions=args.repetitions,
             use_judge=not args.no_judge,
             use_fallback=args.allow_fallback,
-            limit=None,
+            limit=args.limit,
             question_ids=set(args.question_id),
             categories=set(args.category),
         )

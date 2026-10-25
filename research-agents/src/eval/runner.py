@@ -35,6 +35,43 @@ def _system_run_id(run_id: str, question_id: str, system: str, repetition: int) 
     return f"{run_id}-{question_id}-{system}-r{repetition}"
 
 
+_SYSTEM_ORDER = {"b0": 0, "b1": 1, "b2": 2}
+
+
+def merge_run_meta(existing: dict[str, Any], new: dict[str, Any]) -> dict[str, Any]:
+    """Merge metadata from a resumed batch without losing earlier systems.
+
+    A run id can be reused to complete B1/B2 after B0. Rewriting the metadata
+    with only the latest ``--systems`` would make the run look as if the earlier
+    systems had never been evaluated, so the union is kept here. If the limits
+    changed between batches, the distinct configurations are preserved under
+    ``configs`` while ``config`` keeps the effective latest one.
+    """
+    if not existing:
+        return new
+    merged = dict(new)
+    created_at = existing.get("created_at") or new.get("created_at")
+    if created_at:
+        merged["created_at"] = created_at
+    merged["systems"] = sorted(
+        set(existing.get("systems", [])) | set(new.get("systems", [])),
+        key=lambda system: _SYSTEM_ORDER.get(system, len(_SYSTEM_ORDER)),
+    )
+    configs = list(existing.get("configs") or [])
+    if existing.get("config") and existing["config"] not in configs:
+        configs.append(existing["config"])
+    if new.get("config") and new["config"] not in configs:
+        configs.append(new["config"])
+    if len(configs) > 1:
+        merged["configs"] = configs
+    if existing.get("question_ids") and new.get("question_ids"):
+        merged["question_ids"] = sorted(
+            set(existing["question_ids"]) | set(new["question_ids"])
+        )
+    merged["resumed"] = True
+    return merged
+
+
 def load_done_keys(path: Path) -> set[tuple[str, str, int]]:
     """Return the resumable keys from a JSONL file.
 
@@ -139,7 +176,8 @@ class EvaluationRunner:
 
     def _write_meta(self) -> None:
         self.run_dir.mkdir(parents=True, exist_ok=True)
-        meta = {
+        meta_path = self.run_dir / "run_meta.json"
+        meta: dict[str, Any] = {
             "run_id": self.run_id,
             "created_at": datetime.now(UTC).isoformat(),
             "systems": self.systems,
@@ -159,7 +197,20 @@ class EvaluationRunner:
             "config": self.run_config,
             "resume_supported": True,
         }
-        (self.run_dir / "run_meta.json").write_text(
+        if self.question_ids:
+            meta["question_ids"] = sorted(self.question_ids)
+        if self.categories:
+            meta["categories"] = sorted(self.categories)
+        if self.limit is not None:
+            meta["limit"] = self.limit
+        if meta_path.is_file():
+            try:
+                existing = json.loads(meta_path.read_text(encoding="utf-8"))
+            except (OSError, json.JSONDecodeError):
+                existing = {}
+            if isinstance(existing, dict):
+                meta = merge_run_meta(existing, meta)
+        meta_path.write_text(
             json.dumps(meta, ensure_ascii=False, indent=2) + "\n",
             encoding="utf-8",
         )
@@ -242,8 +293,7 @@ class EvaluationRunner:
                 f"Results already exist at {self.records_path}. "
                 "Use --resume or choose another --run-id."
             )
-        if not (self.run_dir / "run_meta.json").exists():
-            self._write_meta()
+        self._write_meta()
         done = self._load_done() if resume else set()
         questions = self.selected_questions()
         total = len(questions) * self.repetitions * len(self.systems)
