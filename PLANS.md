@@ -1,6 +1,9 @@
 # PLANS.md — `research-agents`
 
-> **Estado:** Fase 4 parcial: corpus congelado, baselines, juez, runner, B0/20 y B1 en curso; B2 y las repeticiones de robustez siguen pendientes por el TPD del free tier. Fase 5 (API/SSE, UI, CLI y Docker) cerrada el 2026-10-24. Fase 6 (documentación, CI y cierre) en curso.
+> **Estado:** Fase 4 parcial: corpus congelado, baselines, juez, runner, B0/20 y B1
+> 11/20; B2 y las repeticiones de robustez siguen pendientes por el TPD del free
+> tier. Fase 5 (API/SSE, UI, CLI y Docker) cerrada el 2026-10-24. Fase 6
+> (documentación, CI y cierre) en curso.
 > **Fecha:** 2026-10-25.
 > **Ubicación:** raíz del repositorio.
 
@@ -521,10 +524,10 @@ un `KeyboardInterrupt` simulado y reanudación desde el checkpoint.
 - [x] Ejecutar un smoke eval de 2 preguntas (6 ejecuciones, F01/U01).
 - [ ] Ejecutar la evaluación completa B0/B1/B2 por lotes (pendiente de cuota/tiempo).
   - [x] B0 completo sobre las 20 preguntas (2026-10-24; 42.860 tokens del sistema y 40.477 del juez).
-  - [ ] B1 completo sobre las 20 preguntas.
+  - [ ] B1 completo sobre las 20 preguntas (11/20 completados; 9 pendientes por TPD).
   - [ ] B2 completo sobre las 20 preguntas.
 - [ ] Ejecutar 3 repeticiones sobre el subconjunto de robustez (pendiente).
-- [ ] Revisar manualmente el 20% de las respuestas (hecho el 100% del smoke, no el lote completo).
+- [ ] Revisar manualmente el 20% de las respuestas (7/31 = 22,6%: 100% del smoke, 4 B0 y 3 B1; falta B1 U01).
 - [x] Construir la taxonomía inicial de fallos observados en el smoke.
 - [x] Guardar los resultados crudos en `eval/results/`.
 - [x] Generar la tabla resumen y el gráfico calidad vs. coste.
@@ -576,7 +579,7 @@ La suite completa tiene 149 tests y `ruff` está limpio.
 - [x] Añadir el diagrama de arquitectura.
 - [x] Escribir `docs/architecture.md`.
 - [x] Escribir `docs/patterns.md` con el mapa patrón → código → trade-off.
-- [ ] Revisar `docs/evaluation.md` (pendiente de cerrar B1/B2 y la revisión manual).
+- [x] Revisar `docs/evaluation.md` (B1 11/20 y revisión manual; B2 sigue pendiente).
 - [x] Escribir `docs/security.md` sobre prompt injection, secretos y copyright.
 - [x] Revisar `docs/spike.md` y fechar los límites medidos.
 - [x] Revisar `.env.example` y sus comentarios.
@@ -587,12 +590,12 @@ La suite completa tiene 149 tests y `ruff` está limpio.
 - [x] Actualizar `AGENTS.md` con el estado real.
 - [x] Actualizar `.gitignore` para artefactos, `.env` y fixtures pesados.
 - [x] Ejecutar `ruff check` y `pytest` en local.
-- [ ] Hacer una prueba de clonado limpio en `/tmp`.
-- [ ] Ejecutar la demo de fixtures en el clon limpio.
-- [ ] Revisar `git status` y confirmar que no hay secretos ni artefactos.
-- [ ] Verificar que los comandos del README funcionan tal como están escritos.
-- [ ] Hacer commits en español, en imperativo.
-- [ ] Revisar que no queden placeholders ni métricas sin respaldo.
+- [x] Hacer una prueba de clonado limpio en `/tmp` (151 tests, `ruff` y `--dry-run`).
+- [x] Ejecutar los tests de API con grafo falso en el clon limpio.
+- [x] Revisar `git status` y confirmar que no hay secretos ni artefactos versionados.
+- [x] Verificar que los comandos del README funcionan tal como están escritos (`--dry-run`, tests, CLI y clon limpio).
+- [x] Hacer commits en español, en imperativo.
+- [x] Revisar que no queden placeholders ni métricas sin respaldo.
 - [x] Confirmar que no se hará `push --force` sin autorización.
 
 **Criterio de salida:** CI verde, README reproducible, demo funcional y repositorio limpio.
@@ -601,16 +604,16 @@ La suite completa tiene 149 tests y `ruff` está limpio.
 
 ## 11. Definition of Done
 
-- [ ] Un comando instala dependencias y ejecuta los tests sin claves.
+- [x] Un comando instala dependencias y ejecuta los tests sin claves.
 - [ ] Un comando ejecuta la evaluación con claves y reproduce la tabla del README.
-- [ ] Un comando levanta la demo local.
-- [ ] El README explica problema, datos, arquitectura, resultados y limitaciones.
+- [x] Un comando levanta la demo local (Fase 5; ver `docs/phase5/README.md`).
+- [x] El README explica problema, datos, arquitectura, resultados y limitaciones.
 - [ ] Los resultados incluyen B0/B1/B2 y al menos una ablación.
-- [ ] Hay análisis de fallos y una sección de “cuándo no usar multiagente”.
+- [x] Hay análisis de fallos y una sección de “cuándo no usar multiagente”.
 - [ ] El CI está en verde sin llamadas reales.
-- [ ] No hay secretos, corpus completos ni artefactos pesados en Git.
-- [ ] El proyecto se puede clonar y ejecutar en un entorno limpio.
-- [ ] La documentación está en español y el código en inglés.
+- [x] No hay secretos, corpus completos ni artefactos pesados en Git.
+- [x] El proyecto se puede clonar y ejecutar en un entorno limpio (151 tests en `/tmp`).
+- [x] La documentación está en español y el código en inglés.
 
 ---
 
@@ -650,7 +653,7 @@ La suite completa tiene 149 tests y `ruff` está limpio.
 | 2026-10-24 | Fase 4 | B0 completo sobre 20 preguntas: éxito 0,25, score 1,20, cobertura 0,56, precisión de citas 0,83 y abstención 1,00. Consumió 42.860 tokens del sistema y 40.477 del juez. B1/B2 siguen pendientes. |
 | 2026-10-24 | Fase 5 | App FastAPI con lifespan/checkpointer, esquemas, `/v1/research`, estado, SSE, aprobación HITL, `/health`, UI mínima, CLI `research`/`resume`, Docker, rate limit y CORS local. Tests de API con grafo falso y grafo real en memoria. `ruff` limpio y 149 tests. |
 | 2026-10-24 | Fase 5 | E2E real `api-live-20261024`: 4 claims, 19 fuentes, 23 eventos SSE, 19.965 tokens y 4 búsquedas. Agotó el presupuesto de 10 llamadas; critic/writer usaron fallback y el informe salió con confianza `low`. Se documenta el límite. |
-| 2026-10-25 | Fase 4 | B1 reanudado con `--resume`; el runner conserva sistemas/configuración en `run_meta.json` y tolera cortes. Primeras preguntas completadas sin errores. B2 sigue bloqueado por el TPD de 200.000 tokens/modelo/día. |
+| 2026-10-25 | Fase 4 | B1 reanudado con `--resume`: 11/20 completados (F01–F05, C01–C05, M01) y resumen parcial tras `SIGINT`. El runner conserva sistemas/configuración en `run_meta.json`, preserva registros y tolera cortes. El corte se debió al TPD: 127.774 tokens de 20b y 9 registros restantes. B2 sigue bloqueado. |
 | 2026-10-25 | Fase 6 | README raíz y README del proyecto actualizados; `docs/architecture.md`, `docs/patterns.md` y `docs/security.md`; `.env.example` con fallback opt-in; job `research-agents` en CI; 151 tests sin `.env`; `.gitignore` para artefactos de ejecución. |
 |  |  |  |
 

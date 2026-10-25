@@ -8,13 +8,13 @@ trazabilidad de herramientas, tokens y latencia.
 > **Estado (2026-10-25):** Fases 0–3 y 5 completadas. La Fase 4 está **parcial**:
 > el CLI, el grafo con herramientas reales, el HITL, la reanudación con
 > checkpointer SQLite y el marco de evaluación con corpus congelado están
-> cubiertos por tests; **B0 está completo sobre las 20 preguntas** y **B1 se
-> ejecuta por lotes**. **B2 y las repeticiones de robustez siguen pendientes**:
-> el free tier de Groq limita cada modelo a 200.000 TPD y B1+B2 no caben en la
-> misma sesión. La demo FastAPI/SSE de la Fase 5 se verificó con una pregunta
-> real: el informe, las citas, la traza y el usage existen, pero el run agotó el
-> presupuesto de la prueba y usó fallbacks deterministas. Nada de eso se oculta
-> en este README.
+> cubiertos por tests; **B0 está completo sobre las 20 preguntas** y **B1 quedó
+> en 11/20**. **B2 y las repeticiones de robustez siguen pendientes**: el free
+> tier de Groq limita cada modelo a 200.000 TPD; los 9 registros restantes de B1
+> y B2 no caben en la misma sesión. La demo FastAPI/SSE de la Fase 5 se verificó
+> con una pregunta real: el informe, las citas, la traza y el usage existen, pero
+> el run agotó el presupuesto de la prueba y usó fallbacks deterministas. Nada de
+> eso se oculta en este README.
 
 ## Qué demuestra
 
@@ -191,17 +191,40 @@ resultado real, pero **no es la comparación completa B0/B1/B2**:
 
 B0 acertó 5 de 20 con la rúbrica estricta. Las cinco preguntas sin respuesta se
 abstuvieron, pero U01/U03 citaron fuentes irrelevantes y el juez les dio 1. La
-latencia está dominada por el limitador de TPM. B1 se ejecuta por lotes; B2 y las
-3 repeticiones de robustez siguen pendientes por el TPD de 200.000 tokens/modelo/día.
-No se presentan resultados parciales como la comparación completa. Registros y resumen en
+latencia está dominada por el limitador de TPM.
+
+### Lote B1 parcial (11 de 20)
+
+El 2026-10-25 se reanudó B1 y se completaron F01–F05, C01–C05 y M01. El lote se
+interrumpió al llegar a **127.774 tokens de 20b** (sistema + juez) y 49.946 de
+120b: los 9 registros restantes no cabían en el TPD de 200.000. El runner
+preservó los registros y generó un resumen parcial.
+
+| Sistema | Éxito tarea | Score juez | Cobertura | Precisión citas | Validez citas | Recall fuentes | Abstención | Llamadas | Tokens | p50 |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| B1 · pipeline fijo (11) | 0,36 | 1,36 | 0,52 | 0,81 | 1,00 | 0,91 | — | 9,64 | 13.106 | 359,4 s |
+
+| Categoría | B1 | n |
+| :--- | :---: | :---: |
+| Factual | 0,20 | 5 |
+| Comparación | 0,40 | 5 |
+| Multi-hop | 1,00 | 1 |
+| Sin respuesta | — | 0 |
+
+B1 acierta 4 de 11 (F01, C01, C03 y M01). **No es comparable con B0/20**: no
+incluye las 5 preguntas sin respuesta y solo tiene 1 de 5 multi-hop. La calidad
+es parecida (cobertura 0,52 vs 0,56; citas 0,81 vs 0,83), pero B1 usa 6,1× los
+tokens medios y 6,1× la latencia p50. B2 y las 3 repeticiones de robustez siguen
+pendientes. No se presentan resultados parciales como la comparación completa.
+Registros y resumen en
 [`eval/results/eval-full-20261024/`](./eval/results/eval-full-20261024/).
 
 ### Consumo de cuotas observado
 
-| Recurso | Límite observado | Uso en esta sesión |
+| Recurso | Límite observado | Uso observado |
 | :--- | :--- | :--- |
-| Groq `openai/gpt-oss-120b` | 8.000 TPM · 200.000 TPD | TPD agotado: 199.038 usados; 5.103 solicitados al final |
-| Groq `openai/gpt-oss-20b` | 8.000 TPM · 200.000 TPD | 36 llamadas en las cinco trazas |
+| Groq `openai/gpt-oss-120b` | 8.000 TPM · 200.000 TPD | B1: 49.946 tokens en 11 registros (2026-10-25) |
+| Groq `openai/gpt-oss-20b` | 8.000 TPM · 200.000 TPD | B0: 83.337 (2026-10-24); B1: 127.774 (2026-10-25) |
 | Gemini `gemini-3.8-flash` | 20 peticiones/día | Agotado; fallback desactivado |
 | Tavily | 1.000 llamadas/mes | 34 usadas; 966 restantes |
 
@@ -218,9 +241,9 @@ El 2026-10-24 el lote B0/20 consumió 42.860 tokens del sistema y 40.477 del jue
 Groq. La prueba E2E de la API consumió 19.965 tokens y 4 búsquedas. Gemini siguió
 fallando como juez por `OpenAITimeoutError`; por eso B0 usó Groq como juez y se
 declara como limitación. El 2026-10-25 se reanudó B1 con el mismo `run_id`; el
-runner conserva el estado y evita repetir preguntas. B2 no cabe en la misma
-sesión por el TPD, así que no se presenta un lote parcial como la comparación
-completa.
+runner conservó 11 registros y generó un resumen parcial al interrumpirse por el
+TPD. B2 no cabe en la misma sesión, así que no se presenta un lote parcial como
+la comparación completa.
 
 ## Trazas de ejemplo
 
@@ -461,7 +484,7 @@ en memoria.
 
 - **La comparación completa está pendiente.** El corpus congelado, los baselines,
   el juez y el runner están implementados. El smoke de 6 ejecuciones es real, B0
-  está medido sobre las 20 preguntas y B1 se ejecuta por lotes; **B2 no cabe en la
+  está medido sobre las 20 preguntas y B1 quedó en **11/20**; **B2 no cabe en la
   misma sesión** por el TPD de 200.000 tokens por modelo y día. No hay todavía una
   tabla B0/B1/B2 de 20 preguntas ni las 3 repeticiones de robustez.
 - **La calidad no está garantizada por el validador.** El validador comprueba que
@@ -495,9 +518,10 @@ en memoria.
   llamadas, el critic y el writer usaron fallback y el informe salió con confianza
   `low`. Es un resultado honesto del límite de la prueba, no la calidad esperada
   con más cuota.
-- **Alcance pendiente.** B2 de las 20 preguntas, las 3 repeticiones de robustez y
-  la revisión manual completa del 20% del lote B0/B1. La integración en CI ya está
-  añadida y los tests no necesitan claves. No se incluye MCP.
+- **Alcance pendiente.** Los 9 registros restantes de B1, B2 de las 20 preguntas,
+  las 3 repeticiones de robustez y la revisión manual de B1 U01 (la muestra
+  acumulada es 7/31). La integración en CI ya está añadida y los tests no
+  necesitan claves. No se incluye MCP.
 
 ## Cuándo no usar el equipo completo
 

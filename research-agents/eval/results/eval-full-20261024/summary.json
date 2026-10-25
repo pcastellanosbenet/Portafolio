@@ -1,10 +1,11 @@
 {
   "run_id": "eval-full-20261024",
-  "generated_at": "2026-10-24T07:35:07.615210+00:00",
+  "generated_at": "2026-10-25T10:03:33.137818+00:00",
   "systems": [
-    "b0"
+    "b0",
+    "b1"
   ],
-  "record_count": 20,
+  "record_count": 31,
   "overall": {
     "b0": {
       "records": 20,
@@ -28,6 +29,29 @@
       "p95_latency_s": 59.787,
       "total_tokens": 42860,
       "total_llm_calls": 40
+    },
+    "b1": {
+      "records": 11,
+      "records_with_errors": 0,
+      "judge_errors": 0,
+      "task_success_rate": 0.3636,
+      "mean_judge_score": 1.3636,
+      "factual_coverage": 0.5227,
+      "judge_factual_coverage": 0.8106,
+      "citation_precision": 0.8106,
+      "citation_validity": 1.0,
+      "source_recall": 0.9091,
+      "claim_support_rate": 1.0,
+      "claim_relevance_rate": 0.8864,
+      "abstention_accuracy": null,
+      "abstention_rate": null,
+      "avg_llm_calls": 9.6364,
+      "avg_tokens": 13105.6364,
+      "avg_search_calls": 3.8182,
+      "p50_latency_s": 359.426,
+      "p95_latency_s": 360.935,
+      "total_tokens": 144162,
+      "total_llm_calls": 106
     }
   },
   "by_category": {
@@ -54,6 +78,29 @@
         "p95_latency_s": 59.07,
         "total_tokens": 12313,
         "total_llm_calls": 10
+      },
+      "b1": {
+        "records": 5,
+        "records_with_errors": 0,
+        "judge_errors": 0,
+        "task_success_rate": 0.2,
+        "mean_judge_score": 1.2,
+        "factual_coverage": 0.45,
+        "judge_factual_coverage": 0.7833,
+        "citation_precision": 0.7333,
+        "citation_validity": 1.0,
+        "source_recall": 0.8,
+        "claim_support_rate": 1.0,
+        "claim_relevance_rate": 0.9,
+        "abstention_accuracy": null,
+        "abstention_rate": null,
+        "avg_llm_calls": 9.2,
+        "avg_tokens": 12656.8,
+        "avg_search_calls": 3.6,
+        "p50_latency_s": 357.316,
+        "p95_latency_s": 360.921,
+        "total_tokens": 63284,
+        "total_llm_calls": 46
       }
     },
     "comparison": {
@@ -79,6 +126,29 @@
         "p95_latency_s": 59.691,
         "total_tokens": 10236,
         "total_llm_calls": 10
+      },
+      "b1": {
+        "records": 5,
+        "records_with_errors": 0,
+        "judge_errors": 0,
+        "task_success_rate": 0.4,
+        "mean_judge_score": 1.4,
+        "factual_coverage": 0.5,
+        "judge_factual_coverage": 0.8,
+        "citation_precision": 0.9,
+        "citation_validity": 1.0,
+        "source_recall": 1.0,
+        "claim_support_rate": 1.0,
+        "claim_relevance_rate": 0.9,
+        "abstention_accuracy": null,
+        "abstention_rate": null,
+        "avg_llm_calls": 10.0,
+        "avg_tokens": 12808.0,
+        "avg_search_calls": 4.0,
+        "p50_latency_s": 360.041,
+        "p95_latency_s": 360.935,
+        "total_tokens": 64040,
+        "total_llm_calls": 50
       }
     },
     "multi_hop": {
@@ -103,6 +173,29 @@
         "p50_latency_s": 58.154,
         "p95_latency_s": 59.892,
         "total_tokens": 12286,
+        "total_llm_calls": 10
+      },
+      "b1": {
+        "records": 1,
+        "records_with_errors": 0,
+        "judge_errors": 0,
+        "task_success_rate": 1.0,
+        "mean_judge_score": 2.0,
+        "factual_coverage": 1.0,
+        "judge_factual_coverage": 1.0,
+        "citation_precision": 0.75,
+        "citation_validity": 1.0,
+        "source_recall": 1.0,
+        "claim_support_rate": 1.0,
+        "claim_relevance_rate": 0.75,
+        "abstention_accuracy": null,
+        "abstention_rate": null,
+        "avg_llm_calls": 10.0,
+        "avg_tokens": 16838.0,
+        "avg_search_calls": 4.0,
+        "p50_latency_s": 360.608,
+        "p95_latency_s": 360.608,
+        "total_tokens": 16838,
         "total_llm_calls": 10
       }
     },

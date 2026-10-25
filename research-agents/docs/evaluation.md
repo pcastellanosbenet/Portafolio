@@ -2,11 +2,12 @@
 
 > **Estado (2026-10-25):** el marco de evaluación está implementado. Se ejecutó
 > el *smoke eval* real de 6 ejecuciones (2 preguntas × B0/B1/B2), **B0 completo
-> sobre las 20 preguntas** y B1 está en ejecución por lotes. B2 sigue pendiente:
-> el free tier de Groq limita cada modelo a 200.000 TPD y B1+B2 no caben en la
-> misma sesión. Las 3 repeticiones de robustez tampoco se han ejecutado. Este
-> documento separa explícitamente el smoke, los lotes B0/B1 y la evaluación
-> completa: **B0/20 y B1 parcial no son todavía el benchmark B0/B1/B2**.
+> sobre las 20 preguntas** y **B1 parcial con 11/20**. B2 sigue pendiente: el free
+> tier de Groq limita cada modelo a 200.000 TPD y B1+B2 no caben en la misma
+> sesión; los 9 registros restantes de B1 tampoco cabían tras 127.774 tokens de
+> 20b. Las 3 repeticiones de robustez tampoco se han ejecutado. Este documento
+> separa explícitamente el smoke, los lotes B0/B1 y la evaluación completa:
+> **B0/20 y B1 parcial no son todavía el benchmark B0/B1/B2**.
 
 ## Por qué un corpus congelado
 
@@ -178,7 +179,8 @@ de tokens de los sistemas.
 Se revisaron las **6 respuestas del smoke (100% del lote)**. La puntuación humana
 coincidió con la del juez en las 6 para la rúbrica 0/1/2. Los hallazgos fueron:
 
-1. B1 F01: claim adicional no soportada sobre datos y deep learning.
+1. En el smoke, B1 F01 añadió un claim no soportado sobre datos y deep learning;
+   en el lote B1 posterior, F01 ya no tuvo claims no soportados.
 2. B2 F01: tabla Markdown con una fila partida y citas adicionales que bajan la
    precisión estricta aunque el juez diera 2.
 3. B0/B1/B2 U01: las tres se abstuvieron correctamente; el detector determinista
@@ -247,11 +249,11 @@ humana coincidió con la del juez en las cuatro:
 | U01 | 1 | 1 | Se abstiene, pero cita fuentes irrelevantes |
 
 Esta muestra es el 20% del lote B0, no del lote completo B0/B1. La revisión de
-B1 se añade cuando el lote termine.
+B1, con 3 registros, está en la sección siguiente; U01 no se ejecutó.
 
 Registros, resumen y gráfico:
 [`eval/results/eval-full-20261024/`](../eval/results/eval-full-20261024/).
-El resumen se regenera con:
+El resumen solo de B0 se regenera con:
 
 ```bash
 .venv/bin/python -m scripts.run_eval \
@@ -261,11 +263,71 @@ El resumen se regenera con:
   --judge-provider groq --judge-model openai/gpt-oss-20b
 ```
 
+El resumen completo actual (B0 + B1 parcial) es el que está versionado; para
+generarlo sin lanzar ejecuciones nuevas hace falta un script de agregación o
+reanudar cuando la cuota lo permita.
+
+## Lote B1 parcial (11 de 20)
+
+El 2026-10-25 se reanudó B1 con el mismo `run_id` y `--resume`. Se completaron
+F01–F05, C01–C05 y M01. A las 09:47 UTC el lote llevaba **127.774 tokens de
+20b** (sistema + juez) y **49.946 de 120b**. Los 9 registros restantes
+(M02–M05 y U01–U05) necesitaban aproximadamente 110.000 tokens más de 20b, por
+encima de los 200.000 TPD. Para no forzar fallbacks ni registros con el juez
+agotado, se interrumpió con `SIGINT`; el runner preservó los 11 registros y
+escribió un resumen parcial.
+
+| Métrica | B1 (11 registros) |
+| :--- | :---: |
+| Éxito de tarea | 0,36 (4/11) |
+| Score medio del juez | 1,36 |
+| Cobertura factual | 0,52 |
+| Precisión estricta de citas | 0,81 |
+| Validez de citas | 1,00 |
+| Recall de fuentes | 0,91 |
+| Soporte de claims | 1,00 |
+| Abstención correcta | — (sin U) |
+| Llamadas medias | 9,64 |
+| Tokens medios | 13.106 |
+| Latencia p50 / p95 | 359,4 s / 360,9 s |
+
+Éxito de tarea por categoría (el tamaño de muestra importa):
+
+| Categoría | B1 | n |
+| :--- | :---: | :---: |
+| Factual | 0,20 | 5 |
+| Comparación | 0,40 | 5 |
+| Multi-hop | 1,00 | 1 |
+| Sin respuesta | — | 0 |
+
+Lectura honesta:
+
+- **B1 acierta 4 de 11**: F01, C01, C03 y M01. No es comparable con el 5/20 de
+  B0 porque B1 no incluye las 5 preguntas sin respuesta y solo tiene 1 de 5
+  multi-hop. Presentar 0,36 como “B1 supera a B0” sería incorrecto.
+- **La calidad es parecida; el coste no.** B1 usa 6,1× los tokens medios y 6,1×
+  la latencia p50 de B0 (9,64 vs 2 llamadas). La cobertura (0,52 vs 0,56) y la
+  precisión de citas (0,81 vs 0,83) no mejoran de forma clara.
+- **El corte es de cuota, no un fallo del sistema.** El runner es reanudable y
+  el resumen parcial se generó sin inventar los 9 registros que faltan.
+
+### Revisión manual de B1 (3 de 11)
+
+Se revisaron F01, C01 y M01; la puntuación humana coincidió con la del juez en
+las tres (2/2). B1 F01 es el caso más interesante: la cobertura determinista da
+0,333 porque la respuesta usa “subcampo de la informática y la inteligencia
+artificial” en vez de las variantes léxicas esperadas, mientras que el juez
+considera cubiertos los 3 hechos. Es un **falso negativo de la métrica léxica**,
+no un fallo de la respuesta. B1 U01 no se ejecutó por el corte de cuota.
+
+La muestra manual acumulada es 7 de 31 registros (22,6%): 4 de B0 y 3 de B1.
+No se presenta como una auditoría completa.
+
 ## Taxonomía de fallos observada
 
 | Tipo | Ejemplo | Tratamiento |
 | :--- | :--- | :--- |
-| Claim no soportada | B1 F01 afirmó una necesidad de grandes volúmenes de datos sin evidencia | El juez la penaliza; el critic estructural no la detecta |
+| Claim no soportada | En el smoke, B1 F01 afirmó una necesidad de grandes volúmenes de datos sin evidencia | El juez la penaliza; el critic estructural no la detecta |
 | Dilución de citas | B2 F01 citó 8 fuentes para 2 esperadas | Se reporta precisión estricta y validez por separado |
 | Defecto de formato | B2 F01 generó una tabla Markdown incompleta | Revisión humana; no afecta al score del juez |
 | Coste/latencia | B2 usó ~9× tokens y ~200× la latencia p50 de B0 | Se reportan tokens y percentiles, no solo calidad |
@@ -323,23 +385,23 @@ completo no quepa en una sola sesión:
 | Bloque | 120b estimado | 20b estimado | Base de la estimación |
 | :--- | ---: | ---: | :--- |
 | B0/20 | 0 | ~83.000 | 42.860 del sistema + 40.477 del juez (medido) |
-| B1/20 | ~91.000 | ~196.000 | smoke + primeras preguntas del lote |
+| B1/20 | ~91.000 | ~230.000 | 11 registros medidos y extrapolación de M/U |
 | B2/20 | ~199.000 | ~173.000 | smoke B2 y 20 preguntas |
-| **Total** | **~290.000** | **~452.000** | **supera 200.000 en ambos modelos** |
+| **Total** | **~290.000** | **~486.000** | **supera 200.000 en ambos modelos** |
 
 No son resultados: son estimaciones para planificar. La consecuencia práctica es
 que B0, B1 y B2 deben ejecutarse en días distintos (o con un plan de pago) y que
 no se debe presentar un lote parcial como si fuera la matriz completa. El runner
-permite reanudar con el mismo `run_id` y `--resume`; B1 se está ejecutando así.
-El 2026-10-25, tras F01–F05, B1 llevaba ~55.000 tokens de 20b (sistema + juez) y
-~22.800 de 120b.
+permite reanudar con el mismo `run_id` y `--resume`; B1 se ejecutó así. El
+2026-10-25, tras 11 registros, B1 llevaba 127.774 tokens de 20b (sistema + juez)
+y 49.946 de 120b; el corte se documenta en la sección del lote B1.
 
 ## Limitaciones
 
 - **El smoke no es la evaluación completa.** Solo hay 2 preguntas; las métricas
   agregadas no son representativas.
-- **El lote B0/20 tampoco es la evaluación completa.** B0 está medido y B1 se
-  está ejecutando por lotes, pero B2 no; todavía no hay comparación completa
+- **El lote B0/20 tampoco es la evaluación completa.** B0 está medido y B1 quedó
+  en 11/20 por el TPD; B2 no se ejecutó. Todavía no hay comparación completa
   entre sistemas ni 3 repeticiones de robustez.
 - **El juez no fue independiente.** Gemini falló por timeouts tanto en el smoke
   como en el lote B0. Un juez del mismo proveedor puede compartir sesgos con el
@@ -354,10 +416,10 @@ El 2026-10-25, tras F01–F05, B1 llevaba ~55.000 tokens de 20b (sistema + juez)
   las respuestas se evalúan contra ese corpus, no contra el estado actual de la web.
 - **La latencia incluye rate limiting.** No debe presentarse como latencia pura
   del proveedor.
-- **La evaluación completa sigue pendiente.** B0 tiene 20/20; B1 se está
-  ejecutando y B2 no cabe en la misma sesión por el TPD de 200.000 tokens por
-  modelo y día. No se han inventado resultados para llenar la comparación de 20
-  preguntas.
+- **La evaluación completa sigue pendiente.** B0 tiene 20/20; B1 quedó en 11/20
+  porque los 9 registros restantes no cabían en el TPD de 200.000 tokens por
+  modelo y día; B2 no se ejecutó. No se han inventado resultados para llenar la
+  comparación de 20 preguntas.
 
 ## Licencia y atribución del corpus
 

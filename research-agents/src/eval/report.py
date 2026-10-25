@@ -140,11 +140,12 @@ def _overall_table(summary: dict[str, Any]) -> str:
     ]
     for system in systems:
         row = summary["overall"][system]
+        label = f"{_SYSTEM_LABELS.get(system, system)} ({row['records']})"
         lines.append(
             "| "
             + " | ".join(
                 [
-                    _SYSTEM_LABELS.get(system, system),
+                    label,
                     _format_number(row["task_success_rate"]),
                     _format_number(row["mean_judge_score"]),
                     _format_number(row["factual_coverage"]),
@@ -194,7 +195,7 @@ def _svg_plot(summary: dict[str, Any]) -> str:
         y = row["task_success_rate"]
         if y is None:
             continue
-        points.append((system, float(x), float(y)))
+        points.append((system, float(x), float(y), row["records"]))
     width, height, margin = 720, 420, 64
     max_x = max((point[1] for point in points), default=1.0) or 1.0
     def sx(value: float) -> float:
@@ -202,14 +203,14 @@ def _svg_plot(summary: dict[str, Any]) -> str:
     def sy(value: float) -> float:
         return height - margin - value * (height - 2 * margin)
     circles = []
-    for system, x, y in points:
+    for system, x, y, records in points:
         circles.append(
             f'<circle cx="{sx(x):.1f}" cy="{sy(y):.1f}" r="9" '
             f'fill="#2563eb" stroke="#1e3a8a" stroke-width="2" />'
         )
         circles.append(
             f'<text x="{sx(x) + 14:.1f}" y="{sy(y) + 5:.1f}" '
-            f'font-family="sans-serif" font-size="14">{system.upper()}</text>'
+            f'font-family="sans-serif" font-size="14">{system.upper()} ({records})</text>'
         )
     grid = []
     for step in range(6):
@@ -274,6 +275,10 @@ def write_summary(
             "## Éxito de tarea por categoría",
             "",
             _category_table(summary),
+            "",
+            "El número entre paréntesis de la tabla global es el total de registros por "
+            "sistema; una categoría con pocos registros (por ejemplo, n=1) no es comparable "
+            "con una de n=5.",
             "",
             "## Calidad frente a coste",
             "",
