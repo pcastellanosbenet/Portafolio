@@ -96,7 +96,7 @@ es el principal; si Groq falla, Gemini queda como segunda opción.
 
 El gate se cumple para el sistema con Groq como principal. Gemini no se usa como
 principal por su inestabilidad observada en el tier gratuito. La decisión quedó
-registrada en `PLANS.md` y se continuó con la Fase 1.
+registrada en el plan interno del proyecto y se continuó con la Fase 1.
 
 ## Fase 2 — uso real y límites observados (2026-10-22)
 
