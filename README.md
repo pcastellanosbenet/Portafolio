@@ -18,16 +18,16 @@ reporta métricas reales, no solo resultados visuales.
 | [Clasificación de señales de tráfico](./traffic-signs) | Visión por computador: CNN, transfer learning, augmentación, evaluación por clase y análisis de errores | PyTorch · torchvision | 97,47% accuracy · 43 clases | Completado |
 | [Interpretabilidad de BERT](./bert-attention) | NLP: mecanismos de atención, análisis de capas y cabezas, visualización | PyTorch · Transformers | 12 capas × 12 cabezas · 8 mapas curados | Completado |
 | [KNX RAG Assistant](./rag-assistant) | RAG end-to-end: ingesta de PDFs, búsqueda híbrida, citas, evaluación, API y Docker | Transformers · Qdrant · FastAPI · Docker | Recall@10 0,908 · MRR 0,850 · 20 preguntas | Completado |
-| [research-agents](./research-agents) | Agentes: supervisor, planner, researchers paralelos, crítico, citas, HITL, trazas y evaluación con corpus congelado | LangGraph · Groq · Tavily · FastAPI · SQLite · Docker | 5 preguntas reales · HITL por CLI/API · B0/20 · B1 11/20 · smoke B0/B1/B2 · 151 tests | Fase 6 en cierre · Fase 4 parcial |
+| [research-agents](./research-agents) | Agentes: supervisor, planner, researchers paralelos, crítico, citas, HITL, trazas y evaluación con corpus congelado | LangGraph · Groq · Tavily · FastAPI · SQLite · Docker | 5 preguntas reales · HITL por CLI/API · B0/20 · B1/20 · smoke B0/B1/B2 · 151 tests | Fase 6 en cierre · Fase 4 parcial |
 
 > Los cuatro proyectos están documentados; los tres primeros están terminados.
 > `research-agents` tiene cerradas las Fases 2, 3 y 5: herramientas, caché,
 > paralelismo, runs reales, HITL y checkpointer SQLite, API/SSE, UI, CLI y Docker.
-> La Fase 4 está parcial: B0 está medido sobre las 20 preguntas, B1 quedó en
-> 11/20 por el TPD, y B2 y las repeticiones de robustez siguen pendientes. La Fase
-> 6 (documentación, CI y cierre) está preparada. Su README, `docs/evaluation.md`,
-> `docs/architecture.md`, `docs/patterns.md`, `docs/security.md` y
-> `docs/phase5/README.md` documentan las métricas reales, la arquitectura, la
+> La Fase 4 está parcial: B0 y B1 están medidos sobre las 20 preguntas; B1
+> necesitó dos sesiones por el TPD. B2 y las repeticiones de robustez siguen
+> pendientes. La Fase 6 (documentación, CI y cierre) está preparada. Su README,
+> `docs/evaluation.md`, `docs/architecture.md`, `docs/patterns.md`,
+> `docs/security.md` y `docs/phase5/README.md` documentan las métricas reales, la
 > prueba E2E y las limitaciones.
 >
 > El corpus del estándar KNX no se redistribuye: se aporta localmente con una
@@ -71,8 +71,9 @@ datasets. Datasets are not committed. Downloadable datasets ship with a fetch sc
 the copyrighted KNX corpus is supplied locally with a valid license. `rag-assistant` also
 includes a synthetic demo corpus for running the full pipeline without the KNX corpus.
 `research-agents` includes a frozen Wikipedia corpus, B0/B1/B2 baselines, a documented
-smoke evaluation, a complete B0 run over 20 questions and a partial B1 run (11/20); B2
-and the robustness repetitions are still pending because the free-tier daily token
-limit is not enough for the full matrix in one session. It also ships a FastAPI/SSE
-demo with a minimal UI, CLI and Docker. Code is released under the MIT license; the evaluation corpus
+smoke evaluation and complete B0 and B1 runs over 20 questions; B1 was split across
+two sessions because its 20b token use exceeds the daily limit. B2 and the robustness
+repetitions are still pending because the free-tier daily token limit is not enough for
+the full matrix in one session. It also ships a FastAPI/SSE demo with a minimal UI, CLI
+and Docker. Code is released under the MIT license; the evaluation corpus
 keeps its CC BY-SA 4.0 license.

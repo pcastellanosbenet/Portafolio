@@ -1,10 +1,10 @@
 # PLANS.md — `research-agents`
 
 > **Estado:** Fase 4 parcial: corpus congelado, baselines, juez, runner, B0/20 y B1
-> 11/20; B2 y las repeticiones de robustez siguen pendientes por el TPD del free
+> 20/20; B2 y las repeticiones de robustez siguen pendientes por el TPD del free
 > tier. Fase 5 (API/SSE, UI, CLI y Docker) cerrada el 2026-10-24. Fase 6
 > (documentación, CI y cierre) en curso.
-> **Fecha:** 2026-10-25.
+> **Fecha:** 2026-10-26.
 > **Ubicación:** raíz del repositorio.
 
 ## Convención de progreso
@@ -524,10 +524,10 @@ un `KeyboardInterrupt` simulado y reanudación desde el checkpoint.
 - [x] Ejecutar un smoke eval de 2 preguntas (6 ejecuciones, F01/U01).
 - [ ] Ejecutar la evaluación completa B0/B1/B2 por lotes (pendiente de cuota/tiempo).
   - [x] B0 completo sobre las 20 preguntas (2026-10-24; 42.860 tokens del sistema y 40.477 del juez).
-  - [ ] B1 completo sobre las 20 preguntas (11/20 completados; 9 pendientes por TPD).
+  - [x] B1 completo sobre las 20 preguntas (20/20; 11 el 2026-10-25 y 9 el 2026-10-26).
   - [ ] B2 completo sobre las 20 preguntas.
 - [ ] Ejecutar 3 repeticiones sobre el subconjunto de robustez (pendiente).
-- [ ] Revisar manualmente el 20% de las respuestas (7/31 = 22,6%: 100% del smoke, 4 B0 y 3 B1; falta B1 U01).
+- [x] Revisar manualmente el 20% de las respuestas (8/40 = 20%: 100% del smoke, 4 B0 y 4 B1; 8/8 de coincidencia).
 - [x] Construir la taxonomía inicial de fallos observados en el smoke.
 - [x] Guardar los resultados crudos en `eval/results/`.
 - [x] Generar la tabla resumen y el gráfico calidad vs. coste.
@@ -579,7 +579,7 @@ La suite completa tiene 149 tests y `ruff` está limpio.
 - [x] Añadir el diagrama de arquitectura.
 - [x] Escribir `docs/architecture.md`.
 - [x] Escribir `docs/patterns.md` con el mapa patrón → código → trade-off.
-- [x] Revisar `docs/evaluation.md` (B1 11/20 y revisión manual; B2 sigue pendiente).
+- [x] Revisar `docs/evaluation.md` (B0/B1 20/20 y revisión manual; B2 sigue pendiente).
 - [x] Escribir `docs/security.md` sobre prompt injection, secretos y copyright.
 - [x] Revisar `docs/spike.md` y fechar los límites medidos.
 - [x] Revisar `.env.example` y sus comentarios.
@@ -654,6 +654,7 @@ La suite completa tiene 149 tests y `ruff` está limpio.
 | 2026-10-24 | Fase 5 | App FastAPI con lifespan/checkpointer, esquemas, `/v1/research`, estado, SSE, aprobación HITL, `/health`, UI mínima, CLI `research`/`resume`, Docker, rate limit y CORS local. Tests de API con grafo falso y grafo real en memoria. `ruff` limpio y 149 tests. |
 | 2026-10-24 | Fase 5 | E2E real `api-live-20261024`: 4 claims, 19 fuentes, 23 eventos SSE, 19.965 tokens y 4 búsquedas. Agotó el presupuesto de 10 llamadas; critic/writer usaron fallback y el informe salió con confianza `low`. Se documenta el límite. |
 | 2026-10-25 | Fase 4 | B1 reanudado con `--resume`: 11/20 completados (F01–F05, C01–C05, M01) y resumen parcial tras `SIGINT`. El runner conserva sistemas/configuración en `run_meta.json`, preserva registros y tolera cortes. El corte se debió al TPD: 127.774 tokens de 20b y 9 registros restantes. B2 sigue bloqueado. |
+| 2026-10-26 | Fase 4 | B1 completado con `--resume`: 9 registros restantes (M02–M05 y U01–U05), 20/20 y 0 errores. Éxito 0,55; score 1,55; cobertura 0,56; citas 0,74; 11.972 tokens medios; p50 357,3 s. Consumo B1 total: 210.213 de 20b y 82.828 de 120b en dos días. Revisión manual de U01 2/2; muestra 8/40 (20%). B2 sigue pendiente. |
 | 2026-10-25 | Fase 6 | README raíz y README del proyecto actualizados; `docs/architecture.md`, `docs/patterns.md` y `docs/security.md`; `.env.example` con fallback opt-in; job `research-agents` en CI; 151 tests sin `.env`; `.gitignore` para artefactos de ejecución. |
 |  |  |  |
 
@@ -662,8 +663,9 @@ La suite completa tiene 149 tests y `ruff` está limpio.
 ## 14. Próximo paso
 
 Terminar la **evaluación completa de Fase 4** cuando haya cuota suficiente:
-ejecutar B1 y B2 sobre las 20 preguntas por lotes con `--resume`, usar un juez de
-un proveedor distinto si Gemini responde, completar las 3 repeticiones de
-robustez y revisar el 20% de las respuestas del lote completo. Después, actualizar
-`docs/evaluation.md` y el README con la tabla B0/B1/B2. La Fase 5 (API/UI/CLI/
-Docker) ya está cerrada; queda la Fase 6 de documentación, CI y cierre.
+B1 ya está completo (20/20), así que queda ejecutar B2 sobre las 20 preguntas
+con `--resume`, usar un juez de un proveedor distinto si Gemini responde y
+completar las 3 repeticiones de robustez. La revisión manual del 20% ya está
+hecha (8/40). Después, actualizar `docs/evaluation.md` y el README con la tabla
+B0/B1/B2. La Fase 5 (API/UI/CLI/Docker) ya está cerrada; queda la Fase 6 de
+documentación, CI y cierre.

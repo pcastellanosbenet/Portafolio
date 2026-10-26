@@ -277,8 +277,8 @@ def write_summary(
             _category_table(summary),
             "",
             "El número entre paréntesis de la tabla global es el total de registros por "
-            "sistema; una categoría con pocos registros (por ejemplo, n=1) no es comparable "
-            "con una de n=5.",
+            "sistema; las categorías usan solo sus propios registros, así que un n "
+            "distinto no es comparable.",
             "",
             "## Calidad frente a coste",
             "",
