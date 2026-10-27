@@ -1,0 +1,60 @@
+{"gold": {"arguments": {"limit": 3, "query": "MRTR aprobación"}, "server": "docs", "tool": "search_docs"}, "id": "docs-01"}
+{"gold": {"arguments": {"limit": 3, "query": "SSRF seguridad"}, "server": "docs", "tool": "search_docs"}, "id": "docs-02"}
+{"gold": {"arguments": {"limit": 3, "query": "tokens de definiciones"}, "server": "docs", "tool": "search_docs"}, "id": "docs-03"}
+{"gold": {"arguments": {"limit": 3, "query": "namespacing colisiones"}, "server": "docs", "tool": "search_docs"}, "id": "docs-04"}
+{"gold": {"arguments": {"limit": 3, "query": "suscripciones"}, "server": "docs", "tool": "search_docs"}, "id": "docs-05"}
+{"gold": {"arguments": {"limit": 3, "query": "incidentes operaciones"}, "server": "docs", "tool": "search_docs"}, "id": "docs-06"}
+{"gold": {"arguments": {"doc_id": "protocolo"}, "server": "docs", "tool": "read_doc"}, "id": "docs-07"}
+{"gold": {"arguments": {"doc_id": "gateway"}, "server": "docs", "tool": "read_doc"}, "id": "docs-08"}
+{"gold": {"arguments": {"doc_id": "seguridad"}, "server": "docs", "tool": "read_doc"}, "id": "docs-09"}
+{"gold": {"arguments": {"doc_id": "operacion"}, "server": "docs", "tool": "read_doc"}, "id": "docs-10"}
+{"gold": {"arguments": {"doc_id": "evaluacion"}, "server": "docs", "tool": "read_doc"}, "id": "docs-11"}
+{"gold": {"arguments": {}, "server": "docs", "tool": "list_docs"}, "id": "docs-12"}
+{"gold": {"arguments": {}, "server": "docs", "tool": "list_docs"}, "id": "docs-13"}
+{"gold": {"arguments": {}, "server": "docs", "tool": "list_docs"}, "id": "docs-14"}
+{"gold": {"arguments": {"doc_id": "protocolo"}, "server": "docs", "tool": "outline_doc"}, "id": "docs-15"}
+{"gold": {"arguments": {"doc_id": "seguridad"}, "server": "docs", "tool": "outline_doc"}, "id": "docs-16"}
+{"gold": {"arguments": {"doc_id": "evaluacion"}, "server": "docs", "tool": "outline_doc"}, "id": "docs-17"}
+{"gold": {"arguments": {"doc_id": "protocolo"}, "server": "docs", "tool": "cite_doc"}, "id": "docs-18"}
+{"gold": {"arguments": {"doc_id": "gateway"}, "server": "docs", "tool": "cite_doc"}, "id": "docs-19"}
+{"gold": {"arguments": {"doc_id": "evaluacion"}, "server": "docs", "tool": "cite_doc"}, "id": "docs-20"}
+{"gold": {"arguments": {"limit": 3, "query": "SSRF seguridad"}, "server": "research", "tool": "wikipedia_search"}, "id": "research-01"}
+{"gold": {"arguments": {"limit": 3, "query": "prompt injection"}, "server": "research", "tool": "wikipedia_search"}, "id": "research-02"}
+{"gold": {"arguments": {"limit": 3, "query": "BM25 ranking"}, "server": "research", "tool": "wikipedia_search"}, "id": "research-03"}
+{"gold": {"arguments": {"limit": 3, "query": "LangGraph agentes"}, "server": "research", "tool": "wikipedia_search"}, "id": "research-04"}
+{"gold": {"arguments": {"limit": 3, "query": "RAG documentación"}, "server": "research", "tool": "wikipedia_search"}, "id": "research-05"}
+{"gold": {"arguments": {"limit": 3, "query": "Model Context Protocol"}, "server": "research", "tool": "wikipedia_search"}, "id": "research-06"}
+{"gold": {"arguments": {"title": "BM25"}, "server": "research", "tool": "wikipedia_get"}, "id": "research-07"}
+{"gold": {"arguments": {"title": "SSRF"}, "server": "research", "tool": "wikipedia_get"}, "id": "research-08"}
+{"gold": {"arguments": {"title": "LangGraph"}, "server": "research", "tool": "wikipedia_get"}, "id": "research-09"}
+{"gold": {"arguments": {"limit": 3, "query": "tool selection tokens"}, "server": "research", "tool": "arxiv_search"}, "id": "research-10"}
+{"gold": {"arguments": {"limit": 3, "query": "secure tool calling"}, "server": "research", "tool": "arxiv_search"}, "id": "research-11"}
+{"gold": {"arguments": {"limit": 3, "query": "MCP gateways evaluation"}, "server": "research", "tool": "arxiv_search"}, "id": "research-12"}
+{"gold": {"arguments": {"arxiv_id": "2601.00001"}, "server": "research", "tool": "arxiv_get"}, "id": "research-13"}
+{"gold": {"arguments": {"arxiv_id": "2603.00003"}, "server": "research", "tool": "arxiv_get"}, "id": "research-14"}
+{"gold": {"arguments": {"arxiv_id": "2604.00004"}, "server": "research", "tool": "arxiv_get"}, "id": "research-15"}
+{"gold": {"arguments": {}, "server": "ops", "tool": "list_services"}, "id": "ops-01"}
+{"gold": {"arguments": {"service": "api"}, "server": "ops", "tool": "get_service"}, "id": "ops-02"}
+{"gold": {"arguments": {"service": "worker"}, "server": "ops", "tool": "get_service"}, "id": "ops-03"}
+{"gold": {"arguments": {"service": "api", "window_minutes": 5}, "server": "ops", "tool": "query_metrics"}, "id": "ops-04"}
+{"gold": {"arguments": {"service": "db", "window_minutes": 10}, "server": "ops", "tool": "query_metrics"}, "id": "ops-05"}
+{"gold": {"arguments": {"status": "open"}, "server": "ops", "tool": "list_incidents"}, "id": "ops-06"}
+{"gold": {"arguments": {"status": "resolved"}, "server": "ops", "tool": "list_incidents"}, "id": "ops-07"}
+{"gold": {"arguments": {"incident_id": "INC-001"}, "server": "ops", "tool": "get_incident"}, "id": "ops-08"}
+{"gold": {"arguments": {"limit": 5, "query": "timeout", "service": "api"}, "server": "ops", "tool": "search_logs"}, "id": "ops-09"}
+{"gold": {"arguments": {"limit": 5, "query": "connection", "service": "db"}, "server": "ops", "tool": "search_logs"}, "id": "ops-10"}
+{"gold": {"arguments": {"limit": 3, "service": "api"}, "server": "ops", "tool": "deploy_history"}, "id": "ops-11"}
+{"gold": {"arguments": {"service": "api", "severity": "sev2", "title": "Latencia en checkout"}, "server": "ops", "tool": "create_incident"}, "id": "ops-12"}
+{"gold": {"arguments": {"incident_id": "INC-002"}, "server": "ops", "tool": "ack_incident"}, "id": "ops-13"}
+{"gold": {"arguments": {"incident_id": "INC-003", "status": "resolved"}, "server": "ops", "tool": "update_incident"}, "id": "ops-14"}
+{"gold": {"arguments": {"service": "api"}, "server": "ops", "tool": "restart_service"}, "id": "ops-15"}
+{"gold": null, "id": "neg-01"}
+{"gold": null, "id": "neg-02"}
+{"gold": null, "id": "neg-03"}
+{"gold": null, "id": "neg-04"}
+{"gold": null, "id": "neg-05"}
+{"gold": null, "id": "neg-06"}
+{"gold": null, "id": "neg-07"}
+{"gold": null, "id": "neg-08"}
+{"gold": null, "id": "neg-09"}
+{"gold": null, "id": "neg-10"}

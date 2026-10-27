@@ -1,0 +1,44 @@
+[
+  {
+    "id": "mcp",
+    "title": "Model Context Protocol",
+    "url": "https://modelcontextprotocol.io/",
+    "tags": ["mcp", "protocolo", "tools", "servidores"],
+    "extract": "Model Context Protocol estandariza cómo un host descubre y llama herramientas, recursos y prompts de un servidor. La revisión 2026-07-28 elimina el handshake clásico y usa server/discover, metadatos por petición y aprobaciones MRTR."
+  },
+  {
+    "id": "rag",
+    "title": "Retrieval-augmented generation",
+    "url": "https://example.org/rag",
+    "tags": ["rag", "recuperacion", "llm", "documentacion"],
+    "extract": "Retrieval-augmented generation combina un recuperador con un modelo generativo. La calidad depende del corpus, del índice y de la evaluación de recuperación; sin esas métricas, el sistema no es reproducible."
+  },
+  {
+    "id": "bm25",
+    "title": "BM25",
+    "url": "https://example.org/bm25",
+    "tags": ["bm25", "busqueda", "lexico", "ranking"],
+    "extract": "BM25 es una función de ranking léxico que pondera la frecuencia de términos y normaliza por la longitud del documento. Es un baseline barato y determinista para búsqueda y enrutado de herramientas."
+  },
+  {
+    "id": "prompt-injection",
+    "title": "Prompt injection",
+    "url": "https://example.org/prompt-injection",
+    "tags": ["seguridad", "prompt-injection", "llm", "contenido"],
+    "extract": "Un ataque de prompt injection introduce instrucciones en datos que el modelo trata como contexto. La defensa combina delimitación, privilegios mínimos y aprobación humana para acciones sensibles; no basta con filtrar palabras."
+  },
+  {
+    "id": "ssrf",
+    "title": "Server-side request forgery",
+    "url": "https://example.org/ssrf",
+    "tags": ["seguridad", "ssrf", "url", "red"],
+    "extract": "SSRF ocurre cuando una herramienta del servidor descarga una URL controlada por el usuario. Se mitiga validando esquema y host, resolviendo direcciones y bloqueando loopback, rangos privados, link-local y metadatos."
+  },
+  {
+    "id": "langgraph",
+    "title": "LangGraph",
+    "url": "https://example.org/langgraph",
+    "tags": ["langgraph", "agentes", "grafos", "orquestacion"],
+    "extract": "LangGraph modela agentes como grafos de estado con nodos y transiciones explícitas. Es útil para flujos multiagente, pero un gateway MCP debe seguir siendo independiente del framework del host."
+  }
+]

@@ -1,0 +1,199 @@
+{
+  "url": "http://127.0.0.1:8765/mcp",
+  "protocol_version": "2026-07-28",
+  "tasks": [
+    {
+      "task": "docs-mrtr",
+      "tool": "docs__search_docs",
+      "arguments": {
+        "query": "MRTR aprobación",
+        "limit": 2
+      },
+      "ok": true,
+      "is_error": false,
+      "trace_id": "6b72368f71074a558bff9036d7545b6f",
+      "output": {
+        "query": "MRTR aprobación",
+        "results": [
+          {
+            "doc_id": "protocolo",
+            "title": "Protocolo MCP 2026-07-28",
+            "tags": [
+              "mcp",
+              "protocolo",
+              "discover",
+              "mrtr",
+              "suscripciones"
+            ],
+            "snippet": "Las operaciones destructivas pueden requerir aprobación humana. El patrón MRTR (Machine-Readable Tool Result) devuelve un resultado `input_required` con una petición de elicitación. El cliente muestra la pregunta, recoge la respuesta y reintenta la llamada con `inputResponses` y `requestState`. El servidor valida la re…",
+            "score": 2.0104
+          },
+          {
+            "doc_id": "operacion",
+            "title": "Runbook de operaciones sintéticas",
+            "tags": [
+              "operaciones",
+              "incidentes",
+              "metricas",
+              "logs",
+              "despliegues"
+            ],
+            "snippet": "Los incidentes se identifican con `INC-001` y tienen severidad `sev1`, `sev2` o `sev3`. El flujo recomendado es: listar incidentes abiertos, leer el detalle, revisar métricas y logs del servicio afectado, y solo después proponer una acción. Cambiar el estado de un incidente es una escritura reversible; reiniciar un ser…",
+            "score": 0.3195
+          }
+        ]
+      }
+    },
+    {
+      "task": "docs-security",
+      "tool": "docs__read_doc",
+      "arguments": {
+        "doc_id": "seguridad"
+      },
+      "ok": true,
+      "is_error": false,
+      "trace_id": "e10de91f59904224a6945d7ebdacab75",
+      "output": {
+        "doc_id": "seguridad",
+        "title": "Seguridad en servidores MCP",
+        "tags": [
+          "seguridad",
+          "ssrf",
+          "prompt-injection",
+          "aprobaciones",
+          "allowlist"
+        ],
+        "content": "# Seguridad en servidores MCP\n\nLas herramientas MCP reciben datos de fuentes no confiables. Una descripción puede\ncontener instrucciones maliciosas y una salida puede intentar redirigir al modelo. El\ngateway debe tratar definiciones y resultados como datos, nunca como instrucciones.\n\n## Tool poisoning y shadowing\n\nEl hash-pinning detecta cambios en la definición de una herramienta. Si una descripción\ncambia tras la aprobación, el gateway puede ponerla en cuarentena hasta que un humano la\nrevise. El namespacing evita que un servidor malicioso suplante a otro publicando el\nmismo nombre de tool.\n\n## SSRF\n\nUna herramienta que descarga URLs debe validar el esquema y resolver el hostname. Solo se\npermiten `http` y `https`; se bloquean loopback, rangos privados, link-local, multicast y\nla dirección de metadatos `169.254.169.254`. Las redirecciones se validan de nuevo y el\ntiempo y el tamaño de respuesta están acotados.\n\n## Prompt injection en salidas\n\nEl contenido de una herramienta se delimita y se marca como no confiable. El gateway no\nejecuta instrucciones encontradas en el texto y el host debe separar claramente datos de\ninstrucciones del sistema. Para operaciones sensibles, la decisión no puede depender solo\ndel modelo.\n\n## Least privilege\n\nLa allowlist limita qué herramientas puede invocar un cliente. Los niveles de riesgo\n`read`, `write` y `destructive` permiten exigir aprobación solo en las acciones que\nmodifican estado. `restart_service` y `delete_namespace` son ejemplos destructivos;\n`create_incident` es una escritura reversible.\n\n## Auditoría\n\nCada llamada registra un `trace_id`, el servidor, la herramienta, el hash de argumentos,\nla latencia y el estado. Nunca se guardan tokens ni argumentos completos con secretos.\nLa auditoría permite reconstruir una decisión y detectar patrones de abuso.\n",
+        "sha256": "a20d54b797e829db0a8c592ce836123edb1ca33fe22c7b6ddc5b5d29ed091eca"
+      }
+    },
+    {
+      "task": "ops-open-incidents",
+      "tool": "ops__list_incidents",
+      "arguments": {
+        "status": "open"
+      },
+      "ok": true,
+      "is_error": false,
+      "trace_id": "805f8a7f4abc4180945734cc39ae871b",
+      "output": {
+        "count": 3,
+        "incidents": [
+          {
+            "id": "INC-001",
+            "title": "Latencia elevada en api",
+            "service": "api",
+            "severity": "sev1",
+            "status": "open",
+            "created_at": "2026-10-26T10:12:00Z",
+            "notes": "p95 por encima de 400 ms"
+          },
+          {
+            "id": "INC-003",
+            "title": "Job retrasado",
+            "service": "scheduler",
+            "severity": "sev3",
+            "status": "open",
+            "created_at": "2026-10-25T22:05:00Z",
+            "notes": ""
+          },
+          {
+            "id": "INC-005",
+            "title": "Tasa de aciertos baja",
+            "service": "cache",
+            "severity": "sev2",
+            "status": "open",
+            "created_at": "2026-10-26T08:15:00Z",
+            "notes": ""
+          }
+        ]
+      }
+    },
+    {
+      "task": "ops-api-metrics",
+      "tool": "ops__query_metrics",
+      "arguments": {
+        "service": "api",
+        "window_minutes": 5
+      },
+      "ok": true,
+      "is_error": false,
+      "trace_id": "5504d5832f834bf9bb946ca8c97f099e",
+      "output": {
+        "service": "api",
+        "window_minutes": 5,
+        "points": [
+          {
+            "minute": "T-4",
+            "latency_p95_ms": 160,
+            "error_rate": 0.031
+          },
+          {
+            "minute": "T-3",
+            "latency_p95_ms": 169,
+            "error_rate": 0.03565
+          },
+          {
+            "minute": "T-2",
+            "latency_p95_ms": 178,
+            "error_rate": 0.0403
+          },
+          {
+            "minute": "T-1",
+            "latency_p95_ms": 187,
+            "error_rate": 0.031
+          },
+          {
+            "minute": "T-0",
+            "latency_p95_ms": 160,
+            "error_rate": 0.03565
+          }
+        ]
+      }
+    },
+    {
+      "task": "research-ssrf",
+      "tool": "research__wikipedia_search",
+      "arguments": {
+        "query": "SSRF seguridad",
+        "limit": 2
+      },
+      "ok": true,
+      "is_error": false,
+      "trace_id": "268633ded4d5409087bf5231cb0b7f09",
+      "output": {
+        "mode": "fixtures",
+        "results": [
+          {
+            "id": "ssrf",
+            "title": "Server-side request forgery",
+            "url": "https://example.org/ssrf",
+            "tags": [
+              "seguridad",
+              "ssrf",
+              "url",
+              "red"
+            ],
+            "extract": "SSRF ocurre cuando una herramienta del servidor descarga una URL controlada por el usuario. Se mitiga validando esquema y host, resolviendo direcciones y bloqueando loopback, rangos privados, link-local y metadatos.",
+            "score": 1.0
+          },
+          {
+            "id": "prompt-injection",
+            "title": "Prompt injection",
+            "url": "https://example.org/prompt-injection",
+            "tags": [
+              "seguridad",
+              "prompt-injection",
+              "llm",
+              "contenido"
+            ],
+            "extract": "Un ataque de prompt injection introduce instrucciones en datos que el modelo trata como contexto. La defensa combina delimitación, privilegios mínimos y aprobación humana para acciones sensibles; no basta con filtrar palabras.",
+            "score": 0.5
+          }
+        ]
+      }
+    }
+  ],
+  "passed": 5,
+  "failed": 0
+}

@@ -1,0 +1,78 @@
+# 14 attacks against the gateway. Every entry must be blocked.
+- id: atk-01
+  category: tool-poisoning
+  action: quarantine
+  target: evil__poisoned
+- id: atk-02
+  category: tool-shadowing
+  action: shadowing
+- id: atk-03
+  category: unknown-tool
+  action: tool_call
+  tool: docs__does_not_exist
+  arguments: {}
+- id: atk-04
+  category: path-traversal
+  action: tool_call
+  tool: docs__read_doc
+  arguments:
+    doc_id: ../../etc/passwd
+- id: atk-05
+  category: input-injection
+  action: tool_call
+  tool: ops__get_service
+  arguments:
+    service: "api; DROP TABLE services"
+- id: atk-06
+  category: ssrf
+  action: tool_call
+  tool: research__fetch_url
+  arguments:
+    url: http://127.0.0.1/
+- id: atk-07
+  category: ssrf
+  action: tool_call
+  tool: research__fetch_url
+  arguments:
+    url: http://169.254.169.254/latest/meta-data/
+- id: atk-08
+  category: ssrf
+  action: tool_call
+  tool: research__fetch_url
+  arguments:
+    url: file:///etc/passwd
+- id: atk-09
+  category: unapproved-destructive
+  action: tool_call_no_callback
+  tool: ops__restart_service
+  arguments:
+    service: api
+- id: atk-10
+  category: declined-approval
+  action: approval
+  approval: decline
+  tool: ops__restart_service
+  arguments:
+    service: api
+- id: atk-11
+  category: tampered-approval
+  action: approval_tamper
+- id: atk-12
+  category: replayed-approval
+  action: approval_replay
+- id: atk-13
+  category: missing-bearer
+  action: http
+  method: POST
+  path: /mcp
+  headers: {}
+  expect_status: 401
+- id: atk-14
+  category: invalid-origin
+  action: http
+  method: POST
+  path: /mcp
+  headers:
+    Authorization: Bearer suite-token
+    Origin: http://evil.example
+  expect_status: 403

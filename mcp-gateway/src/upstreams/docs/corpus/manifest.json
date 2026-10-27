@@ -1,0 +1,32 @@
+[
+  {
+    "id": "protocolo",
+    "title": "Protocolo MCP 2026-07-28",
+    "tags": ["mcp", "protocolo", "discover", "mrtr", "suscripciones"],
+    "path": "01-protocolo.md"
+  },
+  {
+    "id": "gateway",
+    "title": "Arquitectura de un gateway MCP",
+    "tags": ["gateway", "catalogo", "namespacing", "upstreams", "cache"],
+    "path": "02-gateway.md"
+  },
+  {
+    "id": "seguridad",
+    "title": "Seguridad en servidores MCP",
+    "tags": ["seguridad", "ssrf", "prompt-injection", "aprobaciones", "allowlist"],
+    "path": "03-seguridad.md"
+  },
+  {
+    "id": "operacion",
+    "title": "Runbook de operaciones sintéticas",
+    "tags": ["operaciones", "incidentes", "metricas", "logs", "despliegues"],
+    "path": "04-operacion.md"
+  },
+  {
+    "id": "evaluacion",
+    "title": "Evaluación de enrutado de herramientas",
+    "tags": ["evaluacion", "router", "tokens", "latencia", "precision"],
+    "path": "05-evaluacion.md"
+  }
+]

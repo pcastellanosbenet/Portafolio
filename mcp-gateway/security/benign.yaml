@@ -1,0 +1,130 @@
+# 20 benign requests. Every entry must be allowed.
+- id: ben-01
+  category: docs
+  action: tool_call
+  tool: docs__search_docs
+  arguments:
+    query: SSRF seguridad
+    limit: 2
+- id: ben-02
+  category: docs
+  action: tool_call
+  tool: docs__read_doc
+  arguments:
+    doc_id: seguridad
+- id: ben-03
+  category: docs
+  action: tool_call
+  tool: docs__list_docs
+  arguments: {}
+- id: ben-04
+  category: docs
+  action: tool_call
+  tool: docs__outline_doc
+  arguments:
+    doc_id: protocolo
+- id: ben-05
+  category: docs
+  action: tool_call
+  tool: docs__cite_doc
+  arguments:
+    doc_id: gateway
+- id: ben-06
+  category: research
+  action: tool_call
+  tool: research__wikipedia_search
+  arguments:
+    query: SSRF
+    limit: 2
+- id: ben-07
+  category: research
+  action: tool_call
+  tool: research__wikipedia_get
+  arguments:
+    title: BM25
+- id: ben-08
+  category: research
+  action: tool_call
+  tool: research__arxiv_search
+  arguments:
+    query: tool selection
+    limit: 2
+- id: ben-09
+  category: research
+  action: tool_call
+  tool: research__arxiv_get
+  arguments:
+    arxiv_id: "2601.00001"
+- id: ben-10
+  category: ops
+  action: tool_call
+  tool: ops__list_services
+  arguments: {}
+- id: ben-11
+  category: ops
+  action: tool_call
+  tool: ops__get_service
+  arguments:
+    service: api
+- id: ben-12
+  category: ops
+  action: tool_call
+  tool: ops__query_metrics
+  arguments:
+    service: api
+    window_minutes: 5
+- id: ben-13
+  category: ops
+  action: tool_call
+  tool: ops__list_incidents
+  arguments:
+    status: open
+- id: ben-14
+  category: ops
+  action: tool_call
+  tool: ops__get_incident
+  arguments:
+    incident_id: INC-001
+- id: ben-15
+  category: ops
+  action: tool_call
+  tool: ops__search_logs
+  arguments:
+    service: api
+    query: timeout
+    limit: 5
+- id: ben-16
+  category: ops
+  action: tool_call
+  tool: ops__deploy_history
+  arguments:
+    service: api
+    limit: 3
+- id: ben-17
+  category: ops
+  action: tool_call
+  tool: ops__create_incident
+  arguments:
+    title: Incidente de prueba
+    service: api
+    severity: sev3
+- id: ben-18
+  category: ops
+  action: tool_call
+  tool: ops__ack_incident
+  arguments:
+    incident_id: INC-002
+- id: ben-19
+  category: approval
+  action: approval
+  approval: accept
+  tool: ops__restart_service
+  arguments:
+    service: api
+- id: ben-20
+  category: meta
+  action: tool_call
+  tool: find_tools
+  arguments:
+    query: SSRF
+    limit: 2

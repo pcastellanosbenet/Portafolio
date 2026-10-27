@@ -1,0 +1,277 @@
+{
+  "config": "static",
+  "model": "openai/gpt-oss-120b",
+  "tasks_sha256": "f08f4ba65c96bc102238b961c25df4c42b5574f37ab75a356607ed2b783eda67",
+  "partial": false,
+  "count": 60,
+  "overall": {
+    "count": 60,
+    "selection_accuracy": 0.58,
+    "argument_validity": 1.0,
+    "task_success": 0.5833,
+    "abstention_rate": 0.9,
+    "unnecessary_call_rate": 0.1,
+    "mean_tool_tokens": 2493.0,
+    "mean_prompt_tokens": 983.32,
+    "p50_total_ms": 3175.457,
+    "p95_total_ms": 10259.517,
+    "cache_hit_rate": 0.0
+  },
+  "by_block": {
+    "docs": {
+      "count": 20,
+      "selection_accuracy": 0.35,
+      "argument_validity": 1.0,
+      "task_success": 0.35,
+      "abstention_rate": null,
+      "unnecessary_call_rate": null,
+      "mean_tool_tokens": 2493.0,
+      "mean_prompt_tokens": 982.65,
+      "p50_total_ms": 5474.563,
+      "p95_total_ms": 10567.83,
+      "cache_hit_rate": 0.0
+    },
+    "research": {
+      "count": 15,
+      "selection_accuracy": 0.6,
+      "argument_validity": 1.0,
+      "task_success": 0.5333,
+      "abstention_rate": null,
+      "unnecessary_call_rate": null,
+      "mean_tool_tokens": 2493.0,
+      "mean_prompt_tokens": 983.47,
+      "p50_total_ms": 3579.85,
+      "p95_total_ms": 10557.704,
+      "cache_hit_rate": 0.0
+    },
+    "ops": {
+      "count": 15,
+      "selection_accuracy": 0.8667,
+      "argument_validity": 1.0,
+      "task_success": 0.7333,
+      "abstention_rate": null,
+      "unnecessary_call_rate": null,
+      "mean_tool_tokens": 2493.0,
+      "mean_prompt_tokens": 983.93,
+      "p50_total_ms": 3688.701,
+      "p95_total_ms": 9827.173,
+      "cache_hit_rate": 0.0
+    },
+    "negative": {
+      "count": 10,
+      "selection_accuracy": 0.0,
+      "argument_validity": 0.0,
+      "task_success": 0.9,
+      "abstention_rate": 0.9,
+      "unnecessary_call_rate": 0.1,
+      "mean_tool_tokens": 2493.0,
+      "mean_prompt_tokens": 983.5,
+      "p50_total_ms": 2606.37,
+      "p95_total_ms": 3399.259,
+      "cache_hit_rate": 0.0
+    }
+  },
+  "failures": [
+    {
+      "task_id": "docs-02",
+      "expected": "docs__search_docs",
+      "selected": "research__wikipedia_get",
+      "selection_ok": false,
+      "arguments_valid": true,
+      "error": null
+    },
+    {
+      "task_id": "docs-06",
+      "expected": "docs__search_docs",
+      "selected": null,
+      "selection_ok": false,
+      "arguments_valid": true,
+      "error": null
+    },
+    {
+      "task_id": "docs-07",
+      "expected": "docs__read_doc",
+      "selected": "docs__search_docs",
+      "selection_ok": false,
+      "arguments_valid": true,
+      "error": null
+    },
+    {
+      "task_id": "docs-08",
+      "expected": "docs__read_doc",
+      "selected": "docs__search_docs",
+      "selection_ok": false,
+      "arguments_valid": true,
+      "error": null
+    },
+    {
+      "task_id": "docs-09",
+      "expected": "docs__read_doc",
+      "selected": "docs__search_docs",
+      "selection_ok": false,
+      "arguments_valid": true,
+      "error": null
+    },
+    {
+      "task_id": "docs-10",
+      "expected": "docs__read_doc",
+      "selected": null,
+      "selection_ok": false,
+      "arguments_valid": true,
+      "error": null
+    },
+    {
+      "task_id": "docs-11",
+      "expected": "docs__read_doc",
+      "selected": "docs__search_docs",
+      "selection_ok": false,
+      "arguments_valid": true,
+      "error": null
+    },
+    {
+      "task_id": "docs-15",
+      "expected": "docs__outline_doc",
+      "selected": "docs__search_docs",
+      "selection_ok": false,
+      "arguments_valid": true,
+      "error": null
+    },
+    {
+      "task_id": "docs-16",
+      "expected": "docs__outline_doc",
+      "selected": "docs__search_docs",
+      "selection_ok": false,
+      "arguments_valid": true,
+      "error": null
+    },
+    {
+      "task_id": "docs-17",
+      "expected": "docs__outline_doc",
+      "selected": "docs__search_docs",
+      "selection_ok": false,
+      "arguments_valid": true,
+      "error": null
+    },
+    {
+      "task_id": "docs-18",
+      "expected": "docs__cite_doc",
+      "selected": "docs__search_docs",
+      "selection_ok": false,
+      "arguments_valid": true,
+      "error": null
+    },
+    {
+      "task_id": "docs-19",
+      "expected": "docs__cite_doc",
+      "selected": "docs__search_docs",
+      "selection_ok": false,
+      "arguments_valid": true,
+      "error": null
+    },
+    {
+      "task_id": "docs-20",
+      "expected": "docs__cite_doc",
+      "selected": "docs__search_docs",
+      "selection_ok": false,
+      "arguments_valid": true,
+      "error": null
+    },
+    {
+      "task_id": "research-01",
+      "expected": "research__wikipedia_search",
+      "selected": "research__wikipedia_get",
+      "selection_ok": false,
+      "arguments_valid": true,
+      "error": "Error executing tool wikipedia_get: unknown wikipedia page: Server Side Request Forgery"
+    },
+    {
+      "task_id": "research-03",
+      "expected": "research__wikipedia_search",
+      "selected": "research__wikipedia_get",
+      "selection_ok": false,
+      "arguments_valid": true,
+      "error": null
+    },
+    {
+      "task_id": "research-04",
+      "expected": "research__wikipedia_search",
+      "selected": "research__wikipedia_get",
+      "selection_ok": false,
+      "arguments_valid": true,
+      "error": null
+    },
+    {
+      "task_id": "research-05",
+      "expected": "research__wikipedia_search",
+      "selected": "research__wikipedia_get",
+      "selection_ok": false,
+      "arguments_valid": true,
+      "error": null
+    },
+    {
+      "task_id": "research-06",
+      "expected": "research__wikipedia_search",
+      "selected": "research__wikipedia_get",
+      "selection_ok": false,
+      "arguments_valid": true,
+      "error": null
+    },
+    {
+      "task_id": "research-08",
+      "expected": "research__wikipedia_get",
+      "selected": "research__wikipedia_get",
+      "selection_ok": true,
+      "arguments_valid": true,
+      "error": "Error executing tool wikipedia_get: unknown wikipedia page: Server Side Request Forgery"
+    },
+    {
+      "task_id": "research-09",
+      "expected": "research__wikipedia_get",
+      "selected": "research__wikipedia_search",
+      "selection_ok": false,
+      "arguments_valid": true,
+      "error": null
+    },
+    {
+      "task_id": "ops-02",
+      "expected": "ops__get_service",
+      "selected": "ops__query_metrics",
+      "selection_ok": false,
+      "arguments_valid": true,
+      "error": null
+    },
+    {
+      "task_id": "ops-03",
+      "expected": "ops__get_service",
+      "selected": "ops__list_services",
+      "selection_ok": false,
+      "arguments_valid": true,
+      "error": null
+    },
+    {
+      "task_id": "ops-10",
+      "expected": "ops__search_logs",
+      "selected": "ops__search_logs",
+      "selection_ok": true,
+      "arguments_valid": true,
+      "error": null
+    },
+    {
+      "task_id": "ops-12",
+      "expected": "ops__create_incident",
+      "selected": "ops__create_incident",
+      "selection_ok": true,
+      "arguments_valid": true,
+      "error": null
+    },
+    {
+      "task_id": "neg-07",
+      "expected": null,
+      "selected": "docs__list_docs",
+      "selection_ok": false,
+      "arguments_valid": true,
+      "error": null
+    }
+  ],
+  "errors": []
+}

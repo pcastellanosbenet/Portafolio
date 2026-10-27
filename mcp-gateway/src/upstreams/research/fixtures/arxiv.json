@@ -1,0 +1,38 @@
+[
+  {
+    "id": "2601.00001",
+    "title": "Tool selection under context budgets",
+    "authors": ["A. Rivera", "M. Chen"],
+    "published": "2026-01-04",
+    "url": "https://example.org/arxiv/2601.00001",
+    "tags": ["tool-use", "routing", "tokens", "evaluation"],
+    "summary": "We compare full tool exposure with progressive disclosure on a synthetic catalog of 25 tools. Top-k retrieval reduces definition tokens while preserving most of the selection accuracy; ambiguous queries remain the main failure mode."
+  },
+  {
+    "id": "2602.00002",
+    "title": "Secure tool calling for LLM agents",
+    "authors": ["S. Okafor", "L. Martín"],
+    "published": "2026-02-11",
+    "url": "https://example.org/arxiv/2602.00002",
+    "tags": ["security", "ssrf", "approvals", "tool-use"],
+    "summary": "A threat model for tool-using agents covering tool poisoning, shadowing and SSRF. The authors recommend namespacing, hash pinning and human approval for destructive actions."
+  },
+  {
+    "id": "2603.00003",
+    "title": "Retrieval-augmented generation for technical documentation",
+    "authors": ["P. Singh"],
+    "published": "2026-03-19",
+    "url": "https://example.org/arxiv/2603.00003",
+    "tags": ["rag", "documentation", "retrieval", "evaluation"],
+    "summary": "A case study on technical documentation shows that chunking and citation quality matter more than model size. Recall at k and answer groundedness are reported separately."
+  },
+  {
+    "id": "2604.00004",
+    "title": "Evaluating MCP gateways",
+    "authors": ["N. Duarte", "R. Kim"],
+    "published": "2026-04-02",
+    "url": "https://example.org/arxiv/2604.00004",
+    "tags": ["mcp", "gateway", "evaluation", "latency"],
+    "summary": "The paper proposes deterministic task predicates for MCP gateways and reports selection accuracy, argument validity, context cost and gateway latency. LLM judges are excluded to keep runs reproducible."
+  }
+]

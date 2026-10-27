@@ -19,8 +19,14 @@ reporta métricas reales, no solo resultados visuales.
 | [Interpretabilidad de BERT](./bert-attention) | NLP: mecanismos de atención, análisis de capas y cabezas, visualización | PyTorch · Transformers | 12 capas × 12 cabezas · 8 mapas curados | Completado |
 | [KNX RAG Assistant](./rag-assistant) | RAG end-to-end: ingesta de PDFs, búsqueda híbrida, citas, evaluación, API y Docker | Transformers · Qdrant · FastAPI · Docker | Recall@10 0,908 · MRR 0,850 · 20 preguntas | Completado |
 | [research-agents](./research-agents) | Agentes: supervisor, planner, researchers paralelos, crítico, citas, HITL, trazas y evaluación con corpus congelado | LangGraph · Groq · Tavily · FastAPI · SQLite · Docker | 5 preguntas reales · HITL por CLI/API · B0/20 · B1/20 · smoke B0/B1/B2 · 151 tests | Fase 6 en cierre · Fase 4 parcial |
+| [mcp-gateway](./mcp-gateway) | Protocolo MCP: gateway multi-upstream, namespacing, router progresivo, MRTR, bearer/PRM, auditoría y suite de seguridad | Python 3.12 · MCP SDK 2.x · BM25 · Groq · Docker | 22 tools · A/B/C 60 tareas · 14/14 ataques · 83 tests | Completado |
 
-> Los cuatro proyectos están documentados; los tres primeros están terminados.
+> Los cinco proyectos están documentados. Los tres primeros están terminados y
+> `mcp-gateway` cierra sus fases de gateway, evaluación y seguridad con resultados
+> reales. Mide tres configuraciones de divulgación de herramientas: estática 58,33% de
+> éxito, meta 50,00% e híbrida 63,33%; la híbrida reduce 61,5% los tokens de
+> definiciones. Tres repeticiones de robustez sobre 20 tareas dieron 55,00% cada una y
+> las ablaciones `k=5/8/12` dieron 55,00/50,00/55,00%.
 > `research-agents` tiene cerradas las Fases 2, 3 y 5: herramientas, caché,
 > paralelismo, runs reales, HITL y checkpointer SQLite, API/SSE, UI, CLI y Docker.
 > La Fase 4 está parcial: B0 y B1 están medidos sobre las 20 preguntas; B1
@@ -75,5 +81,8 @@ smoke evaluation and complete B0 and B1 runs over 20 questions; B1 was split acr
 two sessions because its 20b token use exceeds the daily limit. B2 and the robustness
 repetitions are still pending because the free-tier daily token limit is not enough for
 the full matrix in one session. It also ships a FastAPI/SSE demo with a minimal UI, CLI
-and Docker. Code is released under the MIT license; the evaluation corpus
+and Docker. `mcp-gateway` adds an MCP `2026-07-28` gateway with 22 tools, three disclosure
+modes, a 60-task deterministic evaluation, MRTR approvals, bearer/PRM and a 14-attack /
+20-benign security suite. Its robustness and k ablations are partial for the same Groq
+free-tier reason. Code is released under the MIT license; the evaluation corpus
 keeps its CC BY-SA 4.0 license.

@@ -1,0 +1,16 @@
+line-length = 100
+target-version = "py312"
+
+exclude = [
+    ".git",
+    ".venv",
+    "artifacts",
+    "eval/cache",
+    "__pycache__",
+]
+
+[lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[lint.isort]
+known-first-party = ["src", "eval", "security", "tests"]

@@ -1,0 +1,248 @@
+{
+  "protocol": "2026-07-28",
+  "attacks_total": 14,
+  "attacks_blocked": 14,
+  "benign_total": 20,
+  "benign_allowed": 20,
+  "false_positives": 0,
+  "records": [
+    {
+      "id": "atk-01",
+      "category": "tool-poisoning",
+      "expected": "blocked",
+      "passed": true,
+      "detail": "suspicious metadata: 'Ignore previous instructions'"
+    },
+    {
+      "id": "atk-02",
+      "category": "tool-shadowing",
+      "expected": "blocked",
+      "passed": true,
+      "detail": "namespaced names remain distinct"
+    },
+    {
+      "id": "atk-03",
+      "category": "unknown-tool",
+      "expected": "blocked",
+      "passed": true,
+      "detail": "MCPError: Unknown tool: docs__does_not_exist"
+    },
+    {
+      "id": "atk-04",
+      "category": "path-traversal",
+      "expected": "blocked",
+      "passed": true,
+      "detail": "Error executing tool read_doc: unknown document: ../../etc/passwd"
+    },
+    {
+      "id": "atk-05",
+      "category": "input-injection",
+      "expected": "blocked",
+      "passed": true,
+      "detail": "Error executing tool get_service: unknown service: api; DROP TABLE services"
+    },
+    {
+      "id": "atk-06",
+      "category": "ssrf",
+      "expected": "blocked",
+      "passed": true,
+      "detail": "Error executing tool fetch_url: URL resolves to a non-public address: 127.0.0.1"
+    },
+    {
+      "id": "atk-07",
+      "category": "ssrf",
+      "expected": "blocked",
+      "passed": true,
+      "detail": "Error executing tool fetch_url: URL resolves to a non-public address: 169.254.169.254"
+    },
+    {
+      "id": "atk-08",
+      "category": "ssrf",
+      "expected": "blocked",
+      "passed": true,
+      "detail": "Error executing tool fetch_url: only http and https URLs are allowed"
+    },
+    {
+      "id": "atk-09",
+      "category": "unapproved-destructive",
+      "expected": "blocked",
+      "passed": true,
+      "detail": "rejected without callback: Elicitation not supported"
+    },
+    {
+      "id": "atk-10",
+      "category": "declined-approval",
+      "expected": "blocked",
+      "passed": true,
+      "detail": "approval denied: the user did not approve the call"
+    },
+    {
+      "id": "atk-11",
+      "category": "tampered-approval",
+      "expected": "blocked",
+      "passed": true,
+      "detail": "approval denied: invalid or expired request state"
+    },
+    {
+      "id": "atk-12",
+      "category": "replayed-approval",
+      "expected": "blocked",
+      "passed": true,
+      "detail": "approval denied: approval state does not match this call"
+    },
+    {
+      "id": "atk-13",
+      "category": "missing-bearer",
+      "expected": "blocked",
+      "passed": true,
+      "detail": "status=401"
+    },
+    {
+      "id": "atk-14",
+      "category": "invalid-origin",
+      "expected": "blocked",
+      "passed": true,
+      "detail": "status=403"
+    },
+    {
+      "id": "ben-01",
+      "category": "docs",
+      "expected": "allowed",
+      "passed": true,
+      "detail": "{\n  \"query\": \"SSRF seguridad\",\n  \"results\": [\n    {\n      \"doc_id\": \"seguridad\",\n      \"title\": \"Seguridad en servidores MCP\",\n      \"tags\": [\n        \"seguridad\",\n        \"ssrf\",\n        \"prompt-injection\",\n        \"aprobaciones\",\n        \"allowlist\"\n      ],\n      \"snippet\": \"# Seguridad en servid"
+    },
+    {
+      "id": "ben-02",
+      "category": "docs",
+      "expected": "allowed",
+      "passed": true,
+      "detail": "{\n  \"doc_id\": \"seguridad\",\n  \"title\": \"Seguridad en servidores MCP\",\n  \"tags\": [\n    \"seguridad\",\n    \"ssrf\",\n    \"prompt-injection\",\n    \"aprobaciones\",\n    \"allowlist\"\n  ],\n  \"content\": \"# Seguridad en servidores MCP\\n\\nLas herramientas MCP reciben datos de fuentes no confiables. Una descripción p"
+    },
+    {
+      "id": "ben-03",
+      "category": "docs",
+      "expected": "allowed",
+      "passed": true,
+      "detail": "{\n  \"count\": 5,\n  \"documents\": [\n    {\n      \"doc_id\": \"protocolo\",\n      \"title\": \"Protocolo MCP 2026-07-28\",\n      \"tags\": [\n        \"mcp\",\n        \"protocolo\",\n        \"discover\",\n        \"mrtr\",\n        \"suscripciones\"\n      ],\n      \"words\": 261\n    },\n    {\n      \"doc_id\": \"gateway\",\n      \"ti"
+    },
+    {
+      "id": "ben-04",
+      "category": "docs",
+      "expected": "allowed",
+      "passed": true,
+      "detail": "{\n  \"doc_id\": \"protocolo\",\n  \"outline\": [\n    {\n      \"level\": 1,\n      \"text\": \"Protocolo MCP 2026-07-28\"\n    },\n    {\n      \"level\": 2,\n      \"text\": \"Peticiones sin sesión\"\n    },\n    {\n      \"level\": 2,\n      \"text\": \"Aprobaciones con MRTR\"\n    },\n    {\n      \"level\": 2,\n      \"text\": \"Suscripci"
+    },
+    {
+      "id": "ben-05",
+      "category": "docs",
+      "expected": "allowed",
+      "passed": true,
+      "detail": "{\n  \"doc_id\": \"gateway\",\n  \"title\": \"Arquitectura de un gateway MCP\",\n  \"citation\": \"Arquitectura de un gateway MCP — docs-mcp corpus (02-gateway.md), sha256:2d3c568dc138\",\n  \"sha256\": \"2d3c568dc138ef81bfa183a8e8b96789de4f02210fc453e19a3173ac0b952b9a\"\n}"
+    },
+    {
+      "id": "ben-06",
+      "category": "research",
+      "expected": "allowed",
+      "passed": true,
+      "detail": "{\n  \"mode\": \"fixtures\",\n  \"results\": [\n    {\n      \"id\": \"ssrf\",\n      \"title\": \"Server-side request forgery\",\n      \"url\": \"https://example.org/ssrf\",\n      \"tags\": [\n        \"seguridad\",\n        \"ssrf\",\n        \"url\",\n        \"red\"\n      ],\n      \"extract\": \"SSRF ocurre cuando una herramienta del "
+    },
+    {
+      "id": "ben-07",
+      "category": "research",
+      "expected": "allowed",
+      "passed": true,
+      "detail": "{\n  \"mode\": \"fixtures\",\n  \"id\": \"bm25\",\n  \"title\": \"BM25\",\n  \"url\": \"https://example.org/bm25\",\n  \"tags\": [\n    \"bm25\",\n    \"busqueda\",\n    \"lexico\",\n    \"ranking\"\n  ],\n  \"extract\": \"BM25 es una función de ranking léxico que pondera la frecuencia de términos y normaliza por la longitud del documento"
+    },
+    {
+      "id": "ben-08",
+      "category": "research",
+      "expected": "allowed",
+      "passed": true,
+      "detail": "{\n  \"mode\": \"fixtures\",\n  \"results\": [\n    {\n      \"id\": \"2601.00001\",\n      \"title\": \"Tool selection under context budgets\",\n      \"authors\": [\n        \"A. Rivera\",\n        \"M. Chen\"\n      ],\n      \"published\": \"2026-01-04\",\n      \"url\": \"https://example.org/arxiv/2601.00001\",\n      \"tags\": [\n     "
+    },
+    {
+      "id": "ben-09",
+      "category": "research",
+      "expected": "allowed",
+      "passed": true,
+      "detail": "{\n  \"mode\": \"fixtures\",\n  \"id\": \"2601.00001\",\n  \"title\": \"Tool selection under context budgets\",\n  \"authors\": [\n    \"A. Rivera\",\n    \"M. Chen\"\n  ],\n  \"published\": \"2026-01-04\",\n  \"url\": \"https://example.org/arxiv/2601.00001\",\n  \"tags\": [\n    \"tool-use\",\n    \"routing\",\n    \"tokens\",\n    \"evaluation\"\n"
+    },
+    {
+      "id": "ben-10",
+      "category": "ops",
+      "expected": "allowed",
+      "passed": true,
+      "detail": "{\n  \"count\": 5,\n  \"services\": [\n    {\n      \"name\": \"api\",\n      \"status\": \"degraded\",\n      \"replicas\": 4,\n      \"version\": \"2.8.1\",\n      \"latency_p95_ms\": 420,\n      \"error_rate\": 0.031,\n      \"generation\": 1,\n      \"note\": \"timeouts\"\n    },\n    {\n      \"name\": \"worker\",\n      \"status\": \"ok\",\n   "
+    },
+    {
+      "id": "ben-11",
+      "category": "ops",
+      "expected": "allowed",
+      "passed": true,
+      "detail": "{\n  \"name\": \"api\",\n  \"status\": \"degraded\",\n  \"replicas\": 4,\n  \"version\": \"2.8.1\",\n  \"latency_p95_ms\": 420,\n  \"error_rate\": 0.031,\n  \"generation\": 1,\n  \"note\": \"timeouts\"\n}"
+    },
+    {
+      "id": "ben-12",
+      "category": "ops",
+      "expected": "allowed",
+      "passed": true,
+      "detail": "{\n  \"service\": \"api\",\n  \"window_minutes\": 5,\n  \"points\": [\n    {\n      \"minute\": \"T-4\",\n      \"latency_p95_ms\": 160,\n      \"error_rate\": 0.031\n    },\n    {\n      \"minute\": \"T-3\",\n      \"latency_p95_ms\": 169,\n      \"error_rate\": 0.03565\n    },\n    {\n      \"minute\": \"T-2\",\n      \"latency_p95_ms\": 178,"
+    },
+    {
+      "id": "ben-13",
+      "category": "ops",
+      "expected": "allowed",
+      "passed": true,
+      "detail": "{\n  \"count\": 3,\n  \"incidents\": [\n    {\n      \"id\": \"INC-001\",\n      \"title\": \"Latencia elevada en api\",\n      \"service\": \"api\",\n      \"severity\": \"sev1\",\n      \"status\": \"open\",\n      \"created_at\": \"2026-10-26T10:12:00Z\",\n      \"notes\": \"p95 por encima de 400 ms\"\n    },\n    {\n      \"id\": \"INC-003\",\n"
+    },
+    {
+      "id": "ben-14",
+      "category": "ops",
+      "expected": "allowed",
+      "passed": true,
+      "detail": "{\n  \"id\": \"INC-001\",\n  \"title\": \"Latencia elevada en api\",\n  \"service\": \"api\",\n  \"severity\": \"sev1\",\n  \"status\": \"open\",\n  \"created_at\": \"2026-10-26T10:12:00Z\",\n  \"notes\": \"p95 por encima de 400 ms\"\n}"
+    },
+    {
+      "id": "ben-15",
+      "category": "ops",
+      "expected": "allowed",
+      "passed": true,
+      "detail": "{\n  \"service\": \"api\",\n  \"query\": \"timeout\",\n  \"matches\": [\n    \"2026-10-26T11:58:00Z request timeout after 5000ms path=/checkout\",\n    \"2026-10-26T11:52:11Z request timeout after 5000ms path=/search\"\n  ]\n}"
+    },
+    {
+      "id": "ben-16",
+      "category": "ops",
+      "expected": "allowed",
+      "passed": true,
+      "detail": "{\n  \"service\": \"api\",\n  \"deploys\": [\n    {\n      \"version\": \"2.8.1\",\n      \"status\": \"completed\",\n      \"at\": \"2026-10-26T11:55:00Z\"\n    },\n    {\n      \"version\": \"2.8.0\",\n      \"status\": \"completed\",\n      \"at\": \"2026-10-24T15:00:00Z\"\n    },\n    {\n      \"version\": \"2.7.9\",\n      \"status\": \"failed\","
+    },
+    {
+      "id": "ben-17",
+      "category": "ops",
+      "expected": "allowed",
+      "passed": true,
+      "detail": "{\n  \"id\": \"INC-007\",\n  \"title\": \"Incidente de prueba\",\n  \"service\": \"api\",\n  \"severity\": \"sev3\",\n  \"status\": \"open\",\n  \"created_at\": \"2026-10-26T12:00:00Z\",\n  \"notes\": \"created by ops-mcp\"\n}"
+    },
+    {
+      "id": "ben-18",
+      "category": "ops",
+      "expected": "allowed",
+      "passed": true,
+      "detail": "{\n  \"id\": \"INC-002\",\n  \"title\": \"Timeout al procesar la cola\",\n  \"service\": \"worker\",\n  \"severity\": \"sev2\",\n  \"status\": \"acknowledged\",\n  \"created_at\": \"2026-10-26T09:40:00Z\",\n  \"notes\": \"reintentos en curso\"\n}"
+    },
+    {
+      "id": "ben-19",
+      "category": "approval",
+      "expected": "allowed",
+      "passed": true,
+      "detail": "{\n  \"service\": \"api\",\n  \"status\": \"restarting\",\n  \"generation\": 2\n}"
+    },
+    {
+      "id": "ben-20",
+      "category": "meta",
+      "expected": "allowed",
+      "passed": true,
+      "detail": "{\"query\": \"SSRF\", \"tools\": [{\"name\": \"research__fetch_url\", \"description\": \"Fetch a public URL with SSRF protection and a size limit.\", \"input_schema\": {\"type\": \"object\", \"properties\": {\"url\": {\"title\": \"Url\", \"type\": \"string\"}, \"max_chars\": {\"default\": 4000, \"title\": \"Max Chars\", \"type\": \"integer\"}"
+    }
+  ]
+}
