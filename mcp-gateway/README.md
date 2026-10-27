@@ -211,8 +211,8 @@ cancelación y MRTR. Las filas parciales se marcan como tales.
 - La evaluación es una muestra de 60 tareas; las diferencias de 5 puntos no son
   significativas por sí solas.
 - El router es léxico (BM25 + expansión bilingüe explícita), no semántico.
-- La robustez de 20 tareas sin caché y las ablations completas quedaron parciales por la
-  cuota gratuita de Groq. Se publica la muestra real de 5 tareas.
+- La robustez y las ablaciones usan 20 tareas; sirven para detectar inestabilidad y
+  coste, no para estimar intervalos de confianza estrechos.
 - `fetch_url` valida el DNS antes de la petición; queda la ventana teórica de DNS
   rebinding. Producción debería fijar la IP en el transporte.
 - El modo bearer es un resource server de laboratorio con token estático; no hay

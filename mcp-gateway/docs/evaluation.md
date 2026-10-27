@@ -87,7 +87,7 @@ o `restart_service`. Documentación es el punto débil de los tres modos: el mod
 - `research-08` selecciona correctamente `research__wikipedia_get`, pero llama con
   `title="Server Side Request Forgery"` y la fixture solo acepta
   `Server-side request forgery` (con guion). El fallo es de robustez de la herramienta,
-  no de selección; queda como deuda para la Fase 4.
+  no de selección; queda como deuda conocida de robustez de la herramienta.
 - `research-11` en meta usa `server="arxiv"` con `tool="arxiv_get"`; el gateway solo
   conoce `research__arxiv_get`. El error queda registrado como argumento inválido.
 - `research-13` en meta usa `id` en lugar de `arxiv_id`.

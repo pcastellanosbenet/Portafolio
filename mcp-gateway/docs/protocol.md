@@ -79,4 +79,3 @@ Consecuencias:
 2. Test explícito de negociación de `Accept` y de `Client(mode="legacy")`.
 3. Re-aprobación automática cuando cambia el hash de una definición (Fase 4).
 4. Ampliar la matriz de conformidad a los tres upstreams reales y al modo bearer (Fase 4).
-5. Completar la robustez de 20 tareas sin caché y las ablations `k` con cuota disponible.
