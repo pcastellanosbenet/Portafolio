@@ -286,5 +286,6 @@ research-agents/
 - El presupuesto concurrente no es estrictamente global.
 - La API es una demo local sin auth, sin cuotas por usuario y con registro de
   runs en memoria.
-- La evaluación completa requiere cuota y tiempo; los resultados parciales se
-  etiquetan como tales.
+- La evaluación de 20 preguntas y la robustez están completas; ampliarlas
+  requiere cuota y tiempo, y los resultados parciales deben etiquetarse como
+  tales.

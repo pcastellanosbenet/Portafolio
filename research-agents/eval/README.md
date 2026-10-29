@@ -1,8 +1,8 @@
 # Datos de evaluación
 
 Este directorio contiene el corpus congelado y el conjunto de preguntas de la
-Fase 4. La metodología, las métricas y los resultados del smoke, de B0/20, B1/20
-y B2/20 están en [`../docs/evaluation.md`](../docs/evaluation.md).
+Fase 4. La metodología, las métricas y los resultados del smoke, de B0/20, B1/20,
+B2/20 y de la robustez están en [`../docs/evaluation.md`](../docs/evaluation.md).
 
 ## Archivos
 
@@ -11,7 +11,8 @@ y B2/20 están en [`../docs/evaluation.md`](../docs/evaluation.md).
 | `frozen/corpus.json` | 30 documentos de Wikipedia con licencia, URL, fecha, atribución y SHA-256 |
 | `questions.json` | 20 preguntas en cuatro categorías |
 | `results/smoke-20261023b/` | Smoke real de 6 ejecuciones con B0/B1/B2 |
-| `results/eval-full-20261024/` | B0, B1 y B2 completos sobre 20 preguntas; robustez pendiente |
+| `results/eval-full-20261024/` | B0, B1 y B2 completos sobre 20 preguntas |
+| `results/robust-20261029/` | Robustez: F01/U01 × 3 repeticiones × B0/B1/B2 = 18 ejecuciones |
 
 ## Corpus
 
@@ -77,9 +78,8 @@ fuentes, uso, traza, juicio y métricas. `summary.json`, `summary.md` y
 `quality_vs_tokens.svg` se generan a partir de esos registros. `run_meta.json`
 guarda los hashes del corpus y de las preguntas y la configuración efectiva.
 
-Los resultados publicados incluyen el smoke y los lotes B0/20, B1/20 y B2/20; la
-robustez sigue pendiente. Para reproducirlos, consulta los comandos de
-`docs/evaluation.md`.
+Los resultados publicados incluyen el smoke, los lotes B0/20, B1/20 y B2/20 y la
+robustez. Para reproducirlos, consulta los comandos de `docs/evaluation.md`.
 
 ## Licencia
 

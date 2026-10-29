@@ -2,12 +2,14 @@
 
 > **Estado (2026-10-29):** el marco de evaluación está implementado. Se ejecutó
 > el *smoke eval* real de 6 ejecuciones (2 preguntas × B0/B1/B2), **B0, B1 y B2
-> completos sobre las 20 preguntas**. B1 necesitó dos sesiones y B2 tres porque
-> sus consumos superan el TPD de 200.000 por modelo y día. B2 conserva un
+> completos sobre las 20 preguntas** y la **robustez de 18 ejecuciones**
+> (F01/U01 × 3 repeticiones × B0/B1/B2). B1 necesitó dos sesiones y B2 tres
+> porque sus consumos superan el TPD de 200.000 por modelo y día. B2 conserva un
 > `JSONDecodeError` del researcher en M05 y un juicio de C04 que hubo que
-> repetir. Las 3 repeticiones de robustez siguen pendientes. Este documento
-> separa el smoke, los lotes B0/B1/B2 y la robustez: **la comparación de 20
-> preguntas está completa, pero todavía no hay 3 repeticiones**.
+> repetir. La robustez no mostró varianza de score: las 18 ejecuciones sacaron
+> 2/2, un efecto techo del subconjunto fácil. Este documento separa el smoke,
+> los lotes B0/B1/B2 y la robustez, y no presenta el subconjunto como una
+> auditoría de las 20 preguntas.
 
 ## Por qué un corpus congelado
 
@@ -29,7 +31,8 @@ Archivos:
 | `eval/frozen/corpus.json` | Documentos, metadatos de licencia, URLs y hashes |
 | `eval/questions.json` | 20 preguntas, hechos de referencia, fuentes esperadas y rúbrica |
 | `eval/results/smoke-20261023b/` | Registros crudos, resumen y gráfico del smoke real |
-| `eval/results/eval-full-20261024/` | B0, B1 y B2 completos sobre 20 preguntas; robustez pendiente |
+| `eval/results/eval-full-20261024/` | B0, B1 y B2 completos sobre 20 preguntas |
+| `eval/results/robust-20261029/` | Robustez: F01/U01 × 3 repeticiones × B0/B1/B2 = 18 ejecuciones |
 
 El corpus se valida al cargarlo: si un documento cambia y su SHA-256 no coincide,
 la evaluación falla antes de ejecutar modelos. Los tests comprueban la integridad,
@@ -315,8 +318,9 @@ Lectura honesta:
   falla 2 de 5 sin respuesta. Para preguntas factuales simples, B0 sigue siendo
   más barato y más preciso en citas.
 - **Una sola repetición no demuestra robustez.** Estas diferencias son de un
-  único lote; las 3 repeticiones de robustez siguen pendientes. No se debe
-  generalizar a otros corpus ni presentar B1 como “mejor” sin el coste.
+  único lote; la robustez de F01/U01 se reporta más abajo y no cambia la
+  conclusión. No se debe generalizar a otros corpus ni presentar B1 como “mejor”
+  sin el coste.
 
 ### Revisión manual de B1 (4 de 20)
 
@@ -403,6 +407,41 @@ La muestra manual acumulada final es **12 de 60 registros (20%)**: 4 de B0, 4 de
 B1 y 4 de B2, con **12/12 de coincidencia juez-humano**. Es una muestra pequeña,
 no una auditoría completa.
 
+## Robustez: F01/U01 × 3 repeticiones
+
+El run `robust-20261029` repitió tres veces F01 (factual) y U01 (sin respuesta)
+con B0, B1 y B2: **18 ejecuciones** con el mismo corpus congelado, los mismos
+límites y el mismo juez Groq. No hubo errores de sistema ni de juez.
+
+| Sistema | Éxito | Score | Cobertura F01 | Precisión citas | Validez | Recall | Abstención det. | Llamadas | Tokens | p50 | p95 |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| B0 (6) | 1,00 | 2,00 | 0,44 | 1,00 | 1,00 | 1,00 | 1,00 | 2,00 | 1.768 | 56,8 s | 58,3 s |
+| B1 (6) | 1,00 | 2,00 | 1,00 | 0,41 | 1,00 | 1,00 | 1,00 | 7,33 | 8.659 | 243,3 s | 302,2 s |
+| B2 (6) | 1,00 | 2,00 | 0,78 | 0,38 | 1,00 | 1,00 | 0,67 | 9,00 | 15.388 | 360,9 s | 422,8 s |
+
+Las 18 puntuaciones del juez fueron 2/2. La varianza del score es **0,00** en
+cada sistema y en cada pregunta, pero eso no demuestra robustez general: el
+subconjunto F01/U01 es fácil y produce un **efecto techo**. Con n=3 y varianza
+cero no se puede estimar una tasa de fallo; harían falta preguntas más difíciles
+y más repeticiones.
+
+Lectura de las diferencias que sí aparecen:
+
+- **B2 U01 repetición 3:** el juez dio 2 porque la respuesta se abstiene
+  correctamente (“no se dispone de fuentes…”), pero la métrica determinista de
+  abstención dio 0 porque no coincide con sus frases esperadas. Por eso la
+  abstención determinista de B2 es 0,67 aunque el éxito de tarea sea 1,00. Es un
+  falso negativo de la métrica, no un fallo de abstención del sistema.
+- **Precisión estricta de citas:** B0 cita unas 5 fuentes y obtiene 1,00; B1 y B2
+  citan 7–8 y bajan a 0,41/0,38. La validez y el recall son 1,00: las fuentes
+  son reales y cubren las esperadas, pero la precisión penaliza las adicionales.
+- **Coste:** B2 usa 1,78× los tokens de B1, 1,23× las llamadas y 1,48× la
+  latencia p50. B0 sigue siendo el más barato (1.768 tokens, 56,8 s p50).
+
+Consumo del run: **79.858 tokens de 120b** y **110.550 de 20b**. La robustez no
+cambia la conclusión de los lotes completos: el equipo completo no es
+uniformemente mejor y su coste es sensiblemente mayor.
+
 ## Taxonomía de fallos observada
 
 | Tipo | Ejemplo | Tratamiento |
@@ -466,6 +505,18 @@ para reanudar un lote interrumpido o repetir la evaluación:
   --judge-provider groq --judge-model openai/gpt-oss-20b
 ```
 
+La robustez ejecutada fue:
+
+```bash
+.venv/bin/python -m scripts.run_eval \
+  --systems b0,b1,b2 \
+  --question-id F01 --question-id U01 --repetitions 3 \
+  --run-id robust-20261029 \
+  --max-rounds 1 --max-workers 1 --max-tool-steps 1 \
+  --max-llm-calls 12 --max-tokens 30000 \
+  --judge-provider groq --judge-model openai/gpt-oss-20b
+```
+
 No mezcles B2 con nuevas repeticiones de B0/B1 en el mismo día con el plan
 gratuito: B2 ya roza el TPD de 120b por sí solo.
 
@@ -481,24 +532,26 @@ completo no quepa en una sola sesión:
 | B0/20 | 0 | 83.337 | medido: 42.860 del sistema + 40.477 del juez |
 | B1/20 | 82.828 | 210.213 | medido en dos días: 127.774/49.946 + 82.439/32.882 |
 | B2/20 | 222.292 | 201.186 | medido en tres sesiones (7+7+6; C04 repetido) |
-| **Total** | **305.120** | **494.736** | **B0+B1+B2; falta robustez** |
+| robust-20261029 | 79.858 | 110.550 | 18 ejecuciones: F01/U01 × 3 × B0/B1/B2 |
+| **Total** | **384.978** | **605.286** | **B0+B1+B2+robustez; C04 fallido aparte** |
 
-Las cifras de B0, B1 y B2 son medidas y no incluyen el intento fallido de C04
-(~11.200/8.100). B1 no cupo en un día (210.213 de 20b) y se partió en 11 + 9;
-B2 tampoco (201.186 de 20b y 222.292 de 120b) y se partió en 7 + 7 + 6. El
-runner reanuda con el mismo `run_id` y `--resume` sin repetir preguntas. La
-robustez sigue pendiente.
+Las cifras son medidas y no incluyen el intento fallido de C04 (~11.200/8.100).
+B1 no cupo en un día (210.213 de 20b) y se partió en 11 + 9; B2 tampoco (201.186
+de 20b y 222.292 de 120b) y se partió en 7 + 7 + 6. El runner reanuda con el
+mismo `run_id` y `--resume` sin repetir preguntas. La robustez se ejecutó aparte
+para no mezclar sus repeticiones con el lote principal.
 
 ## Limitaciones
 
 - **El smoke no es la evaluación completa.** Solo hay 2 preguntas; las métricas
   agregadas no son representativas.
-- **La comparación B0/B1/B2 de 20 preguntas está completa; falta robustez.**
-  Los tres sistemas están medidos sobre las mismas preguntas, pero no hay
-  todavía 3 repeticiones sobre el subconjunto acordado.
+- **La comparación y la robustez están completas, con límites.** Los tres
+  sistemas están medidos sobre las 20 preguntas y hay 3 repeticiones de F01/U01.
+  El subconjunto es demasiado fácil: las 18 ejecuciones sacaron 2/2 y la varianza
+  fue cero, así que no estima una tasa de fallo.
 - **El juez no fue independiente.** Gemini falló por timeouts tanto en el smoke
-  como en B0, B1 y B2. Un juez del mismo proveedor puede compartir sesgos con el
-  sistema evaluado.
+  como en B0, B1, B2 y la robustez. Un juez del mismo proveedor puede compartir
+  sesgos con el sistema evaluado.
 - **La cobertura factual es léxica.** Las variantes están escritas a mano; una
   respuesta correcta con otra formulación puede no coincidir.
 - **La precisión de citas es estricta.** Penaliza fuentes adicionales válidas.
@@ -509,10 +562,11 @@ robustez sigue pendiente.
   las respuestas se evalúan contra ese corpus, no contra el estado actual de la web.
 - **La latencia incluye rate limiting.** No debe presentarse como latencia pura
   del proveedor.
-- **La evaluación de 20 preguntas está completa; la robustez no.** B0, B1 y B2
-  tienen 20/20. B1 necesitó dos sesiones y B2 tres porque sus consumos superan el
-  TPD de 200.000 por modelo y día. C04 se repitió por un fallo del juez y M05
-  conserva un error del researcher. No se han inventado resultados.
+- **La evaluación de 20 preguntas y la robustez están completas.** B0, B1 y B2
+  tienen 20/20 y hay 18 ejecuciones de robustez. B1 necesitó dos sesiones y B2
+  tres porque sus consumos superan el TPD de 200.000 por modelo y día. C04 se
+  repitió por un fallo del juez y M05 conserva un error del researcher. No se han
+  inventado resultados.
 - **Ningún sistema es uniformemente mejor.** B1 gana en éxito global y
   abstención; B2 gana en comparación; B0 es el más barato y el más preciso en
   citas. La comparación honesta debe incluir coste y calidad de citas, no solo
@@ -520,6 +574,12 @@ robustez sigue pendiente.
 - **B2 tiene un error de sistema.** M05 perdió una subpregunta por un
   `JSONDecodeError` del researcher y el informe quedó incompleto (score 1). Es
   el único registro B2 con error; se conserva y se documenta.
+- **La abstención determinista tiene falsos negativos.** En B2 U01 repetición 3,
+  el juez dio 2 y la métrica determinista dio 0 porque la formulación no coincidía
+  con sus patrones. Se reporta la discrepancia; no se cambia el resultado a mano.
+- **La robustez no es una auditoría de calidad.** Solo cubre 2 de 20 preguntas,
+  3 repeticiones y un juez del mismo proveedor. No sustituye la revisión manual
+  ni una evaluación con preguntas más difíciles.
 
 ## Licencia y atribución del corpus
 

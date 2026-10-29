@@ -5,15 +5,17 @@ con OpenAI. Recibe una pregunta abierta, la descompone, busca evidencia en la we
 en fuentes académicas, verifica las citas y entrega un informe en Markdown con
 trazabilidad de herramientas, tokens y latencia.
 
-> **Estado (2026-10-29):** Fases 0–3 y 5 completadas. La Fase 4 está **casi
-> cerrada**: el CLI, el grafo con herramientas reales, el HITL, la reanudación
-> con checkpointer SQLite y el marco de evaluación con corpus congelado están
-> cubiertos por tests; **B0, B1 y B2 están completos sobre las 20 preguntas**. B1
-> necesitó dos sesiones y B2 tres por el TPD de 200.000; B2 conserva un error
-> recuperable en M05. **Las 3 repeticiones de robustez siguen pendientes.** La
-> demo FastAPI/SSE de la Fase 5 se verificó con una pregunta real: el informe,
-> las citas, la traza y el usage existen, pero el run agotó el presupuesto de la
-> prueba y usó fallbacks deterministas. Nada de eso se oculta en este README.
+> **Estado (2026-10-29):** Fases 0–5 completadas; **Fase 6 en cierre**. El CLI,
+> el grafo con herramientas reales, el HITL, la reanudación con checkpointer
+> SQLite y el marco de evaluación con corpus congelado están cubiertos por tests;
+> **B0, B1 y B2 están completos sobre las 20 preguntas** y hay **18 ejecuciones
+> de robustez** (F01/U01 × 3 × B0/B1/B2). B1 necesitó dos sesiones y B2 tres por
+> el TPD de 200.000; B2 conserva un error recuperable en M05. La robustez sacó
+> 2/2 en las 18 ejecuciones: es un efecto techo del subconjunto fácil, no una
+> prueba de estabilidad general. La demo FastAPI/SSE de la Fase 5 se verificó con
+> una pregunta real: el informe, las citas, la traza y el usage existen, pero el
+> run agotó el presupuesto de la prueba y usó fallbacks deterministas. Nada de
+> eso se oculta en este README.
 
 ## Qué demuestra
 
@@ -217,8 +219,8 @@ respuesta (5/5 vs 3/5). Factual no mejora y comparación sube de 1/5 a 2/5.
 B1 gana en éxito de tarea, pero no gratis: usa **5,6× los tokens medios**,
 4,6× las llamadas y **6,1× la latencia p50** de B0. La precisión estricta de
 citas baja de 0,83 a 0,74; la cobertura determinista queda igual (0,56) y el
-recall de fuentes sube de 0,89 a 0,91. La comparación B0/B1/B2 ya está
-completa; falta la robustez. Registros y resumen en
+recall de fuentes sube de 0,89 a 0,91. La comparación B0/B1/B2 y la robustez
+ya están completas. Registros y resumen en
 [`eval/results/eval-full-20261024/`](./eval/results/eval-full-20261024/).
 
 ### Lote B2 completo (20 preguntas)
@@ -267,12 +269,40 @@ La muestra manual acumulada es **12 de 60 registros (20%)**: 4 de B0, 4 de B1 y
 4 de B2, con **12/12 de coincidencia juez-humano**. Es una muestra pequeña, no
 una auditoría completa.
 
+### Robustez (F01/U01 × 3 repeticiones)
+
+El run `robust-20261029` repitió F01 (factual) y U01 (sin respuesta) tres veces
+con cada sistema: **18 ejecuciones** con el mismo corpus y juez, sin errores de
+sistema ni de juez.
+
+| Sistema | Éxito | Score | Cobertura F01 | Precisión citas | Validez | Recall | Abstención det. | Llamadas | Tokens | p50 |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| B0 (6) | 1,00 | 2,00 | 0,44 | 1,00 | 1,00 | 1,00 | 1,00 | 2,00 | 1.768 | 56,8 s |
+| B1 (6) | 1,00 | 2,00 | 1,00 | 0,41 | 1,00 | 1,00 | 1,00 | 7,33 | 8.659 | 243,3 s |
+| B2 (6) | 1,00 | 2,00 | 0,78 | 0,38 | 1,00 | 1,00 | 0,67 | 9,00 | 15.388 | 360,9 s |
+
+Las 18 puntuaciones fueron 2/2 y la varianza del score fue 0,00 en cada sistema
+y pregunta. **No es evidencia de robustez general:** F01/U01 son fáciles y
+producen un efecto techo; con n=3 no se estima una tasa de fallo. Las diferencias
+que sí aparecen son de coste y de métricas:
+
+- B2 usa 1,78× los tokens de B1, 1,23× las llamadas y 1,48× la latencia p50.
+- B0 cita ~5 fuentes y obtiene precisión 1,00; B1/B2 citan 7–8 y bajan a
+  0,41/0,38, aunque validez y recall son 1,00. La precisión estricta penaliza
+  fuentes adicionales válidas.
+- En B2 U01 repetición 3, el juez dio 2 y la abstención determinista dio 0: la
+  respuesta se abstiene con otra formulación y la métrica no la reconoce. Es un
+  falso negativo de la métrica, no un fallo del sistema.
+
+Consumo: **79.858 tokens de 120b** y **110.550 de 20b**. Registros y resumen en
+[`eval/results/robust-20261029/`](./eval/results/robust-20261029/).
+
 ### Consumo de cuotas observado
 
 | Recurso | Límite observado | Uso observado |
 | :--- | :--- | :--- |
-| Groq `openai/gpt-oss-120b` | 8.000 TPM · 200.000 TPD | B1: 82.828; B2: 222.292 en 20 registros (tres sesiones) |
-| Groq `openai/gpt-oss-20b` | 8.000 TPM · 200.000 TPD | B0: 83.337; B1: 210.213; B2: 201.186 |
+| Groq `openai/gpt-oss-120b` | 8.000 TPM · 200.000 TPD | B1: 82.828; B2: 222.292; robustez: 79.858 |
+| Groq `openai/gpt-oss-20b` | 8.000 TPM · 200.000 TPD | B0: 83.337; B1: 210.213; B2: 201.186; robustez: 110.550 |
 | Gemini `gemini-3.8-flash` | 20 peticiones/día | Agotado; fallback desactivado |
 | Tavily | 1.000 llamadas/mes | 34 usadas; 966 restantes |
 
@@ -293,7 +323,8 @@ declara como limitación. B1 se partió en dos sesiones: 11 registros el
 32.882 de 120b). B2 se partió en tres: 7 el 27, 7 el 28 y 7 ejecuciones el 29
 (incluida la repetición de C04). El runner reanudó sin repetir preguntas. El
 total final de B2 es 222.292 de 120b y 201.186 de 20b; el intento fallido de C04
-añadió ~11.200/8.100 no incluidos en ese total. La robustez sigue pendiente.
+añadió ~11.200/8.100 no incluidos en ese total. La robustez se ejecutó aparte
+el 2026-10-29: 18 ejecuciones, 79.858 de 120b y 110.550 de 20b.
 
 ## Trazas de ejemplo
 
@@ -532,17 +563,19 @@ en memoria.
 
 ## Limitaciones
 
-- **La comparación de 20 preguntas está completa; falta la robustez.** El corpus
-  congelado, los baselines, el juez y el runner están implementados. El smoke de
-  6 ejecuciones es real y B0, B1 y B2 están medidos sobre las 20 preguntas. No
-  hay todavía 3 repeticiones de robustez sobre el subconjunto acordado.
+- **La evaluación de 20 preguntas y la robustez están completas, con límites.**
+  El corpus congelado, los baselines, el juez y el runner están implementados. El
+  smoke de 6 ejecuciones es real, B0/B1/B2 están medidos sobre las 20 preguntas y
+  hay 3 repeticiones de F01/U01. El subconjunto es fácil: las 18 ejecuciones
+  sacaron 2/2 y la varianza fue cero; no estima una tasa de fallo general.
 - **La calidad no está garantizada por el validador.** El validador comprueba que
   los IDs citados existan y que los claims tengan fuentes; la comprobación del
   critic es estructural (claim con citas válidas), no entailment semántico. Esa
   comprobación requiere revisión humana o un juez independiente.
 - **El juez no fue independiente.** Gemini devolvió timeouts y se usó Groq
-  `openai/gpt-oss-20b` tanto en el smoke como en B0, B1 y B2. La infraestructura
-  permite un proveedor distinto, pero estos resultados no lo consiguieron.
+  `openai/gpt-oss-20b` tanto en el smoke como en B0, B1, B2 y la robustez. La
+  infraestructura permite un proveedor distinto, pero estos resultados no lo
+  consiguieron.
 - **Ningún sistema es uniformemente mejor.** B1 gana en éxito global y
   abstención; B2 gana en comparación; B0 es el más barato y el más preciso en
   citas. La comparación honesta debe incluir coste y calidad de citas, no solo
@@ -550,6 +583,12 @@ en memoria.
 - **B2 tiene un error de sistema.** M05 perdió una subpregunta por un
   `JSONDecodeError` del researcher y el informe quedó incompleto (score 1). Es
   el único registro B2 con error; se conserva y se documenta.
+- **La abstención determinista tiene falsos negativos.** En B2 U01 repetición 3,
+  el juez dio 2 y la métrica determinista dio 0 porque la respuesta usó otra
+  formulación. Se reporta la discrepancia; no se cambia el resultado a mano.
+- **La robustez no es una auditoría de calidad.** Solo cubre 2 de 20 preguntas,
+  3 repeticiones y un juez del mismo proveedor. El efecto techo impide estimar
+  una tasa de fallo general.
 - **Cobertura léxica y citas estrictas.** La cobertura factual se basa en
   variantes escritas a mano y la precisión de citas penaliza fuentes adicionales
   válidas. Se reportan validez y recall por separado; ninguna métrica mide
@@ -574,9 +613,10 @@ en memoria.
   llamadas, el critic y el writer usaron fallback y el informe salió con confianza
   `low`. Es un resultado honesto del límite de la prueba, no la calidad esperada
   con más cuota.
-- **Alcance pendiente.** Las 3 repeticiones de robustez. La revisión manual del
-  20% está hecha (12/60, 12/12 de coincidencia juez-humano). La integración en CI
-  ya está añadida y los tests no necesitan claves. No se incluye MCP.
+- **Alcance pendiente.** Solo la verificación de CI y la publicación en GitHub;
+  la evaluación está cerrada. La revisión manual del 20% está hecha (12/60,
+  12/12 de coincidencia juez-humano). La integración en CI ya está añadida y los
+  tests no necesitan claves. No se incluye MCP.
 
 ## Cuándo no usar el equipo completo
 
