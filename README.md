@@ -18,7 +18,7 @@ reporta métricas reales, no solo resultados visuales.
 | [Clasificación de señales de tráfico](./traffic-signs) | Visión por computador: CNN, transfer learning, augmentación, evaluación por clase y análisis de errores | PyTorch · torchvision | 97,47% accuracy · 43 clases | Completado |
 | [Interpretabilidad de BERT](./bert-attention) | NLP: mecanismos de atención, análisis de capas y cabezas, visualización | PyTorch · Transformers | 12 capas × 12 cabezas · 8 mapas curados | Completado |
 | [KNX RAG Assistant](./rag-assistant) | RAG end-to-end: ingesta de PDFs, búsqueda híbrida, citas, evaluación, API y Docker | Transformers · Qdrant · FastAPI · Docker | Recall@10 0,908 · MRR 0,850 · 20 preguntas | Completado |
-| [research-agents](./research-agents) | Agentes: supervisor, planner, researchers paralelos, crítico, citas, HITL, trazas y evaluación con corpus congelado | LangGraph · Groq · Tavily · FastAPI · SQLite · Docker | 5 preguntas reales · HITL por CLI/API · B0/20 · B1/20 · smoke B0/B1/B2 · 151 tests | Fase 6 en cierre · Fase 4 parcial |
+| [research-agents](./research-agents) | Agentes: supervisor, planner, researchers paralelos, crítico, citas, HITL, trazas y evaluación con corpus congelado | LangGraph · Groq · Tavily · FastAPI · SQLite · Docker | 5 preguntas reales · HITL por CLI/API · B0/20 · B1/20 · B2/20 · smoke B0/B1/B2 · 151 tests | Fase 6 en cierre · Fase 4 casi cerrada |
 | [mcp-gateway](./mcp-gateway) | Protocolo MCP: gateway multi-upstream, namespacing, router progresivo, MRTR, bearer/PRM, auditoría y suite de seguridad | Python 3.12 · MCP SDK 2.x · BM25 · Groq · Docker | 22 tools · A/B/C 60 tareas · 14/14 ataques · 83 tests | Completado |
 
 > Los cinco proyectos están documentados. Los tres primeros están terminados y
@@ -29,9 +29,10 @@ reporta métricas reales, no solo resultados visuales.
 > las ablaciones `k=5/8/12` dieron 55,00/50,00/55,00%.
 > `research-agents` tiene cerradas las Fases 2, 3 y 5: herramientas, caché,
 > paralelismo, runs reales, HITL y checkpointer SQLite, API/SSE, UI, CLI y Docker.
-> La Fase 4 está parcial: B0 y B1 están medidos sobre las 20 preguntas; B1
-> necesitó dos sesiones por el TPD. B2 y las repeticiones de robustez siguen
-> pendientes. La Fase 6 (documentación, CI y cierre) está preparada. Su README,
+> La Fase 4 está casi cerrada: B0, B1 y B2 están medidos sobre las 20 preguntas.
+> B1 necesitó dos sesiones y B2 tres por el TPD; B2 conserva un error recuperable
+> en M05. Las repeticiones de robustez siguen pendientes. La Fase 6
+> (documentación, CI y cierre) está preparada. Su README,
 > `docs/evaluation.md`, `docs/architecture.md`, `docs/patterns.md`,
 > `docs/security.md` y `docs/phase5/README.md` documentan las métricas reales, la
 > prueba E2E y las limitaciones.
@@ -77,10 +78,9 @@ datasets. Datasets are not committed. Downloadable datasets ship with a fetch sc
 the copyrighted KNX corpus is supplied locally with a valid license. `rag-assistant` also
 includes a synthetic demo corpus for running the full pipeline without the KNX corpus.
 `research-agents` includes a frozen Wikipedia corpus, B0/B1/B2 baselines, a documented
-smoke evaluation and complete B0 and B1 runs over 20 questions; B1 was split across
-two sessions because its 20b token use exceeds the daily limit. B2 and the robustness
-repetitions are still pending because the free-tier daily token limit is not enough for
-the full matrix in one session. It also ships a FastAPI/SSE demo with a minimal UI, CLI
+smoke evaluation and complete B0, B1 and B2 runs over 20 questions; B1 and B2 were split
+across multiple sessions because their token use exceeds the daily limit. The robustness
+repetitions are still pending. It also ships a FastAPI/SSE demo with a minimal UI, CLI
 and Docker. `mcp-gateway` adds an MCP `2026-07-28` gateway with 22 tools, three disclosure
 modes, a 60-task deterministic evaluation, MRTR approvals, bearer/PRM and a 14-attack /
 20-benign security suite. Its robustness and k ablations are partial for the same Groq

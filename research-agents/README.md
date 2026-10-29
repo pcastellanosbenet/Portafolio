@@ -5,16 +5,15 @@ con OpenAI. Recibe una pregunta abierta, la descompone, busca evidencia en la we
 en fuentes académicas, verifica las citas y entrega un informe en Markdown con
 trazabilidad de herramientas, tokens y latencia.
 
-> **Estado (2026-10-26):** Fases 0–3 y 5 completadas. La Fase 4 está **parcial**:
-> el CLI, el grafo con herramientas reales, el HITL, la reanudación con
-> checkpointer SQLite y el marco de evaluación con corpus congelado están
-> cubiertos por tests; **B0 y B1 están completos sobre las 20 preguntas**. B1
-> necesitó dos sesiones porque sus 210.213 tokens de 20b superan el TPD de
-> 200.000. **B2 y las repeticiones de robustez siguen pendientes**: B2 debe ir
-> sola en otra sesión porque su volumen de 120b roza el TPD. La demo FastAPI/SSE
-> de la Fase 5 se verificó con una pregunta real: el informe, las citas, la traza
-> y el usage existen, pero el run agotó el presupuesto de la prueba y usó
-> fallbacks deterministas. Nada de eso se oculta en este README.
+> **Estado (2026-10-29):** Fases 0–3 y 5 completadas. La Fase 4 está **casi
+> cerrada**: el CLI, el grafo con herramientas reales, el HITL, la reanudación
+> con checkpointer SQLite y el marco de evaluación con corpus congelado están
+> cubiertos por tests; **B0, B1 y B2 están completos sobre las 20 preguntas**. B1
+> necesitó dos sesiones y B2 tres por el TPD de 200.000; B2 conserva un error
+> recuperable en M05. **Las 3 repeticiones de robustez siguen pendientes.** La
+> demo FastAPI/SSE de la Fase 5 se verificó con una pregunta real: el informe,
+> las citas, la traza y el usage existen, pero el run agotó el presupuesto de la
+> prueba y usó fallbacks deterministas. Nada de eso se oculta en este README.
 
 ## Qué demuestra
 
@@ -218,17 +217,62 @@ respuesta (5/5 vs 3/5). Factual no mejora y comparación sube de 1/5 a 2/5.
 B1 gana en éxito de tarea, pero no gratis: usa **5,6× los tokens medios**,
 4,6× las llamadas y **6,1× la latencia p50** de B0. La precisión estricta de
 citas baja de 0,83 a 0,74; la cobertura determinista queda igual (0,56) y el
-recall de fuentes sube de 0,89 a 0,91. **No es la comparación completa
-B0/B1/B2**: B2 sigue pendiente y no hay 3 repeticiones de robustez. Registros y
-resumen en
+recall de fuentes sube de 0,89 a 0,91. La comparación B0/B1/B2 ya está
+completa; falta la robustez. Registros y resumen en
 [`eval/results/eval-full-20261024/`](./eval/results/eval-full-20261024/).
+
+### Lote B2 completo (20 preguntas)
+
+B2 se ejecutó en tres sesiones con el mismo `run_id`: 7 registros el 2026-10-27
+(F01–F05, C01–C02), 7 el 2026-10-28 (C03–C05, M01–M04) y 6 el 2026-10-29
+(M05 y U01–U05), más la repetición de C04. El primer juicio de C04 falló con
+`StructuredOutputError`; el registro defectuoso se conservó fuera del árbol y se
+repitió. El resultado final no tiene errores de juez, pero M05 conserva un
+`JSONDecodeError` del researcher: una subpregunta se perdió y el informe quedó
+incompleto.
+
+| Sistema | Éxito tarea | Score juez | Cobertura | Precisión citas | Validez citas | Recall fuentes | Abstención | Llamadas | Tokens | p50 |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| B2 · equipo completo (20) | 0,45 | 1,45 | 0,60 | 0,75 | 1,00 | 0,83 | 1,00 | 10,95 | 18.587 | 424,8 s |
+
+| Categoría | B0 | B1 | B2 | n |
+| :--- | :---: | :---: | :---: | :---: |
+| Factual | 0,20 | 0,20 | 0,20 | 5 |
+| Comparación | 0,20 | 0,40 | **0,60** | 5 |
+| Multi-hop | 0,00 | **0,60** | 0,20 | 5 |
+| Sin respuesta | 0,60 | **1,00** | 0,80 | 5 |
+
+B2 acierta 9 de 20: F01, C01, C03, M01, C04, U01, U02, U03 y U05. B0 acierta 5
+y B1 acierta 11. B2 es el mejor en comparación (3/5), pero cae en multi-hop
+(1/5 frente a 3/5 de B1) y en abstención (4/5 frente a 5/5); factual sigue en
+1/5 para los tres.
+
+B2 **no es la mejor opción global**: B1 tiene más éxito (0,55 vs 0,45), mejor
+score (1,55 vs 1,45) y usa 1,55× menos tokens (11.972 vs 18.587). B2 tiene una
+precisión de citas ligeramente mejor (0,75 vs 0,74), pero peor recall de fuentes
+(0,83 vs 0,91). Frente a B0, B2 usa 8,7× los tokens y 7,3× la latencia p50, con
+menor precisión de citas (0,75 vs 0,83) y menor recall (0,83 vs 0,89). El
+`JSONDecodeError` de M05 es un fallo real del sistema y se reporta, no se oculta.
+
+### Revisión manual de B2 (4 de 20)
+
+Se revisaron F01, C01, M01 y U01; la puntuación humana coincidió con la del juez
+en las cuatro (2/2). F01 añade una tabla con generalizaciones no citadas y baja a
+0,50 de precisión de citas; C01 está limpio (1,00); M01 mantiene un falso
+negativo léxico (0,667) porque la respuesta dice “asigna pesos” en vez de
+“realza/disminuye”; U01 se abstiene correctamente pero cita tres fuentes
+irrelevantes (precisión y recall 0,00).
+
+La muestra manual acumulada es **12 de 60 registros (20%)**: 4 de B0, 4 de B1 y
+4 de B2, con **12/12 de coincidencia juez-humano**. Es una muestra pequeña, no
+una auditoría completa.
 
 ### Consumo de cuotas observado
 
 | Recurso | Límite observado | Uso observado |
 | :--- | :--- | :--- |
-| Groq `openai/gpt-oss-120b` | 8.000 TPM · 200.000 TPD | B1: 82.828 tokens en 20 registros (2026-10-25/26) |
-| Groq `openai/gpt-oss-20b` | 8.000 TPM · 200.000 TPD | B0: 83.337 (2026-10-24); B1: 210.213 en dos sesiones |
+| Groq `openai/gpt-oss-120b` | 8.000 TPM · 200.000 TPD | B1: 82.828; B2: 222.292 en 20 registros (tres sesiones) |
+| Groq `openai/gpt-oss-20b` | 8.000 TPM · 200.000 TPD | B0: 83.337; B1: 210.213; B2: 201.186 |
 | Gemini `gemini-3.8-flash` | 20 peticiones/día | Agotado; fallback desactivado |
 | Tavily | 1.000 llamadas/mes | 34 usadas; 966 restantes |
 
@@ -246,8 +290,10 @@ Groq. La prueba E2E de la API consumió 19.965 tokens y 4 búsquedas. Gemini sig
 fallando como juez por `OpenAITimeoutError`; por eso B0 usó Groq como juez y se
 declara como limitación. B1 se partió en dos sesiones: 11 registros el
 2026-10-25 (127.774 de 20b + 49.946 de 120b) y 9 el 2026-10-26 (82.439 de 20b +
-32.882 de 120b). El runner reanudó sin repetir preguntas. B2 sigue pendiente y
-debe ejecutarse sola; no se presenta B0/B1 como la comparación completa.
+32.882 de 120b). B2 se partió en tres: 7 el 27, 7 el 28 y 7 ejecuciones el 29
+(incluida la repetición de C04). El runner reanudó sin repetir preguntas. El
+total final de B2 es 222.292 de 120b y 201.186 de 20b; el intento fallido de C04
+añadió ~11.200/8.100 no incluidos en ese total. La robustez sigue pendiente.
 
 ## Trazas de ejemplo
 
@@ -486,21 +532,24 @@ en memoria.
 
 ## Limitaciones
 
-- **La comparación completa está pendiente.** El corpus congelado, los baselines,
-  el juez y el runner están implementados. El smoke de 6 ejecuciones es real y B0
-  y B1 están medidos sobre las 20 preguntas. **B2 no se ejecutó** y debe ir en otra
-  sesión porque su volumen de 120b roza el TPD. No hay todavía una tabla
-  B0/B1/B2 de 20 preguntas ni las 3 repeticiones de robustez.
+- **La comparación de 20 preguntas está completa; falta la robustez.** El corpus
+  congelado, los baselines, el juez y el runner están implementados. El smoke de
+  6 ejecuciones es real y B0, B1 y B2 están medidos sobre las 20 preguntas. No
+  hay todavía 3 repeticiones de robustez sobre el subconjunto acordado.
 - **La calidad no está garantizada por el validador.** El validador comprueba que
   los IDs citados existan y que los claims tengan fuentes; la comprobación del
   critic es estructural (claim con citas válidas), no entailment semántico. Esa
   comprobación requiere revisión humana o un juez independiente.
 - **El juez no fue independiente.** Gemini devolvió timeouts y se usó Groq
-  `openai/gpt-oss-20b` tanto en el smoke como en B0 y B1. La infraestructura
+  `openai/gpt-oss-20b` tanto en el smoke como en B0, B1 y B2. La infraestructura
   permite un proveedor distinto, pero estos resultados no lo consiguieron.
-- **B1 no es uniformemente mejor.** Gana en éxito de tarea y abstención, pero
-  usa 5,6× los tokens y tiene menor precisión estricta de citas que B0. La
-  comparación honesta debe incluir coste y calidad de citas, no solo el score.
+- **Ningún sistema es uniformemente mejor.** B1 gana en éxito global y
+  abstención; B2 gana en comparación; B0 es el más barato y el más preciso en
+  citas. La comparación honesta debe incluir coste y calidad de citas, no solo
+  el score.
+- **B2 tiene un error de sistema.** M05 perdió una subpregunta por un
+  `JSONDecodeError` del researcher y el informe quedó incompleto (score 1). Es
+  el único registro B2 con error; se conserva y se documenta.
 - **Cobertura léxica y citas estrictas.** La cobertura factual se basa en
   variantes escritas a mano y la precisión de citas penaliza fuentes adicionales
   válidas. Se reportan validez y recall por separado; ninguna métrica mide
@@ -525,10 +574,9 @@ en memoria.
   llamadas, el critic y el writer usaron fallback y el informe salió con confianza
   `low`. Es un resultado honesto del límite de la prueba, no la calidad esperada
   con más cuota.
-- **Alcance pendiente.** B2 de las 20 preguntas y las 3 repeticiones de
-  robustez. La revisión manual del 20% está hecha (8/40, 8/8 de coincidencia
-  juez-humano). La integración en CI ya está añadida y los tests no necesitan
-  claves. No se incluye MCP.
+- **Alcance pendiente.** Las 3 repeticiones de robustez. La revisión manual del
+  20% está hecha (12/60, 12/12 de coincidencia juez-humano). La integración en CI
+  ya está añadida y los tests no necesitan claves. No se incluye MCP.
 
 ## Cuándo no usar el equipo completo
 

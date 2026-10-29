@@ -1,13 +1,13 @@
 # Evaluación con corpus congelado
 
-> **Estado (2026-10-26):** el marco de evaluación está implementado. Se ejecutó
-> el *smoke eval* real de 6 ejecuciones (2 preguntas × B0/B1/B2), **B0 completo
-> sobre las 20 preguntas** y **B1 completo sobre las 20 preguntas**. B1 necesitó
-> dos sesiones porque sus 210.213 tokens de 20b superan el TPD de 200.000. B2
-> sigue pendiente: su volumen de 120b roza el TPD y debe ir en otra sesión. Las 3
-> repeticiones de robustez tampoco se han ejecutado. Este documento separa
-> explícitamente el smoke, los lotes B0/B1 y la evaluación completa: **B0/20 y
-> B1/20 no son todavía el benchmark B0/B1/B2**.
+> **Estado (2026-10-29):** el marco de evaluación está implementado. Se ejecutó
+> el *smoke eval* real de 6 ejecuciones (2 preguntas × B0/B1/B2), **B0, B1 y B2
+> completos sobre las 20 preguntas**. B1 necesitó dos sesiones y B2 tres porque
+> sus consumos superan el TPD de 200.000 por modelo y día. B2 conserva un
+> `JSONDecodeError` del researcher en M05 y un juicio de C04 que hubo que
+> repetir. Las 3 repeticiones de robustez siguen pendientes. Este documento
+> separa el smoke, los lotes B0/B1/B2 y la robustez: **la comparación de 20
+> preguntas está completa, pero todavía no hay 3 repeticiones**.
 
 ## Por qué un corpus congelado
 
@@ -29,7 +29,7 @@ Archivos:
 | `eval/frozen/corpus.json` | Documentos, metadatos de licencia, URLs y hashes |
 | `eval/questions.json` | 20 preguntas, hechos de referencia, fuentes esperadas y rúbrica |
 | `eval/results/smoke-20261023b/` | Registros crudos, resumen y gráfico del smoke real |
-| `eval/results/eval-full-20261024/` | Lote B0/20 y B1 por lotes; B2 pendiente |
+| `eval/results/eval-full-20261024/` | B0, B1 y B2 completos sobre 20 preguntas; robustez pendiente |
 
 El corpus se valida al cargarlo: si un documento cambia y su SHA-256 no coincide,
 la evaluación falla antes de ejecutar modelos. Los tests comprueban la integridad,
@@ -194,8 +194,8 @@ B0/B1 se documenta más abajo.
 El 2026-10-24 se ejecutó **B0 sobre las 20 preguntas** con el corpus congelado,
 una repetición, una ronda, un worker y un paso de herramienta. B0 usó el modelo
 rápido `openai/gpt-oss-20b`, que también actuó como juez; las trazas lo confirman
-aunque `run_meta.json` registre ambos modelos. Es un lote real, pero **solo de
-B0**: no sustituye la comparación B0/B1/B2.
+aunque `run_meta.json` registre ambos modelos. Es un lote real de B0; las
+secciones siguientes añaden B1 y B2 sobre las mismas 20 preguntas.
 
 | Métrica | B0 |
 | :--- | :---: |
@@ -232,9 +232,9 @@ Lectura honesta:
 - **La latencia de ~58 s por ejecución está dominada por el limitador de TPM**,
   no por inferencia pura. Los tokens medios son bajos (2.143) porque B0 hace
   pocas llamadas.
-- **No se debe concluir que B0 sea el mejor sistema.** Hay B0 completo y B1
-  parcial; B2 sigue pendiente. Las 15 preguntas respondibles necesitan revisión
-  manual antes de atribuir los fallos a una causa concreta.
+- **No se debe concluir que B0 sea el mejor sistema.** Hay B0, B1 y B2
+  completos; las 15 preguntas respondibles no se han revisado todas manualmente.
+  La muestra manual es del 20%, no una auditoría completa.
 
 ### Revisión manual de B0 (4 de 20)
 
@@ -327,9 +327,81 @@ determinista da 0,333 porque la respuesta usa “subcampo de la informática y l
 inteligencia artificial” en vez de las variantes esperadas, mientras que el juez
 considera cubiertos los 3 hechos.
 
-La muestra manual acumulada es 8 de 40 registros (20%): 4 de B0 y 4 de B1, con
-8/8 de coincidencia juez-humano. Es una muestra pequeña, no una auditoría
-completa de los 40 registros.
+La muestra manual acumulada hasta B1 es 8 de 40 registros (20%): 4 de B0 y 4 de
+B1, con 8/8 de coincidencia juez-humano. B2 añade otros 4 registros en la
+sección siguiente.
+
+## Lote B2 completo (20 preguntas)
+
+B2 se ejecutó en tres sesiones con el mismo `run_id`: 7 registros el 2026-10-27
+(F01–F05, C01–C02), 7 el 2026-10-28 (C03–C05, M01–M04) y 6 el 2026-10-29 (M05 y
+U01–U05), más la repetición de C04. El primer juicio de C04 falló con
+`StructuredOutputError`; se conservó el registro defectuoso fuera del árbol y se
+repitió. El resultado final no tiene errores de juez.
+
+M05 sí conserva un error del sistema: un `JSONDecodeError` del researcher hizo
+perder una subpregunta y el informe quedó incompleto (score 1). No se oculta: es
+el único registro B2 con error.
+
+Consumo final medido: **222.292 tokens de 120b** y **201.186 de 20b** (sistema +
+juez) en 20 registros. El intento fallido de C04 añadió ~11.200 de 120b y ~8.100
+de 20b que no están incluidos en ese total final.
+
+| Métrica | B2 (20 registros) |
+| :--- | :---: |
+| Éxito de tarea | 0,45 (9/20) |
+| Score medio del juez | 1,45 |
+| Cobertura factual | 0,60 |
+| Cobertura factual del juez | 0,77 |
+| Precisión estricta de citas | 0,75 |
+| Validez de citas | 1,00 |
+| Recall de fuentes | 0,83 |
+| Soporte de claims | 1,00 |
+| Relevancia de claims | 0,93 |
+| Abstención correcta (U01–U05) | 1,00 |
+| Llamadas medias | 10,95 |
+| Tokens medios | 18.587 |
+| Latencia p50 / p95 | 424,8 s / 538,6 s |
+
+Éxito de tarea por categoría:
+
+| Categoría | B0 | B1 | B2 | n |
+| :--- | :---: | :---: | :---: | :---: |
+| Factual | 0,20 | 0,20 | 0,20 | 5 |
+| Comparación | 0,20 | 0,40 | **0,60** | 5 |
+| Multi-hop | 0,00 | **0,60** | 0,20 | 5 |
+| Sin respuesta | 0,60 | **1,00** | 0,80 | 5 |
+
+B2 acierta 9 de 20: F01, C01, C03, M01, C04, U01, U02, U03 y U05. B0 acierta 5
+y B1 acierta 11. B2 es el mejor en comparación (3/5), pero cae en multi-hop
+(1/5 frente a 3/5 de B1) y en abstención (4/5 frente a 5/5); factual sigue en
+1/5 para los tres.
+
+Lectura honesta:
+
+- **B2 no es la mejor opción global.** B1 tiene más éxito (0,55 vs 0,45), mejor
+  score (1,55 vs 1,45) y usa 1,55× menos tokens (11.972 vs 18.587). B2 tiene una
+  precisión de citas ligeramente mejor (0,75 vs 0,74), pero peor recall de
+  fuentes (0,83 vs 0,91) y peor cobertura del juez (0,77 vs 0,82).
+- **Frente a B0, B2 tampoco domina.** Gana 4 preguntas más, pero usa 8,7× los
+  tokens y 7,3× la latencia p50, con menor precisión de citas (0,75 vs 0,83) y
+  menor recall (0,83 vs 0,89). B0 sigue siendo la opción barata.
+- **El error de M05 importa.** El researcher no pudo parsear una respuesta JSON,
+  perdió una subpregunta y el informe no cubrió dos hechos. Es un fallo real de
+  robustez del sistema, no un artefacto del juez.
+
+### Revisión manual de B2 (4 de 20)
+
+Se revisaron F01, C01, M01 y U01; la puntuación humana coincidió con la del juez
+en las cuatro (2/2). F01 añade una tabla con generalizaciones no citadas y baja a
+0,50 de precisión de citas; C01 está limpio (1,00); M01 mantiene un falso
+negativo léxico (0,667) porque la respuesta dice “asigna pesos” en vez de
+“realza/disminuye”; U01 se abstiene correctamente pero cita tres fuentes
+irrelevantes (precisión y recall 0,00).
+
+La muestra manual acumulada final es **12 de 60 registros (20%)**: 4 de B0, 4 de
+B1 y 4 de B2, con **12/12 de coincidencia juez-humano**. Es una muestra pequeña,
+no una auditoría completa.
 
 ## Taxonomía de fallos observada
 
@@ -338,7 +410,7 @@ completa de los 40 registros.
 | Claim no soportada | En el smoke, B1 F01 afirmó una necesidad de grandes volúmenes de datos sin evidencia | El juez la penaliza; el critic estructural no la detecta |
 | Dilución de citas | B2 F01 citó 8 fuentes para 2 esperadas | Se reporta precisión estricta y validez por separado |
 | Defecto de formato | B2 F01 generó una tabla Markdown incompleta | Revisión humana; no afecta al score del juez |
-| Coste/latencia | B2 usó ~9× tokens y ~200× la latencia p50 de B0 | Se reportan tokens y percentiles, no solo calidad |
+| Coste/latencia | B2 usó ~8,7× tokens y ~7,3× la latencia p50 de B0 | Se reportan tokens y percentiles, no solo calidad |
 | Fallo del juez | Gemini devolvió timeouts | Se registra `judge_error`; se usó Groq y se declara la limitación |
 | Cuota | El lote completo no cabe en una sesión de free tier | Runner reanudable y ejecución por lotes |
 
@@ -383,8 +455,8 @@ Debe ejecutarse por lotes con `--resume` para respetar la cuota. Las 3
 repeticiones de robustez se harán sobre un subconjunto acordado, no sobre las 20
 preguntas completas.
 
-B1 ya está completo. B2 necesita otra sesión/día porque su volumen de 120b roza
-el TPD por sí solo:
+B1 y B2 ya están completos; B2 necesitó tres sesiones. El comando se conserva
+para reanudar un lote interrumpido o repetir la evaluación:
 
 ```bash
 .venv/bin/python -m scripts.run_eval \
@@ -408,24 +480,24 @@ completo no quepa en una sola sesión:
 | :--- | ---: | ---: | :--- |
 | B0/20 | 0 | 83.337 | medido: 42.860 del sistema + 40.477 del juez |
 | B1/20 | 82.828 | 210.213 | medido en dos días: 127.774/49.946 + 82.439/32.882 |
-| B2/20 | ~199.000 | ~173.000 | estimado con el smoke y 20 preguntas |
-| **Total** | **~282.000** | **~466.000** | **B2 sigue pendiente** |
+| B2/20 | 222.292 | 201.186 | medido en tres sesiones (7+7+6; C04 repetido) |
+| **Total** | **305.120** | **494.736** | **B0+B1+B2; falta robustez** |
 
-Las cifras de B0 y B1 son medidas; las de B2 son una estimación para planificar.
-B1 no cupo en un día: 210.213 tokens de 20b superan el TPD de 200.000, así que se
-partió en 11 + 9 registros. B2 debe ejecutarse sola en otra sesión porque su
-volumen de 120b roza el TPD. El runner reanuda con el mismo `run_id` y `--resume`
-sin repetir preguntas.
+Las cifras de B0, B1 y B2 son medidas y no incluyen el intento fallido de C04
+(~11.200/8.100). B1 no cupo en un día (210.213 de 20b) y se partió en 11 + 9;
+B2 tampoco (201.186 de 20b y 222.292 de 120b) y se partió en 7 + 7 + 6. El
+runner reanuda con el mismo `run_id` y `--resume` sin repetir preguntas. La
+robustez sigue pendiente.
 
 ## Limitaciones
 
 - **El smoke no es la evaluación completa.** Solo hay 2 preguntas; las métricas
   agregadas no son representativas.
-- **Los lotes B0/20 y B1/20 tampoco son la evaluación completa.** Ambos están
-  medidos sobre las 20 preguntas, pero B2 no se ejecutó. Todavía no hay
-  comparación completa entre los tres sistemas ni 3 repeticiones de robustez.
+- **La comparación B0/B1/B2 de 20 preguntas está completa; falta robustez.**
+  Los tres sistemas están medidos sobre las mismas preguntas, pero no hay
+  todavía 3 repeticiones sobre el subconjunto acordado.
 - **El juez no fue independiente.** Gemini falló por timeouts tanto en el smoke
-  como en B0 y B1. Un juez del mismo proveedor puede compartir sesgos con el
+  como en B0, B1 y B2. Un juez del mismo proveedor puede compartir sesgos con el
   sistema evaluado.
 - **La cobertura factual es léxica.** Las variantes están escritas a mano; una
   respuesta correcta con otra formulación puede no coincidir.
@@ -437,13 +509,17 @@ sin repetir preguntas.
   las respuestas se evalúan contra ese corpus, no contra el estado actual de la web.
 - **La latencia incluye rate limiting.** No debe presentarse como latencia pura
   del proveedor.
-- **La evaluación completa sigue pendiente.** B0 y B1 tienen 20/20; B2 no se
-  ejecutó. B1 necesitó dos sesiones porque sus 210.213 tokens de 20b superan el
-  TPD de 200.000 por modelo y día. No se han inventado resultados para llenar la
-  comparación de 20 preguntas.
-- **B1 no es uniformemente mejor.** Gana en éxito de tarea y abstención, pero
-  usa 5,6× los tokens y tiene menor precisión estricta de citas que B0. La
-  comparación honesta debe incluir coste y calidad de citas, no solo el score.
+- **La evaluación de 20 preguntas está completa; la robustez no.** B0, B1 y B2
+  tienen 20/20. B1 necesitó dos sesiones y B2 tres porque sus consumos superan el
+  TPD de 200.000 por modelo y día. C04 se repitió por un fallo del juez y M05
+  conserva un error del researcher. No se han inventado resultados.
+- **Ningún sistema es uniformemente mejor.** B1 gana en éxito global y
+  abstención; B2 gana en comparación; B0 es el más barato y el más preciso en
+  citas. La comparación honesta debe incluir coste y calidad de citas, no solo
+  el score.
+- **B2 tiene un error de sistema.** M05 perdió una subpregunta por un
+  `JSONDecodeError` del researcher y el informe quedó incompleto (score 1). Es
+  el único registro B2 con error; se conserva y se documenta.
 
 ## Licencia y atribución del corpus
 

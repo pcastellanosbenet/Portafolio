@@ -1,11 +1,12 @@
 {
   "run_id": "eval-full-20261024",
-  "generated_at": "2026-10-26T10:27:56.281732+00:00",
+  "generated_at": "2026-10-29T09:45:13.384345+00:00",
   "systems": [
     "b0",
-    "b1"
+    "b1",
+    "b2"
   ],
-  "record_count": 40,
+  "record_count": 60,
   "overall": {
     "b0": {
       "records": 20,
@@ -52,6 +53,29 @@
       "p95_latency_s": 360.921,
       "total_tokens": 239447,
       "total_llm_calls": 182
+    },
+    "b2": {
+      "records": 20,
+      "records_with_errors": 1,
+      "judge_errors": 0,
+      "task_success_rate": 0.45,
+      "mean_judge_score": 1.45,
+      "factual_coverage": 0.6,
+      "judge_factual_coverage": 0.7722,
+      "citation_precision": 0.7522,
+      "citation_validity": 1.0,
+      "source_recall": 0.8333,
+      "claim_support_rate": 1.0,
+      "claim_relevance_rate": 0.9333,
+      "abstention_accuracy": 1.0,
+      "abstention_rate": 1.0,
+      "avg_llm_calls": 10.95,
+      "avg_tokens": 18587.3,
+      "avg_search_calls": 3.5,
+      "p50_latency_s": 424.823,
+      "p95_latency_s": 538.615,
+      "total_tokens": 371746,
+      "total_llm_calls": 219
     }
   },
   "by_category": {
@@ -101,6 +125,29 @@
         "p95_latency_s": 360.921,
         "total_tokens": 63284,
         "total_llm_calls": 46
+      },
+      "b2": {
+        "records": 5,
+        "records_with_errors": 0,
+        "judge_errors": 0,
+        "task_success_rate": 0.2,
+        "mean_judge_score": 1.2,
+        "factual_coverage": 0.5667,
+        "judge_factual_coverage": 0.7167,
+        "citation_precision": 0.5733,
+        "citation_validity": 1.0,
+        "source_recall": 0.8,
+        "claim_support_rate": 1.0,
+        "claim_relevance_rate": 0.85,
+        "abstention_accuracy": null,
+        "abstention_rate": null,
+        "avg_llm_calls": 11.2,
+        "avg_tokens": 21169.8,
+        "avg_search_calls": 3.6,
+        "p50_latency_s": 478.817,
+        "p95_latency_s": 485.589,
+        "total_tokens": 105849,
+        "total_llm_calls": 56
       }
     },
     "comparison": {
@@ -149,6 +196,29 @@
         "p95_latency_s": 360.935,
         "total_tokens": 64040,
         "total_llm_calls": 50
+      },
+      "b2": {
+        "records": 5,
+        "records_with_errors": 0,
+        "judge_errors": 0,
+        "task_success_rate": 0.6,
+        "mean_judge_score": 1.6,
+        "factual_coverage": 0.55,
+        "judge_factual_coverage": 0.8,
+        "citation_precision": 0.8333,
+        "citation_validity": 1.0,
+        "source_recall": 1.0,
+        "claim_support_rate": 1.0,
+        "claim_relevance_rate": 0.95,
+        "abstention_accuracy": null,
+        "abstention_rate": null,
+        "avg_llm_calls": 12.0,
+        "avg_tokens": 21031.0,
+        "avg_search_calls": 4.0,
+        "p50_latency_s": 478.41,
+        "p95_latency_s": 541.284,
+        "total_tokens": 105155,
+        "total_llm_calls": 60
       }
     },
     "multi_hop": {
@@ -197,6 +267,29 @@
         "p95_latency_s": 360.646,
         "total_tokens": 74220,
         "total_llm_calls": 48
+      },
+      "b2": {
+        "records": 5,
+        "records_with_errors": 1,
+        "judge_errors": 0,
+        "task_success_rate": 0.2,
+        "mean_judge_score": 1.2,
+        "factual_coverage": 0.6833,
+        "judge_factual_coverage": 0.8,
+        "citation_precision": 0.85,
+        "citation_validity": 1.0,
+        "source_recall": 0.7,
+        "claim_support_rate": 1.0,
+        "claim_relevance_rate": 1.0,
+        "abstention_accuracy": null,
+        "abstention_rate": null,
+        "avg_llm_calls": 11.0,
+        "avg_tokens": 20576.2,
+        "avg_search_calls": 3.6,
+        "p50_latency_s": 482.096,
+        "p95_latency_s": 538.615,
+        "total_tokens": 102881,
+        "total_llm_calls": 55
       }
     },
     "unanswerable": {
@@ -245,6 +338,29 @@
         "p95_latency_s": 301.671,
         "total_tokens": 37903,
         "total_llm_calls": 38
+      },
+      "b2": {
+        "records": 5,
+        "records_with_errors": 0,
+        "judge_errors": 0,
+        "task_success_rate": 0.8,
+        "mean_judge_score": 1.8,
+        "factual_coverage": null,
+        "judge_factual_coverage": null,
+        "citation_precision": null,
+        "citation_validity": null,
+        "source_recall": null,
+        "claim_support_rate": null,
+        "claim_relevance_rate": null,
+        "abstention_accuracy": 1.0,
+        "abstention_rate": 1.0,
+        "avg_llm_calls": 9.6,
+        "avg_tokens": 11572.2,
+        "avg_search_calls": 2.8,
+        "p50_latency_s": 419.542,
+        "p95_latency_s": 420.661,
+        "total_tokens": 57861,
+        "total_llm_calls": 48
       }
     }
   }

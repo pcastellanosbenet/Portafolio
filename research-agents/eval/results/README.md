@@ -3,13 +3,12 @@
 | Run | Estado | Contenido |
 | :--- | :--- | :--- |
 | `smoke-20261023b` | Completado | 2 preguntas (F01, U01) × B0/B1/B2 = 6 ejecuciones |
-| `eval-full-20261024` | Parcial | B0 y B1 completos sobre 20 preguntas; B2 pendiente por el TPD de 200.000 tokens/modelo/día |
+| `eval-full-20261024` | Completo | B0, B1 y B2 completos sobre 20 preguntas; robustez pendiente |
 
-El smoke, el lote B0 y el lote B1 usan el corpus congelado y un juez Groq. **No
-hay una tabla completa B0/B1/B2 de 20 preguntas** ni las 3 repeticiones de
-robustez en este repositorio: B2 no cabe en la misma sesión por el límite de
-200.000 TPD por modelo. La metodología, los resultados y las limitaciones están
-en [`../../docs/evaluation.md`](../../docs/evaluation.md).
+El smoke y los lotes B0, B1 y B2 usan el corpus congelado y un juez Groq. **La
+tabla B0/B1/B2 de 20 preguntas está completa**; faltan las 3 repeticiones de
+robustez. La metodología, los resultados y las limitaciones están en
+[`../../docs/evaluation.md`](../../docs/evaluation.md).
 
 Cada directorio de run contiene:
 
