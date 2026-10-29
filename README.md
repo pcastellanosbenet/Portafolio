@@ -18,7 +18,7 @@ reporta métricas reales, no solo resultados visuales.
 | [Clasificación de señales de tráfico](./traffic-signs) | Visión por computador: CNN, transfer learning, augmentación, evaluación por clase y análisis de errores | PyTorch · torchvision | 97,47% accuracy · 43 clases | Completado |
 | [Interpretabilidad de BERT](./bert-attention) | NLP: mecanismos de atención, análisis de capas y cabezas, visualización | PyTorch · Transformers | 12 capas × 12 cabezas · 8 mapas curados | Completado |
 | [KNX RAG Assistant](./rag-assistant) | RAG end-to-end: ingesta de PDFs, búsqueda híbrida, citas, evaluación, API y Docker | Transformers · Qdrant · FastAPI · Docker | Recall@10 0,908 · MRR 0,850 · 20 preguntas | Completado |
-| [research-agents](./research-agents) | Agentes: supervisor, planner, researchers paralelos, crítico, citas, HITL, trazas y evaluación con corpus congelado | LangGraph · Groq · Tavily · FastAPI · SQLite · Docker | 5 preguntas reales · HITL por CLI/API · B0/20 · B1/20 · B2/20 · robustez 18/18 · smoke B0/B1/B2 · 151 tests | Completado |
+| [research-agents](./research-agents) | Agentes: supervisor, planner, researchers paralelos, crítico, citas, HITL, trazas y evaluación con corpus congelado | LangGraph · Groq · Tavily · FastAPI · SQLite · Docker | 5 preguntas reales · HITL por CLI/API · B0/20 · B1/20 · B2/20 · robustez 18/18 · smoke B0/B1/B2 · 151 tests | Completado · push pendiente |
 | [mcp-gateway](./mcp-gateway) | Protocolo MCP: gateway multi-upstream, namespacing, router progresivo, MRTR, bearer/PRM, auditoría y suite de seguridad | Python 3.12 · MCP SDK 2.x · BM25 · Groq · Docker | 22 tools · A/B/C 60 tareas · 14/14 ataques · 83 tests | Completado |
 
 > Los cinco proyectos están documentados. Los tres primeros están terminados y
