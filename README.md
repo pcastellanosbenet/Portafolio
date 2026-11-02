@@ -18,25 +18,28 @@ reporta métricas reales, no solo resultados visuales.
 | [Clasificación de señales de tráfico](./traffic-signs) | Visión por computador: CNN, transfer learning, augmentación, evaluación por clase y análisis de errores | PyTorch · torchvision | 97,47% accuracy · 43 clases | Completado |
 | [Interpretabilidad de BERT](./bert-attention) | NLP: mecanismos de atención, análisis de capas y cabezas, visualización | PyTorch · Transformers | 12 capas × 12 cabezas · 8 mapas curados | Completado |
 | [KNX RAG Assistant](./rag-assistant) | RAG end-to-end: ingesta de PDFs, búsqueda híbrida, citas, evaluación, API y Docker | Transformers · Qdrant · FastAPI · Docker | Recall@10 0,908 · MRR 0,850 · 20 preguntas | Completado |
-| [research-agents](./research-agents) | Agentes: supervisor, planner, researchers paralelos, crítico, citas, HITL, trazas y evaluación con corpus congelado | LangGraph · Groq · Tavily · FastAPI · SQLite · Docker | 5 preguntas reales · HITL por CLI/API · B0/20 · B1/20 · B2/20 · robustez 18/18 · smoke B0/B1/B2 · 151 tests | Completado · |
+| [research-agents](./research-agents) | Agentes: supervisor, planner, researchers paralelos, crítico, citas, HITL, trazas y evaluación con corpus congelado | LangGraph · Groq · Tavily · FastAPI · SQLite · Docker | 5 preguntas reales · HITL por CLI/API · B0/20 · B1/20 · B2/20 · robustez 18/18 · smoke B0/B1/B2 · 151 tests | Completado |
 | [mcp-gateway](./mcp-gateway) | Protocolo MCP: gateway multi-upstream, namespacing, router progresivo, MRTR, bearer/PRM, auditoría y suite de seguridad | Python 3.12 · MCP SDK 2.x · BM25 · Groq · Docker | 22 tools · A/B/C 60 tareas · 14/14 ataques · 83 tests | Completado |
 
-> Los cinco proyectos están documentados. Los tres primeros están terminados y
+> Los cinco proyectos están terminados y documentados. Los tres primeros cubren
+> visión por computador, interpretabilidad de transformers y RAG end-to-end.
+> `research-agents` cierra las Fases 2–5: herramientas, caché, paralelismo, runs
+> reales, HITL y checkpointer SQLite, API/SSE, UI, CLI y Docker. Su evaluación
+> incluye B0, B1 y B2 completos sobre las 20 preguntas y 18 ejecuciones de
+> robustez (F01/U01 × 3 × B0/B1/B2). B1 necesitó dos sesiones y B2 tres por el
+> TPD; B2 conserva un error recuperable en M05. La robustez sacó 2/2 en las 18
+> ejecuciones, un efecto techo del subconjunto fácil, no una prueba de estabilidad
+> general. La documentación y el CI están preparados; el commit de cierre está
+> pendiente de publicar en GitHub. Su README, `docs/evaluation.md`,
+> `docs/architecture.md`, `docs/patterns.md`, `docs/security.md` y
+> `docs/phase5/README.md` documentan las métricas reales, la prueba E2E y las
+> limitaciones.
+>
 > `mcp-gateway` cierra sus fases de gateway, evaluación y seguridad con resultados
 > reales. Mide tres configuraciones de divulgación de herramientas: estática 58,33% de
 > éxito, meta 50,00% e híbrida 63,33%; la híbrida reduce 61,5% los tokens de
 > definiciones. Tres repeticiones de robustez sobre 20 tareas dieron 55,00% cada una y
 > las ablaciones `k=5/8/12` dieron 55,00/50,00/55,00%.
-> `research-agents` tiene cerradas las Fases 2, 3, 4 y 5: herramientas, caché,
-> paralelismo, runs reales, HITL y checkpointer SQLite, API/SSE, UI, CLI y Docker.
-> La evaluación de la Fase 4 está cerrada: B0, B1 y B2 están medidos sobre las 20
-> preguntas y hay 18 ejecuciones de robustez (F01/U01 × 3 × B0/B1/B2). B1 necesitó dos sesiones y
-> B2 tres por el TPD; B2 conserva un error recuperable en M05. La robustez sacó
-> 2/2 en las 18 ejecuciones, un efecto techo del subconjunto fácil, no una prueba
-> de estabilidad general. La Fase 6 (documentación, CI y publicación) está en
-> cierre. Su README, `docs/evaluation.md`, `docs/architecture.md`,
-> `docs/patterns.md`, `docs/security.md` y `docs/phase5/README.md` documentan las métricas reales, la
-> prueba E2E y las limitaciones.
 >
 > El corpus del estándar KNX no se redistribuye: se aporta localmente con una
 > licencia válida y se indexa con los scripts del proyecto. `rag-assistant` incluye
@@ -84,6 +87,6 @@ smoke evaluation, complete B0, B1 and B2 runs over 20 questions, and 18 robustne
 token use exceeds the daily limit; the robustness subset hit a ceiling (all 18 runs scored
 2/2). It also ships a FastAPI/SSE demo with a minimal UI, CLI and Docker. `mcp-gateway` adds an MCP `2026-07-28` gateway with 22 tools, three disclosure
 modes, a 60-task deterministic evaluation, MRTR approvals, bearer/PRM and a 14-attack /
-20-benign security suite. Its robustness and k ablations are partial for the same Groq
-free-tier reason. Code is released under the MIT license; the evaluation corpus
-keeps its CC BY-SA 4.0 license.
+20-benign security suite. Its robustness and k ablations are complete: three repetitions
+of 20 tasks and the `k=5/8/12` ablations. Code is released under the MIT license; the
+evaluation corpus keeps its CC BY-SA 4.0 license.
